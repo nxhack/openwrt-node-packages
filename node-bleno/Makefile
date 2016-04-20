@@ -1,0 +1,62 @@
+#
+# Copyright (C) 2014-2016 Arduino LLC
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+include $(TOPDIR)/rules.mk
+
+PKG_NPM_NAME:=bleno
+PKG_NAME:=node-$(PKG_NPM_NAME)
+PKG_VERSION:=0.4.0
+PKG_RELEASE:=3
+
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=b739e816a745b415311f91edf7ac58e7
+
+PKG_BUILD_DEPENDS:=node/host
+PKG_NODE_VERSION:=4.4.3
+PKG_USE_MIPS16:=0
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/node-bleno
+  DEPENDS:=+node +bluez-libs
+  SUBMENU:=Node.js
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=A node.js module for implementing BLE (Bluetooth low energy) peripherals
+  URL:=https://www.npmjs.org/package/bleno
+endef
+
+define Package/node-bleno/description
+ A node.js module for implementing BLE (Bluetooth low energy) peripherals
+endef
+
+define Build/Prepare
+	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
+	$(Build/Patch)
+endef
+
+CPU:=$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))
+
+EXTRA_LDFLAGS+=-L$(TOOLCHAIN_DIR)/lib/ -Wl,-rpath-link $(TOOLCHAIN_DIR)/lib/
+
+define Build/Compile
+	$(MAKE_FLAGS) \
+	npm_config_arch=$(CONFIG_ARCH) \
+	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
+	$(STAGING_DIR)/host/bin/npm install --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
+endef
+
+define Package/node-bleno/install
+	mkdir -p $(1)/usr/lib/node
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+endef
+
+$(eval $(call BuildPackage,node-bleno))
+

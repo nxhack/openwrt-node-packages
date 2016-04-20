@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SWAPS=`swapon -s | grep -c "file\|partition"`
+
+if [ $SWAPS -gt 0 ]
+then
+	NODE_PATH=/usr/lib/node /usr/bin/nodejs $@
+else
+	NODE_PATH=/usr/lib/node /usr/bin/nodejs --optimize_for_size --stack_size=1024 --max_old_space_size=20 --max_executable_size=5 --gc_global --gc_interval=100 $@
+fi
