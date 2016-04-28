@@ -37,8 +37,6 @@ endef
 
 CPU:=$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))
 
-LDFLAGS=-L$(TOOLCHAIN_DIR)/lib/ -Wl,-rpath-link $(TOOLCHAIN_DIR)/lib/ -L$(STAGING_DIR)/lib
-
 define Build/Prepare
 	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
 	$(Build/Patch)
@@ -46,6 +44,7 @@ endef
 
 define Build/Compile
 	$(MAKE_FLAGS) \
+	LDFLAGS="-L$(TOOLCHAIN_DIR)/lib/ -Wl,-rpath-link $(TOOLCHAIN_DIR)/lib/ -L$(STAGING_DIR)/lib" \
 	npm_config_arch=$(CONFIG_ARCH) \
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
