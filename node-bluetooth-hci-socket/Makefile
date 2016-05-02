@@ -12,14 +12,12 @@ PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.4.4
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/sandeepmistry/node-bluetooth-hci-socket.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=9f9c72a092983c2943649716b589792a158b173d
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=f28452d835837c7b790df8fe75d65224
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=4.4.3
+PKG_NODE_VERSION:=0.12.13
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
@@ -33,12 +31,12 @@ define Package/node-bluetooth-hci-socket
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js package Bluetooth HCI socket binding
-  URL:=https://github.com/sandeepmistry/node-bluetooth-hci-socket
+  TITLE:=Bluetooth HCI socket binding for Node.js
+  URL:=https://www.npmjs.com/package/bluetooth-hci-socket
 endef
 
 define Package/node-bluetooth-hci-socket/description
- Node.js package Bluetooth HCI socket binding
+ Bluetooth HCI socket binding for Node.js
 endef
 
 CPU:=$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))
