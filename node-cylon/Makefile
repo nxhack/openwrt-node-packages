@@ -33,8 +33,8 @@ define Package/node-cylon/default
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=CylonJS - $(1)
-  URL:=https://github.com/hybridgroup/cylon-firmata
+  TITLE:=Cylon module for Arduino and other microcontrollers using the Firmata protocol
+  URL:=https://www.npmjs.com/package/cylon-firmata
 endef
 
 define Package/node-cylon
@@ -54,7 +54,7 @@ define Package/node-cylon-firmata
 endef
 
 define Package/node-cylon/description
- JavaScript framework for robotics, drones, and the Internet of Things (IoT) using Node.js
+ Cylon module for Arduino and other microcontrollers using the Firmata protocol
 endef
 
 define Build/Prepare
