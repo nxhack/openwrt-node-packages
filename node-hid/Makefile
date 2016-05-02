@@ -15,7 +15,7 @@ PKG_RELEASE:=2
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/node-hid/node-hid.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=a112dd3e620442802ab52e36d74888b172338f51
+PKG_SOURCE_VERSION:=35d830b7810c87d32484d0a346621568c4849441
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 PKG_BUILD_DEPENDS:=node/host
@@ -33,12 +33,12 @@ define Package/node-hid
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js package to access HID devices
+  TITLE:=Access USB HID devices from node.js
   URL:=https://github.com/node-hid/node-hid
 endef
 
 define Package/node-hid/description
- Node.js package to access HID devices
+ Access USB HID devices from node.js
 endef
 
 CPU:=$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))
