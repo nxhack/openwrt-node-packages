@@ -12,11 +12,9 @@ PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.3.4
 PKG_RELEASE:=2
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/shokai/node-arduino-firmata.git
-PKG_SOURCE_VERSION:=3e9bd3648ba63338a29b3bd7d682b3ed1fbcd6b6
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=46357c4b4ae08ff30b2a2d0a32ec419d
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.4.3
@@ -33,12 +31,12 @@ define Package/node-arduino-firmata
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js package to access serial ports for reading and writing
-  URL:=https://www.npmjs.org/package/serialport
+  TITLE:=Arduino Firmata implementation for Node.js
+  URL:=https://www.npmjs.com/package/arduino-firmata
 endef
 
 define Package/node-arduino-firmata/description
- Node.js package to access serial ports for reading and writing OR Welcome your robotic JavaScript overlords. Better yet, program them!
+ Arduino Firmata implementation for Node.js
 endef
 
 define Build/Prepare
