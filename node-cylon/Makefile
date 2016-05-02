@@ -9,14 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=cylon
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.23.0
-PKG_RELEASE:=2
+PKG_VERSION:=1.3.0
+PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/hybridgroup/cylon-firmata.git
-PKG_SOURCE_VERSION:=f4803d9b32e877933ec55b6aed235d83cd1d22fd
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=1e0e5e182f46ab3cf12b31e0ee70caf5
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.4.3
@@ -33,7 +31,7 @@ define Package/node-cylon/default
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=CylonJS - $(1)
+  TITLE:=JavaScript framework for robotics, drones, and the Internet of Things (IoT) using Node.js
   URL:=https://www.npmjs.org/package/cylon
 endef
 
@@ -54,7 +52,7 @@ define Package/node-cylon-firmata
 endef
 
 define Package/node-cylon/description
-	JavaScript Robotics, By Your Command Next generation robotics framework with support for 36 different platforms Get Started
+ JavaScript framework for robotics, drones, and the Internet of Things (IoT) using Node.js
 endef
 
 define Build/Prepare
