@@ -9,12 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=cylon
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.3.0
+PKG_VERSION:=0.24.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=1e0e5e182f46ab3cf12b31e0ee70caf5
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/hybridgroup/cylon-firmata.git
+PKG_SOURCE_VERSION:=a930f8446f23ec2cb28aadeff54b79ab7704e3a0
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.4.3
@@ -31,8 +33,8 @@ define Package/node-cylon/default
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=JavaScript framework for robotics, drones, and the Internet of Things (IoT) using Node.js
-  URL:=https://www.npmjs.org/package/cylon
+  TITLE:=CylonJS - $(1)
+  URL:=https://github.com/hybridgroup/cylon-firmata
 endef
 
 define Package/node-cylon
@@ -69,7 +71,7 @@ define Build/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install --no-optional --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
 define Package/node-cylon/install
