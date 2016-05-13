@@ -20,8 +20,8 @@ PKG_BUILD_DEPENDS:=python/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
-#HOST_BUILD_PARALLEL:=1
-#PKG_BUILD_PARALLEL:=1
+HOST_BUILD_PARALLEL:=1
+PKG_BUILD_PARALLEL:=1
 
 PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
 PKG_LICENSE:=
@@ -44,13 +44,13 @@ define Package/node/description
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 endef
 
-CPU:=$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))
+NODEJS_CPU:=$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))
 
 MAKE_VARS += \
-	DESTCPU=$(CPU)
+	DESTCPU=$(NODEJS_CPU)
 
 CONFIGURE_ARGS= \
-	--dest-cpu=$(CPU) \
+	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
