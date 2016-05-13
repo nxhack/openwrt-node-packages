@@ -41,14 +41,14 @@ define Package/node-hid/description
  Access USB HID devices from node.js
 endef
 
-CPU:=$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))
+CPU:=$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))
 
 TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/hidapi
 
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(CONFIG_ARCH) \
+	npm_config_arch=$(CPU) \
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
