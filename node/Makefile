@@ -57,7 +57,11 @@ CONFIGURE_ARGS= \
 	--shared-openssl \
 	--prefix=/usr
 
-ifeq ($(CPU), mips)
+ifeq ($(NODEJS_CPU), mips)
+CONFIGURE_ARGS+= \
+	--with-mips-float-abi=soft
+endif
+ifeq ($(NODEJS_CPU), mipsel)
 CONFIGURE_ARGS+= \
 	--with-mips-float-abi=soft
 endif
