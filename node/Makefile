@@ -58,12 +58,10 @@ CONFIGURE_ARGS= \
 	--prefix=/usr
 
 ifeq ($(NODEJS_CPU), mips)
+ifeq ($(CONFIG_SOFT_FLOAT), y)
 CONFIGURE_ARGS+= \
 	--with-mips-float-abi=soft
 endif
-ifeq ($(NODEJS_CPU), mipsel)
-CONFIGURE_ARGS+= \
-	--with-mips-float-abi=soft
 endif
 
 HOST_CONFIGURE_VARS:=
