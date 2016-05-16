@@ -64,6 +64,13 @@ CONFIGURE_ARGS+= \
 endif
 endif
 
+ifeq ($(findstring arm,$(NODEJS_CPU)),arm)
+ifeq ($(CONFIG_SOFT_FLOAT),y)
+CONFIGURE_ARGS+= \
+	--with-arm-float-abi=softfp
+endif
+endif
+
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
