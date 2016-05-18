@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=serialport
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=3.1.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -31,12 +31,12 @@ define Package/node-serialport
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js package to access serial ports for reading and writing
+  TITLE:=Node.js package to access serial ports
   URL:=https://www.npmjs.org/package/serialport
 endef
 
 define Package/node-serialport/description
- Node.js package to access serial ports for reading and writing OR Welcome your robotic JavaScript overlords. Better yet, program them!
+ Node.js package to access serial ports. Welcome your robotic javascript overlords. Better yet, program them!
 endef
 
 define Build/Prepare
