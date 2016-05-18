@@ -43,7 +43,7 @@ endef
 
 NODEJS_CPU:=$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))
 
-TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/hidapi -I$(STAGING_DIR)/usr/include/libusb-1.0
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
 
 define Build/Compile
 	$(MAKE_VARS) \
