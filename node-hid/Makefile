@@ -46,6 +46,7 @@ NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst
 TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
 
 define Build/Compile
+	GIT_DIR=$(TOPDIR)/feeds/packages/.git \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
