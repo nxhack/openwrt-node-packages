@@ -44,7 +44,7 @@ define Package/node/description
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 endef
 
-NODEJS_CPU:=$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))
+NODEJS_CPU:=$(subst mips64,mips,$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))))
 
 MAKE_VARS += \
 	DESTCPU=$(NODEJS_CPU)
