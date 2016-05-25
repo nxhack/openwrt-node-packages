@@ -10,14 +10,14 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=socket.io-client
 PKG_NAME:=node-$(PKG_NPM_NAME)-legacy
 PKG_VERSION:=0.9.17
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=ad19f7d8ab8602ffd499938675cc238d
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=4.4.4
+PKG_NODE_VERSION:=4.4.5
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
