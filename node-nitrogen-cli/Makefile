@@ -27,12 +27,12 @@ define Package/node-nitrogen-cli
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Nitrogen Command Line Interface
+  TITLE:=Provides a command line interface to the Nitrogen service
   URL:=https://www.npmjs.org/package/nitrogen-cli
 endef
 
 define Package/node-nitrogen-cli/description
- Provides a command line interface to the Nitrogen service
+ Nitrogen is a platform for building connected devices. Nitrogen provides the authentication, authorization, and real time message passing framework so that you can focus on your device and application
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
