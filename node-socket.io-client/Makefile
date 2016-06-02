@@ -20,6 +20,10 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.4.5
 PKG_USE_MIPS16:=0
 
+PKG_MAINTAINER:=
+PKG_LICENSE:=
+PKG_LICENSE_FILES:=
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-socket.io-client

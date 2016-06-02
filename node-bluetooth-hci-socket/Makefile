@@ -26,8 +26,8 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.4.5
 PKG_USE_MIPS16:=0
 
-PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
-PKG_LICENSE:=Custom
+PKG_MAINTAINER:=
+PKG_LICENSE:=
 PKG_LICENSE_FILE:=
 
 include $(INCLUDE_DIR)/package.mk
