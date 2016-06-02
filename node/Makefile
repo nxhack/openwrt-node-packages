@@ -24,8 +24,8 @@ HOST_BUILD_PARALLEL:=1
 PKG_BUILD_PARALLEL:=1
 
 PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
-PKG_LICENSE:=
-PKG_LICENSE_FILES:=
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
