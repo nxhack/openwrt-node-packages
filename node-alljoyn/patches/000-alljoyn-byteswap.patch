@@ -1,0 +1,16 @@
+--- a/alljoyn/common/inc/qcc/posix/util.h
++++ b/alljoyn/common/inc/qcc/posix/util.h
+@@ -29,6 +29,13 @@
+ #include <endian.h>
+ #endif
+ 
++#if defined(__mips__)
++#include <byteswap.h>
++#define __swap16(_val) __bswap16(_val)
++#define __swap32(_val) __bswap32(_val)
++#define __swap64(_val) __bswap64(_val)
++#endif
++
+ /*
+  * Make the target's endianness known to the rest of the code in portable manner.
+  */

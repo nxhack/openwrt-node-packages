@@ -26,7 +26,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-alljoyn
-  DEPENDS:=+node +libopenssl +openssl-util
+  DEPENDS:=+node +libopenssl +openssl-util +node-nan +node-bindings
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -54,7 +54,7 @@ define Build/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install --no-optional -g $(PKG_BUILD_DIR)
 endef
 
 define Package/node-alljoyn/install
