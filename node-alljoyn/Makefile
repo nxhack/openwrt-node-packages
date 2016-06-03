@@ -9,12 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=alljoyn
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.0
+PKG_VERSION:=1.0.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=184ea7a9a5aa9749fdfe3acd94faacc0
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/octoblu/alljoyn.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=a74003fa25af1d0790468bf781a4d49347ec05c4
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.4.5
@@ -26,7 +28,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-alljoyn
-  DEPENDS:=+node +libopenssl +openssl-util +node-nan +node-bindings
+  DEPENDS:=+node +libopenssl +openssl-util
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -54,7 +56,7 @@ define Build/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install --no-optional -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install -g $(PKG_BUILD_DIR)
 endef
 
 define Package/node-alljoyn/install
