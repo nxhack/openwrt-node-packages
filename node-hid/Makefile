@@ -28,7 +28,7 @@ PKG_LICENSE_FILE:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-hid
-  DEPENDS:=+node +libusb-1.0 +hidapi +libstdcpp
+  DEPENDS:=+node +libusb-1.0 +hidapi
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages

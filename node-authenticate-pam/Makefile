@@ -26,7 +26,7 @@ PKG_LICENSE_FILES:=MIT-LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-authenticate-pam
-  DEPENDS:=+node +libpam +libc +libstdcpp
+  DEPENDS:=+node +libpam
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages

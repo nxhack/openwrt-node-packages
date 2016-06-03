@@ -26,7 +26,7 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-reverse-wstunnel
-  DEPENDS:=+node +libc +libstdcpp
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
