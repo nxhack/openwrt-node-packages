@@ -50,6 +50,7 @@ TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/security
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
+	npm_config_arch=$(CPU) \
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
