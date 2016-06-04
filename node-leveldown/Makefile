@@ -26,7 +26,7 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-leveldown
-  DEPENDS:=@BROKEN +node
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages

@@ -26,7 +26,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen
-  DEPENDS:=@BROKEN +node
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages

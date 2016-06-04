@@ -26,7 +26,7 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen-leveldb-store
-  DEPENDS:=@BROKEN +node +node-nitrogen
+  DEPENDS:=+node +node-nitrogen
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
