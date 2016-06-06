@@ -27,7 +27,7 @@ PKG_LICENSE_FILE:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-arduino-firmata
-  DEPENDS:=+node +node-serialport
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages

@@ -27,7 +27,7 @@ PKG_LICENSE_FILE:=readme.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-firmata
-  DEPENDS:=+node +node-serialport
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -59,7 +59,6 @@ endef
 define Package/node-firmata/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	rm -rf $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/serialport
 endef
 
 $(eval $(call BuildPackage,node-firmata))
