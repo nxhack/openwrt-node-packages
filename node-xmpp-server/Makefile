@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=xmpp-server
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.1
+PKG_VERSION:=2.1.3
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
@@ -33,12 +33,12 @@ define Package/node-xmpp-server
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=XMPP client for JavaScrip
+  TITLE:=Idiomatic XMPP server library for Node.js
   URL:=http://node-xmpp.org/
 endef
 
 define Package/node-xmpp-server/description
- XMPP client for JavaScrip
+ Idiomatic XMPP server library for Node.js
 endef
 
 define Build/Prepare
