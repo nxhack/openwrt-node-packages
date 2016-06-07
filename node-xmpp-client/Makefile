@@ -7,15 +7,15 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=alljoyn
+PKG_NPM_NAME:=xmpp-client
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.1
+PKG_VERSION:=3.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/octoblu/alljoyn.git
+PKG_SOURCE_URL:=https://github.com/node-xmpp/node-xmpp.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=a74003fa25af1d0790468bf781a4d49347ec05c4
+PKG_SOURCE_VERSION:=7bb0f8666da8b35e7dbc60888f5f900c9372b968
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 PKG_BUILD_DEPENDS:=node/host
@@ -23,22 +23,28 @@ PKG_NODE_VERSION:=4.4.5
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
-PKG_LICENSE:=ISC
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILE:=
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-alljoyn
-  DEPENDS:=+node +libopenssl +openssl-util
+define Package/node-xmpp-client
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Alljoyn NodeJS Integration
-  URL:=https://www.npmjs.org/package/alljoyn
+  TITLE:=XMPP client for JavaScrip
+  URL:=http://node-xmpp.org/
 endef
 
-define Package/node-alljoyn/description
- Alljoyn NodeJS Integration
+define Package/node-xmpp-client/description
+ XMPP client for JavaScrip
+endef
+
+define Build/Prepare
+	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 2 */$(PKG_NAME)
+	/bin/mv $(PKG_BUILD_DIR)/$(PKG_NAME) $(PKG_BUILD_DIR)/$(PKG_SOURCE_SUBDIR)
+	$(Build/Patch)
 endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -53,10 +59,10 @@ define Build/Compile
 	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
-define Package/node-alljoyn/install
+define Package/node-xmpp-client/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 
-$(eval $(call BuildPackage,node-alljoyn))
+$(eval $(call BuildPackage,node-xmpp-client))
 
