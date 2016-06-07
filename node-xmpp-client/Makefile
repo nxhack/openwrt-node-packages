@@ -43,7 +43,6 @@ endef
 
 define Build/Prepare
 	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 2 */$(PKG_NAME)
-	/bin/mv $(PKG_BUILD_DIR)/$(PKG_NAME) $(PKG_BUILD_DIR)/$(PKG_SOURCE_SUBDIR)
 	$(Build/Patch)
 endef
 
