@@ -43,7 +43,7 @@ define Package/node-babel/description
 endef
 
 define Build/Prepare
-	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 3 --wildcards *$(PKG_NAME)
+	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 3 --wildcards *$(PKG_NPM_NAME)
 	$(Build/Patch)
 endef
 
