@@ -51,7 +51,7 @@ define Build/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install babel-cli --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
 define Package/node-babel/install
@@ -63,7 +63,7 @@ define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(STAGING_DIR)/host/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install babel-cli --build-from-source -g $(PKG_BUILD_DIR)
 endef
 
 define Host/Install
