@@ -26,6 +26,7 @@ PKG_MAINTAINER:=
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILE:=LICENSE
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-babel
@@ -58,5 +59,16 @@ define Package/node-babel/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 
+define Host/Compile
+	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	PREFIX="$(STAGING_DIR)/host/" \
+	$(STAGING_DIR)/host/bin/npm install --build-from-source -g $(PKG_BUILD_DIR)
+endef
+
+define Host/Install
+endef
+
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,node-babel))
 

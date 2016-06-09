@@ -57,6 +57,11 @@ define Build/Compile
 	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
+define Package/node-rimraf/install
+	mkdir -p $(1)/usr/lib/node
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+endef
+
 define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
@@ -65,11 +70,6 @@ define Host/Compile
 endef
 
 define Host/Install
-endef
-
-define Package/node-rimraf/install
-	mkdir -p $(1)/usr/lib/node
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 
 $(eval $(call HostBuild))
