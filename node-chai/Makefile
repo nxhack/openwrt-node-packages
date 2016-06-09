@@ -63,7 +63,7 @@ define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(STAGING_DIR)/host/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install -g $(PKG_BUILD_DIR)
 endef
 
 define Host/Install

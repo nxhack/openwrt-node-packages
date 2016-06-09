@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=babel-core
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.9.0
+PKG_VERSION:=6.9.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
@@ -68,7 +68,7 @@ define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(STAGING_DIR)/host/" \
-	$(STAGING_DIR)/host/bin/npm install --save-dev --build-from-source -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install -g $(PKG_BUILD_DIR)
 endef
 
 define Host/Install
