@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -24,7 +24,7 @@
+   },
+   "scripts": {
+     "clean": "rimraf dist/*",
+-    "build:commonjs": "babel src --out-dir dist --modules umd",
++    "build:commonjs": "babel src --out-dir dist",
+     "build:bundle": "browserify src/iotf-client.js -t babelify -s IBMIoTF --outfile dist/iotf-client-bundle.js",
+     "build:min": "browserify src/iotf-client.js -t babelify -s IBMIoTF | uglifyjs > dist/iotf-client-bundle.min.js",
+     "build": "npm run clean && npm run build:commonjs && npm run build:bundle && npm run build:min",
