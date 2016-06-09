@@ -1,0 +1,6 @@
+--- a/.babelrc
++++ b/.babelrc
+@@ -0,0 +1,3 @@
++{
++  "presets": ["es2015"]
++}
