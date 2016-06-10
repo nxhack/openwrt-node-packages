@@ -65,10 +65,6 @@ define Host/Compile
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(STAGING_DIR)/host/" \
 	$(STAGING_DIR)/host/bin/npm install -g $(PKG_BUILD_DIR)/packages/$(PKG_NPM_NAME)
-	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
-	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
-	PREFIX="$(STAGING_DIR)/host/" \
-	$(STAGING_DIR)/host/bin/npm link babel-core
 endef
 
 define Host/Install
