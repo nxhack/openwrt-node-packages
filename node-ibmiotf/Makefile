@@ -50,9 +50,13 @@ define Build/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	NODE_PATH="$(STAGING_DIR)/host/lib/node_modules" \
-	$(STAGING_DIR)/host/bin/npm bin \
-	$(STAGING_DIR)/host/bin/npm bin -g \
+	$(STAGING_DIR)/host/bin/npm bin -g
+	$(MAKE_VARS) \
+	$(MAKE_FLAGS) \
+	npm_config_arch=$(CPU) \
+	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
