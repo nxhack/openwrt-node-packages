@@ -7,10 +7,10 @@
 
 include $(TOPDIR)/rules.mk
 
-#PKG_NPM_NAME:=babel-cli
+PKG_NPM_NAME:=babel-cli
 #PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_NAME:=node-babel
-PKG_VERSION:=6.9.0
+PKG_VERSION:=6.9.2
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
@@ -43,11 +43,6 @@ define Package/node-babel-cli/description
  Babel has support for the latest version of JavaScript through syntax transformers. These plugins allow you to use new syntax, right now without waiting for browser support
 endef
 
-#define Build/Prepare
-#	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 3 --wildcards *$(PKG_NPM_NAME)
-#	$(Build/Patch)
-#endef
-
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile
@@ -57,7 +52,7 @@ define Build/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)/packages/babel-cli
+	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)/packages/$(PKG_NPM_NAME)
 endef
 
 define Package/node-babel-cli/install
@@ -69,7 +64,7 @@ define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(STAGING_DIR)/host/" \
-	$(STAGING_DIR)/host/bin/npm install -g $(PKG_BUILD_DIR)/packages/babel-cli
+	$(STAGING_DIR)/host/bin/npm install -g $(PKG_BUILD_DIR)/packages/$(PKG_NPM_NAME)
 endef
 
 define Host/Install
