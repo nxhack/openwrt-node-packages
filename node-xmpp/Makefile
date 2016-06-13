@@ -57,22 +57,22 @@ define Package/node-xmpp/description
  node-xmpp is a set of JavaScript Node.js, io.js and browser modules to work with XMPP and/or XML
 endef
 
-define Build/Compile
+define Build/Compile/module
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)/$(1)/
 endef
 
-#define Build/Compile
-#  $(call Build/Compile/module,node-xmpp)
-#  $(call Build/Compile/module,node-xmpp-client)
-#  $(call Build/Compile/module,node-xmpp-component)
-#  $(call Build/Compile/module,node-xmpp-server)
-#endef
+define Build/Compile
+  $(call Build/Compile/module,node-xmpp)
+  $(call Build/Compile/module,node-xmpp-client)
+  $(call Build/Compile/module,node-xmpp-component)
+  $(call Build/Compile/module,node-xmpp-server)
+endef
 
 define Package/node-xmpp/install
 	mkdir -p $(1)/usr/lib/node/xmpp
