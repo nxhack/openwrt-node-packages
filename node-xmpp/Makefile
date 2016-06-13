@@ -38,7 +38,7 @@ define Package/node-xmpp/default
 endef
 
 define Package/node-xmpp
-  $(call Package/node-xmpp/default)
+  $(call Package/node-xmpp/default,modules)
 endef
 
 define Package/node-xmpp-client
