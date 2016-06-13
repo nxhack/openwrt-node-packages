@@ -28,40 +28,70 @@ PKG_LICENSE_FILE:=
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-xmpp
+define Package/node-xmpp/default
   DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=XMPP for JavaScript.
+  TITLE:=XMPP $(1) for JavaScript.
   URL:=http://node-xmpp.org/
 endef
 
-define Package/node-xmpp/description
- XMPP for JavaScript.
+define Package/node-xmpp
+  $(call Package/node-cylon/default)
 endef
 
-define Build/Prepare
-	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 3 --wildcards *$(PKG_NAME)
-	$(Build/Patch)
+define Package/node-xmpp-client
+  $(call Package/node-cylon/default,client)
 endef
 
-CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+define Package/node-xmpp-component
+  $(call Package/node-cylon/default,component)
+endef
 
-define Build/Compile
+define Package/node-xmpp-server
+  $(call Package/node-cylon/default,server)
+endef
+
+define Build/Compile/default
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
+	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)/$(1)
+endef
+
+define Build/Compile
+  $(call Build/Compile/default,node-xmpp)
+  $(call Build/Compile/default,node-xmpp-client)
+  $(call Build/Compile/default,node-xmpp-component)
+  $(call Build/Compile/default,node-xmpp-server)
 endef
 
 define Package/node-xmpp/install
-	mkdir -p $(1)/usr/lib/node
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	mkdir -p $(1)/usr/lib/node/xmpp
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp/* $(1)/usr/lib/node/xmpp/
+endef
+
+define Package/node-xmpp-client/install
+	mkdir -p $(1)/usr/lib/node/xmpp-client
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp-client/* $(1)/usr/lib/node/xmpp-client/
+endef
+
+define Package/node-xmpp-component/install
+	mkdir -p $(1)/usr/lib/node/xmpp-component
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp-component/* $(1)/usr/lib/node/xmpp-component/
+endef
+
+define Package/node-xmpp-server/install
+	mkdir -p $(1)/usr/lib/node/xmpp-server
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp-server/* $(1)/usr/lib/node/xmpp-server/
 endef
 
 $(eval $(call BuildPackage,node-xmpp))
+$(eval $(call BuildPackage,node-xmpp-client))
+$(eval $(call BuildPackage,node-xmpp-component))
+$(eval $(call BuildPackage,node-xmpp-server))
 
