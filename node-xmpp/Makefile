@@ -68,10 +68,10 @@ define Build/Compile/module
 endef
 
 define Build/Compile
-  $(call Build/Compile/module,node-xmpp)
-  $(call Build/Compile/module,node-xmpp-client)
-  $(call Build/Compile/module,node-xmpp-component)
-  $(call Build/Compile/module,node-xmpp-server)
+	$(call Build/Compile/module,node-xmpp)
+	$(call Build/Compile/module,node-xmpp-client)
+	$(call Build/Compile/module,node-xmpp-component)
+	$(call Build/Compile/module,node-xmpp-server)
 endef
 
 define Package/node-xmpp/install
