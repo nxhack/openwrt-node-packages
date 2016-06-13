@@ -75,23 +75,23 @@ define Build/Compile
 endef
 
 define Package/node-xmpp/install
-	mkdir -p $(1)/usr/lib/node/xmpp
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp/* $(1)/usr/lib/node/xmpp/
+	mkdir -p $(1)/usr/lib/node/node-xmpp
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp/* $(1)/usr/lib/node/node-xmpp/
 endef
 
 define Package/node-xmpp-client/install
-	mkdir -p $(1)/usr/lib/node/xmpp-client
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp-client/* $(1)/usr/lib/node/xmpp-client/
+	mkdir -p $(1)/usr/lib/node/node-xmpp-client
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-client/* $(1)/usr/lib/node/node-xmpp-client/
 endef
 
 define Package/node-xmpp-component/install
-	mkdir -p $(1)/usr/lib/node/xmpp-component
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp-component/* $(1)/usr/lib/node/xmpp-component/
+	mkdir -p $(1)/usr/lib/node/node-xmpp-component
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-component/* $(1)/usr/lib/node/node-xmpp-component/
 endef
 
 define Package/node-xmpp-server/install
-	mkdir -p $(1)/usr/lib/node/xmpp-server
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/xmpp/node_modules/xmpp-server/* $(1)/usr/lib/node/xmpp-server/
+	mkdir -p $(1)/usr/lib/node/node-xmpp-server
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-server/* $(1)/usr/lib/node/node-xmpp-server/
 endef
 
 $(eval $(call BuildPackage,node-xmpp))
