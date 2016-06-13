@@ -53,6 +53,10 @@ define Package/node-xmpp-server
   $(call Package/node-xmpp/default,server)
 endef
 
+define Package/node-xmpp/description
+ node-xmpp is a set of JavaScript Node.js, io.js and browser modules to work with XMPP and/or XML
+endef
+
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
