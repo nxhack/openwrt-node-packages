@@ -53,22 +53,22 @@ define Package/node-xmpp-server
   $(call Package/node-xmpp/default,server)
 endef
 
-define Build/Compile/npm
+define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)/$(1)
+	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
-define Build/Compile
-  $(call Build/Compile/npm,node-xmpp)
-  $(call Build/Compile/npm,node-xmpp-client)
-  $(call Build/Compile/npm,node-xmpp-component)
-  $(call Build/Compile/npm,node-xmpp-server)
-endef
+#define Build/Compile
+#  $(call Build/Compile/module,node-xmpp)
+#  $(call Build/Compile/module,node-xmpp-client)
+#  $(call Build/Compile/module,node-xmpp-component)
+#  $(call Build/Compile/module,node-xmpp-server)
+#endef
 
 define Package/node-xmpp/install
 	mkdir -p $(1)/usr/lib/node/xmpp
