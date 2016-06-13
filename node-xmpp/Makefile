@@ -38,19 +38,19 @@ define Package/node-xmpp/default
 endef
 
 define Package/node-xmpp
-  $(call Package/node-cylon/default,modules)
+  $(call Package/node-xmpp/default)
 endef
 
 define Package/node-xmpp-client
-  $(call Package/node-cylon/default,client)
+  $(call Package/node-xmpp/default,client)
 endef
 
 define Package/node-xmpp-component
-  $(call Package/node-cylon/default,component)
+  $(call Package/node-xmpp/default,component)
 endef
 
 define Package/node-xmpp-server
-  $(call Package/node-cylon/default,server)
+  $(call Package/node-xmpp/default,server)
 endef
 
 define Build/Compile/default
