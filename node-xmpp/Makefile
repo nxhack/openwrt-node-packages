@@ -53,7 +53,7 @@ define Package/node-xmpp-server
   $(call Package/node-xmpp/default,server)
 endef
 
-define Build/Compile/Default
+define Build/module
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
@@ -64,10 +64,10 @@ define Build/Compile/Default
 endef
 
 define Build/Compile
-  $(call Build/Compile/Default,node-xmpp)
-  $(call Build/Compile/Default,node-xmpp-client)
-  $(call Build/Compile/Default,node-xmpp-component)
-  $(call Build/Compile/Default,node-xmpp-server)
+  $(call Build/module,node-xmpp)
+  $(call Build/module,node-xmpp-client)
+  $(call Build/module,node-xmpp-component)
+  $(call Build/module,node-xmpp-server)
 endef
 
 define Package/node-xmpp/install
