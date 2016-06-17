@@ -1,12 +1,11 @@
 --- a/src/BluetoothHciSocket.cpp
 +++ b/src/BluetoothHciSocket.cpp
-@@ -7,6 +7,10 @@
+@@ -7,6 +7,9 @@
  #include <node_buffer.h>
  #include <nan.h>
 
-+#if defined(__mips__)
++/* __MUSL__ */
 +#include <byteswap.h>
-+#endif
 +
  #include "BluetoothHciSocket.h"
  
