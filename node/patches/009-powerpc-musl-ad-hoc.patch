@@ -1,6 +1,6 @@
---- a/deps/v8/src/sampler.cc
-+++ b/deps/v8/src/sampler.cc
-@@ -405,9 +405,9 @@
+--- a/deps/v8/src/profiler/sampler.cc
++++ b/deps/v8/src/profiler/sampler.cc
+@@ -479,9 +479,9 @@
    state.sp = reinterpret_cast<Address>(mcontext.gregs[29]);
    state.fp = reinterpret_cast<Address>(mcontext.gregs[30]);
  #elif V8_HOST_ARCH_PPC
