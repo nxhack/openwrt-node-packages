@@ -76,6 +76,7 @@ endif
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
+	--shared-zlib \
 	--without-snapshot \
 	--prefix=$(STAGING_DIR)/host/
 
