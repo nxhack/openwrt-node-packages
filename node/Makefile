@@ -77,7 +77,6 @@ HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
-	--shared-zlib \
 	--prefix=$(STAGING_DIR)/host/
 
 HOST_CONFIGURE_CMD:=python ./configure
