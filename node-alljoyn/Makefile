@@ -29,7 +29,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-alljoyn
-  DEPENDS:=+node
+  DEPENDS:=+node +icu
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
