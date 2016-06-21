@@ -56,6 +56,8 @@ CONFIGURE_ARGS= \
 	--without-snapshot \
 	--shared-zlib \
 	--shared-openssl \
+	--without-dtrace \
+	--without-etw \
 	--with-intl=system-icu \
 	--prefix=/usr
 
@@ -77,6 +79,9 @@ HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
+	--without-dtrace \
+	--without-etw \
+	--shared-zlib \
 	--prefix=$(STAGING_DIR)/host/
 
 HOST_CONFIGURE_CMD:=python ./configure
