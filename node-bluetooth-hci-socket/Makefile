@@ -50,6 +50,9 @@ endef
 #	$(Build/Patch)
 #endef
 
+define Build/Configure
+endef
+
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile
