@@ -37,6 +37,9 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
   DEPENDS:=+libstdcpp +libopenssl +zlib
+  ifeq ($(CONFIG_NODEJS_ICU_SUPPORT),y)
+    DEPENDS+= +icu
+  endif
 endef
 
 define Package/node/description
@@ -63,7 +66,6 @@ CONFIGURE_ARGS= \
 	--prefix=/usr
 
 ifeq ($(CONFIG_NODEJS_ICU_SUPPORT),y)
-DEPENDS+= +icu
 CONFIGURE_ARGS+= \
 	--with-intl=system-icu
 else
