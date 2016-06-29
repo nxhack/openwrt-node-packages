@@ -1,0 +1,7 @@
+menu "Module Selection"
+
+config NODEJS_ICU_SUPPORT
+	bool "icu support"
+	default y
+
+endmenu
