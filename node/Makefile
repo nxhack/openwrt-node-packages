@@ -49,7 +49,7 @@ define Package/node/config
 	menu "Module Selection"
 
 	config NODEJS_ICU
-		bool "icu support"
+		bool "enable i18n features"
 		default y
 
 	endmenu
