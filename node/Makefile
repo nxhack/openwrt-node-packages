@@ -62,7 +62,7 @@ CONFIGURE_ARGS= \
 	--shared-openssl \
 	--prefix=/usr
 
-ifeq ($(NODEJS_ICU_SUPPORT),y)
+ifeq ($(CONFIG_NODEJS_ICU_SUPPORT),y)
 DEPENDS+= +icu
 CONFIGURE_ARGS+= \
 	--with-intl=system-icu
