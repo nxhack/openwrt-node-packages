@@ -36,7 +36,7 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
-  DEPENDS:=+libstdcpp +libopenssl +zlib +icu
+  DEPENDS:=+libstdcpp +libopenssl +zlib +NODEJS_ICU:icu
 endef
 
 define Package/node/description
@@ -48,7 +48,7 @@ endef
 define Package/node/config
 	menu "Module Selection"
 
-	config NODEJS_ICU_SUPPORT
+	config NODEJS_ICU
 		bool "icu support"
 		default y
 
@@ -68,8 +68,7 @@ CONFIGURE_ARGS= \
 	--shared-openssl \
 	--prefix=/usr
 
-ifeq ($(CONFIG_NODEJS_ICU_SUPPORT),y)
-DEPEND_ICU:= +icu
+ifeq ($(CONFIG_NODEJS_ICU),y)
 CONFIGURE_ARGS+= \
 	--with-intl=system-icu
 else
