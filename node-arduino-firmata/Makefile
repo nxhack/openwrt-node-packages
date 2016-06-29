@@ -17,7 +17,7 @@ PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=46357c4b4ae08ff30b2a2d0a32ec419d
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=4.4.6
+PKG_NODE_VERSION:=4.4.7
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
