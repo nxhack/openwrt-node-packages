@@ -99,15 +99,6 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
-ifeq ($(CONFIG_NODEJS_ICU),y)
-HOST_LDFLAGS += -licui18n -licuuc -licudata
-HOST_CONFIGURE_ARGS+= \
-	--with-intl=system-icu
-else
-HOST_CONFIGURE_ARGS+= \
-	--with-intl=none
-endif
-
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/
