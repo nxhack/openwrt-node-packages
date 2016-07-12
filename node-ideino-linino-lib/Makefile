@@ -9,8 +9,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ideino-linino-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.1.1
-PKG_RELEASE:=3
+PKG_VERSION:=0.1.2
+PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/ideino/ideino-linino-lib.git
