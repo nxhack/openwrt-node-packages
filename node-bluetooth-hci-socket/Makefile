@@ -9,18 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=bluetooth-hci-socket
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.4.4
-PKG_RELEASE:=4
+PKG_VERSION:=0.5.0
+PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/sandeepmistry/node-bluetooth-hci-socket.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=3ec18f0692cbd0909760a5d8664de708d4922c87
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-
-#PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-#PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-#PKG_MD5SUM:=f28452d835837c7b790df8fe75d65224
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=8a0b8eac59449def6e68a0c979133597
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=6.3.0
@@ -45,10 +39,10 @@ define Package/node-bluetooth-hci-socket/description
  Bluetooth HCI socket binding for Node.js
 endef
 
-#define Build/Prepare
-#	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
-#	$(Build/Patch)
-#endef
+define Build/Prepare
+	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
+	$(Build/Patch)
+endef
 
 define Build/Configure
 endef
