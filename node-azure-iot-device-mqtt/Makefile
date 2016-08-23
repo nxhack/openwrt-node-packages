@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=azure-iot-device-mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.8
-PKG_RELEASE:=2
+PKG_VERSION:=1.0.12
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=dc0d2b1ffd84203c2d0478d54fa6bc76
+PKG_MD5SUM:=91737e4aed29ddf176e5bdcb520652ce
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.5.0

@@ -7,38 +7,44 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=ideino-linino-lib
+PKG_NPM_NAME:=coap
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.1.2
+PKG_VERSION:=0.17.0
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/ideino/ideino-linino-lib.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=7f65c03d2dafe1d861fda6096c2ab7d031b7b31d
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=e5097e765db9b1cbfbdebcbd372480d8
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.5.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
-PKG_LICENSE:=
-PKG_LICENSE_FILE:=
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE.md
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-ideino-linino-lib
+define Package/node-coap
   DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=library for ideino-linino
-  URL:=https://github.com/ideino/ideino-linino-lib
+  TITLE:=A CoAP library for node modelled after 'http'
+  URL:=https://www.npmjs.org/package/coap
 endef
 
-define Package/node-ideino-linino-lib/description
- library for ideino-linino
+define Package/node-coap/description
+ node-coap is a client and server library for CoAP modelled after the http module
+endef
+
+define Build/Prepare
+	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
+	$(Build/Patch)
+endef
+
+define Build/Configure
 endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -53,10 +59,10 @@ define Build/Compile
 	$(STAGING_DIR)/host/bin/npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
-define Package/node-ideino-linino-lib/install
+define Package/node-coap/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 
-$(eval $(call BuildPackage,node-ideino-linino-lib))
+$(eval $(call BuildPackage,node-coap))
 
