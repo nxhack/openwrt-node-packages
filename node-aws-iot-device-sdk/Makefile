@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=aws-iot-device-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.12
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/aws/aws-iot-device-sdk-js.git
@@ -24,7 +24,7 @@ PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
 PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILE:=LICENSE.txt
+PKG_LICENSE_FILES:=LICENSE.txt
 
 include $(INCLUDE_DIR)/package.mk
 

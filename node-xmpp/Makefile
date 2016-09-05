@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=xmpp
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.2
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/node-xmpp/node-xmpp.git
@@ -24,7 +24,7 @@ PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
 PKG_LICENSE:=MIT
-PKG_LICENSE_FILE:=
+PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
 
