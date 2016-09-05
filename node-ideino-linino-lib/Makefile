@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ideino-linino-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.1.2
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/ideino/ideino-linino-lib.git
@@ -24,7 +24,7 @@ PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
 PKG_LICENSE:=
-PKG_LICENSE_FILE:=
+PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
 
