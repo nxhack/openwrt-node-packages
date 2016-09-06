@@ -36,7 +36,7 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
-  DEPENDS:=+libstdcpp +libopenssl +zlib
+  DEPENDS:=+libstdcpp +libopenssl +zlib +libpthread +librt
 endef
 
 define Package/node/description
