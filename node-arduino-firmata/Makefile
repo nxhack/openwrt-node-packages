@@ -24,6 +24,7 @@ PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE.txt
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-arduino-firmata
