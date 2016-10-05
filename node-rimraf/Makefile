@@ -24,6 +24,7 @@ PKG_MAINTAINER:=
 PKG_LICENSE:=ISC
 PKG_LICENSE_FILES:=LICENSE
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-rimraf
