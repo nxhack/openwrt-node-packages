@@ -1,0 +1,72 @@
+--- a/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
++++ b/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
+@@ -144,6 +144,23 @@
+ quiet_cmd_link = LINK($(TOOLSET)) $@
+ cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) -Wl,--end-group $(LIBS)
+ 
++define xargs
++$(1) $(wordlist 1,1000,$(2))
++$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
++endef
++
++define write-to-file
++@: >$(1)
++$(call xargs,@printf "%s\\n" >>$(1),$(2))
++endef
++
++OBJ_FILE_LIST := ar-file-list
++
++create_archive = \\
++        rm -f $(1) $(OBJ_FILE_LIST); mkdir -p `dirname $(1)` \\
++        $(call write-to-file,$(OBJ_FILE_LIST),$(filter %.o,$(2))) \\
++        $(AR.$(TOOLSET)) crs $(1) @$(OBJ_FILE_LIST)
++
+ # We support two kinds of shared objects (.so):
+ # 1) shared_library, which is just bundling together many dependent libraries
+ # into a link line.
+@@ -1584,8 +1601,7 @@
+         self.WriteDoCmd([self.output_binary], link_deps, 'alink_thin',
+                         part_of_all, postbuilds=postbuilds)
+       else:
+-        self.WriteDoCmd([self.output_binary], link_deps, 'alink', part_of_all,
+-                        postbuilds=postbuilds)
++        self.WriteMakeRule([self.output_binary], link_deps, actions = ['$(call create_archive,$@,$^)'])
+     elif self.type == 'shared_library':
+       self.WriteLn('%s: LD_INPUTS := %s' % (
+             QuoteSpaces(self.output_binary),
+--- a/tools/gyp/pylib/gyp/generator/make.py
++++ b/tools/gyp/pylib/gyp/generator/make.py
+@@ -146,6 +146,23 @@
+ quiet_cmd_link = LINK($(TOOLSET)) $@
+ cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) -Wl,--end-group $(LIBS)
+ 
++define xargs
++$(1) $(wordlist 1,1000,$(2))
++$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
++endef
++
++define write-to-file
++@: >$(1)
++$(call xargs,@printf "%s\\n" >>$(1),$(2))
++endef
++
++OBJ_FILE_LIST := ar-file-list
++
++create_archive = \\
++        rm -f $(1) $(OBJ_FILE_LIST); mkdir -p `dirname $(1)` \\
++        $(call write-to-file,$(OBJ_FILE_LIST),$(filter %.o,$(2))) \\
++        $(AR.$(TOOLSET)) crs $(1) @$(OBJ_FILE_LIST)
++
+ # We support two kinds of shared objects (.so):
+ # 1) shared_library, which is just bundling together many dependent libraries
+ # into a link line.
+@@ -1586,8 +1603,7 @@
+         self.WriteDoCmd([self.output_binary], link_deps, 'alink_thin',
+                         part_of_all, postbuilds=postbuilds)
+       else:
+-        self.WriteDoCmd([self.output_binary], link_deps, 'alink', part_of_all,
+-                        postbuilds=postbuilds)
++        self.WriteMakeRule([self.output_binary], link_deps, actions = ['$(call create_archive,$@,$^)'])
+     elif self.type == 'shared_library':
+       self.WriteLn('%s: LD_INPUTS := %s' % (
+             QuoteSpaces(self.output_binary),
