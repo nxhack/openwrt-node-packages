@@ -93,7 +93,7 @@ endif
 ifeq ($(findstring mips64el,$(ARCH)),mips64el)
 CONFIGURE_ARGS+= \
 	--with-mips-fpu-mode=fp64
-	V8_TARGET_ARCH=mips64el
+	CXX_TARGET_ARCH=mips64el
 endif
 
 HOST_CONFIGURE_VARS:=
