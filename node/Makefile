@@ -90,9 +90,10 @@ CONFIGURE_ARGS+= \
 endif
 endif
 
-ifeq ($(findstring mips64,$(ARCH)),mips64)
+ifeq ($(findstring mips64el,$(ARCH)),mips64el)
 CONFIGURE_ARGS+= \
 	--with-mips-fpu-mode=fp64
+	V8_TARGET_ARCH=mips64el
 endif
 
 HOST_CONFIGURE_VARS:=
