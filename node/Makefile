@@ -55,7 +55,7 @@ define Package/node/config
 	endmenu
 endef
 
-NODEJS_CPU:=$(subst mips64,mips,$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))))
+NODEJS_CPU:=$(subst mips64el,mipsel,$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))))
 
 MAKE_VARS += \
 	DESTCPU=$(NODEJS_CPU)
@@ -88,11 +88,6 @@ ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
 	--with-arm-float-abi=softfp
 endif
-endif
-
-ifeq ($(findstring mips64,$(ARCH)),mips64)
-CONFIGURE_ARGS+= \
-	--with-mips-fpu-mode=fp64
 endif
 
 HOST_CONFIGURE_VARS:=
