@@ -90,6 +90,11 @@ CONFIGURE_ARGS+= \
 endif
 endif
 
+ifeq ($(findstring mips64,$(ARCH)),mips64)
+CONFIGURE_ARGS+= \
+	--with-mips-fpu-mode=fp64
+endif
+
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
