@@ -63,6 +63,8 @@ endef
 define Package/node-rimraf/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	mkdir -p $(1)/usr/bin
+	$(LN) ../lib/node_modules/rimraf/bin.js $(1)/usr/bin/rimraf
 endef
 
 define Host/Compile
