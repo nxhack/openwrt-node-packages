@@ -62,6 +62,8 @@ endef
 define Package/node-reverse-wstunnel/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	mkdir -p $(1)/usr/bin
+	$(LN) ../lib/node_modules/reverse-wstunnel/bin/wstt.js $(1)/usr/bin/wstunnel
 endef
 
 $(eval $(call BuildPackage,node-reverse-wstunnel))
