@@ -63,7 +63,7 @@ define Package/node-nitrogen-cli/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node_modules/nitrogen-cli/n2 $(1)/usr/bin/n2
+	$(LN) ../lib/node/nitrogen-cli/n2 $(1)/usr/bin/n2
 endef
 
 $(eval $(call BuildPackage,node-nitrogen-cli))

@@ -63,7 +63,7 @@ define Package/node-nsp/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node_modules/nsp/bin/nsp $(1)/usr/bin/nsp
+	$(LN) ../lib/node/nsp/bin/nsp $(1)/usr/bin/nsp
 endef
 
 $(eval $(call BuildPackage,node-nsp))

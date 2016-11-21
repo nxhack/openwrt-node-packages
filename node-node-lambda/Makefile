@@ -60,7 +60,7 @@ define Package/node-node-lambda/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node_modules/node-lambda/bin/node-lambda $(1)/usr/bin/node-lambda
+	$(LN) ../lib/node/node-lambda/bin/node-lambda $(1)/usr/bin/node-lambda
 endef
 
 $(eval $(call BuildPackage,node-node-lambda))

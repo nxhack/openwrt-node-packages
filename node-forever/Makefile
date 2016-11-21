@@ -63,7 +63,7 @@ define Package/node-forever/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node_modules/forever/bin/forever $(1)/usr/bin/forever
+	$(LN) ../lib/node/forever/bin/forever $(1)/usr/bin/forever
 endef
 
 $(eval $(call BuildPackage,node-forever))

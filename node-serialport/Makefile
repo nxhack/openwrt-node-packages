@@ -63,8 +63,8 @@ define Package/node-serialport/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node_modules/serialport/bin/serialport-list.js $(1)/usr/bin/serialport-list
-	$(LN) ../lib/node_modules/serialport/bin/serialport-terminal.js $(1)/usr/bin/serialport-term
+	$(LN) ../lib/node/serialport/bin/serialport-list.js $(1)/usr/bin/serialport-list
+	$(LN) ../lib/node/serialport/bin/serialport-terminal.js $(1)/usr/bin/serialport-term
 endef
 
 $(eval $(call BuildPackage,node-serialport))

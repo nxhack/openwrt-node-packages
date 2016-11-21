@@ -60,8 +60,8 @@ define Package/node-yarn/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	#$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/usr/bin/yarn
-	$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/usr/bin/yarnpkg
+	#$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarn
+	$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarnpkg
 endef
 
 $(eval $(call BuildPackage,node-yarn))

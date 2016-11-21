@@ -63,7 +63,7 @@ define Package/node-bower/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node_modules/bower/bin/bower $(1)/usr/bin/bower
+	$(LN) ../lib/node/bower/bin/bower $(1)/usr/bin/bower
 endef
 
 $(eval $(call BuildPackage,node-bower))

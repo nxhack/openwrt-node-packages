@@ -63,10 +63,10 @@ define Package/node-sleep/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node_modules/sleep/bin/sleep $(1)/usr/bin/sleep
-	$(LN) ../lib/node_modules/sleep/bin/sleep $(1)/usr/bin/sleepuv
-	$(LN) ../lib/node_modules/sleep/bin/sleep $(1)/usr/bin/usleep
-	$(LN) ../lib/node_modules/sleep/bin/sleep $(1)/usr/bin/usleepuv
+	$(LN) ../lib/node/sleep/bin/sleep $(1)/usr/bin/sleep
+	$(LN) ../lib/node/sleep/bin/sleep $(1)/usr/bin/sleepuv
+	$(LN) ../lib/node/sleep/bin/sleep $(1)/usr/bin/usleep
+	$(LN) ../lib/node/sleep/bin/sleep $(1)/usr/bin/usleepuv
 endef
 
 $(eval $(call BuildPackage,node-sleep))
