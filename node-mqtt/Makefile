@@ -64,8 +64,8 @@ define Package/node-mqtt/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
 	$(LN) ../lib/node/mqtt/mqtt.js $(1)/usr/bin/mqtt
-	$(LN) ../lib/node/mqtt/pub.js $(1)/usr/bin/mqtt_pub
-	$(LN) ../lib/node/mqtt/sub.js $(1)/usr/bin/mqtt_sub
+	$(LN) ../lib/node/mqtt/bin/pub.js $(1)/usr/bin/mqtt_pub
+	$(LN) ../lib/node/mqtt/bin/sub.js $(1)/usr/bin/mqtt_sub
 endef
 
 $(eval $(call BuildPackage,node-mqtt))
