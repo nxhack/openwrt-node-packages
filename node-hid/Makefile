@@ -62,6 +62,8 @@ endef
 define Package/node-hid/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	mkdir -p $(1)/usr/bin
+	$(LN) ../lib/node_modules/node-hid/src/show-devices.js $(1)/usr/bin/hid-showdevices
 endef
 
 $(eval $(call BuildPackage,node-hid))
