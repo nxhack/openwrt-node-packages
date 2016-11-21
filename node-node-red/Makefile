@@ -59,6 +59,7 @@ endef
 define Package/node-node-red/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	mkdir -p $(1)/usr/bin
 	$(LN) ../lib/node_modules/node-red/red.js $(1)/usr/bin/node-red
 	$(LN) ../lib/node_modules/node-red/bin/node-red-pi $(1)/usr/bin/node-red-pi
 endef
