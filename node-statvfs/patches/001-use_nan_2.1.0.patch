@@ -1,0 +1,269 @@
+diff -urN a/binding.gyp b/binding.gyp
+--- a/binding.gyp
++++ b/binding.gyp
+@@ -1,6 +1,9 @@
+ {
+         "targets": [ {
+                 "target_name": "statvfs",
+-                "sources": [ "src/statvfs.cpp" ]
++                "sources": [ "src/statvfs.cpp" ],
++                "include_dirs": [
++                    "<!(node -e \"require('nan')\")"
++                ]
+         } ]
+ }
+diff -urN a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -1,17 +1,20 @@
+ {
+-        "name": "statvfs",
+-        "description": "node binding to POSIX statvfs (file system information)",
+-        "version": "2.1.0",
+-        "author": "Mark Cavage <mcavage@gmail.com>",
+-        "main": "./lib",
+-        "scripts": {
+-                "test": "node test/statvfs.test.js"
+-        },
+-        "repository": {
+-                "type": "git",
+-                "url": "git://github.com/mcavage/node-statvfs.git"
+-        },
+-        "engines": {
+-                "node": ">=0.10.0"
+-        }
++  "name": "statvfs",
++  "description": "node binding to POSIX statvfs (file system information)",
++  "version": "2.1.0",
++  "author": "Mark Cavage <mcavage@gmail.com>",
++  "main": "./lib",
++  "scripts": {
++    "test": "node test/statvfs.test.js"
++  },
++  "repository": {
++    "type": "git",
++    "url": "git://github.com/mcavage/node-statvfs.git"
++  },
++  "engines": {
++    "node": ">=0.10.0"
++  },
++  "dependencies": {
++    "nan": "^2.1.0"
++  }
+ }
+diff -urN a/src/statvfs.cpp b/src/statvfs.cpp
+--- a/src/statvfs.cpp
++++ b/src/statvfs.cpp
+@@ -7,6 +7,7 @@
+ #include <sys/types.h>
+ #include <sys/statvfs.h>
+ 
++#include <nan.h>
+ #include <node.h>
+ #include <v8.h>
+ 
+@@ -15,40 +16,40 @@
+ 
+ ///--- Node definitions
+ 
+-static Persistent<String> bsize_sym;
+-static Persistent<String> frsize_sym;
+-static Persistent<String> blocks_sym;
+-static Persistent<String> bfree_sym;
+-static Persistent<String> bavail_sym;
+-static Persistent<String> files_sym;
+-static Persistent<String> ffree_sym;
+-static Persistent<String> favail_sym;
+-static Persistent<String> fsid_sym;
+-static Persistent<String> flag_sym;
+-static Persistent<String> namemax_sym;
++static Nan::Persistent<String> bsize_sym;
++static Nan::Persistent<String> frsize_sym;
++static Nan::Persistent<String> blocks_sym;
++static Nan::Persistent<String> bfree_sym;
++static Nan::Persistent<String> bavail_sym;
++static Nan::Persistent<String> files_sym;
++static Nan::Persistent<String> ffree_sym;
++static Nan::Persistent<String> favail_sym;
++static Nan::Persistent<String> fsid_sym;
++static Nan::Persistent<String> flag_sym;
++static Nan::Persistent<String> namemax_sym;
+ 
+ 
+ ///--- V8 Nonsense
+ 
+-#define RETURN_EXCEPTION(MSG)                                           \
+-	return v8::ThrowException(v8::Exception::Error(v8::String::New(MSG)))
++#define RETURN_EXCEPTION(MSG)										   \
++	return Nan::ThrowError(v8::Exception::Error(Nan::New<String>(MSG).ToLocalChecked()))
+ 
+-#define RETURN_ARGS_EXCEPTION(MSG)                                      \
+-	return v8::ThrowException(v8::Exception::TypeError(v8::String::New(MSG)))
++#define RETURN_ARGS_EXCEPTION(MSG)									  \
++	return Nan::ThrowError(v8::Exception::TypeError(Nan::New<String>(MSG).ToLocalChecked()))
+ 
+-#define REQUIRE_ARGS(ARGS)			      \
++#define REQUIRE_ARGS(ARGS)				  \
+ 	if (ARGS.Length() == 0)					\
+ 		RETURN_ARGS_EXCEPTION("missing arguments");
+ 
+-#define REQUIRE_STRING_ARG(ARGS, I, VAR)			      \
+-	REQUIRE_ARGS(ARGS);                                           \
++#define REQUIRE_STRING_ARG(ARGS, I, VAR)				  \
++	REQUIRE_ARGS(ARGS);										   \
+ 	if (ARGS.Length() <= (I) || !ARGS[I]->IsString())		\
+ 		RETURN_ARGS_EXCEPTION("argument " #I " must be a String"); \
+ 	v8::String::Utf8Value VAR(ARGS[I]->ToString());
+ 
+-#define REQUIRE_FUNCTION_ARG(ARGS, I, VAR)                              \
++#define REQUIRE_FUNCTION_ARG(ARGS, I, VAR)							  \
+ 	REQUIRE_ARGS(ARGS);						\
+-	if (ARGS.Length() <= (I) || !ARGS[I]->IsFunction())                   \
++	if (ARGS.Length() <= (I) || !ARGS[I]->IsFunction())				   \
+ 		RETURN_EXCEPTION("argument " #I " must be a Function");	\
+ 	v8::Local<v8::Function> VAR = v8::Local<v8::Function>::Cast(ARGS[I]);
+ 
+@@ -73,7 +74,7 @@
+ 
+ 	// Inputs
+ 	char *path;
+-	Persistent<Function> callback;
++	Nan::Callback *callback;
+ 
+ 	// Output
+ 	int rc;
+@@ -87,23 +88,23 @@
+ 
+ 
+ Local<Object> build_stats_object(struct statvfs &s) {
+-	HandleScope scope;
++	Nan::EscapableHandleScope scope;
+ 
+-	Local<Object> stats = Object::New();
++	Local<Object> stats = Nan::New<Object>();
+ 
+-	stats->Set(bsize_sym, Number::New(s.f_bsize));
+-	stats->Set(frsize_sym, Number::New(s.f_frsize));
+-	stats->Set(blocks_sym, Number::New(s.f_blocks));
+-	stats->Set(bfree_sym, Number::New(s.f_bfree));
+-	stats->Set(bavail_sym, Number::New(s.f_bavail));
+-	stats->Set(files_sym, Number::New(s.f_files));
+-	stats->Set(ffree_sym, Number::New(s.f_ffree));
+-	stats->Set(favail_sym, Number::New(s.f_favail));
+-	stats->Set(fsid_sym, Number::New(s.f_fsid));
+-	stats->Set(flag_sym, Number::New(s.f_flag));
+-	stats->Set(namemax_sym, Number::New(s.f_namemax));
++	Nan::Set(stats, Nan::New<String>(bsize_sym), Nan::New<Number>(s.f_bsize));
++	Nan::Set(stats, Nan::New<String>(frsize_sym), Nan::New<Number>(s.f_frsize));
++	Nan::Set(stats, Nan::New<String>(blocks_sym), Nan::New<Number>(s.f_blocks));
++	Nan::Set(stats, Nan::New<String>(bfree_sym), Nan::New<Number>(s.f_bfree));
++	Nan::Set(stats, Nan::New<String>(bavail_sym), Nan::New<Number>(s.f_bavail));
++	Nan::Set(stats, Nan::New<String>(files_sym), Nan::New<Number>(s.f_files));
++	Nan::Set(stats, Nan::New<String>(ffree_sym), Nan::New<Number>(s.f_ffree));
++	Nan::Set(stats, Nan::New<String>(favail_sym), Nan::New<Number>(s.f_favail));
++	Nan::Set(stats, Nan::New<String>(fsid_sym), Nan::New<Number>(s.f_fsid));
++	Nan::Set(stats, Nan::New<String>(flag_sym), Nan::New<Number>(s.f_flag));
++	Nan::Set(stats, Nan::New<String>(namemax_sym), Nan::New<Number>(s.f_namemax));
+ 
+-	return scope.Close(stats);
++	return scope.Escape(stats);
+ }
+ 
+ 
+@@ -120,7 +121,7 @@
+ 
+ 
+ void _statvfs_after (uv_work_t *req, int ignore_me_status_in_0_dot_10) {
+-	HandleScope scope;
++	Nan::HandleScope scope;
+ 
+ 
+ 	int argc = 1;
+@@ -128,35 +129,32 @@
+ 
+ 	my_baton_t *baton = (my_baton_t *)req->data;
+ 	if (baton->rc < 0) {
+-		argv[0] = node::ErrnoException(baton->_errno, "statvfs");
++		argv[0] = node::UVException(baton->_errno, "statvfs");
+ 	} else {
+ 		argc = 2;
+-		argv[0] = Local<Value>::New(Null());
++		argv[0] = Nan::Null();
+ 		argv[1] = build_stats_object(baton->buf);
+ 	}
+ 
+-	TryCatch try_catch;
+-	baton->callback->Call(Context::GetCurrent()->Global(), argc, argv);
++	Nan::TryCatch try_catch;
++	baton->callback->Call(argc, argv);
+ 	if (try_catch.HasCaught())
+-		node::FatalException(try_catch);
++		Nan::FatalException(try_catch);
+ 
+-	baton->callback.Dispose();
++	delete baton->callback;
+ 	delete baton;
+ 	delete req;
+ }
+ 
++NAN_METHOD(_statvfs_entry) {
+ 
+-Handle<Value> _statvfs_entry(const Arguments& args) {
+-	HandleScope scope;
+-
+-	REQUIRE_STRING_ARG(args, 0, name);
+-	REQUIRE_FUNCTION_ARG(args, 1, callback);
++	REQUIRE_STRING_ARG(info, 0, name);
++	REQUIRE_FUNCTION_ARG(info, 1, callback);
+ 
+ 	my_baton_t *baton = new my_baton_t;
+ 	if (!baton)
+ 		RETURN_EXCEPTION("out of memory");
+-
+-	baton->callback = Persistent<Function>::New(callback);
++	baton->callback = new Nan::Callback(callback);
+ 	baton->path = strdup(*name);
+ 	if (!baton->path) {
+ 		delete baton;
+@@ -171,28 +169,26 @@
+ 
+ 	req->data = baton;
+ 	uv_queue_work(uv_default_loop(), req, _statvfs,
+-	    (uv_after_work_cb)_statvfs_after);
+-
+-	return Undefined();
++		(uv_after_work_cb)_statvfs_after);
+ }
+ 
+ 
+ 
+ ///--- Actually expose this to the outside world
+ void init(Handle<Object> target) {
+-	bsize_sym = NODE_PSYMBOL("bsize");
+-	frsize_sym = NODE_PSYMBOL("frsize");
+-	blocks_sym = NODE_PSYMBOL("blocks");
+-	bfree_sym = NODE_PSYMBOL("bfree");
+-	bavail_sym = NODE_PSYMBOL("bavail");
+-	files_sym = NODE_PSYMBOL("files");
+-	ffree_sym = NODE_PSYMBOL("ffree");
+-	favail_sym = NODE_PSYMBOL("favail");
+-	fsid_sym = NODE_PSYMBOL("fsid");
+-	flag_sym = NODE_PSYMBOL("flag");
+-	namemax_sym = NODE_PSYMBOL("namemax");
++	bsize_sym.Reset(Nan::New<String>("bsize").ToLocalChecked());
++	frsize_sym.Reset(Nan::New<String>("frsize").ToLocalChecked());
++	blocks_sym.Reset(Nan::New<String>("blocks").ToLocalChecked());
++	bfree_sym.Reset(Nan::New<String>("bfree").ToLocalChecked());
++	bavail_sym.Reset(Nan::New<String>("bavail").ToLocalChecked());
++	files_sym.Reset(Nan::New<String>("files").ToLocalChecked());
++	ffree_sym.Reset(Nan::New<String>("ffree").ToLocalChecked());
++	favail_sym.Reset(Nan::New<String>("favail").ToLocalChecked());
++	fsid_sym.Reset(Nan::New<String>("fsid").ToLocalChecked());
++	flag_sym.Reset(Nan::New<String>("flag").ToLocalChecked());
++	namemax_sym.Reset(Nan::New<String>("namemax").ToLocalChecked());
+ 
+-	NODE_SET_METHOD(target, "statvfs", _statvfs_entry);
++	Nan::SetMethod(target, "statvfs", _statvfs_entry);
+ }
+ 
+ NODE_MODULE(statvfs, init)
