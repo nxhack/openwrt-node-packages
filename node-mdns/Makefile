@@ -27,7 +27,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-mdns
-  DEPENDS:=+node +libavahi-compat-libdnssd
+  DEPENDS:=+node +avahi
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
