@@ -50,6 +50,7 @@ endef
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/avahi-compat-libdns_sd
+TARGET_LDFLAGS+=-L$(STAGING_DIR)/usr/lib
 
 define Build/Compile
 	$(MAKE_VARS) \
