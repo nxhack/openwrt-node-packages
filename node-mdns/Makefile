@@ -28,7 +28,7 @@ include $(INCLUDE_DIR)/package.mk
 
 define Package/node-mdns
   # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
-  #  for Install/Dev libdns_sd.so
+  #  for InstallDev libdns_sd.so
   DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
   SUBMENU:=Node.js
   SECTION:=lang
