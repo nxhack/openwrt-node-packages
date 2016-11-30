@@ -1,8 +1,8 @@
-# OpenWrt Node.js Packages
+# OpenWrt Node.js Packages (nodejs)
 
 ##Description
 
-OpenWrt Node.js Packages : for trunk (Bleeding Edge)
+OpenWrt Node.js Packages : for trunk (Bleeding Edge) / LEDE
 
 Note: Testing target only ar71xx.
 
