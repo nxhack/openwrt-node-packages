@@ -63,8 +63,6 @@ endef
 define Package/node-xtend/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	#mkdir -p $(1)/usr/bin
-	#$(LN) ../lib/node/xtend/bin/cmd.js $(1)/usr/bin/xtend
 endef
 
 define Host/Compile
