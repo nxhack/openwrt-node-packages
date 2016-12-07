@@ -16,7 +16,7 @@ PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=70a684bddfafcc77ed6e166cf79dda2b
 
-PKG_BUILD_DEPENDS:=node/host node-uglify-js/host node-browserify/host
+PKG_BUILD_DEPENDS:=node/host node-uglify-js/host node-browserify/host node-mocha/host
 PKG_NODE_VERSION:=6.9.1
 PKG_USE_MIPS16:=0
 
@@ -57,7 +57,7 @@ define Build/Compile
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	NODE_PATH="$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules" \
-	npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR) --only=dev
+	npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
 define Package/node-mqtt/install
