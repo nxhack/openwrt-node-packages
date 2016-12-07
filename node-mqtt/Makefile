@@ -16,7 +16,7 @@ PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=70a684bddfafcc77ed6e166cf79dda2b
 
-PKG_BUILD_DEPENDS:=node/host node-uglify-js/host node-browserify/host node-mocha/host
+PKG_BUILD_DEPENDS:=node/host node-uglify-js/host node-browserify/host
 PKG_NODE_VERSION:=6.9.1
 PKG_USE_MIPS16:=0
 
