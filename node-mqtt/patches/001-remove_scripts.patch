@@ -1,0 +1,17 @@
+--- a/package.json
++++ b/package.json
+@@ -18,14 +18,6 @@
+     "url": "git://github.com/mqttjs/MQTT.js.git"
+   },
+   "main": "mqtt.js",
+-  "scripts": {
+-    "test": "mocha --bail",
+-    "pretest": "standard",
+-    "prepublish": "npm run browser-build",
+-    "browser-build": "rm -rf dist/; mkdir dist/; browserify mqtt.js -s mqtt > dist/mqtt.js; uglifyjs --screw-ie8 < dist/mqtt.js > dist/mqtt.min.js",
+-    "browser-test": "zuul --server test/browser/server.js --local --open test/browser/test.js",
+-    "sauce-test": "zuul --server test/browser/server.js --tunnel ngrok -- test/browser/test.js"
+-  },
+   "pre-commit": [
+     "test"
+   ],
