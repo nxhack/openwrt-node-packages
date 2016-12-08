@@ -18,7 +18,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=58dbeec8587eeaa7952537271a1d4e038fa733bc
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.xz
 
-PKG_BUILD_DEPENDS:=node/host node-uglify-js/host node-browserify/host node-babel/host
+PKG_BUILD_DEPENDS:=node/host node-rimraf/host node-uglify-js/host node-browserify/host node-babel/host
 PKG_NODE_VERSION:=6.9.1
 PKG_USE_MIPS16:=0
 
