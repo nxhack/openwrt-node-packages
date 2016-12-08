@@ -5,4 +5,4 @@
  
  #./autogen.sh && ./configure --enable-static=yes --enable-shared=no && make
 -./autogen.sh && ./configure && make
-+./autogen.sh && ./configure --host=mips-openwrt-linux CFLAGS="-fPIC $(TARGET_CFLAGS) $(TARGET_CPPFLAGS)" && make
++./autogen.sh && ./configure --host=${GNU_TARGET_NAME} CFLAGS="-fPIC ${TARGET_CFLAGS} ${TARGET_CPPFLAGS}" && make
