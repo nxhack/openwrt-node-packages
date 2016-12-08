@@ -39,10 +39,6 @@ define Package/node-babel/default
 endef
 
 define Package/node-babel
-  $(call Package/node-babel/default,dummy)
-endef
-
-define Package/node-babel-cli
   $(call Package/node-babel/default,cli)
 endef
 
@@ -83,14 +79,14 @@ define Build/Compile/module
 endef
 
 define Build/Compile
-	$(call Build/Compile/module,node-babel-cli)
+	$(call Build/Compile/module,node-babel)
 	$(call Build/Compile/module,node-babel-core)
 	$(call Build/Compile/module,node-babel-polyfill)
 	$(call Build/Compile/module,node-babel-preset-es2015)
 	$(call Build/Compile/module,node-babel-plugin-transform-es2015-modules-umd)
 endef
 
-define Package/node-babel-cli/install
+define Package/node-babel/install
 	mkdir -p $(1)/usr/lib/node/node-babel-cli
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-babel-cli/* $(1)/usr/lib/node/node-babel-cli/
 endef
@@ -123,7 +119,7 @@ define Host/Compile/module
 endef
 
 define Host/Compile
-	$(call Host/Compile/module,node-babel-cli)
+	$(call Host/Compile/module,node-babel)
 	$(call Host/Compile/module,node-babel-core)
 	$(call Host/Compile/module,node-babel-polyfill)
 	$(call Host/Compile/module,node-babel-preset-es2015)
@@ -135,7 +131,6 @@ endef
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node-babel))
-$(eval $(call BuildPackage,node-babel-cli))
 $(eval $(call BuildPackage,node-babel-core))
 $(eval $(call BuildPackage,node-babel-polyfill))
 $(eval $(call BuildPackage,node-babel-preset-es2015))
