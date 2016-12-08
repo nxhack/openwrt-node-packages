@@ -79,36 +79,36 @@ define Build/Compile/module
 endef
 
 define Build/Compile
-	$(call Build/Compile/module,node-babel-cli)
-	$(call Build/Compile/module,node-babel-core)
-	$(call Build/Compile/module,node-babel-polyfill)
-	$(call Build/Compile/module,node-babel-preset-es2015)
-	$(call Build/Compile/module,node-babel-plugin-transform-es2015-modules-umd)
+	$(call Build/Compile/module,babel-cli)
+	$(call Build/Compile/module,babel-core)
+	$(call Build/Compile/module,babel-polyfill)
+	$(call Build/Compile/module,babel-preset-es2015)
+	$(call Build/Compile/module,babel-plugin-transform-es2015-modules-umd)
 endef
 
 define Package/node-babel/install
-	mkdir -p $(1)/usr/lib/node/node-babel-cli
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-babel-cli/* $(1)/usr/lib/node/node-babel-cli/
+	mkdir -p $(1)/usr/lib/node/babel-cli
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-cli/* $(1)/usr/lib/node/babel-cli/
 endef
 
 define Package/node-babel-core/install
-	mkdir -p $(1)/usr/lib/node/node-babel-core
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-babel-core/* $(1)/usr/lib/node/node-babel-core/
+	mkdir -p $(1)/usr/lib/node/babel-core
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-core/* $(1)/usr/lib/node/babel-core/
 endef
 
 define Package/node-babel-polyfill/install
-	mkdir -p $(1)/usr/lib/node/node-babel-polyfill
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-babel-polyfill/* $(1)/usr/lib/node/node-babel-polyfill/
+	mkdir -p $(1)/usr/lib/node/babel-polyfill
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-polyfill/* $(1)/usr/lib/node/babel-polyfill/
 endef
 
 define Package/node-babel-preset-es2015/install
-	mkdir -p $(1)/usr/lib/node/node-babel-preset-es2015
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-babel-preset-es2015/* $(1)/usr/lib/node/node-babel-preset-es2015/
+	mkdir -p $(1)/usr/lib/node/babel-preset-es2015
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-preset-es2015/* $(1)/usr/lib/node/babel-preset-es2015/
 endef
 
 define Package/node-babel-plugin-transform-es2015-modules-umd/install
-	mkdir -p $(1)/usr/lib/node/node-babel-plugin-transform-es2015-modules-umd
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-babel-plugin-transform-es2015-modules-umd/* $(1)/usr/lib/node/node-babel-plugin-transform-es2015-modules-umd/
+	mkdir -p $(1)/usr/lib/node/babel-plugin-transform-es2015-modules-umd
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-plugin-transform-es2015-modules-umd/* $(1)/usr/lib/node/babel-plugin-transform-es2015-modules-umd/
 endef
 
 define Host/Compile/module
@@ -119,11 +119,11 @@ define Host/Compile/module
 endef
 
 define Host/Compile
-	$(call Host/Compile/module,node-babel-cli)
-	$(call Host/Compile/module,node-babel-core)
-	$(call Host/Compile/module,node-babel-polyfill)
-	$(call Host/Compile/module,node-babel-preset-es2015)
-	$(call Host/Compile/module,node-babel-plugin-transform-es2015-modules-umd)
+	$(call Host/Compile/module,babel-cli)
+	$(call Host/Compile/module,babel-core)
+	$(call Host/Compile/module,babel-polyfill)
+	$(call Host/Compile/module,babel-preset-es2015)
+	$(call Host/Compile/module,babel-plugin-transform-es2015-modules-umd)
 endef
 
 define Host/Install
