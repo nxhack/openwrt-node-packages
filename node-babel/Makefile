@@ -38,6 +38,10 @@ define Package/node-babel/default
   URL:=https://babeljs.io/
 endef
 
+define Package/node-babel
+  $(call Package/node-babel/default,dummy)
+endef
+
 define Package/node-babel-cli
   $(call Package/node-babel/default,cli)
 endef
