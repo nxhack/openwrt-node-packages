@@ -41,11 +41,6 @@ define Package/node-ibmiotf/description
  Client libraries and samples for connecting to IBM Watson IoT using nodejs
 endef
 
-define Build/Prepare
-	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
-	$(Build/Patch)
-endef
-
 define Build/Configure
 endef
 
