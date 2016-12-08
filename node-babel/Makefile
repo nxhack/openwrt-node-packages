@@ -42,14 +42,6 @@ define Package/node-babel
   $(call Package/node-babel/default,cli)
 endef
 
-define Package/node-babel-core
-  $(call Package/node-babel/default,core)
-endef
-
-define Package/node-babel-polyfill
-  $(call Package/node-babel/default,polyfill)
-endef
-
 define Package/node-babel-preset-es2015
   $(call Package/node-babel/default,preset-es2015)
 endef
@@ -80,8 +72,6 @@ endef
 
 define Build/Compile
 	$(call Build/Compile/module,babel-cli)
-	$(call Build/Compile/module,babel-core)
-	$(call Build/Compile/module,babel-polyfill)
 	$(call Build/Compile/module,babel-preset-es2015)
 	$(call Build/Compile/module,babel-plugin-transform-es2015-modules-umd)
 endef
@@ -89,16 +79,11 @@ endef
 define Package/node-babel/install
 	mkdir -p $(1)/usr/lib/node/babel-cli
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-cli/* $(1)/usr/lib/node/babel-cli/
-endef
-
-define Package/node-babel-core/install
-	mkdir -p $(1)/usr/lib/node/babel-core
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-core/* $(1)/usr/lib/node/babel-core/
-endef
-
-define Package/node-babel-polyfill/install
-	mkdir -p $(1)/usr/lib/node/babel-polyfill
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-polyfill/* $(1)/usr/lib/node/babel-polyfill/
+	mkdir -p $(1)/usr/bin
+	$(LN) ../lib/node/babel-cli/bin/babel.js $(1)/usr/bin/babel
+	$(LN) ../lib/node/babel-cli/bin/babel-doctor.js $(1)/usr/bin/babel-doctor
+	$(LN) ../lib/node/babel-cli/bin/babel-external-helpers.js $(1)/usr/bin/babel-external-helpers
+	$(LN) ../lib/node/babel-cli/bin/babel-node.js $(1)/usr/bin/babel-node
 endef
 
 define Package/node-babel-preset-es2015/install
@@ -120,8 +105,6 @@ endef
 
 define Host/Compile
 	$(call Host/Compile/module,babel-cli)
-	$(call Host/Compile/module,babel-core)
-	$(call Host/Compile/module,babel-polyfill)
 	$(call Host/Compile/module,babel-preset-es2015)
 	$(call Host/Compile/module,babel-plugin-transform-es2015-modules-umd)
 endef
@@ -131,8 +114,6 @@ endef
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node-babel))
-$(eval $(call BuildPackage,node-babel-core))
-$(eval $(call BuildPackage,node-babel-polyfill))
 $(eval $(call BuildPackage,node-babel-preset-es2015))
 $(eval $(call BuildPackage,node-babel-plugin-transform-es2015-modules-umd))
 
