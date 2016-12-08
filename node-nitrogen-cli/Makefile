@@ -27,7 +27,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen-cli
-  DEPENDS:=+node
+  DEPENDS:=+node +node-nitrogen
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
