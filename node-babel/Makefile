@@ -42,12 +42,8 @@ define Package/node-babel
   $(call Package/node-babel/default,cli)
 endef
 
-define Package/node-babel-preset-es2015
-  $(call Package/node-babel/default,preset-es2015)
-endef
-
-define Package/node-babel-plugin-transform-es2015-modules-umd
-  $(call Package/node-babel/default,plugin-transform-es2015-modules-umd)
+define Package/node-babel-preset-latest
+  $(call Package/node-babel/default,preset-latest)
 endef
 
 define Package/node-babel/description
@@ -72,8 +68,7 @@ endef
 
 define Build/Compile
 	$(call Build/Compile/module,babel-cli)
-	$(call Build/Compile/module,babel-preset-es2015)
-	$(call Build/Compile/module,babel-plugin-transform-es2015-modules-umd)
+	$(call Build/Compile/module,babel-preset-latest)
 endef
 
 define Package/node-babel/install
@@ -86,14 +81,9 @@ define Package/node-babel/install
 	$(LN) ../lib/node/babel-cli/bin/babel-node.js $(1)/usr/bin/babel-node
 endef
 
-define Package/node-babel-preset-es2015/install
-	mkdir -p $(1)/usr/lib/node/babel-preset-es2015
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-preset-es2015/* $(1)/usr/lib/node/babel-preset-es2015/
-endef
-
-define Package/node-babel-plugin-transform-es2015-modules-umd/install
-	mkdir -p $(1)/usr/lib/node/babel-plugin-transform-es2015-modules-umd
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-plugin-transform-es2015-modules-umd/* $(1)/usr/lib/node/babel-plugin-transform-es2015-modules-umd/
+define Package/node-babel-preset-latest/install
+	mkdir -p $(1)/usr/lib/node/babel-preset-latest
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-preset-latest/* $(1)/usr/lib/node/babel-preset-latest/
 endef
 
 define Host/Compile/module
@@ -105,8 +95,7 @@ endef
 
 define Host/Compile
 	$(call Host/Compile/module,babel-cli)
-	$(call Host/Compile/module,babel-preset-es2015)
-	$(call Host/Compile/module,babel-plugin-transform-es2015-modules-umd)
+	$(call Host/Compile/module,babel-preset-latest)
 endef
 
 define Host/Install
@@ -114,6 +103,5 @@ endef
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node-babel))
-$(eval $(call BuildPackage,node-babel-preset-es2015))
-$(eval $(call BuildPackage,node-babel-plugin-transform-es2015-modules-umd))
+$(eval $(call BuildPackage,node-babel-preset-latest))
 
