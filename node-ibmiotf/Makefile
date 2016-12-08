@@ -54,7 +54,7 @@ define Build/Compile
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	NODE_PATH="$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules" \
-	npm install --build-from-source --target_arch=$(CPU) --save-dev $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(CPU) -g --save-dev $(PKG_BUILD_DIR)
 endef
 
 define Package/node-ibmiotf/install
