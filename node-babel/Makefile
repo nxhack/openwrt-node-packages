@@ -130,6 +130,7 @@ define Host/Install
 endef
 
 $(eval $(call HostBuild))
+$(eval $(call BuildPackage,node-babel))
 $(eval $(call BuildPackage,node-babel-cli))
 $(eval $(call BuildPackage,node-babel-core))
 $(eval $(call BuildPackage,node-babel-polyfill))
