@@ -79,7 +79,7 @@ define Build/Compile/module
 endef
 
 define Build/Compile
-	$(call Build/Compile/module,node-babel)
+	$(call Build/Compile/module,node-babel-cli)
 	$(call Build/Compile/module,node-babel-core)
 	$(call Build/Compile/module,node-babel-polyfill)
 	$(call Build/Compile/module,node-babel-preset-es2015)
@@ -119,7 +119,7 @@ define Host/Compile/module
 endef
 
 define Host/Compile
-	$(call Host/Compile/module,node-babel)
+	$(call Host/Compile/module,node-babel-cli)
 	$(call Host/Compile/module,node-babel-core)
 	$(call Host/Compile/module,node-babel-polyfill)
 	$(call Host/Compile/module,node-babel-preset-es2015)
