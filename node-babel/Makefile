@@ -50,9 +50,6 @@ define Package/node-babel/description
  The compiler for writing next generation JavaScript
 endef
 
-define Build/Configure
-endef
-
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile/module
@@ -89,7 +86,7 @@ define Host/Compile/module
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(HOST_BUILD_PREFIX)" \
-	npm install -g $(PKG_BUILD_DIR)/packages/$(1)/
+	npm install -g $(HOST_BUILD_DIR)/packages/$(1)/
 endef
 
 define Host/Compile
