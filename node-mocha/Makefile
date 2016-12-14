@@ -45,7 +45,9 @@ define Build/Prepare
 	$(Build/Patch)
 endef
 
-define Build/Configure
+define Host/Prepare
+	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(HOST_BUILD_DIR) --strip-components 1
+	$(Host/Patch)
 endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -72,7 +74,7 @@ define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(HOST_BUILD_PREFIX)" \
-	npm install -g $(PKG_BUILD_DIR)
+	npm install -g $(HOST_BUILD_DIR)
 endef
 
 define Host/Install
