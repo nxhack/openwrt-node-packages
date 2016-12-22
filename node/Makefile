@@ -16,7 +16,7 @@ PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
 PKG_MD5SUM:=f7e8924c13c74576f6c0688bcf1bbfde
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host +node/host
+PKG_BUILD_DEPENDS:=python/host node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
