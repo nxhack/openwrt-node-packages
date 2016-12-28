@@ -33,7 +33,7 @@ define Package/node-xmpp/default
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE=XMPP $(1) for JavaScript.
+  TITLE:=XMPP $(1) for JavaScript.
   URL:=http://node-xmpp.org/
 endef
 

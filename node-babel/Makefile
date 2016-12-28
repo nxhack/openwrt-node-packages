@@ -34,7 +34,7 @@ define Package/node-babel/default
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE=BABEL $(1) for JavaScript.
+  TITLE:=BABEL $(1) for JavaScript.
   URL:=https://babeljs.io/
 endef
 
