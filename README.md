@@ -2,7 +2,7 @@
 
 ##Description
 
-OpenWrt Node.js Packages : for trunk (Bleeding Edge) / LEDE
+OpenWrt Node.js Packages : for OpenWrt Chaos
 
 Note: Testing target only ar71xx.
 
@@ -15,7 +15,7 @@ See:
 
 Add follow line to feeds.conf or feeds.conf.default
 ```
-src-git node https://github.com/nxhack/openwrt-node-packages.git
+src-git node https://github.com/nxhack/openwrt-node-packages.git;for-15.05
 ```
 
 Run
@@ -25,4 +25,5 @@ Run
 ```
 
 ##Note
-OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) are not supported.
+Tested OpenWrt Chaos Calmer(15.05)
+Node version v6.x 'Boron' (LTS) Release
