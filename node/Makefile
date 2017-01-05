@@ -58,17 +58,34 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--prefix=/usr
 
-ifeq ($(findstring mips,$(NODEJS_CPU)),mips)
+ifneq ($(findstring mips,$(NODEJS_CPU)),)
 ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
 	--with-mips-float-abi=soft
 endif
 endif
 
-ifeq ($(findstring arm,$(NODEJS_CPU)),arm)
+ifneq ($(findstring arm,$(NODEJS_CPU)),)
 ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
 	--with-arm-float-abi=softfp
+else
+ifneq ($(findstring vfp,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=vfp
+endif
+ifneq ($(findstring vfpv3,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=vfpv3
+endif
+ifneq ($(findstring vfpv3-d16,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=vfpv3-d16
+endif
+ifneq ($(findstring neon,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=neon
+endif
 endif
 endif
 
