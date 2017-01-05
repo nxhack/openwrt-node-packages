@@ -26,4 +26,5 @@ Run
 
 ##Note
 Tested OpenWrt Chaos Calmer(15.05)
+
 Node version v6.x 'Boron' (LTS) Release
