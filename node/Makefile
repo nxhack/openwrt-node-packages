@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
-PKG_VERSION:=v6.9.3
+PKG_VERSION:=v4.7.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=node-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
-PKG_MD5SUM:=3ff7c42bcfe21663d608393735492fde
+PKG_MD5SUM:=ffef771b6d40055803271237a1b42857
 
 HOST_BUILD_DEPENDS:=python/host
 PKG_BUILD_DEPENDS:=python/host
@@ -36,23 +36,13 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
-  DEPENDS:=+libstdcpp +libopenssl +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU:icu
+  DEPENDS:=+libstdcpp +libopenssl +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/node/description
   Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses
   an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js'
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
-endef
-
-define Package/node/config
-	menu "Module Selection"
-
-	config NODEJS_ICU
-		bool "enable i18n features"
-		default n
-
-	endmenu
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -67,14 +57,6 @@ CONFIGURE_ARGS:= \
 	--shared-zlib \
 	--shared-openssl \
 	--prefix=/usr
-
-ifeq ($(CONFIG_NODEJS_ICU),y)
-CONFIGURE_ARGS+= \
-	--with-intl=system-icu
-else
-CONFIGURE_ARGS+= \
-	--with-intl=none
-endif
 
 ifeq ($(findstring mips,$(NODEJS_CPU)),mips)
 ifeq ($(CONFIG_SOFT_FLOAT),y)
