@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=babel
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=v6.19.0
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/babel/babel.git
@@ -19,7 +19,7 @@ PKG_SOURCE_VERSION:=754a6ed8c0106b42147a356457079f5f0208d902
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.xz
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=7.3.0
+PKG_NODE_VERSION:=6.9.3
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
@@ -85,7 +85,7 @@ endef
 define Host/Compile/module
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
-	PREFIX="$(HOST_BUILD_PREFIX)" \
+	PREFIX="$(STAGING_DIR_HOST)" \
 	npm install -g $(HOST_BUILD_DIR)/packages/$(1)/
 endef
 

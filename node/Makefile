@@ -8,15 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
-PKG_VERSION:=v7.3.0
+PKG_VERSION:=v6.9.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=node-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
-PKG_MD5SUM:=f7e8924c13c74576f6c0688bcf1bbfde
+PKG_MD5SUM:=3ff7c42bcfe21663d608393735492fde
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host node/host
+PKG_BUILD_DEPENDS:=python/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -95,17 +95,9 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
-	--prefix=$(HOST_BUILD_PREFIX)
+	--prefix=$(STAGING_DIR_HOST)
 
 HOST_CONFIGURE_CMD:=python ./configure
-
-MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkpeephole
-FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
-
-define Build/Prepare
-	$(Build/Prepare/Default)
-	$(SED) "s#<(mkpeephole_exec)#$(MKTOOL)#g" $(FILE_V8_GYP)
-endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include

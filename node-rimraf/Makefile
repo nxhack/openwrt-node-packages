@@ -10,14 +10,14 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=rimraf
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.5.4
-PKG_RELEASE:=11
+PKG_RELEASE:=12
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=dc0610ea665f28511baa8bebcbe0f521
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=7.3.0
+PKG_NODE_VERSION:=6.9.3
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
@@ -72,7 +72,7 @@ endef
 define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
-	PREFIX="$(HOST_BUILD_PREFIX)" \
+	PREFIX="$(STAGING_DIR_HOST)" \
 	npm install -g $(HOST_BUILD_DIR)
 endef
 
