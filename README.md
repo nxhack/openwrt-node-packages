@@ -2,7 +2,7 @@
 
 ##Description
 
-OpenWrt Node.js Packages : for OpenWrt Chaos
+OpenWrt Node.js Packages : for Chaos Calmer
 
 Note: Testing target only ar71xx.
 
