@@ -50,7 +50,7 @@ define Package/node/config
 
 	config NODEJS_ICU
 		bool "enable i18n features"
-		default y
+		default n
 
 	endmenu
 endef
