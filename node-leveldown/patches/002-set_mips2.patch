@@ -1,0 +1,11 @@
+--- a/deps/leveldb/leveldb-1.19/port/atomic_pointer.h
++++ b/deps/leveldb/leveldb-1.19/port/atomic_pointer.h
+@@ -115,7 +115,7 @@
+ // MIPS
+ #elif defined(ARCH_CPU_MIPS_FAMILY) && defined(__GNUC__)
+ inline void MemoryBarrier() {
+-  __asm__ __volatile__("sync" : : : "memory");
++  __asm__ __volatile__(".set mips2; sync; .set mips0" : : : "memory");
+ }
+ #define LEVELDB_HAVE_MEMORY_BARRIER
+ 

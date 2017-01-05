@@ -1,0 +1,10 @@
+--- a/deps/leveldb/leveldb-1.19/db/db_iter.cc
++++ b/deps/leveldb/leveldb-1.19/db/db_iter.cc
+@@ -13,6 +13,7 @@
+ #include "util/logging.h"
+ #include "util/mutexlock.h"
+ #include "util/random.h"
++#include <sys/types.h>
+ 
+ namespace leveldb {
+ 
