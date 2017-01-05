@@ -27,6 +27,7 @@ PKG_LICENSE:=MIT or X11
 PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/node-hid
   DEPENDS:=+node +libusb-1.0 +hidapi
