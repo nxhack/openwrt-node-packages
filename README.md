@@ -35,3 +35,5 @@ uClibc is not well maintained.
 ICU package is not available in Chaos Calmer.
 
 'HOST_BUILD_PREFIX' is not defined in Chaos Calmer.
+
+eudev package is not available in Chaos Calmer.
