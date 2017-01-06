@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
-PKG_VERSION:=v7.3.0
+PKG_VERSION:=v7.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=node-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
-PKG_MD5SUM:=f7e8924c13c74576f6c0688bcf1bbfde
+PKG_MD5SUM:=9f15b916f8677ec1615c46bdd6d2208ed1b24fad26384f9ac249f5b09d31c32b
 
 HOST_BUILD_DEPENDS:=python/host
 PKG_BUILD_DEPENDS:=python/host node/host
@@ -76,17 +76,34 @@ CONFIGURE_ARGS+= \
 	--with-intl=none
 endif
 
-ifeq ($(findstring mips,$(NODEJS_CPU)),mips)
+ifneq ($(findstring mips,$(NODEJS_CPU)),)
 ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
 	--with-mips-float-abi=soft
 endif
 endif
 
-ifeq ($(findstring arm,$(NODEJS_CPU)),arm)
+ifneq ($(findstring arm,$(NODEJS_CPU)),)
 ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
 	--with-arm-float-abi=softfp
+else
+ifneq ($(findstring vfp,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=vfp
+endif
+ifneq ($(findstring vfpv3,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=vfpv3
+endif
+ifneq ($(findstring vfpv3-d16,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=vfpv3-d16
+endif
+ifneq ($(findstring neon,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=neon
+endif
 endif
 endif
 
