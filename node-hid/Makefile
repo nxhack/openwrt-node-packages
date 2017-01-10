@@ -44,7 +44,7 @@ endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
-TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0 -I$(STAGING_DIR)/usr/lib/libiconv-stub/include/
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
 
 define Build/Compile
 	git init $(PKG_BUILD_DIR)
