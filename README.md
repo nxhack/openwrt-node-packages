@@ -41,6 +41,6 @@ ICU package is not available.
 'HOST_BUILD_PREFIX' is not defined.
 * Use 'STAGING_DIR_HOST'
 
-PKG_MD5SUM is not supported SHA256 hash.
+'PKG_MD5SUM' is not supported SHA256 hash.
 
 eudev package is not available.
