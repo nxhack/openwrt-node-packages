@@ -36,8 +36,11 @@ uClibc is not well maintained.
    + https://raw.githubusercontent.com/artynet/openwrt-git/openwrt-1505-setup-03/toolchain/uClibc/patches-0.9.33.2/L002-libm_Add_missing_C99_float_ld_wrappers.patch
    + https://raw.githubusercontent.com/artynet/openwrt-git/openwrt-1505-setup-03/toolchain/uClibc/patches-0.9.33.2/L003-force-obstack-free-strong-alias.patch
 
-ICU package is not available in Chaos Calmer.
+ICU package is not available.
 
-'HOST_BUILD_PREFIX' is not defined in Chaos Calmer.
+'HOST_BUILD_PREFIX' is not defined.
+* Use 'STAGING_DIR_HOST'
 
-eudev package is not available in Chaos Calmer.
+PKG_MD5SUM is not supported SHA256 hash.
+
+eudev package is not available.
