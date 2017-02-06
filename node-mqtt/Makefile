@@ -10,14 +10,14 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.1.3
-PKG_RELEASE:=7
+PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=70a684bddfafcc77ed6e166cf79dda2b
 
 PKG_BUILD_DEPENDS:=node/host node-uglify-js/host node-browserify/host
-PKG_NODE_VERSION:=4.7.2
+PKG_NODE_VERSION:=4.7.3
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
