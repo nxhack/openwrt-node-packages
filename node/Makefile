@@ -116,6 +116,10 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
+define Host/Patch
+	# NOTHING TO DO
+endef
+
 MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkpeephole
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
 
