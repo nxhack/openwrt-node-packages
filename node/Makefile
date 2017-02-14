@@ -116,7 +116,7 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
-MKTOOL=$(BUILD_DIR_HOST)/node-v$(PKG_VERSION)/out/Release/mkpeephole
+MKTOOL=$(BUILD_DIR_HOST)/node-$(PKG_VERSION)/out/Release/mkpeephole
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
 
 define Build/Prepare
