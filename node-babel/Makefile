@@ -56,8 +56,8 @@ define Build/Compile/module
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
-	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
-	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	npm_config_nodedir=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)/packages/$(1)/
 endef
@@ -83,8 +83,8 @@ define Package/node-babel-preset-latest/install
 endef
 
 define Host/Compile/module
-	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
-	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	npm_config_nodedir=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(HOST_BUILD_PREFIX)" \
 	npm install -g $(HOST_BUILD_DIR)/packages/$(1)/
 endef
