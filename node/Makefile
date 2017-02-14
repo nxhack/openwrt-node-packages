@@ -112,15 +112,11 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
-	--prefix=$(HOST_BUILD_PREFIX)
+	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python ./configure
 
-define Host/Patch
-	# NOTHING TO DO
-endef
-
-MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkpeephole
+MKTOOL=$(BUILD_DIR_HOST)/node-v$(PKG_VERSION)/out/Release/mkpeephole
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
 
 define Build/Prepare
