@@ -72,7 +72,7 @@ endef
 define Host/Compile
 	npm_config_nodedir=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/npm-cache \
-	PREFIX="$(HOST_BUILD_PREFIX)" \
+	PREFIX="$(STAGING_DIR_HOSTPKG)" \
 	npm install -g $(HOST_BUILD_DIR)
 endef
 
