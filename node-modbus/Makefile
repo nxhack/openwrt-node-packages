@@ -50,8 +50,8 @@ define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
-	npm_config_nodedir=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/ \
-	npm_config_cache=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
+	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	GNU_TARGET_NAME="$(GNU_TARGET_NAME)" \
 	TARGET_CFLAGS="$(TARGET_CFLAGS)" \
