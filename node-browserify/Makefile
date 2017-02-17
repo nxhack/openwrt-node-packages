@@ -56,8 +56,8 @@ define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
-	npm_config_nodedir=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/ \
-	npm_config_cache=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
+	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
@@ -70,8 +70,8 @@ define Package/node-browserify/install
 endef
 
 define Host/Compile
-	npm_config_nodedir=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/ \
-	npm_config_cache=$(BUILD_DIR_HOST)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
+	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(STAGING_DIR_HOSTPKG)" \
 	npm install -g $(HOST_BUILD_DIR)
 endef
