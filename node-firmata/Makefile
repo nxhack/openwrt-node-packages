@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 LEDE Project
+# Copyright (C) 2016-2017 LEDE Project
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -17,7 +17,6 @@ PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=f566a87b9af4c12a87c387a26411f799
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=7.5.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=

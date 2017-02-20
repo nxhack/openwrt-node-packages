@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 LEDE project
+# Copyright (C) 2016-2017 LEDE project
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -19,7 +19,6 @@ PKG_SOURCE_VERSION:=931053d487a4e9bb7fb452b6113e8e2a0446c1f2
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.xz
 
 PKG_BUILD_DEPENDS:=node/host node-browserify/host
-PKG_NODE_VERSION:=7.5.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=

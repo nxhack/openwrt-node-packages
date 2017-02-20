@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014-2016 Arduino LLC
+# Copyright (C) 2014-2017 Arduino LLC
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -17,7 +17,6 @@ PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=96910a0c9ebee3070944f07b6c711901
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=7.5.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=

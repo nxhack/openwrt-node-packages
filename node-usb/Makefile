@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 OpenWrt.org
+# Copyright (C) 2016-2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -17,7 +17,6 @@ PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=c7dcd4df7ac836b65a2bb1d82f8d2ad4
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=7.5.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
