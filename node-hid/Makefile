@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015-2016 OpenWrt.org
+# Copyright (C) 2015-2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -19,7 +19,6 @@ PKG_SOURCE_VERSION:=0f2c3f3e58d8c0e247a861e39c9a46fb521db3bc
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.xz
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=7.5.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
