@@ -7,13 +7,29 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=node
+ifeq ($(CONFIG_NODEJS_7),y)
 PKG_VERSION:=v7.5.0
+PKG_MD5SUM:=f99ee74647fe223eb03f2dd1dc6acdc14d9a881621376c848236c8d2ac8afd03
+PATCH_DIR:=./patches/v7.x
+else
+ifeq ($(CONFIG_NODEJS_4),y)
+PKG_VERSION:=v4.7.3
+PKG_MD5SUM:=7f35dc7adf0b348857b98e543a54c2b2cafb92c27d9d32799a81ac66cbf035f0
+PATCH_DIR:=./patches/v4.x
+else
+PKG_VERSION:=v6.9.5
+PKG_MD5SUM:=d7fed1a354b29503f3e176d7fdb90b1a9de248e0ce9b3eb56cc26bb1f3d5b6b3
+PATCH_DIR:=./patches/v6.x
+endif
+endif
+
+PKG_NAME:=node
+#PKG_VERSION:=
 PKG_RELEASE:=1
 
 PKG_SOURCE:=node-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
-PKG_MD5SUM:=f99ee74647fe223eb03f2dd1dc6acdc14d9a881621376c848236c8d2ac8afd03
+#PKG_MD5SUM:=
 
 HOST_BUILD_DEPENDS:=python/host
 PKG_BUILD_DEPENDS:=python/host node/host
@@ -46,9 +62,26 @@ define Package/node/description
 endef
 
 define Package/node/config
-	menu "Module Selection"
+	choice
+		prompt "Version Selection"
+		default NODEJS_6
+		help
+		 Select node.js version.
+
+		config NODEJS_4
+			bool "4.x LTS"
+
+		config NODEJS_6
+			bool "6.x LTS"
+
+		config NODEJS_7
+			bool "7.x Current"
+	endchoice
+
+	menu "Build Option Selection"
 
 	config NODEJS_ICU
+		depends on !NODEJS_4
 		bool "enable i18n features"
 		default y
 
@@ -68,12 +101,14 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--prefix=/usr
 
+ifeq ($(CONFIG_NODEJS_4),)
 ifeq ($(CONFIG_NODEJS_ICU),y)
 CONFIGURE_ARGS+= \
 	--with-intl=system-icu
 else
 CONFIGURE_ARGS+= \
 	--with-intl=none
+endif
 endif
 
 ifneq ($(findstring mips,$(NODEJS_CPU)),)
@@ -116,6 +151,7 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
+ifeq ($(CONFIG_NODEJS_7),y)
 MKTOOL=$(BUILD_DIR_HOST)/node-$(PKG_VERSION)/out/Release/mkpeephole
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
 
@@ -123,6 +159,7 @@ define Build/Prepare
 	$(Build/Prepare/Default)
 	$(SED) "s#<(mkpeephole_exec)#$(MKTOOL)#g" $(FILE_V8_GYP)
 endef
+endif
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
