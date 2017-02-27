@@ -83,7 +83,7 @@ define Package/node/config
 	config NODEJS_ICU
 		depends on !NODEJS_4
 		bool "enable i18n features"
-		default y
+		default n
 
 	endmenu
 endef
@@ -147,6 +147,7 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
+	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python ./configure
