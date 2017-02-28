@@ -10,14 +10,14 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=serialport
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.0.6
-PKG_RELEASE:=8
+PKG_RELEASE:=9
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=8cdf9b1b3bd961f41f634f52431f05de
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=4.7.3
+PKG_NODE_VERSION:=4.8.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
