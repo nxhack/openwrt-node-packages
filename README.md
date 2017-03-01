@@ -28,6 +28,7 @@ Run
 OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) are not supported.
 
 ## Modules that need build with '--build-from-source' option.
+```
 node-alljoyn
 node-arduino-firmata		(serialport)
 node-autobahn
@@ -55,3 +56,4 @@ node-sleep
 node-sqlite3
 node-statvfs
 node-usb
+```
