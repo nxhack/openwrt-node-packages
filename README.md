@@ -37,7 +37,7 @@ OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) 
 node-alljoyn
 node-arduino-firmata		(serialport)
 node-authenticate-pam
-node-autobahn
+node-autobahn			(utf-8-validate, bufferutil)
 node-bluetooth-hci-socket
 node-cylon-firmata		(serialport)
 node-firmata			(serialport)
@@ -49,10 +49,11 @@ node-ibmiotf			(utf-8-validate, bufferutil)
 node-ideino-linino-lib
 node-johnny-five		(serialport)
 node-leveldown
+#node-level			(leveldown)
 node-mknod
 node-modbus
 node-node-expat
-node-node-red			(serialport, bcrypt, utf-8-validate, bufferutil)
+node-node-red			(bcrypt)
 node-node-red-contrib-gpio	(serialport)
 node-node-red-node-arduino	(serialport)
 node-onoff
