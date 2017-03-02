@@ -54,15 +54,16 @@ eudev package is not available.
 ```
 node-alljoyn
 node-arduino-firmata		(serialport)
+node-authenticate-pam
 node-autobahn
 node-bluetooth-hci-socket
 node-cylon-firmata		(serialport)
-node-firmata					(serialport)
+node-firmata			(serialport)
 node-fuse-bindings
 node-hashtable
 node-hid
 node-i2c-bus
-node-ibmiotf
+node-ibmiotf			(utf-8-validate, bufferutil)
 node-ideino-linino-lib
 node-johnny-five		(serialport)
 node-leveldown
