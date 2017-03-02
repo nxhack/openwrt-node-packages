@@ -1,11 +1,11 @@
 --- a/package.json
 +++ b/package.json
-@@ -28,7 +28,7 @@
-     "build:bundle": "browserify src/iotf-client.js -t babelify -s IBMIoTF --outfile dist/iotf-client-bundle.js",
-     "build:min": "browserify src/iotf-client.js -t babelify -s IBMIoTF | uglifyjs > dist/iotf-client-bundle.min.js",
-     "build": "npm run clean && npm run build:commonjs && npm run build:bundle && npm run build:min",
--    "prepublish": "npm run build",
-+    "_prepublish": "npm run build",
-     "test": "mocha --compilers js:babel/register",
-     "test:watch": "mocha --compilers js:babel/register --watch"
-   },
+@@ -30,7 +30,7 @@
+                 "build:min": "browserify src/iotf-client.js -t babelify -s IBMIoTF | uglifyjs > dist/iotf-client-bundle.min.js",
+                 "build": "npm run clean && npm run build:commonjs && npm run build:bundle && npm run build:min",
+                 "postbuild": "cpx src/clients/IoTFoundation.pem dist/util",
+-                "prepublish": "npm run build",
++                "_prepublish": "npm run build",
+                 "pretest": "cpx src/clients/IoTFoundation.pem . && cpx src/clients/IoTFoundation.pem src/util",
+                 "test": "mocha --compilers js:babel/register",
+                 "test:watch": "mocha --compilers js:babel/register --watch"
