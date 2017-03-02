@@ -32,6 +32,8 @@ rm ./package/feeds/packages/node-serialport
 ##Note
 OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) are not supported.
 
+If you want to try with Chaos Calmer(15.05), see https://github.com/nxhack/openwrt-node-packages/tree/for-15.05
+
 ## Modules that need build with '--build-from-source' option.
 ```
 node-alljoyn
