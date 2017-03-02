@@ -58,7 +58,7 @@ define Package/node-cpx/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	#$(LN) ../lib/node/cpx/index.js $(1)/usr/bin/cpx
+	$(LN) ../lib/node/cpx/index.js $(1)/usr/bin/cpx
 endef
 
 define Host/Compile
