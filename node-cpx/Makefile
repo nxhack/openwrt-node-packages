@@ -17,6 +17,7 @@ PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=0da1930edfd4d3ce52c695a76e33ff38
 
 PKG_BUILD_DEPENDS:=node/host
+PKG_NODE_VERSION:=4.8.0
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
@@ -48,8 +49,8 @@ define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
-	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
-	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
+	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
@@ -62,9 +63,9 @@ define Package/node-cpx/install
 endef
 
 define Host/Compile
-	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
-	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
-	PREFIX="$(STAGING_DIR_HOSTPKG)" \
+	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	PREFIX="$(STAGING_DIR_HOST)" \
 	npm install -g $(HOST_BUILD_DIR)
 endef
 
