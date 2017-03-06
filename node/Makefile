@@ -68,7 +68,7 @@ endif
 ifneq ($(findstring arm,$(NODEJS_CPU)),)
 ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
-	--with-arm-float-abi=softfp
+	--with-arm-float-abi=soft
 else
 ifneq ($(findstring vfp,$(CPU_SUBTYPE)),)
 CONFIGURE_ARGS+= \
