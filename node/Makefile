@@ -108,12 +108,12 @@ endif
 
 ifneq ($(findstring mips,$(NODEJS_CPU)),)
 CONFIGURE_ARGS+= \
-	$(if $(ONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)
+	$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)
 endif
 
 ifneq ($(findstring arm,$(NODEJS_CPU)),)
 CONFIGURE_ARGS+= \
-	$(if $(ONFIG_SOFT_FLOAT),--with-arm-float-abi=softfp,--with-arm-fpu=$(CPU_SUBTYPE))
+	$(if $(CONFIG_SOFT_FLOAT),--with-arm-float-abi=softfp,--with-arm-fpu=$(CPU_SUBTYPE))
 endif
 
 HOST_CONFIGURE_VARS:=
