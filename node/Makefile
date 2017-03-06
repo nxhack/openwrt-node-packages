@@ -112,8 +112,17 @@ CONFIGURE_ARGS+= \
 endif
 
 ifneq ($(findstring arm,$(NODEJS_CPU)),)
+ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
-	$(if $(CONFIG_SOFT_FLOAT),--with-arm-float-abi=softfp,--with-arm-fpu=$(CPU_SUBTYPE))
+	--with-arm-float-abi=softfp
+else
+ifneq ($(findstring neon,$(CPU_SUBTYPE)),)
+CONFIGURE_ARGS+= \
+	--with-arm-fpu=neon
+else
+	--with-arm-fpu=$(CPU_SUBTYPE)
+endif
+endif
 endif
 
 HOST_CONFIGURE_VARS:=
