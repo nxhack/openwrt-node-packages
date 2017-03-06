@@ -99,31 +99,13 @@ CONFIGURE_ARGS:= \
 	--without-snapshot \
 	--shared-zlib \
 	--shared-openssl \
+	$(if $(CONFIG_NODEJS_4),,--with-intl=$(if $(CONFIG_NODEJS_ICU),system-icu,none)) \
+	$(if $(findstring mips,$(NODEJS_CPU)), \
+		$(if $(CONFIG_SOFT_FLOAT),-with-mips-float-abi=soft,)) \
+	$(if $(findstring arm,$(NODEJS_CPU)), \
+		$(if $(CONFIG_SOFT_FLOAT), --with-arm-float-abi=softfp, \
+		--with-arm-fpu=$(if $(findstring neon,$(CPU_SUBTYPE)),neon,$(CPU_SUBTYPE)))) \
 	--prefix=/usr
-
-ifeq ($(CONFIG_NODEJS_4),)
-CONFIGURE_ARGS+= \
-	$(if $(CONFIG_NODEJS_ICU),--with-intl=system-icu,--with-intl=none)
-endif
-
-ifneq ($(findstring mips,$(NODEJS_CPU)),)
-CONFIGURE_ARGS+= \
-	$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)
-endif
-
-ifneq ($(findstring arm,$(NODEJS_CPU)),)
-ifeq ($(CONFIG_SOFT_FLOAT),y)
-CONFIGURE_ARGS+= \
-	--with-arm-float-abi=softfp
-else
-ifneq ($(findstring neon,$(CPU_SUBTYPE)),)
-CONFIGURE_ARGS+= \
-	--with-arm-fpu=neon
-else
-	--with-arm-fpu=$(CPU_SUBTYPE)
-endif
-endif
-endif
 
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
