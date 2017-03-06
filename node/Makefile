@@ -104,7 +104,8 @@ CONFIGURE_ARGS:= \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT), --with-arm-float-abi=soft, \
-		--with-arm-fpu=$(if $(findstring neon,$(CPU_SUBTYPE)),neon,$(CPU_SUBTYPE)))) \
+		$(if $(findstring neon,$(CPU_SUBTYPE)), --with-arm-fpu=neon,
+		$(if $(findstring vfpv3,$(CPU_SUBTYPE)), --with-arm-fpu=vfpv3),))) \
 	--prefix=/usr
 
 HOST_CONFIGURE_VARS:=
