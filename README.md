@@ -67,3 +67,15 @@ node-statvfs
 node-usb
 ```
 Other modules can be installed by 'npm install'.
+
+#Memo
+```
+v8:
+ valid_arm_fpu = ('vfp', 'vfpv3', 'vfpv3-d16', 'neon')
+
+target:
+CPU_SUBTYPE:=vfp
+CPU_SUBTYPE:=vfpv3
+CPU_SUBTYPE:=neon
+CPU_SUBTYPE:=neon-vfpv4
+```
