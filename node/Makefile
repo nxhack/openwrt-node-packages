@@ -101,7 +101,7 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	$(if $(CONFIG_NODEJS_4),,--with-intl=$(if $(CONFIG_NODEJS_ICU),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
-		$(if $(CONFIG_SOFT_FLOAT),-with-mips-float-abi=soft,)) \
+		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT), --with-arm-float-abi=softfp, \
 		--with-arm-fpu=$(if $(findstring neon,$(CPU_SUBTYPE)),neon,$(CPU_SUBTYPE)))) \
