@@ -70,6 +70,8 @@ Other modules can be installed by 'npm install'.
 
 #Memo
 ```
+(default arm_fpu = 'vfp')
+
 v8:
  valid_arm_fpu = ('vfp', 'vfpv3', 'vfpv3-d16', 'neon')
 
