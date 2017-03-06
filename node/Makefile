@@ -102,44 +102,18 @@ CONFIGURE_ARGS:= \
 	--prefix=/usr
 
 ifeq ($(CONFIG_NODEJS_4),)
-ifeq ($(CONFIG_NODEJS_ICU),y)
 CONFIGURE_ARGS+= \
-	--with-intl=system-icu
-else
-CONFIGURE_ARGS+= \
-	--with-intl=none
-endif
+	$(if $(CONFIG_NODEJS_ICU),--with-intl=system-icu,--with-intl=none)
 endif
 
 ifneq ($(findstring mips,$(NODEJS_CPU)),)
-ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
-	--with-mips-float-abi=soft
-endif
+	$(if $(ONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)
 endif
 
 ifneq ($(findstring arm,$(NODEJS_CPU)),)
-ifeq ($(CONFIG_SOFT_FLOAT),y)
 CONFIGURE_ARGS+= \
-	--with-arm-float-abi=softfp
-else
-ifneq ($(findstring vfp,$(CPU_SUBTYPE)),)
-CONFIGURE_ARGS+= \
-	--with-arm-fpu=vfp
-endif
-ifneq ($(findstring vfpv3,$(CPU_SUBTYPE)),)
-CONFIGURE_ARGS+= \
-	--with-arm-fpu=vfpv3
-endif
-ifneq ($(findstring vfpv3-d16,$(CPU_SUBTYPE)),)
-CONFIGURE_ARGS+= \
-	--with-arm-fpu=vfpv3-d16
-endif
-ifneq ($(findstring neon,$(CPU_SUBTYPE)),)
-CONFIGURE_ARGS+= \
-	--with-arm-fpu=neon
-endif
-endif
+	$(if $(ONFIG_SOFT_FLOAT),--with-arm-float-abi=softfp,--with-arm-fpu=$(CPU_SUBTYPE))
 endif
 
 HOST_CONFIGURE_VARS:=
