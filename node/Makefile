@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2016 OpenWrt.org
+# Copyright (C) 2006-2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -56,30 +56,13 @@ CONFIGURE_ARGS:= \
 	--without-snapshot \
 	--shared-zlib \
 	--shared-openssl \
+	$(if $(findstring mips,$(NODEJS_CPU)), \
+		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
+	$(if $(findstring arm,$(NODEJS_CPU)), \
+		$(if $(CONFIG_SOFT_FLOAT), --with-arm-float-abi=soft, \
+			$(if $(findstring neon,$(CONFIG_CPU_TYPE)), --with-arm-fpu=neon, \
+			$(if $(findstring vfpv3,$(CONFIG_CPU_TYPE)), --with-arm-fpu=vfpv3,)))) \
 	--prefix=/usr
-
-ifneq ($(findstring mips,$(NODEJS_CPU)),)
-ifeq ($(CONFIG_SOFT_FLOAT),y)
-CONFIGURE_ARGS+= \
-	--with-mips-float-abi=soft
-endif
-endif
-
-ifneq ($(findstring arm,$(NODEJS_CPU)),)
-ifeq ($(CONFIG_SOFT_FLOAT),y)
-CONFIGURE_ARGS+= \
-	--with-arm-float-abi=soft
-else
-ifneq ($(findstring vfpv3,$(CONFIG_CPU_TYPE)),)
-CONFIGURE_ARGS+= \
-	--with-arm-fpu=vfpv3
-endif
-ifneq ($(findstring neon,$(CONFIG_CPU_TYPE)),)
-CONFIGURE_ARGS+= \
-	--with-arm-fpu=neon
-endif
-endif
-endif
 
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
@@ -89,10 +72,6 @@ HOST_CONFIGURE_ARGS:= \
 	--prefix=$(STAGING_DIR_HOST)
 
 HOST_CONFIGURE_CMD:=python ./configure
-
-define Host/Patch
-	# NOTHING TO DO
-endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
