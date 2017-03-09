@@ -80,4 +80,13 @@ CPU_SUBTYPE:=vfp
 CPU_SUBTYPE:=vfpv3
 CPU_SUBTYPE:=neon
 CPU_SUBTYPE:=neon-vfpv4
+
+CONFIG_CPU_TYPE:=arm1176jzf-s_vfp
+CONFIG_CPU_TYPE:=cortex-a15_neon-vfpv4
+CONFIG_CPU_TYPE:=cortex-a53_neon-vfpv4
+CONFIG_CPU_TYPE:=cortex-a7_neon-vfpv4
+CONFIG_CPU_TYPE:=cortex-a8_vfpv3
+CONFIG_CPU_TYPE:=cortex-a9_neon
+CONFIG_CPU_TYPE:=cortex-a9_vfpv3
+CONFIG_CPU_TYPE:=mpcore_vfp
 ```
