@@ -56,17 +56,17 @@ define Package/node-xmpp/description
  node-xmpp is a set of JavaScript Node.js, io.js and browser modules to work with XMPP and/or XML
 endef
 
-CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile/module
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(CPU) \
+	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	NODE_PATH="$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NAME)/node_modules:$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NAME)/node_modules/$(1)/node_modules" \
-	npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)/packages/$(1)/
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)/packages/$(1)/
 endef
 
 define Build/Compile
@@ -100,4 +100,3 @@ $(eval $(call BuildPackage,node-xmpp))
 $(eval $(call BuildPackage,node-xmpp-client))
 $(eval $(call BuildPackage,node-xmpp-component))
 $(eval $(call BuildPackage,node-xmpp-server))
-
