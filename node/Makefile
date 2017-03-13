@@ -62,8 +62,10 @@ define Package/node/description
 endef
 
 define Package/node/config
-	choice
+	menu "Configuration"
 		depends on PACKAGE_node
+
+	choice
 		prompt "Version Selection"
 		default NODEJS_6
 		help
@@ -79,11 +81,9 @@ define Package/node/config
 			bool "7.x Current"
 	endchoice
 
-	menu "Build Option Selection"
-
 	config NODEJS_ICU
 		depends on !NODEJS_4
-		bool "enable i18n features"
+		bool "Enable i18n features"
 		default n
 
 	endmenu
