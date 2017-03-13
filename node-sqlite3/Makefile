@@ -54,7 +54,7 @@ define Build/Compile
 endef
 
 define Package/node-sqlite3/install
-	mkdir -p $(1)/usr/lib/node
+	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 

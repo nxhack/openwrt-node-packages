@@ -54,9 +54,9 @@ define Build/Compile
 endef
 
 define Package/node-node-red/install
-	mkdir -p $(1)/usr/lib/node
+	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	mkdir -p $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/node-red/red.js $(1)/usr/bin/node-red
 	$(LN) ../lib/node/node-red/bin/node-red-pi $(1)/usr/bin/node-red-pi
 endef
