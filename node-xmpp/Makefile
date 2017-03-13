@@ -77,22 +77,22 @@ define Build/Compile
 endef
 
 define Package/node-xmpp/install
-	mkdir -p $(1)/usr/lib/node/node-xmpp
+	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp/* $(1)/usr/lib/node/node-xmpp/
 endef
 
 define Package/node-xmpp-client/install
-	mkdir -p $(1)/usr/lib/node/node-xmpp-client
+	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp-client
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-client/* $(1)/usr/lib/node/node-xmpp-client/
 endef
 
 define Package/node-xmpp-component/install
-	mkdir -p $(1)/usr/lib/node/node-xmpp-component
+	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp-component
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-component/* $(1)/usr/lib/node/node-xmpp-component/
 endef
 
 define Package/node-xmpp-server/install
-	mkdir -p $(1)/usr/lib/node/node-xmpp-server
+	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp-server
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-server/* $(1)/usr/lib/node/node-xmpp-server/
 endef
 

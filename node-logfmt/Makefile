@@ -55,9 +55,9 @@ define Build/Compile
 endef
 
 define Package/node-logfmt/install
-	mkdir -p $(1)/usr/lib/node
+	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	mkdir -p $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/logfmt/bin/logfmt $(1)/usr/bin/logfmt
 endef
 

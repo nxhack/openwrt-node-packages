@@ -67,9 +67,9 @@ define Build/Compile
 endef
 
 define Package/node-babel/install
-	mkdir -p $(1)/usr/lib/node/babel-cli
+	$(INSTALL_DIR) $(1)/usr/lib/node/babel-cli
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-cli/* $(1)/usr/lib/node/babel-cli/
-	mkdir -p $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/babel-cli/bin/babel.js $(1)/usr/bin/babel
 	$(LN) ../lib/node/babel-cli/bin/babel-doctor.js $(1)/usr/bin/babel-doctor
 	$(LN) ../lib/node/babel-cli/bin/babel-external-helpers.js $(1)/usr/bin/babel-external-helpers
@@ -77,7 +77,7 @@ define Package/node-babel/install
 endef
 
 define Package/node-babel-preset-latest/install
-	mkdir -p $(1)/usr/lib/node/babel-preset-latest
+	$(INSTALL_DIR) $(1)/usr/lib/node/babel-preset-latest
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/babel-preset-latest/* $(1)/usr/lib/node/babel-preset-latest/
 endef
 

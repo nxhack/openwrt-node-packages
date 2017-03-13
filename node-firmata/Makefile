@@ -54,9 +54,9 @@ define Build/Compile
 endef
 
 define Package/node-firmata/install
-	mkdir -p $(1)/usr/lib/node
+	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	mkdir -p $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/firmata/repl.js $(1)/usr/bin/firmata
 endef
 
