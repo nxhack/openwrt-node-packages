@@ -63,6 +63,7 @@ endef
 
 define Package/node/config
 	choice
+		depends on PACKAGE_node
 		prompt "Version Selection"
 		default NODEJS_6
 		help
