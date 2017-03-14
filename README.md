@@ -50,6 +50,10 @@ ICU package is not available.
 
 eudev package is not available.
 
+**Illegal instruction issue**
+
+If you are running nodejs on Atheros AR933x, You need to make a kernel with CONFIG_MIPS_FPU_EMULATOR=y.
+
 ## Modules that need build with '--build-from-source' option.
 ```
 node-alljoyn
