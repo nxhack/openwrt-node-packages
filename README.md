@@ -1,17 +1,17 @@
 # OpenWrt Node.js Packages (nodejs)
 
-##Description
+## Description
 
 OpenWrt Node.js Packages : for trunk (Bleeding Edge) / LEDE
 
 Note: Testing target only ar71xx.
 
-##License
+## License
 
 See:
 - [OpenWrt license](http://wiki.openwrt.org/about/license)
 
-##Usage
+## Usage
 
 Add follow line to feeds.conf or feeds.conf.default
 ```
@@ -29,7 +29,7 @@ rm ./package/feeds/packages/node-serialport
 ./scripts/feeds install -a -p node
 ```
 
-##Note
+## Note
 OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) are not supported.
 
 If you want to try with Chaos Calmer(15.05), see [for-15.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/for-15.05)
@@ -73,7 +73,7 @@ node-usb
 ```
 Other modules can be installed by 'npm install'.
 
-#Memo
+# Memo
 ```
 (default arm_fpu = 'vfp')
 
