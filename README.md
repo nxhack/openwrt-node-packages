@@ -1,17 +1,17 @@
 # OpenWrt Node.js Packages (nodejs)
 
-##Description
+## Description
 
 OpenWrt Node.js Packages : for Chaos Calmer
 
 Note: Testing target only ar71xx.
 
-##License
+## License
 
 See:
 - [OpenWrt license](http://wiki.openwrt.org/about/license)
 
-##Usage
+## Usage
 
 Add follow line to feeds.conf or feeds.conf.default
 ```
@@ -29,7 +29,7 @@ rm ./package/feeds/packages/node-serialport
 ./scripts/feeds install -a -p node
 ```
 
-##Note
+## Note
 Tested OpenWrt Chaos Calmer(15.05)
 
 Node version v4.x 'Argon' (LTS)
