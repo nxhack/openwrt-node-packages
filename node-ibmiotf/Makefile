@@ -9,15 +9,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ibmiotf
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.2.31
+PKG_VERSION:=0.2.33
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/ibm-watson-iot/iot-nodejs.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=09e5eed7dd10c692f4da538e1c38478d9a59634e
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_MIRROR_HASH:=ab43603ba8cb84a7fa5c1c45662102bd2b0e73a0fb624f56d74cafdd7197519d
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=1c7c3c5b3cd15a420ec4af025525bdd8
+PKG_HASH:=1f12a905e6716e389cae40bb9baa20680e24acb0a23524c69f59492383aebc6e
 
 PKG_BUILD_DEPENDS:=node/host node-cpx/host
 PKG_USE_MIPS16:=0
@@ -34,12 +32,15 @@ define Package/node-ibmiotf
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Client libraries and samples for connecting to IBM Watson IoT using nodejs
-  URL:=https://github.com/ibm-watson-iot/iot-nodejs
+  URL:=https://www.npmjs.com/package/ibmiotf
 endef
 
 define Package/node-ibmiotf/description
- Client libraries and samples for connecting to IBM Watson IoT using nodejs
+ The node.js client is used for simplifying the interaction with the IBM Watson Internet of Things Platform. The following libraries contain instructions and guidance on using the nodejs ibmiotf node to interact with devices and applications within your organizations.
 endef
+
+TAR_OPTIONS+= --strip-components 1
+TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
