@@ -37,7 +37,7 @@ define Package/node-aws-sdk
   URL:=https://www.npmjs.com/package/aws-sdk
 endef
 
-define Package/node-aws-iot-device-sdk/description
+define Package/node-aws-sdk/description
  The official AWS SDK for JavaScript, available for browsers and mobile devices, or Node.js backends
 endef
 
@@ -53,7 +53,7 @@ define Build/Compile
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
 endef
 
-define Package/node-aws-iot-device-sdk/install
+define Package/node-aws-sdk/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
