@@ -27,7 +27,7 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-azure-iot-device-http
-  DEPENDS:=+node
+  DEPENDS:=+node +node-azure-iot-device
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
