@@ -7,15 +7,15 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=azure-iot-device-amqp
+PKG_NPM_NAME:=azure-event-hubs
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.1.8
+PKG_VERSION:=0.0.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=b96fc404035a536890a6c8d788908f08
-PKG_HASH:=d3c93d7e7e9c1e37ea352518a7bf6d4c79593e308cb98d2ed03b6e1d37efd435
+PKG_MD5SUM:=f8211f716e0f040a46ac6988c0b40b82
+PKG_HASH:=b91b1fc2d492fe17989c94617b7a65e4ba826e76ab8152db4925772097e25d12
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -26,17 +26,17 @@ PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-azure-iot-device-amqp
-  DEPENDS:=+node +node-azure-iot-device
+define Package/node-azure-event-hubs
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=AMQP transport for Azure IoT device SDK
-  URL:=https://www.npmjs.org/package/azure-iot-device-amqp
+  TITLE:=Azure Event Hubs service
+  URL:=https://www.npmjs.org/package/azure-event-hubs
 endef
 
-define Package/node-azure-iot-device-amqp/description
- Communicate with Azure IoT Hub from any device over AMQP
+define Package/node-azure-event-hubs/description
+ Azure Event Hubs service
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -54,9 +54,9 @@ define Build/Compile
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
 endef
 
-define Package/node-azure-iot-device-amqp/install
+define Package/node-azure-event-hubs/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 
-$(eval $(call BuildPackage,node-azure-iot-device-amqp))
+$(eval $(call BuildPackage,node-azure-event-hubs))
