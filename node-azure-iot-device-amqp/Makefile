@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=azure-iot-device-amqp
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.15
-PKG_RELEASE:=14
+PKG_VERSION:=1.1.8
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=f6307e5e1801ed7bc22d08b623f64964
+PKG_MD5SUM:=b96fc404035a536890a6c8d788908f08
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.8.2
@@ -27,7 +27,7 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-azure-iot-device-amqp
-  DEPENDS:=+node
+  DEPENDS:=+node +node-azure-iot-device
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
