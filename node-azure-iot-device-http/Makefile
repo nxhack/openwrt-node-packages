@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=azure-iot-device-http
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.1.8
+PKG_VERSION:=1.1.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=6d7785857d41d72a44427ec3eff44b6a
+PKG_MD5SUM:=ef0602e1fbde7735f2ce5c6002f8cea9
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.8.2
@@ -27,7 +27,7 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-azure-iot-device-http
-  DEPENDS:=+node +node-azure-iot-device
+  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
