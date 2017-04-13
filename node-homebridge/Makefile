@@ -27,7 +27,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-homebridge
-  DEPENDS:=+node
+  DEPENDS:=+node +libavahi-compat-libdnssd
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
