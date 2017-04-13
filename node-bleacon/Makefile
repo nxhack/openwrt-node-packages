@@ -1,0 +1,62 @@
+#
+# Copyright (C) 2014-2017 Arduino LLC
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+include $(TOPDIR)/rules.mk
+
+PKG_NPM_NAME:=bleacon
+PKG_NAME:=node-$(PKG_NPM_NAME)
+PKG_VERSION:=0.5.1
+PKG_RELEASE:=1
+
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=fae3b0152ff34400023fb1de54da85d5
+PKG_HASH:=faf72b2adbb99386665eba5678f89b813486a1b6a294bb8f013058a2b536eef5
+
+PKG_BUILD_DEPENDS:=node/host
+PKG_USE_MIPS16:=0
+
+PKG_MAINTAINER:=
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/node-bleacon
+  DEPENDS:=+node +bluez-libs
+  SUBMENU:=Node.js
+  SECTION:=lang
+  CATEGORY:=Languages
+  TITLE:=library for creating, discovering, and configuring iBeacons
+  URL:=https://www.npmjs.org/package/bleacon
+endef
+
+define Package/node-bleacon/description
+ A Node.js library for creating, discovering, and configuring iBeacons
+endef
+
+TAR_OPTIONS+= --strip-components 1
+TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
+
+NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+define Build/Compile
+	$(MAKE_VARS) \
+	$(MAKE_FLAGS) \
+	npm_config_arch=$(NODEJS_CPU) \
+	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
+	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
+	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
+	npm install --no-optional --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+endef
+
+define Package/node-bleacon/install
+	$(INSTALL_DIR) $(1)/usr/lib/node
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+endef
+
+$(eval $(call BuildPackage,node-bleacon))
