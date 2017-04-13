@@ -27,7 +27,9 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-homebridge
-  DEPENDS:=+node +libavahi-compat-libdnssd
+  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
+  #  for InstallDev libdns_sd.so
+  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -53,10 +55,6 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	GNU_TARGET_NAME="$(GNU_TARGET_NAME)" \
-	TARGET_CFLAGS="$(TARGET_CFLAGS)" \
-	TARGET_CPPFLAGS="$(TARGET_CPPFLAGS)" \
-	TARGET_LDFLAGS="$(TARGET_LDFLAGS)" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
 endef
 
