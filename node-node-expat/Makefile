@@ -31,7 +31,7 @@ define Package/node-node-expat
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=NodeJS binding for fast XML parsing
+  TITLE:=Node.js binding for fast XML parsing
   URL:=https://www.npmjs.org/package/node-expat
 endef
 

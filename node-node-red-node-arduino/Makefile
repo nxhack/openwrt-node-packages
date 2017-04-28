@@ -31,7 +31,7 @@ define Package/node-node-red-node-arduino
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A Node-RED node to talk to an Arduino running firmata
+  TITLE:=node to talk to an Arduino running firmata
   URL:=http://nodered.org/
 endef
 

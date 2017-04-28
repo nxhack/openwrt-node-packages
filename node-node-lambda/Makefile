@@ -31,7 +31,7 @@ define Package/node-node-lambda
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Command line tool for locally running and remotely deploying your node.js applications to Amazon Lambda
+  TITLE:=Tools for Amazon Lambda
   URL:=https://www.npmjs.org/package/node-lambda
 endef
 

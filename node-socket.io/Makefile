@@ -31,7 +31,7 @@ define Package/node-socket.io
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Real-time apps made cross-browser & easy with a WebSocket-like API
+  TITLE:=Realtime application framework
   URL:=https://www.npmjs.org/package/socket.io
 endef
 
