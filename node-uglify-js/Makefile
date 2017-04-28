@@ -32,7 +32,7 @@ define Package/node-uglify-js
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=JavaScript parser, mangler/compressor and beautifier toolkit
+  TITLE:=JavaScript compressor/minifier
   URL:=https://www.npmjs.org/package/uglify-js
 endef
 

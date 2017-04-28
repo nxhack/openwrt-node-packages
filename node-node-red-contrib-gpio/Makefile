@@ -31,7 +31,7 @@ define Package/node-node-red-contrib-gpio
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A set of node-red nodes for using johnny-five and IO plugins
+  TITLE:=nodes for using johnny-five and IO plugins
   URL:=http://nodered.org/
 endef
 
