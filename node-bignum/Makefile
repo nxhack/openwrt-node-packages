@@ -31,7 +31,7 @@ define Package/node-bignum
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Arbitrary precision integral arithmetic for Node.js using OpenSSL.
+  TITLE:=Arbitrary precision integral arithmetic for Node.js
   URL:=https://www.npmjs.org/package/bignum
 endef
 

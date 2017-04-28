@@ -31,7 +31,7 @@ define Package/node-johnny-five
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=The JavaScript Robotics and Hardware Programming Framework
+  TITLE:=JavaScript Robotics and Hardware Programming Framework
   URL:=https://www.npmjs.org/package/johnny-five
 endef
 

@@ -31,7 +31,7 @@ define Package/node-cylon-firmata
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Cylon module for Arduino and other microcontrollers using the Firmata protocol
+  TITLE:=Cylon adaptor for the Firmata protocol
   URL:=https://www.npmjs.org/package/cylon-firmata
 endef
 

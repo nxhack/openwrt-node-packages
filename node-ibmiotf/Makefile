@@ -31,7 +31,7 @@ define Package/node-ibmiotf
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Client libraries and samples for connecting to IBM Watson IoT using nodejs
+  TITLE:=Client libraries for connecting to IBM Watson IoT
   URL:=https://www.npmjs.com/package/ibmiotf
 endef
 
