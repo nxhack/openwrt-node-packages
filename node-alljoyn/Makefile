@@ -38,7 +38,7 @@ define Package/node-alljoyn
 endef
 
 define Package/node-alljoyn/description
- Alljoyn NodeJS Integration
+ Alljoyn Node.js Integration
 endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))

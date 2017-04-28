@@ -36,7 +36,7 @@ define Package/node-node-expat
 endef
 
 define Package/node-node-expat/description
- NodeJS binding for fast XML parsing
+ Node.js binding for fast XML parsing
 endef
 
 define Build/Prepare

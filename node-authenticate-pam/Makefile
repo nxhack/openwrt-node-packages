@@ -31,12 +31,12 @@ define Package/node-authenticate-pam
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Asynchronous PAM authentication for Node.JS
+  TITLE:=Asynchronous PAM authentication for Node.js
   URL:=https://www.npmjs.org/package/authenticate-pam
 endef
 
 define Package/node-authenticate-pam/description
- Asynchronous PAM authentication for Node.JS
+ Asynchronous PAM authentication for Node.js
 endef
 
 define Build/Prepare

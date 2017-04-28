@@ -34,12 +34,12 @@ define Package/node-hid
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Access USB HID devices from node.js
+  TITLE:=Access USB HID devices from Node.js
   URL:=https://github.com/node-hid/node-hid
 endef
 
 define Package/node-hid/description
- Access USB HID devices from node.js
+ Access USB HID devices from Node.js
 endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))

@@ -36,7 +36,7 @@ define Package/node-usb
 endef
 
 define Package/node-usb/description
- Node.JS library for communicating with USB devices in JavaScript / CoffeeScript
+ Node.js library for communicating with USB devices in JavaScript / CoffeeScript
 endef
 
 define Build/Prepare
