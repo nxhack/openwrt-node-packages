@@ -36,7 +36,7 @@ define Package/node-authenticate-pam
 endef
 
 define Package/node-authenticate-pam/description
- Asynchronous PAM authentication for Node.JS
+ Asynchronous PAM authentication for Node.js
 endef
 
 TAR_OPTIONS+= --strip-components 1
