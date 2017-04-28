@@ -31,7 +31,7 @@ define Package/node-bleno
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A node.js module for implementing BLE (Bluetooth low energy) peripherals
+  TITLE:=BLE (Bluetooth low energy) peripherals for Node.js
   URL:=https://www.npmjs.org/package/bleno
 endef
 

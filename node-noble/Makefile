@@ -31,7 +31,7 @@ define Package/node-noble
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A node.js BLE (Bluetooth low energy) central library.
+  TITLE:=A Node.js BLE (Bluetooth low energy) central library.
   URL:=https://www.npmjs.org/package/noble
 endef
 

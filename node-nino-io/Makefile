@@ -31,7 +31,7 @@ define Package/node-nino-io
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Linino One and Arduino Yun IO Plugin for Johnny-Five. Firmata & YunBridge are NOT required
+  TITLE:=Linino One and Arduino Yun IO Plugin for Johnny-Five
   URL:=https://www.npmjs.org/package/nino-io
 endef
 

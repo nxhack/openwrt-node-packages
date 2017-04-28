@@ -31,7 +31,7 @@ define Package/node-autobahn
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=An implementation of The Web Application Messaging Protocol (WAMP)
+  TITLE:=Web Application Messaging Protocol for Node.js
   URL:=https://www.npmjs.org/package/autobahn
 endef
 

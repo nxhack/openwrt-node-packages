@@ -31,7 +31,7 @@ define Package/node-socket.io-client
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Socket.IO client for the browser and node.js
+  TITLE:=Socket.IO client
   URL:=https://www.npmjs.org/package/socket.io-client
 endef
 

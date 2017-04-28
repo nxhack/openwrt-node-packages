@@ -31,7 +31,7 @@ define Package/node-firmata
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Firmata protocol implementation for programmatic interaction with Arduino and Arduino compatible development boards
+  TITLE:=JavaScript implementation of the Firmata protocol
   URL:=https://www.npmjs.com/package/firmata
 endef
 

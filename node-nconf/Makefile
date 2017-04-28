@@ -31,7 +31,7 @@ define Package/node-nconf
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging
+  TITLE:=Hierarchical configuration for Node.js
   URL:=https://www.npmjs.org/package/nconf
 endef
 

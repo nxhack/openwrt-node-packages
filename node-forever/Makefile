@@ -31,7 +31,7 @@ define Package/node-forever
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A simple CLI tool for ensuring that a given node script runs continuously
+  TITLE:=Node script runs continuously
   URL:=https://www.npmjs.org/package/forever
 endef
 

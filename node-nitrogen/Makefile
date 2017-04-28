@@ -31,7 +31,7 @@ define Package/node-nitrogen
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=This is the client library for developing applications and devices that communicate to the Nitrogen service
+  TITLE:=JavaScript client library for connecting to Nitrogen
   URL:=https://www.npmjs.org/package/nitrogen
 endef
 

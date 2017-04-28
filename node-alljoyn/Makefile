@@ -33,7 +33,7 @@ define Package/node-alljoyn
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Alljoyn NodeJS Integration
+  TITLE:=Alljoyn Node.js Integration
   URL:=https://www.npmjs.org/package/alljoyn
 endef
 

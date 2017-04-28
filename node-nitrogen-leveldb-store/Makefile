@@ -31,7 +31,7 @@ define Package/node-nitrogen-leveldb-store
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=This is the leveldb storage backend for devices to store credential information
+  TITLE:=Backend stores for the Nitrogen client
   URL:=https://www.npmjs.org/package/nitrogen-leveldb-store
 endef
 

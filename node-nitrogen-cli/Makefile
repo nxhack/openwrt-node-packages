@@ -31,7 +31,7 @@ define Package/node-nitrogen-cli
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Provides a command line interface to the Nitrogen service
+  TITLE:=Nitrogen Command Line Interface
   URL:=https://www.npmjs.org/package/nitrogen-cli
 endef
 

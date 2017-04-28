@@ -31,7 +31,7 @@ define Package/node-pm2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Production process manager for Node.JS applications with a built-in load balancer
+  TITLE:=Production process manager for Node.js
   URL:=http://pm2.keymetrics.io/
 endef
 

@@ -31,7 +31,7 @@ define Package/node-ws
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Simple to use, blazing fast and thoroughly tested websocket client
+  TITLE:=WebSocket library
   URL:=https://www.npmjs.org/package/ws
 endef
 

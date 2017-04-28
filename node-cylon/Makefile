@@ -31,7 +31,7 @@ define Package/node-cylon
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=JavaScript framework for robotics, drones, and the Internet of Things (IoT) using Node.js
+  TITLE:=JavaScript framework for robotics/drones/IoT using Node.js
   URL:=https://www.npmjs.org/package/cylon
 endef
 
