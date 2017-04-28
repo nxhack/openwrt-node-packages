@@ -31,7 +31,7 @@ define Package/node-bleacon
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=library for creating, discovering, and configuring iBeacons
+  TITLE:=Library for creating/discovering/configuring iBeacons
   URL:=https://www.npmjs.org/package/bleacon
 endef
 

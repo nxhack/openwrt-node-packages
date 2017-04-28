@@ -31,7 +31,7 @@ define Package/node-fuse-bindings
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Fully maintained fuse bindings for Node that aims to cover the entire FUSE api
+  TITLE:=Fully maintained fuse bindings for Node.js
   URL:=https://www.npmjs.org/package/fuse-bindings
 endef
 
