@@ -31,7 +31,7 @@ define Package/node-iothub-explorer
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=IoT Hub Explorer
+  TITLE:=IoT Hub Explorer for Azure IoT
   URL:=https://www.npmjs.org/package/iothub-explorer
 endef
 
