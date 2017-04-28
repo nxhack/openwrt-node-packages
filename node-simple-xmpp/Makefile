@@ -31,12 +31,12 @@ define Package/node-simple-xmpp
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Simple High Level NodeJS XMPP Library
+  TITLE:=Simple High Level Node.js XMPP Library
   URL:=https://www.npmjs.org/package/simple-xmpp
 endef
 
 define Package/node-simple-xmpp/description
- Simple High Level NodeJS XMPP Library
+ Simple High Level Node.js XMPP Library
 endef
 
 TAR_OPTIONS+= --strip-components 1

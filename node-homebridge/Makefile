@@ -38,7 +38,7 @@ define Package/node-homebridge
 endef
 
 define Package/node-homebridge/description
- Homebridge is a lightweight NodeJS server you can run on your home network that emulates the iOS HomeKit API
+ Homebridge is a lightweight Node.js server you can run on your home network that emulates the iOS HomeKit API
 endef
 
 TAR_OPTIONS+= --strip-components 1

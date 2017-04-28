@@ -71,7 +71,7 @@ define Package/node-npm
 endef
 
 define Package/node-npm/description
- NPM is the package manager for NodeJS
+ NPM is the package manager for Node.js
 endef
 
 define Package/node/config

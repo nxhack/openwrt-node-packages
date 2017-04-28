@@ -33,12 +33,12 @@ define Package/node-alljoyn
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Alljoyn NodeJS Integration
+  TITLE:=Alljoyn Node.js Integration
   URL:=https://www.npmjs.org/package/alljoyn
 endef
 
 define Package/node-alljoyn/description
- Alljoyn NodeJS Integration
+ Alljoyn Node.js Integration
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
