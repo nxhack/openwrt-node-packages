@@ -88,7 +88,7 @@
 +++ b/tools/gyp/pylib/gyp/generator/make.py
 @@ -149,2 +149,2 @@
  quiet_cmd_link = LINK($(TOOLSET)) $@
- cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) -Wl,--end-group $(LIBS)
+ cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
 
 +define xargs
 +$(1) $(wordlist 1,1000,$(2))
