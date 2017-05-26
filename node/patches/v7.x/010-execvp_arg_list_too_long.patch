@@ -3,7 +3,7 @@
 @@ -144,6 +144,30 @@
  quiet_cmd_link = LINK($(TOOLSET)) $@
  cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) -Wl,--end-group $(LIBS)
-
+ 
 +define xargs
 +$(1) $(wordlist 1,1000,$(2))
 +$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
@@ -34,7 +34,7 @@
 @@ -188,6 +212,30 @@
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
-
+ 
 +define xargs
 +$(1) $(wordlist 1,1000,$(2))
 +$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
@@ -88,8 +88,8 @@
 +++ b/tools/gyp/pylib/gyp/generator/make.py
 @@ -149,6 +149,30 @@
  quiet_cmd_link = LINK($(TOOLSET)) $@
- cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) -Wl,--end-group $(LIBS)
-
+ cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
+ 
 +define xargs
 +$(1) $(wordlist 1,1000,$(2))
 +$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
@@ -120,7 +120,7 @@
 @@ -193,6 +217,30 @@
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
-
+ 
 +define xargs
 +$(1) $(wordlist 1,1000,$(2))
 +$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
@@ -150,7 +150,7 @@
  # input list during linking.
 @@ -1589,11 +1637,17 @@
              "Spaces in alink input filenames not supported (%s)"  % link_dep)
-       if (self.flavor not in ('mac', 'openbsd', 'win') and not
+       if (self.flavor not in ('mac', 'openbsd', 'netbsd', 'win') and not
            self.is_standalone_static_library):
 -        self.WriteDoCmd([self.output_binary], link_deps, 'alink_thin',
 -                        part_of_all, postbuilds=postbuilds)
