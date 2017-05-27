@@ -62,7 +62,7 @@ define Package/node-homebridge/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/homebridge/bin/homebridge $(1)/usr/bin/homebridge
+	$(LN) ../lib/node/homebridge/bin/homebridge $(1)/usr/bin/homebridge
 endef
 
 $(eval $(call BuildPackage,node-homebridge))
