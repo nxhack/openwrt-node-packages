@@ -9,13 +9,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.4.17
+PKG_VERSION:=0.4.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=4c348a9cbc55a69ec21d01c843f5a3da
-PKG_HASH:=819b44cd22756943ed81551666f194b3c1ce609e1aa9c17e7aafaf8710a837db
+PKG_MD5SUM:=bfeeeabbb3762ed3563044b21524f8ff
+PKG_HASH:=12755182045255f757a4d14b288e61da9e977c1537c07c56e3fb2141cc2e1e0c
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -62,7 +62,7 @@ define Package/node-homebridge/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/homebridge/bin/homebridge $(1)/usr/bin/homebridge
+	$(LN) ../lib/node/homebridge/bin/homebridge $(1)/usr/bin/homebridge
 endef
 
 $(eval $(call BuildPackage,node-homebridge))
