@@ -7,10 +7,10 @@
 
 include $(TOPDIR)/rules.mk
 
-ifeq ($(CONFIG_NODEJS_7),y)
-PKG_VERSION:=v7.10.0
-PKG_HASH:=dc34dd15524ba821ffcae7b245eabe8631e2614d5e3cb8ff08fbfdadf5919f21
-PATCH_DIR:=./patches/v7.x
+ifeq ($(CONFIG_NODEJS_8),y)
+PKG_VERSION:=v8.0.0
+PKG_HASH:=258d3aa3632bbbf2a447c5d524bd7074e23aa26e2b698774ff452954f6174f1c
+PATCH_DIR:=./patches/v8.x
 else
 ifeq ($(CONFIG_NODEJS_4),y)
 PKG_VERSION:=v4.8.3
@@ -32,7 +32,7 @@ PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
 #PKG_HASH:=
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host NODEJS_7:node/host
+PKG_BUILD_DEPENDS:=python/host NODEJS_8:node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -90,8 +90,8 @@ define Package/node/config
 		config NODEJS_6
 			bool "6.x LTS"
 
-		config NODEJS_7
-			bool "7.x Current"
+		config NODEJS_8
+			bool "8.x Current"
 	endchoice
 
 	config NODEJS_ICU
@@ -132,7 +132,7 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
-ifeq ($(CONFIG_NODEJS_7),y)
+ifeq ($(CONFIG_NODEJS_8),y)
 MKTOOL=$(BUILD_DIR_HOST)/node-$(PKG_VERSION)/out/Release/mkpeephole
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
 
