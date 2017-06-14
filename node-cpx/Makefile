@@ -65,7 +65,7 @@ endef
 define Host/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
-	PREFIX="$(STAGING_DIR_HOSTPKG/usr/)" \
+	PREFIX="$(STAGING_DIR_HOSTPKG)/usr/" \
 	npm install -g $(HOST_BUILD_DIR)
 endef
 
