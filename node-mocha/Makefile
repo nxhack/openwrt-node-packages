@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=mocha
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=3.2.0
-PKG_RELEASE:=7
+PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -66,7 +66,7 @@ endef
 define Host/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
-	PREFIX="$(STAGING_DIR_HOSTPKG)/usr/" \
+	PREFIX="$(STAGING_DIR_HOSTPKG)/" \
 	npm install -g $(HOST_BUILD_DIR)
 endef
 
