@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=babel
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=v6.24.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/babel/babel.git
@@ -85,7 +85,7 @@ endef
 define Host/Compile/module
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
-	PREFIX="$(STAGING_DIR_HOSTPKG)" \
+	PREFIX="$(STAGING_DIR_HOSTPKG)/usr/" \
 	npm install -g $(HOST_BUILD_DIR)/packages/$(1)/
 endef
 
