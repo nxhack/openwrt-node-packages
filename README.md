@@ -43,9 +43,6 @@ If you are running nodejs on Atheros AR933x, You need to make a kernel with CONF
 
 Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
 
-## npm v5
-There is a problem that the package is empty. (npm v5 install symlinks)
-(I am thinking about solutions...npm install file:// doing regular installation)
 
 ## Modules that need build with '--build-from-source' option.
 ```
