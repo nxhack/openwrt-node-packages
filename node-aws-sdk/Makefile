@@ -10,13 +10,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=aws-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.39.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/aws/aws-sdk-js.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=6a4eed54e265acb1372e1137a49109e4c15c5ca0
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_MIRROR_HASH:=43476928371ca767992d0bf196546e7d0ec2ca0e266a9a953d4cb3c59b8db452
 
 PKG_BUILD_DEPENDS:=node/host
@@ -43,6 +43,10 @@ endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
+define Build/Prepare
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)
+endef
+
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -50,7 +54,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Package/node-aws-sdk/install

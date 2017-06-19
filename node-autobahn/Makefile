@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=autobahn
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=17.5.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -39,9 +39,6 @@ define Package/node-autobahn/description
  An implementation of The Web Application Messaging Protocol (WAMP)
 endef
 
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
-
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile
@@ -51,7 +48,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Package/node-autobahn/install
