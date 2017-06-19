@@ -10,14 +10,14 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=aws-iot-device-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.14
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/aws/aws-iot-device-sdk-js.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=fca6f8c52f5870957dac0f9c683e023251bec66f
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_MIRROR_HASH:=7a1c5738453c2adbc5862463158980d79c046f8d9b00f2f6fdb8f4d6c83c51c2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_MIRROR_HASH:=f00fcd4395b34b1eb7fc382625fa6c2f195d29673e6a594ddb28896d6dd7bbd1
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -43,6 +43,10 @@ endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
+define Build/Prepare
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)
+endef
+
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -50,7 +54,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Package/node-aws-iot-device-sdk/install
