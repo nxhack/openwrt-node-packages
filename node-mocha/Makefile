@@ -40,10 +40,11 @@ define Package/node-mocha/description
  Mocha is a simple, flexible, fun JavaScript test framework for node.js and the browser
 endef
 
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
-
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+define Build/Prepare
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)
+endef
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -52,7 +53,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Package/node-mocha/install
@@ -63,11 +64,15 @@ define Package/node-mocha/install
 	$(LN) ../lib/node/mocha/bin/_mocha $(1)/usr/bin/_mocha
 endef
 
+define Host/Prepare
+	$(INSTALL_DIR) $(HOST_BUILD_DIR)
+endef
+
 define Host/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(STAGING_DIR_HOSTPKG)/" \
-	npm install -g $(HOST_BUILD_DIR)
+	npm install -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Host/Install
