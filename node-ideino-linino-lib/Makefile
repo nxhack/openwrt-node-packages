@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ideino-linino-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.1.2
-PKG_RELEASE:=18
+PKG_RELEASE:=19
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/ideino/ideino-linino-lib.git
@@ -44,6 +44,7 @@ endef
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile
+	$(RM) -rf $(PKG_BUILD_DIR)/node_modules
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
