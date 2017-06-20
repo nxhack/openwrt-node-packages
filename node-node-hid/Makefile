@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016-2017 LEDE project
+# Copyright (C) 2015-2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,45 +7,49 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=nsp
+PKG_NPM_NAME:=node-hid
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.6.2
-PKG_RELEASE:=7
+PKG_VERSION:=0.5.4
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=56494f2acc4d8336c422d40fd6231599
-PKG_HASH:=ef5cf84c006a9a8fea8d980e3cd2e3d95318ab543840e88015d3f33a22124665
+PKG_MD5SUM:=d996872dc53889215d081a853eb72937
+PKG_HASH:=15d66a0a3b8d8473ab45bc6726bf6cd7fef777e11f7c4f3d5cf36199b96b8bbe
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
-PKG_MAINTAINER:=
-PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILES:=LICENSE
+PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
+PKG_LICENSE:=MIT or X11
+PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
-define Package/node-nsp
-  DEPENDS:=+node
+define Package/node-node-hid
+  DEPENDS:=+node +libusb-1.0 +hidapi
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=The Node Security (nodesecurity.io) command line interface
-  URL:=https://www.npmjs.org/package/nsp
+  TITLE:=Access USB HID devices from node.js
+  URL:=https://www.npmjs.com/package/node-hid
 endef
 
-define Package/node-nsp/description
- Node Security helps you keep your node applications secure
+define Package/node-node-hid/description
+ Access USB HID devices from node.js
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
 
 define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
 endef
 
 define Build/Compile
+	git init $(PKG_BUILD_DIR)
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -55,11 +59,11 @@ define Build/Compile
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
-define Package/node-nsp/install
+define Package/node-node-hid/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/nsp/bin/nsp $(1)/usr/bin/nsp
+	$(LN) ../lib/node/node-hid/src/show-devices.js $(1)/usr/bin/hid-showdevices
 endef
 
-$(eval $(call BuildPackage,node-nsp))
+$(eval $(call BuildPackage,node-node-hid))
