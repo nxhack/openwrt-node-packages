@@ -65,7 +65,7 @@ node-cylon-firmata		(serialport)
 node-firmata			(serialport)
 node-fuse-bindings
 node-hashtable
-node-homebridge		(mdns [need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support for InstallDev libdns_sd.so])
+node-homebridge			(mdns [need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support for InstallDev libdns_sd.so])
 node-i2c-bus
 node-ibmiotf			(utf-8-validate, bufferutil)
 node-ideino-linino-lib
