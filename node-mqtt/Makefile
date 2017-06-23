@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.9.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -39,10 +39,11 @@ define Package/node-mqtt/description
  MQTT.js is a client library for the MQTT protocol, written in JavaScript for node.js and the browser
 endef
 
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
-
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+define Build/Prepare
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)
+endef
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -52,19 +53,12 @@ define Build/Compile
 	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	NODE_PATH="$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Package/node-mqtt/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE.md,README.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/mqtt.js \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,lib,dist} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{doc,examples,test} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/mqtt/mqtt.js $(1)/usr/bin/mqtt
 	$(LN) ../lib/node/mqtt/bin/pub.js $(1)/usr/bin/mqtt_pub
