@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 LEDE project
+# Copyright (C) 2015-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,37 +7,37 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=logfmt
+PKG_NPM_NAME:=node-hid
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.2.0
-PKG_RELEASE:=22
+PKG_VERSION:=0.5.4
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=b82d1f453dc20df3938c1a539205cdee
+PKG_MD5SUM:=d996872dc53889215d081a853eb72937
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.8.3
 PKG_USE_MIPS16:=0
 
-PKG_MAINTAINER:=
-PKG_LICENSE:=MIT
+PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
+PKG_LICENSE:=MIT or X11
 PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
-define Package/node-logfmt
-  DEPENDS:=+node
+define Package/node-node-hid
+  DEPENDS:=+node +libusb-1.0 +hidapi
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=key=value logger and parser
-  URL:=https://www.npmjs.org/package/logfmt
+  TITLE:=Access USB HID devices from Node.js
+  URL:=https://github.com/node-hid/node-hid
 endef
 
-define Package/node-logfmt/description
- "logfmt" is the name for a key value logging convention we've adopted at Heroku,
- This library is for both converting lines in logfmt format to objects and for logging objects to a stream in logfmt format
+define Package/node-node-hid/description
+ Access USB HID devices from Node.js
 endef
 
 define Build/Prepare
@@ -47,7 +47,10 @@ endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
+
 define Build/Compile
+	git init $(PKG_BUILD_DIR)
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(CPU) \
@@ -57,12 +60,12 @@ define Build/Compile
 	npm install --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
 endef
 
-define Package/node-logfmt/install
+define Package/node-node-hid/install
 	mkdir -p $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	mkdir -p $(1)/usr/bin
-	$(LN) ../lib/node/logfmt/bin/logfmt $(1)/usr/bin/logfmt
+	$(LN) ../lib/node/node-hid/src/show-devices.js $(1)/usr/bin/hid-showdevices
 endef
 
-$(eval $(call BuildPackage,node-logfmt))
+$(eval $(call BuildPackage,node-node-hid))
 

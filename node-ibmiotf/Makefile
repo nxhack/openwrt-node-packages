@@ -9,14 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ibmiotf
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.2.31
-PKG_RELEASE:=3
+PKG_VERSION:=0.2.37
+PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/ibm-watson-iot/iot-nodejs.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=09e5eed7dd10c692f4da538e1c38478d9a59634e
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.xz
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_MD5SUM:=b0780296ff5863798d7f472dacb06c9e
 
 PKG_BUILD_DEPENDS:=node/host node-cpx/host
 PKG_NODE_VERSION:=4.8.3
@@ -39,6 +37,11 @@ endef
 
 define Package/node-ibmiotf/description
  Client libraries and samples for connecting to IBM Watson IoT using nodejs
+endef
+
+define Build/Prepare
+	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
+	$(Build/Patch)
 endef
 
 CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))

@@ -10,11 +10,11 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=nsp
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.6.2
-PKG_RELEASE:=11
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=56494f2acc4d8336c422d40fd6231599
+PKG_MD5SUM:=4deedb49c7eae3c9238338cb06f63f7c
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_NODE_VERSION:=4.8.3
@@ -24,6 +24,7 @@ PKG_MAINTAINER:=
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nsp
@@ -63,5 +64,16 @@ define Package/node-nsp/install
 	$(LN) ../lib/node/nsp/bin/nsp $(1)/usr/bin/nsp
 endef
 
+define Host/Compile
+	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
+	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
+	PREFIX="$(STAGING_DIR_HOST)" \
+	npm install -g $(HOST_BUILD_DIR)
+endef
+
+define Host/Install
+endef
+
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,node-nsp))
 

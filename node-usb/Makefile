@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014-2016 Arduino LLC
+# Copyright (C) 2016-2017 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,17 +7,16 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=socket.io
+PKG_NPM_NAME:=usb
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.0.3
+PKG_VERSION:=1.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=ba6fd6c6ba1c4e55dd75d02d44a6b27f
+PKG_MD5SUM:=c7dcd4df7ac836b65a2bb1d82f8d2ad4
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_NODE_VERSION:=4.8.3
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=
@@ -26,40 +25,38 @@ PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-socket.io
-  DEPENDS:=+node
+define Package/node-usb
+  DEPENDS:=+node +eudev +libusb-1.0
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Realtime application framework
-  URL:=https://www.npmjs.org/package/socket.io
+  TITLE:=Library to access USB devices
+  URL:=https://www.npmjs.com/package/usb
 endef
 
-define Package/node-socket.io/description
- Real-time apps made cross-browser & easy with a WebSocket-like API
+define Package/node-usb/description
+ Node.js library for communicating with USB devices in JavaScript / CoffeeScript
 endef
+
+NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Prepare
-	/bin/tar xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components 1
-	$(Build/Patch)
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)
 endef
-
-CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(CPU) \
+	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/ \
 	npm_config_cache=$(BUILD_DIR)/node-v$(PKG_NODE_VERSION)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --no-optional --build-from-source --target_arch=$(CPU) -g $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
-define Package/node-socket.io/install
-	mkdir -p $(1)/usr/lib/node
+define Package/node-usb/install
+	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 
-$(eval $(call BuildPackage,node-socket.io))
-
+$(eval $(call BuildPackage,node-usb))
