@@ -25,7 +25,7 @@ endif
 
 PKG_NAME:=node
 #PKG_VERSION:=
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=node-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
