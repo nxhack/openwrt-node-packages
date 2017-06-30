@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=pm2
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.5.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -60,9 +60,10 @@ define Package/node-pm2/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/pm2/bin/pm2 $(1)/usr/bin/pm2
+	$(LN) ../lib/node/pm2/bin/pm2-daemon $(1)/usr/bin/pm2-daemon
 	$(LN) ../lib/node/pm2/bin/pm2-dev $(1)/usr/bin/pm2-dev
 	$(LN) ../lib/node/pm2/bin/pm2-docker $(1)/usr/bin/pm2-docker
-	$(LN) ../lib/node/pm2/bin/rundev $(1)/usr/bin/rundev
+	$(LN) ../lib/node/pm2/bin/pm2-runtime $(1)/usr/bin/pm2-runtime
 endef
 
 $(eval $(call BuildPackage,node-pm2))
