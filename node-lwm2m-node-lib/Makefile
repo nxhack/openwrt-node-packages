@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=lwm2m-node-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -58,6 +58,9 @@ endef
 define Package/node-lwm2m-node-lib/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(LN) ../lib/node/lwm2m-node-lib/bin/iotagent-lwm2m-client.js $(1)/usr/bin/iotagent-lwm2m-client
+	$(LN) ../lib/node/lwm2m-node-lib/bin/iotagent-lwm2m-server.js $(1)/usr/bin/iotagent-lwm2m-server
 endef
 
 $(eval $(call BuildPackage,node-lwm2m-node-lib))
