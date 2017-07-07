@@ -120,7 +120,7 @@ CONFIGURE_ARGS:= \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
-		$(if $(CONFIG_SOFT_FLOAT), --with-arm-float-abi=soft, \
+		$(if $(CONFIG_SOFT_FLOAT),, \
 			$(if $(findstring neon,$(CONFIG_CPU_TYPE)), --with-arm-fpu=neon, \
 			$(if $(findstring vfpv3,$(CONFIG_CPU_TYPE)), --with-arm-fpu=vfpv3,)))) \
 	--prefix=/usr
