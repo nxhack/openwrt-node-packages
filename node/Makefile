@@ -138,12 +138,18 @@ HOST_CONFIGURE_CMD:=python ./configure
 ifeq ($(CONFIG_NODEJS_8),y)
 MKTOOL=$(BUILD_DIR_HOST)/node-$(PKG_VERSION)/out/Release/mkpeephole
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
+endif
 
 define Build/Prepare
+	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
+		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
+		exit 1; \
+	))
 	$(Build/Prepare/Default)
+ifeq ($(CONFIG_NODEJS_8),y)
 	$(SED) "s#<(mkpeephole_exec)#$(MKTOOL)#g" $(FILE_V8_GYP)
-endef
 endif
+endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
