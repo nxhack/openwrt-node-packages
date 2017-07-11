@@ -79,26 +79,3 @@ node-statvfs
 node-usb
 ```
 Other modules can be installed by 'npm install'.
-
-# Memo
-```
-(default arm_fpu = 'vfp')
-
-v8:
- valid_arm_fpu = ('vfp', 'vfpv3', 'vfpv3-d16', 'neon')
-
-target:
-CPU_SUBTYPE:=vfp
-CPU_SUBTYPE:=vfpv3
-CPU_SUBTYPE:=neon
-CPU_SUBTYPE:=neon-vfpv4
-
-CONFIG_CPU_TYPE:=arm1176jzf-s_vfp
-CONFIG_CPU_TYPE:=cortex-a15_neon-vfpv4
-CONFIG_CPU_TYPE:=cortex-a53_neon-vfpv4
-CONFIG_CPU_TYPE:=cortex-a7_neon-vfpv4
-CONFIG_CPU_TYPE:=cortex-a8_vfpv3
-CONFIG_CPU_TYPE:=cortex-a9_neon
-CONFIG_CPU_TYPE:=cortex-a9_vfpv3
-CONFIG_CPU_TYPE:=mpcore_vfp
-```
