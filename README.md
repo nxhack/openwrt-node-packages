@@ -81,4 +81,4 @@ node-usb
 ```
 Other modules can be installed by 'npm install'.
 
-***If you want a module that requires target binary build, please open issue.***
+***If you want new module that requires target binary build, please open issues.***
