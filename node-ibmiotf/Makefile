@@ -10,11 +10,10 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ibmiotf
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.37
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=b0780296ff5863798d7f472dacb06c9e
 PKG_HASH:=5d85d5f34a1c764f09b0d57e51e1eccf7813b9ca9f41f97e6bea0e4939cba12d
 
 PKG_BUILD_DEPENDS:=node/host node-cpx/host

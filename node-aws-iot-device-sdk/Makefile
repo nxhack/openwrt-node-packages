@@ -10,11 +10,10 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=aws-iot-device-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.14
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=aeb941e8f42f9a8fdaa7a7dcd770ba6c
 PKG_HASH:=0cd3dd8737c9b0b8fd633a98f310132f1e3bae1854a77b99b1bd5498ade56ec0
 
 PKG_BUILD_DEPENDS:=node/host
