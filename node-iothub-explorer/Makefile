@@ -10,11 +10,10 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=iothub-explorer
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.1.13
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=41825496e30b319f1aced0dd873ed14b
 PKG_HASH:=3ae244f30c2499eea2f2bfdde7aceffbf476aae5a60a306e674cf205813bdf95
 
 PKG_BUILD_DEPENDS:=node/host

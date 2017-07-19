@@ -10,11 +10,10 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=leveldown
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.7.2
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=0bc9847a0e5f556a46ed94bed4aaf2bb
 PKG_HASH:=d8f549f9cc1c11175e1aca97fe96cf03ef1ce4fde6835eced4805cfe2d8699ac
 
 PKG_BUILD_DEPENDS:=node/host
