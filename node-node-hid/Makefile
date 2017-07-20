@@ -19,7 +19,7 @@ PKG_HASH:=15d66a0a3b8d8473ab45bc6726bf6cd7fef777e11f7c4f3d5cf36199b96b8bbe
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
-PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
+PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT or X11
 PKG_LICENSE_FILES:=
 
