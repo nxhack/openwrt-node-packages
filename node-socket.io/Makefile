@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014-2017 Arduino LLC
+# Copyright (C) 2014 Arduino LLC
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
