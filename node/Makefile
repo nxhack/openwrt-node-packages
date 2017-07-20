@@ -10,7 +10,7 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_8),y)
 PKG_VERSION:=v8.2.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=4ce8975176630eb60cc8da256a6039e1d3d0e8bed472948a83ed4f22e8134781
 PATCH_DIR:=./patches/v8.x
 else
@@ -163,6 +163,9 @@ define Package/node-npm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
+ifeq ($(CONFIG_NODEJS_8),y)
+	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
+endif
 endef
 
 $(eval $(call HostBuild))
