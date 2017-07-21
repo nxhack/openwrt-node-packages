@@ -27,7 +27,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-usb
-  DEPENDS:=+node +eudev +libusb-1.0
+  DEPENDS:=+node +eudev +libusb-1.0 @BROKEN
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
