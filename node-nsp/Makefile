@@ -9,8 +9,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=nsp
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.6.2
-PKG_RELEASE:=2
+PKG_VERSION:=2.6.3
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
