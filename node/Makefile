@@ -52,7 +52,7 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
-  DEPENDS:=+libstdcpp +libopenssl +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU:icu
+  DEPENDS:=+libstdcpp +libopenssl +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt
 endef
 
 define Package/node/description
@@ -94,11 +94,6 @@ define Package/node/config
 			bool "8.x Current"
 	endchoice
 
-	config NODEJS_ICU
-		depends on !NODEJS_4
-		bool "Enable i18n features"
-		default n
-
 	endmenu
 endef
 
@@ -113,7 +108,7 @@ CONFIGURE_ARGS:= \
 	--without-snapshot \
 	--shared-zlib \
 	--shared-openssl \
-	$(if $(CONFIG_NODEJS_4),,--with-intl=$(if $(CONFIG_NODEJS_ICU),system-icu,none)) \
+	$(if $(CONFIG_NODEJS_4),,--with-intl=none) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
