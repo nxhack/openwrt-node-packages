@@ -36,7 +36,7 @@ Tested OpenWrt Chaos Calmer(15.05)
 ***Make sure to apply this patch before building.***
 
 ```
-patch -p1 < ./feed/node/for_building_latest_node.patch
+patch -p1 < ./feeds/node/for_building_latest_node.patch
 ```
 
 * These patches are based on the work of the OpenWRT developers and the buildroot developers and @artynet.
