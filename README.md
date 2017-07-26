@@ -14,7 +14,7 @@ See [LICENSE](LICENSE) file.
 
 Add follow line to feeds.conf or feeds.conf.default
 ```
-src-git node https://github.com/nxhack/openwrt-node-packages.git;for-15.05
+src-git node https://github.com/nxhack/openwrt-node-packages.git;dev_CC
 ```
 
 Run
@@ -31,29 +31,27 @@ rm ./package/feeds/packages/node-serialport
 ## Note
 Tested OpenWrt Chaos Calmer(15.05)
 
-Node version v4.x 'Argon' (LTS)
+## Prepare for building node.js
 
-uClibc is not well maintained.
+***Make sure to apply this patch before building.***
 
-* In order to build node v6.x or later, you should apply the following patches.
-Put the patch file in each folder of openwrt source.
+```
+patch -p1 < ./feed/node/for_building_latest_node.patch
+```
+
+* These patches are based on the work of the OpenWRT developers and the buildroot developers and @artynet.
    + https://github.com/artynet/openwrt-git/blob/openwrt-1505-setup-04/toolchain/gcc/patches/4.8-linaro/852-libstdcxx-uclibc-c99.patch
    + https://github.com/artynet/openwrt-git/blob/openwrt-1505-setup-04/toolchain/uClibc/patches-0.9.33.2/L001-uClibc-add-execvpe-function.patch
    + https://github.com/artynet/openwrt-git/blob/openwrt-1505-setup-04/toolchain/uClibc/patches-0.9.33.2/L002-libm_Add_missing_C99_float_ld_wrappers.patch
    + https://github.com/artynet/openwrt-git/blob/openwrt-1505-setup-04/toolchain/uClibc/patches-0.9.33.2/L003-force-obstack-free-strong-alias.patch
 
-ICU package is not available.
+## Illegal instruction issue
 
-'HOST_BUILD_PREFIX' is not defined.
-* Use 'STAGING_DIR_HOST'
-
-'PKG_MD5SUM' is not supported SHA256 hash.
-
-eudev package is not available.
-
-**Illegal instruction issue**
+***V8 JIT code DOES generate FP instructions. Node.js may not work without hardware FPU or kernel FPU emulation.***
 
 If you are running nodejs on Atheros AR933x, You need to make a kernel with CONFIG_MIPS_FPU_EMULATOR=y.
+
+Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
 
 ## Modules that need build with '--build-from-source' option.
 ```
@@ -72,7 +70,7 @@ node-ibmiotf			(utf-8-validate, bufferutil)
 node-ideino-linino-lib
 node-johnny-five		(serialport)
 node-leveldown
-#node-level			(leveldown)
+node-level			(leveldown)
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
 node-mknod
 node-modbus
