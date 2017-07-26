@@ -4,8 +4,6 @@
 
 OpenWrt Node.js Packages : for Chaos Calmer
 
-Note: Testing target only ar71xx.
-
 ## License
 
 See [LICENSE](LICENSE) file.
@@ -39,7 +37,7 @@ Tested OpenWrt Chaos Calmer(15.05)
 patch -p1 < ./feeds/node/for_building_latest_node.patch
 ```
 
-* These patches are based on the work of the OpenWRT developers and the buildroot developers and @artynet.
+* These patches are based on the work of the OpenWrt/LEDE developers and the buildroot developers and @artynet.
    + https://github.com/artynet/openwrt-git/blob/openwrt-1505-setup-04/toolchain/gcc/patches/4.8-linaro/852-libstdcxx-uclibc-c99.patch
    + https://github.com/artynet/openwrt-git/blob/openwrt-1505-setup-04/toolchain/uClibc/patches-0.9.33.2/L001-uClibc-add-execvpe-function.patch
    + https://github.com/artynet/openwrt-git/blob/openwrt-1505-setup-04/toolchain/uClibc/patches-0.9.33.2/L002-libm_Add_missing_C99_float_ld_wrappers.patch
