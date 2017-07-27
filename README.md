@@ -84,7 +84,6 @@ node-serialport
 node-sleep
 node-sqlite3
 node-statvfs
-node-usb
 ```
 Other modules can be installed by 'npm install'.
 
