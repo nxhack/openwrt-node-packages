@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-red
+PKG_NPM_NAME:=node-red-contrib-homekit
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.16.2
-PKG_RELEASE:=5
+PKG_VERSION:=0.2.1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=8120cb2ebe31a0cfc3aa722304dfc6b5
+PKG_MD5SUM:=46357c4b4ae08ff30b2a2d0a32ec419d
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -22,20 +22,24 @@ PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-red
-  DEPENDS:=+node
+define Package/node-node-red-contrib-homekit
+  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
+  #  for InstallDev libdns_sd.so
+  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A visual tool for wiring the Internet of Things
+  TITLE:=nodes to simulate Apple HomeKit devices
   URL:=http://nodered.org/
 endef
 
-define Package/node-node-red/description
- A visual tool for wiring the Internet of Things
+define Package/node-node-red-contrib-homekit/description
+ Node-RED nodes to simulate Apple HomeKit devices
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/avahi-compat-libdns_sd
 
 define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
@@ -51,12 +55,9 @@ define Build/Compile
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
-define Package/node-node-red/install
+define Package/node-node-red-contrib-homekit/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/node-red/red.js $(1)/usr/bin/node-red
-	$(LN) ../lib/node/node-red/bin/node-red-pi $(1)/usr/bin/node-red-pi
 endef
 
-$(eval $(call BuildPackage,node-node-red))
+$(eval $(call BuildPackage,node-node-red-contrib-homekit))
