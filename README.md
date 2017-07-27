@@ -12,7 +12,7 @@ See [LICENSE](LICENSE) file.
 
 Add follow line to feeds.conf or feeds.conf.default
 ```
-src-git node https://github.com/nxhack/openwrt-node-packages.git;dev_CC
+src-git node https://github.com/nxhack/openwrt-node-packages.git;for-15.05
 ```
 
 Run
@@ -31,7 +31,7 @@ Tested OpenWrt Chaos Calmer(15.05)
 
 ## Prepare for building node.js
 
-***Make sure to apply this patch before building.***
+***Make sure to apply this patch before building. And rebuild toolchain.***
 
 ```
 patch -p1 < ./feeds/node/for_building_latest_node.patch
