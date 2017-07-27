@@ -87,3 +87,5 @@ node-statvfs
 node-usb
 ```
 Other modules can be installed by 'npm install'.
+
+***If you want new module that requires pre-compiled binary (native module), please open issues.***
