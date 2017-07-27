@@ -36,6 +36,7 @@ Tested OpenWrt Chaos Calmer(15.05)
 ```
 patch -p1 < ./feeds/node/for_building_latest_node.patch
 make toolchain/clean
+make toolchain/compile
 ```
 
 * These patches are based on the work of the OpenWrt/LEDE developers and the buildroot developers and @artynet.
