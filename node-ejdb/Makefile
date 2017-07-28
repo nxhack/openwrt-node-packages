@@ -23,7 +23,7 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ejdb
-  DEPENDS:=+node
+  DEPENDS:=+node +libbz2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -35,10 +35,11 @@ define Package/node-ejdb/description
  EJDB NodeJS binding
 endef
 
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
-
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+define Build/Prepare
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)
+endef
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -47,19 +48,16 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR_HOST)/ \
 	npm_config_cache=$(STAGING_DIR_HOST)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	CMAKE_INCLUDE_PATH="$(STAGING_DIR)/usr/include:$(TOOLCHAIN_DIR)/include" \
+	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Package/node-ejdb/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,README.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{CLA.md,IoTFoundation.pem} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,dist} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{samples,src,test} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(LN) ../lib/node/ejdb/bin/cli.js $(1)/usr/bin/ejdb
 endef
 
 $(eval $(call BuildPackage,node-ejdb))
