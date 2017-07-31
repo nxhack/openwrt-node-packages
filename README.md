@@ -51,6 +51,7 @@ node-authenticate-pam
 node-autobahn			(utf-8-validate, bufferutil)
 node-bluetooth-hci-socket
 node-cylon-firmata		(serialport)
+node-ejdb
 node-firmata			(serialport)
 node-fuse-bindings
 node-hashtable
