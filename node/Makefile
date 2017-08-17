@@ -9,9 +9,9 @@ PKG_NAME:=node
 #PKG_RELEASE:=
 
 ifeq ($(CONFIG_NODEJS_8),y)
-PKG_VERSION:=v8.3.0
+PKG_VERSION:=v8.4.0
 PKG_RELEASE:=1
-PKG_HASH:=c3a836d84181724db477cb034a46a5274a3a1ea19623f886eae0c571e4b96e51
+PKG_HASH:=5d5aa2a101dcc617231a475812eb8ed87cac21491f1dcc7997b9dd463563f361
 PATCH_DIR:=./patches/v8.x
 else
 ifeq ($(CONFIG_NODEJS_4),y)
@@ -32,7 +32,7 @@ PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
 #PKG_HASH:=
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host NODEJS_8:node/host
+PKG_BUILD_DEPENDS:=python/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -132,20 +132,12 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
-ifeq ($(CONFIG_NODEJS_8),y)
-MKTOOL=$(BUILD_DIR_HOST)/node-$(PKG_VERSION)/out/Release/mkpeephole
-FILE_V8_GYP:=$(PKG_BUILD_DIR)/deps/v8/src/v8.gyp
-endif
-
 define Build/Prepare
 	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
 		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
 		exit 1; \
 	))
 	$(Build/Prepare/Default)
-ifeq ($(CONFIG_NODEJS_8),y)
-	$(SED) "s#<(mkpeephole_exec)#$(MKTOOL)#g" $(FILE_V8_GYP)
-endif
 endef
 
 define Build/InstallDev
