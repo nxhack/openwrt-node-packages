@@ -47,7 +47,7 @@ Some OpenWRT / Lede images have built in dnscrypt-proxy package, which by defaul
 
 In that case, installed avahi-daemon will not start on ipv4 interface, only on ipv6 because ipv4 port is taken.
 
-This will lead to strange issue: your homebrdge accessory will be wisible in 'Home' app, but can't finish pairing.
+This will lead to strange issue: your homebrdge accessory will be visible in 'Home' app, but can't finish pairing.
 
 To fix this, you have to stop and disable dnscrypt-proxy
 
