@@ -42,6 +42,22 @@ If you are running nodejs on Atheros AR933x, You need to make a kernel with CONF
 
 Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
 
+## Note about avahi and homebridge
+Some OpenWRT / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port. 
+
+In that case, installed avahi-daemon will not start on ipv4 interface, only on ipv6 because ipv4 port is taken.
+
+This will lead to strange issue: your homebrdge accessory will be visible in 'Home' app, but can't finish pairing.
+
+To fix this, you have to stop and disable dnscrypt-proxy
+
+Also, you have to enable: dbus and avahi-daemon services to start automatically, i.e for Lede: 
+
+```
+/etc/init.d/dbus enable
+/etc/init.d/avahi-daemon enable
+```
+
 
 ## Modules that need build with '--build-from-source' option.
 ```
