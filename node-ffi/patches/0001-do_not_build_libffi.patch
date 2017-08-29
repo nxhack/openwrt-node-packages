@@ -1,0 +1,12 @@
+--- a/binding.gyp
++++ b/binding.gyp
+@@ -10,9 +10,6 @@
+       'include_dirs': [
+         '<!(node -e "require(\'nan\')")'
+       ],
+-      'dependencies': [
+-        'deps/libffi/libffi.gyp:ffi'
+-      ],
+       'conditions': [
+         ['OS=="win"', {
+           'sources': [
