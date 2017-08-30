@@ -42,6 +42,7 @@ TAR_OPTIONS+= --strip-components 1
 TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 TARGET_CFLAGS+=-I$(BUILD_DIR)/libffi-$(PKG_LIBFFI_VERSION)/build
+TARGET_LDFLAGS+=-l:libffi.so
 
 define Build/Compile
 	$(MAKE_VARS) \
