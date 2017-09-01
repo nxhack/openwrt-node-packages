@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.4.27
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -25,7 +25,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/node-homebridge
   # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
   #  for InstallDev libdns_sd.so
-  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
+  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support +node-npm
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
