@@ -1,0 +1,15 @@
+#!/bin/sh /etc/rc.common
+
+START=98
+USE_PROCD=1
+
+start_service() {
+	[ -d /var/lib/homebridge ] || {
+		mkdir -m 0755 -p /var/lib/homebridge
+		chmod 0700 /var/lib/homebridge
+		chown homebridge:homebridge /var/lib/homebridge
+	}
+	procd_open_instance
+	procd_set_param command /usr/bin/homebridge -U /var/lib/homebridge
+	procd_close_instance
+}
