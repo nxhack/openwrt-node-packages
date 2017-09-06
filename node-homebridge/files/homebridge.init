@@ -4,7 +4,7 @@ START=98
 USE_PROCD=1
 
 start_service() {
-	[ -d /var/lib/homebridge ] || {
+	[ -d /usr/share/homebridge ] || {
 		mkdir -m 0755 -p /usr/share/homebridge
 		chmod 0700 /usr/share/homebridge
 		chown homebridge:homebridge /usr/share/homebridge
