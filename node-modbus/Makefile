@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=modbus
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.0.16
-PKG_RELEASE:=5
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -44,8 +44,8 @@ define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
-	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
-	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
+	npm_config_nodedir=$(STAGING_DIR)/usr/ \
+	npm_config_cache=$(STAGING_DIR)/usr/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	GNU_TARGET_NAME="$(GNU_TARGET_NAME)" \
 	TARGET_CFLAGS="$(TARGET_CFLAGS)" \
