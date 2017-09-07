@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=socket.io-client
 PKG_NAME:=node-$(PKG_NPM_NAME)-legacy
 PKG_VERSION:=0.9.17
-PKG_RELEASE:=23
+PKG_RELEASE:=24
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -48,8 +48,8 @@ define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
-	npm_config_nodedir=$(STAGING_DIR_HOSTPKG)/ \
-	npm_config_cache=$(STAGING_DIR_HOSTPKG)/share/node/npm-cache \
+	npm_config_nodedir=$(STAGING_DIR)/usr/ \
+	npm_config_cache=$(STAGING_DIR)/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
