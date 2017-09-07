@@ -49,8 +49,9 @@ Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
 ```
 make meuconfig
 ```
-> "Libraries  --->"
->    "<*> libavahi-compat-libdnssd........ An mDNS/DNS-SD implementation (libdnssd)"
+> Libraries  --->
+>
+>    <*> libavahi-compat-libdnssd........ An mDNS/DNS-SD implementation (libdnssd)
 
 (2)
 Some OpenWRT / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
