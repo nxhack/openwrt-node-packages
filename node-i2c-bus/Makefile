@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=i2c-bus
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.2.2
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -46,7 +46,7 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_cache=$(STAGING_DIR)/share/node/npm-cache \
+	npm_config_cache=$(STAGING_DIR)/usr/share/node/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
