@@ -54,6 +54,17 @@ If you are running nodejs on Atheros AR933x, You need to make a kernel with CONF
 Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
 
 ## Note about avahi and homebridge
+(1)
+"libdns_sd.so" is required to build homebridge package. To install this library, select "libavahi-compat-libdnssd" and press 'y' sets the <*> as built-in label.
+
+```
+make meuconfig
+```
+> Libraries  --->
+>
+>    <*> libavahi-compat-libdnssd........ An mDNS/DNS-SD implementation (libdnssd)
+
+(2)
 Some OpenWRT / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
 
 In that case, installed avahi-daemon will not start on ipv4 interface, only on ipv6 because ipv4 port is taken.
