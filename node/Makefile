@@ -5,8 +5,6 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
-#PKG_VERSION:=
-#PKG_RELEASE:=
 
 ifeq ($(CONFIG_NODEJS_8),y)
 PKG_VERSION:=v8.4.0
@@ -27,9 +25,8 @@ PATCH_DIR:=./patches/v6.x
 endif
 endif
 
-PKG_SOURCE:=node-$(PKG_VERSION).tar.xz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
-#PKG_HASH:=
 
 HOST_BUILD_DEPENDS:=python/host
 PKG_BUILD_DEPENDS:=python/host
