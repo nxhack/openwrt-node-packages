@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=johnny-five
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.11.6
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-johnny-five
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript Robotics and Hardware Programming Framework
   URL:=https://www.npmjs.org/package/johnny-five
+  DEPENDS:=+node
 endef
 
 define Package/node-johnny-five/description

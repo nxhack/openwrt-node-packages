@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ejdb
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.2.12-42
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ejdb
-  DEPENDS:=+node +libbz2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=EJDB NodeJS binding
   URL:=https://www.npmjs.com/package/ejdb
+  DEPENDS:=+node +libbz2
 endef
 
 define Package/node-ejdb/description

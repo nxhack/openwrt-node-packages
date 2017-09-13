@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=bleno
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.4.2
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bleno
-  DEPENDS:=+node +bluez-libs
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=BLE (Bluetooth low energy) peripherals for Node.js
   URL:=https://www.npmjs.org/package/bleno
+  DEPENDS:=+node +bluez-libs
 endef
 
 define Package/node-bleno/description

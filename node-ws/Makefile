@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ws
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=3.0.0
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=README.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ws
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=WebSocket library
   URL:=https://www.npmjs.org/package/ws
+  DEPENDS:=+node
 endef
 
 define Package/node-ws/description

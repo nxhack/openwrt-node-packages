@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ffi
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.2.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -24,12 +24,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ffi
-  DEPENDS:=+node +libffi
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node.js Foreign Function Interface
   URL:=https://www.npmjs.com/package/ffi
+  DEPENDS:=+node +libffi
 endef
 
 define Package/node-ffi/description

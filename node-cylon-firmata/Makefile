@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=cylon-firmata
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.24.0
-PKG_RELEASE:=22
+PKG_RELEASE:=23
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cylon-firmata
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Cylon adaptor for the Firmata protocol
   URL:=https://www.npmjs.org/package/cylon-firmata
+  DEPENDS:=+node
 endef
 
 define Package/node-cylon-firmata/description

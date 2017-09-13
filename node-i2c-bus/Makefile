@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=i2c-bus
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.2.2
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-i2c-bus
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=I2C serial bus access with JavaScript
   URL:=https://www.npmjs.org/package/i2c-bus
+  DEPENDS:=+node
 endef
 
 define Package/node-i2c-bus/description

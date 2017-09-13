@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=cylon-gpio
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.30.1
-PKG_RELEASE:=10
+PKG_RELEASE:=11
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cylon-gpio
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Cylon module for General Purpose Input/Output (GPIO)
   URL:=https://www.npmjs.org/package/cylon-gpio
+  DEPENDS:=+node
 endef
 
 define Package/node-cylon-gpio/description

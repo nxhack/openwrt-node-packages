@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ideino-linino-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.1.2
-PKG_RELEASE:=24
+PKG_RELEASE:=25
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/ideino/ideino-linino-lib.git
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ideino-linino-lib
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=library for ideino-linino
   URL:=https://github.com/ideino/ideino-linino-lib
+  DEPENDS:=+node
 endef
 
 define Package/node-ideino-linino-lib/description

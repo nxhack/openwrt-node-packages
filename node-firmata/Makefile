@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=firmata
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.17.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=readme.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-firmata
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript implementation of the Firmata protocol
   URL:=https://www.npmjs.com/package/firmata
+  DEPENDS:=+node
 endef
 
 define Package/node-firmata/description

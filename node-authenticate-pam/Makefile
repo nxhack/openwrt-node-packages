@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=authenticate-pam
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.2
-PKG_RELEASE:=23
+PKG_RELEASE:=24
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=MIT-LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-authenticate-pam
-  DEPENDS:=+node +libpam
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Asynchronous PAM authentication for Node.js
   URL:=https://www.npmjs.org/package/authenticate-pam
+  DEPENDS:=+node +libpam
 endef
 
 define Package/node-authenticate-pam/description

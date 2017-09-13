@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=statvfs
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.1.0
-PKG_RELEASE:=14
+PKG_RELEASE:=15
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=README.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-statvfs
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=node binding to POSIX statvfs (file system information)
   URL:=https://www.npmjs.org/package/statvfs
+  DEPENDS:=+node
 endef
 
 define Package/node-statvfs/description

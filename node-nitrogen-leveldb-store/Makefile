@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=nitrogen-leveldb-store
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.0
-PKG_RELEASE:=25
+PKG_RELEASE:=26
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen-leveldb-store
-  DEPENDS:=+node +node-nitrogen +node-level
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Backend stores for the Nitrogen client
   URL:=https://www.npmjs.org/package/nitrogen-leveldb-store
+  DEPENDS:=+node +node-nitrogen +node-level
 endef
 
 define Package/node-nitrogen-leveldb-store/description

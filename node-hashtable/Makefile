@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=hashtable
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.0.2
-PKG_RELEASE:=10
+PKG_RELEASE:=11
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-hashtable
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Native HashTable and ES6 compatible Map for Node.js
   URL:=https://www.npmjs.org/package/hashtable
+  DEPENDS:=+node
 endef
 
 define Package/node-hashtable/description

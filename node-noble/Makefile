@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=noble
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.8.1
-PKG_RELEASE:=18
+PKG_RELEASE:=19
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-noble
-  DEPENDS:=+node +bluez-libs
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A Node.js BLE (Bluetooth low energy) central library
   URL:=https://www.npmjs.org/package/noble
+  DEPENDS:=+node +bluez-libs
 endef
 
 define Package/node-noble/description

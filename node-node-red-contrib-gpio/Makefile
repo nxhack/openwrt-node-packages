@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-red-contrib-gpio
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.10.0
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=License.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-node-red-contrib-gpio
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=nodes for using johnny-five and IO plugins
   URL:=http://nodered.org/
+  DEPENDS:=+node
 endef
 
 define Package/node-node-red-contrib-gpio/description

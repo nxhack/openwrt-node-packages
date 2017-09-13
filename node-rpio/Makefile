@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=rpio
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.9.17
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-rpio
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=High performance GPIO/i2c/PWM/SPI module for Raspberry Pi
   URL:=https://www.npmjs.org/package/rpio
+  DEPENDS:=+node
 endef
 
 define Package/node-rpio/description

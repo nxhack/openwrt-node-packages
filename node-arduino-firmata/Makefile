@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=arduino-firmata
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.3.4
-PKG_RELEASE:=30
+PKG_RELEASE:=31
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-arduino-firmata
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Arduino Firmata implementation for Node.js
   URL:=https://www.npmjs.com/package/arduino-firmata
+  DEPENDS:=+node
 endef
 
 define Package/node-arduino-firmata/description

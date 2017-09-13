@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=level
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.7.0
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-level
-  DEPENDS:=+node +node-leveldown
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Fast & simple storage - a Node.js-style LevelDB wrapper
   URL:=https://www.npmjs.org/package/level
+  DEPENDS:=+node +node-leveldown
 endef
 
 define Package/node-level/description

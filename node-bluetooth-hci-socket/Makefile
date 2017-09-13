@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=bluetooth-hci-socket
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.5.1
-PKG_RELEASE:=18
+PKG_RELEASE:=19
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bluetooth-hci-socket
-  DEPENDS:=+node +bluez-libs +eudev +libusb-1.0 +libudev-fbsd
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Bluetooth HCI socket binding for Node.js
   URL:=https://www.npmjs.com/package/bluetooth-hci-socket
+  DEPENDS:=+node +bluez-libs +eudev +libusb-1.0 +libudev-fbsd
 endef
 
 define Package/node-bluetooth-hci-socket/description

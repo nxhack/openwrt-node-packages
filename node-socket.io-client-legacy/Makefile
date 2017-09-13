@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=socket.io-client
 PKG_NAME:=node-$(PKG_NPM_NAME)-legacy
 PKG_VERSION:=0.9.17
-PKG_RELEASE:=29
+PKG_RELEASE:=30
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=README.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-socket.io-client-legacy
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Socket.IO client
   URL:=https://www.npmjs.org/package/socket.io-client
+  DEPENDS:=+node
 endef
 
 define Package/node-socket.io-client-legacy/description

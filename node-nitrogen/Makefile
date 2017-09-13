@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=nitrogen
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.24
-PKG_RELEASE:=25
+PKG_RELEASE:=26
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript client library for connecting to Nitrogen
   URL:=https://www.npmjs.org/package/nitrogen
+  DEPENDS:=+node
 endef
 
 define Package/node-nitrogen/description

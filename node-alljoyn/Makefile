@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=alljoyn
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.1
-PKG_RELEASE:=25
+PKG_RELEASE:=26
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/octoblu/alljoyn.git
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-alljoyn
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Alljoyn Node.js Integration
   URL:=https://www.npmjs.org/package/alljoyn
+  DEPENDS:=+node
 endef
 
 define Package/node-alljoyn/description

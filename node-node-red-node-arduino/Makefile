@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-red-node-arduino
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.0.13
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-node-red-node-arduino
-  DEPENDS:=+node +node-node-red
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=node to talk to an Arduino running firmata
   URL:=http://nodered.org/
+  DEPENDS:=+node +node-node-red
 endef
 
 define Package/node-node-red-node-arduino/description

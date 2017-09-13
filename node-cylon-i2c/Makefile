@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=cylon-i2c
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.26.1
-PKG_RELEASE:=22
+PKG_RELEASE:=23
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cylon-i2c
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Cylon.js drivers for i2c devices
   URL:=https://www.npmjs.org/package/cylon-i2c
+  DEPENDS:=+node
 endef
 
 define Package/node-cylon-i2c/description

@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ibmiotf
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.38
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ibmiotf
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Client libraries for connecting to IBM Watson IoT
   URL:=https://www.npmjs.com/package/ibmiotf
+  DEPENDS:=+node
 endef
 
 define Package/node-ibmiotf/description
