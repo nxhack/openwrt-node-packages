@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-aws-iot-device-sdk
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=AWS IoT Node.js SDK for Embedded Devices
   URL:=https://www.npmjs.com/package/aws-iot-device-sdk
+  DEPENDS:=+node
 endef
 
 define Package/node-aws-iot-device-sdk/description

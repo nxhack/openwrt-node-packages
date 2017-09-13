@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-pm2
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Production process manager for Node.js
   URL:=http://pm2.keymetrics.io/
+  DEPENDS:=+node
 endef
 
 define Package/node-pm2/description

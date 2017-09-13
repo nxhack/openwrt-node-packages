@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-reverse-wstunnel
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=tcp tunnel over websocket
   URL:=https://www.npmjs.org/package/reverse-wstunnel
+  DEPENDS:=+node
 endef
 
 define Package/node-reverse-wstunnel/description

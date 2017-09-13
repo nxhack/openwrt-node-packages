@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-node-lambda
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Tools for Amazon Lambda
   URL:=https://www.npmjs.org/package/node-lambda
+  DEPENDS:=+node
 endef
 
 define Package/node-node-lambda/description

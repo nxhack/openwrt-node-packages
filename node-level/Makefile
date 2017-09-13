@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-level
-  DEPENDS:=+node +node-leveldown
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Fast & simple storage - a Node.js-style LevelDB wrapper
   URL:=https://www.npmjs.org/package/level
+  DEPENDS:=+node +node-leveldown
 endef
 
 define Package/node-level/description

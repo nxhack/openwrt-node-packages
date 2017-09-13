@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-logfmt
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=key=value logger and parser
   URL:=https://www.npmjs.org/package/logfmt
+  DEPENDS:=+node
 endef
 
 define Package/node-logfmt/description

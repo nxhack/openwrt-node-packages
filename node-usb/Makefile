@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-usb
-  DEPENDS:=+node +eudev +libusb-1.0 +libudev-fbsd
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Library to access USB devices
   URL:=https://www.npmjs.com/package/usb
+  DEPENDS:=+node +eudev +libusb-1.0 +libudev-fbsd
 endef
 
 define Package/node-usb/description

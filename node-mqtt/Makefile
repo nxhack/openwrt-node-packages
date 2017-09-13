@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-mqtt
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A library for the MQTT protocol
   URL:=https://www.npmjs.org/package/mqtt
+  DEPENDS:=+node
 endef
 
 define Package/node-mqtt/description

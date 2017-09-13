@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-node-static
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=simple, compliant file streaming module for node
   URL:=https://www.npmjs.org/package/node-static
+  DEPENDS:=+node
 endef
 
 define Package/node-node-static/description

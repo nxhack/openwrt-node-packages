@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nconf
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Hierarchical configuration for Node.js
   URL:=https://www.npmjs.org/package/nconf
+  DEPENDS:=+node
 endef
 
 define Package/node-nconf/description

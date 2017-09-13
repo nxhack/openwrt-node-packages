@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-johnny-five
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript Robotics and Hardware Programming Framework
   URL:=https://www.npmjs.org/package/johnny-five
+  DEPENDS:=+node
 endef
 
 define Package/node-johnny-five/description

@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-onoff
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=GPIO access and interrupt detection with JavaScript
   URL:=https://www.npmjs.org/package/onoff
+  DEPENDS:=+node
 endef
 
 define Package/node-onoff/description

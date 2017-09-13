@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-aws-sdk
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=AWS SDK for JavaScript
   URL:=https://www.npmjs.com/package/aws-sdk
+  DEPENDS:=+node
 endef
 
 define Package/node-aws-sdk/description

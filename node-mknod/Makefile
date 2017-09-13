@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-mknod
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node bindings for mknod
   URL:=https://www.npmjs.org/package/mknod
+  DEPENDS:=+node
 endef
 
 define Package/node-mknod/description

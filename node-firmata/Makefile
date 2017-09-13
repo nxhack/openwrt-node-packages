@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=readme.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-firmata
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript implementation of the Firmata protocol
   URL:=https://www.npmjs.com/package/firmata
+  DEPENDS:=+node
 endef
 
 define Package/node-firmata/description

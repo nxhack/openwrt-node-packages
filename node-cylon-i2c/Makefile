@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cylon-i2c
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Cylon.js drivers for i2c devices
   URL:=https://www.npmjs.org/package/cylon-i2c
+  DEPENDS:=+node
 endef
 
 define Package/node-cylon-i2c/description

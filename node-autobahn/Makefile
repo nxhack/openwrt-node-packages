@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-autobahn
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Web Application Messaging Protocol for Node.js
   URL:=https://www.npmjs.org/package/autobahn
+  DEPENDS:=+node
 endef
 
 define Package/node-autobahn/description

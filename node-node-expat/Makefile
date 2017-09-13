@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-node-expat
-  DEPENDS:=+node +libexpat
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node.js binding for fast XML parsing
   URL:=https://www.npmjs.org/package/node-expat
+  DEPENDS:=+node +libexpat
 endef
 
 define Package/node-node-expat/description

@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-alexa-sdk
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Alexa Skills Kit SDK for Node.js
   URL:=https://www.npmjs.org/package/alexa-sdk
+  DEPENDS:=+node
 endef
 
 define Package/node-alexa-sdk/description

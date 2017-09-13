@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-rpio
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=High performance GPIO/i2c/PWM/SPI module for Raspberry Pi
   URL:=https://www.npmjs.org/package/rpio
+  DEPENDS:=+node
 endef
 
 define Package/node-rpio/description

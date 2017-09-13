@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-binaryjs
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Binary realtime streaming made easy
   URL:=https://www.npmjs.org/package/binaryjs
+  DEPENDS:=+node
 endef
 
 define Package/node-binaryjs/description

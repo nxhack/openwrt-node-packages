@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-socket.io-legacy
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Realtime application framework
   URL:=https://www.npmjs.org/package/socket.io
+  DEPENDS:=+node
 endef
 
 define Package/node-socket.io-legacy/description
