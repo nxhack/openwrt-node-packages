@@ -7,13 +7,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=autobahn
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=17.5.2
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=adb1d80898d0506f7522c248c99d689e
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>

@@ -10,13 +10,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=cylon-firmata
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.24.0
-PKG_RELEASE:=22
+PKG_RELEASE:=23
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=d38b39f08c291fc904dcc29da79408a1
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>

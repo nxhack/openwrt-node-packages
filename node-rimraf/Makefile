@@ -7,13 +7,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=rimraf
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.6.1
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=8c053801647f6a63b797edcc5e0c778f
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>

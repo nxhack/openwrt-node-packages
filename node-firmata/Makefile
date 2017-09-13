@@ -7,13 +7,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=firmata
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.17.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=4ddceedee44c2f0e071a40d973d62304
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>

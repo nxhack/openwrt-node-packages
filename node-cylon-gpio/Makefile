@@ -10,13 +10,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=cylon-gpio
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.30.1
-PKG_RELEASE:=10
+PKG_RELEASE:=11
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_MD5SUM:=6c5d71b8efa3e0dd0503e9c3c60c7de4
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>

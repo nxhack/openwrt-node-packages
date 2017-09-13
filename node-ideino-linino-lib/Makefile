@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ideino-linino-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.1.2
-PKG_RELEASE:=24
+PKG_RELEASE:=25
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/ideino/ideino-linino-lib.git
@@ -16,7 +16,7 @@ PKG_SOURCE_VERSION:=7f65c03d2dafe1d861fda6096c2ab7d031b7b31d
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_MIRROR_HASH:=e936630bec42c3621664dc876699f6392dbb22dd3dd163a08191991bb37a7872
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
