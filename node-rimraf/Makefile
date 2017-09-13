@@ -24,12 +24,12 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-rimraf
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A deep deletion module for node (like rm -rf)
   URL:=https://www.npmjs.org/package/rimraf
+  DEPENDS:=+node
 endef
 
 define Package/node-rimraf/description

@@ -23,14 +23,14 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-mdns
-  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
-  #  for InstallDev libdns_sd.so
-  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=multicast DNS service discovery
   URL:=https://www.npmjs.org/package/mdns
+  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
+  #  for InstallDev libdns_sd.so
+  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
 endef
 
 define Package/node-mdns/description

@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-xmpp/default
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=XMPP $(1) for JavaScript
   URL:=http://node-xmpp.org/
+  DEPENDS:=+node
 endef
 
 define Package/node-xmpp

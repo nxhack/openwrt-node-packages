@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-yarn
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Fast, reliable, and secure dependency management
   URL:=https://yarnpkg.com/
+  DEPENDS:=+node
 endef
 
 define Package/node-yarn/description

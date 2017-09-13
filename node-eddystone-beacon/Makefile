@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-eddystone-beacon
-  DEPENDS:=+node +bluez-libs
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Create an Eddystone Beacon using Node.js
   URL:=https://www.npmjs.org/package/eddystone-beacon
+  DEPENDS:=+node +bluez-libs
 endef
 
 define Package/node-eddystone-beacon/description

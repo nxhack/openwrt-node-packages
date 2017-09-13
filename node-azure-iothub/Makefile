@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-azure-iothub
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Azure IoT SDK - IoT Hub
   URL:=https://www.npmjs.org/package/azure-iothub
+  DEPENDS:=+node
 endef
 
 define Package/node-azure-iothub/description

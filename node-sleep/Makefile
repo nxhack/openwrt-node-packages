@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-sleep
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Add sleep() and usleep() to nodejs
   URL:=https://www.npmjs.org/package/sleep
+  DEPENDS:=+node
 endef
 
 define Package/node-sleep/description

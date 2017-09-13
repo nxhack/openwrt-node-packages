@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-forever
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node script runs continuously
   URL:=https://www.npmjs.org/package/forever
+  DEPENDS:=+node
 endef
 
 define Package/node-forever/description

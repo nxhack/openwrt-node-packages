@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-muzzley-client
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=The muzzley client library
   URL:=https://www.npmjs.org/package/muzzley-client
+  DEPENDS:=+node
 endef
 
 define Package/node-muzzley-client/description

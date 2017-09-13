@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-lwm2m-node-lib
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Library for building OMA Lightweight M2M
   URL:=https://www.npmjs.org/package/lwm2m-node-lib
+  DEPENDS:=+node
 endef
 
 define Package/node-lwm2m-node-lib/description

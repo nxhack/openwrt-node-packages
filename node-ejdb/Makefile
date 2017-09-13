@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ejdb
-  DEPENDS:=+node +libbz2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=EJDB NodeJS binding
   URL:=https://www.npmjs.com/package/ejdb
+  DEPENDS:=+node +libbz2
 endef
 
 define Package/node-ejdb/description

@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-simple-xmpp
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Simple High Level Node.js XMPP Library
   URL:=https://www.npmjs.org/package/simple-xmpp
+  DEPENDS:=+node
 endef
 
 define Package/node-simple-xmpp/description

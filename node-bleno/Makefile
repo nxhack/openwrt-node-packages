@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bleno
-  DEPENDS:=+node +bluez-libs
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=BLE (Bluetooth low energy) peripherals for Node.js
   URL:=https://www.npmjs.org/package/bleno
+  DEPENDS:=+node +bluez-libs
 endef
 
 define Package/node-bleno/description

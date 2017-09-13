@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-tty.js
-  DEPENDS:=@BROKEN +node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A terminal for your browser
   URL:=https://www.npmjs.org/package/tty.js
+  DEPENDS:=@BROKEN +node
 endef
 
 define Package/node-tty.js/description

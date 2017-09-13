@@ -24,12 +24,12 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-browserify
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=browser-side require() the node way
   URL:=https://www.npmjs.org/package/browserify
+  DEPENDS:=+node
 endef
 
 define Package/node-browserify/description

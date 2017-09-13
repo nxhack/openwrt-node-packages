@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE-MIT
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nino-io
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Linino One and Arduino Yun IO Plugin for Johnny-Five
   URL:=https://www.npmjs.org/package/nino-io
+  DEPENDS:=+node
 endef
 
 define Package/node-nino-io/description

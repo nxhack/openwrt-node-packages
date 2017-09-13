@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-coap
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A CoAP library for node modelled after 'http'
   URL:=https://www.npmjs.org/package/coap
+  DEPENDS:=+node
 endef
 
 define Package/node-coap/description

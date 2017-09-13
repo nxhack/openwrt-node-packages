@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-jsonfile
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Easily read/write JSON files
   URL:=https://www.npmjs.org/package/jsonfile
+  DEPENDS:=+node
 endef
 
 define Package/node-jsonfile/description

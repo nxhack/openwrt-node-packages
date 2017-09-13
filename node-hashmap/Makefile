@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-hashmap
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=HashMap Class for JavaScript
   URL:=https://www.npmjs.org/package/hashmap
+  DEPENDS:=+node
 endef
 
 define Package/node-hashmap/description

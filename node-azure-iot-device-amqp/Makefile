@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-azure-iot-device-amqp
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=AMQP transport for Azure IoT device SDK
   URL:=https://www.npmjs.org/package/azure-iot-device-amqp
+  DEPENDS:=+node
 endef
 
 define Package/node-azure-iot-device-amqp/description

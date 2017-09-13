@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-iothub-explorer
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=IoT Hub Explorer for Azure IoT
   URL:=https://www.npmjs.org/package/iothub-explorer
+  DEPENDS:=+node
 endef
 
 define Package/node-iothub-explorer/description

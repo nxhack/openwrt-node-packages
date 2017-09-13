@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-soracom
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=SORACOM API client for Node.js
   URL:=https://www.npmjs.org/package/soracom
+  DEPENDS:=+node
 endef
 
 define Package/node-soracom/description

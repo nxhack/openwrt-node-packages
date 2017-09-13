@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bignum
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Arbitrary precision integral arithmetic for Node.js
   URL:=https://www.npmjs.org/package/bignum
+  DEPENDS:=+node
 endef
 
 define Package/node-bignum/description

@@ -24,12 +24,12 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cpx
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Copy file globs, watching for changes
   URL:=https://www.npmjs.org/package/cpx
+  DEPENDS:=+node
 endef
 
 define Package/node-cpx/description

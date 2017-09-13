@@ -27,12 +27,12 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
 define Package/node-node-hid
-  DEPENDS:=+node +libusb-1.0 +hidapi
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
+  DEPENDS:=+node +libusb-1.0 +hidapi
 endef
 
 define Package/node-node-hid/description

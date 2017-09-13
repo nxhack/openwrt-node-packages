@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-azure-iot-device-http
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=HTTP transport for Azure IoT device SDK
   URL:=https://www.npmjs.org/package/azure-iot-device-http
+  DEPENDS:=+node
 endef
 
 define Package/node-azure-iot-device-http/description

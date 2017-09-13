@@ -24,12 +24,12 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-mocha
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=simple, flexible, fun test framework
   URL:=https://www.npmjs.org/package/mocha
+  DEPENDS:=+node
 endef
 
 define Package/node-mocha/description

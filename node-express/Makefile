@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-express
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Fast, unopinionated, minimalist web framework
   URL:=https://www.npmjs.org/package/express
+  DEPENDS:=+node
 endef
 
 define Package/node-express/description

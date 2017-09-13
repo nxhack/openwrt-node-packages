@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bower
-  DEPENDS:=+node +git
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=The browser package manager
   URL:=https://www.npmjs.org/package/bower
+  DEPENDS:=+node +git
 endef
 
 define Package/node-bower/description

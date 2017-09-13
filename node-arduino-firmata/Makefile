@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-arduino-firmata
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Arduino Firmata implementation for Node.js
   URL:=https://www.npmjs.com/package/arduino-firmata
+  DEPENDS:=+node
 endef
 
 define Package/node-arduino-firmata/description

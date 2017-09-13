@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bleacon
-  DEPENDS:=+node +bluez-libs +node-bignum
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Library for creating/discovering/configuring iBeacons
   URL:=https://www.npmjs.org/package/bleacon
+  DEPENDS:=+node +bluez-libs +node-bignum
 endef
 
 define Package/node-bleacon/description

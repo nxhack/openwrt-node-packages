@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-alexa-app
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=To simplify the development of Alexa skills
   URL:=https://www.npmjs.org/package/alexa-app
+  DEPENDS:=+node
 endef
 
 define Package/node-alexa-app/description

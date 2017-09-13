@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-azure-event-hubs
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Azure Event Hubs service
   URL:=https://www.npmjs.org/package/azure-event-hubs
+  DEPENDS:=+node
 endef
 
 define Package/node-azure-event-hubs/description
