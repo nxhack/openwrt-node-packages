@@ -24,12 +24,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ffi
-  DEPENDS:=+node +libffi
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node.js Foreign Function Interface
   URL:=https://www.npmjs.com/package/ffi
+  DEPENDS:=+node +libffi
 endef
 
 define Package/node-ffi/description

@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-leveldown
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A Node.js LevelDB binding, primary backend for LevelUP
   URL:=https://www.npmjs.org/package/leveldown
+  DEPENDS:=+node
 endef
 
 define Package/node-leveldown/description

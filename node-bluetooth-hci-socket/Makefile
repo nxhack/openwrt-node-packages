@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bluetooth-hci-socket
-  DEPENDS:=+node +bluez-libs +eudev +libusb-1.0 +libudev-fbsd
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Bluetooth HCI socket binding for Node.js
   URL:=https://www.npmjs.com/package/bluetooth-hci-socket
+  DEPENDS:=+node +bluez-libs +eudev +libusb-1.0 +libudev-fbsd
 endef
 
 define Package/node-bluetooth-hci-socket/description

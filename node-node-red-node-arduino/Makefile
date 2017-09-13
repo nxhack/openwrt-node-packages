@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-node-red-node-arduino
-  DEPENDS:=+node +node-node-red
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=node to talk to an Arduino running firmata
   URL:=http://nodered.org/
+  DEPENDS:=+node +node-node-red
 endef
 
 define Package/node-node-red-node-arduino/description

@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-serialport
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node.js package to access serial ports
   URL:=https://www.npmjs.org/package/serialport
+  DEPENDS:=+node
 endef
 
 define Package/node-serialport/description

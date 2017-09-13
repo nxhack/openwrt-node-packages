@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen-leveldb-store
-  DEPENDS:=+node +node-nitrogen +node-level
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Backend stores for the Nitrogen client
   URL:=https://www.npmjs.org/package/nitrogen-leveldb-store
+  DEPENDS:=+node +node-nitrogen +node-level
 endef
 
 define Package/node-nitrogen-leveldb-store/description

@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cylon-firmata
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Cylon adaptor for the Firmata protocol
   URL:=https://www.npmjs.org/package/cylon-firmata
+  DEPENDS:=+node
 endef
 
 define Package/node-cylon-firmata/description

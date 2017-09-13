@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=README.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-statvfs
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=node binding to POSIX statvfs (file system information)
   URL:=https://www.npmjs.org/package/statvfs
+  DEPENDS:=+node
 endef
 
 define Package/node-statvfs/description

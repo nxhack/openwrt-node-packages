@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-sqlite3
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Asynchronous, non-blocking SQLite3 bindings
   URL:=https://www.npmjs.org/package/sqlite3
+  DEPENDS:=+node
 endef
 
 define Package/node-sqlite3/description

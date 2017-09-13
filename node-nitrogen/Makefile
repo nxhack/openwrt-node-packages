@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript client library for connecting to Nitrogen
   URL:=https://www.npmjs.org/package/nitrogen
+  DEPENDS:=+node
 endef
 
 define Package/node-nitrogen/description

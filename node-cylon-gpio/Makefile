@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cylon-gpio
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Cylon module for General Purpose Input/Output (GPIO)
   URL:=https://www.npmjs.org/package/cylon-gpio
+  DEPENDS:=+node
 endef
 
 define Package/node-cylon-gpio/description

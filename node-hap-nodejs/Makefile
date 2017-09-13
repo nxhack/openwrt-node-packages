@@ -23,14 +23,14 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-hap-nodejs
-  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
-  #  for InstallDev libdns_sd.so
-  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node.js implementation of HomeKit Accessory Server
   URL:=https://www.npmjs.org/package/hap-nodejs
+  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
+  #  for InstallDev libdns_sd.so
+  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
 endef
 
 define Package/node-hap-nodejs/description

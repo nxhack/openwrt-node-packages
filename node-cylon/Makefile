@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-cylon
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript framework for robotics/drones/IoT using Node.js
   URL:=https://www.npmjs.org/package/cylon
+  DEPENDS:=+node
 endef
 
 define Package/node-cylon/description

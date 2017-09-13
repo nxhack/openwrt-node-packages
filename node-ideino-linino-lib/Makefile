@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ideino-linino-lib
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=library for ideino-linino
   URL:=https://github.com/ideino/ideino-linino-lib
+  DEPENDS:=+node
 endef
 
 define Package/node-ideino-linino-lib/description

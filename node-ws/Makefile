@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=README.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ws
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=WebSocket library
   URL:=https://www.npmjs.org/package/ws
+  DEPENDS:=+node
 endef
 
 define Package/node-ws/description

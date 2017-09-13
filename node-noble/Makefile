@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-noble
-  DEPENDS:=+node +bluez-libs
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A Node.js BLE (Bluetooth low energy) central library
   URL:=https://www.npmjs.org/package/noble
+  DEPENDS:=+node +bluez-libs
 endef
 
 define Package/node-noble/description

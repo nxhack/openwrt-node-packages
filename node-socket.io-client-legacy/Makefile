@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=README.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-socket.io-client-legacy
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Socket.IO client
   URL:=https://www.npmjs.org/package/socket.io-client
+  DEPENDS:=+node
 endef
 
 define Package/node-socket.io-client-legacy/description

@@ -24,12 +24,12 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nsp
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=The Node Security (nodesecurity.io) command line interface
   URL:=https://www.npmjs.org/package/nsp
+  DEPENDS:=+node
 endef
 
 define Package/node-nsp/description

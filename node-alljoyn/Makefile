@@ -26,12 +26,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-alljoyn
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Alljoyn Node.js Integration
   URL:=https://www.npmjs.org/package/alljoyn
+  DEPENDS:=+node
 endef
 
 define Package/node-alljoyn/description

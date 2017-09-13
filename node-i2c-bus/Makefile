@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-i2c-bus
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=I2C serial bus access with JavaScript
   URL:=https://www.npmjs.org/package/i2c-bus
+  DEPENDS:=+node
 endef
 
 define Package/node-i2c-bus/description

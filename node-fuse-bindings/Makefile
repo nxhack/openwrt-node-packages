@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-fuse-bindings
-  DEPENDS:=+node +libfuse
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Fully maintained fuse bindings for Node.js
   URL:=https://www.npmjs.org/package/fuse-bindings
+  DEPENDS:=+node +libfuse
 endef
 
 define Package/node-fuse-bindings/description

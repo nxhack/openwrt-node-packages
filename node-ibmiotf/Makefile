@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE.md
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-ibmiotf
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Client libraries for connecting to IBM Watson IoT
   URL:=https://www.npmjs.com/package/ibmiotf
+  DEPENDS:=+node
 endef
 
 define Package/node-ibmiotf/description

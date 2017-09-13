@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-modbus
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=libmodbus binding
   URL:=https://www.npmjs.org/package/modbus
+  DEPENDS:=+node
 endef
 
 define Package/node-modbus/description

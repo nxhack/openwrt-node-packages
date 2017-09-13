@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-hashtable
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Native HashTable and ES6 compatible Map for Node.js
   URL:=https://www.npmjs.org/package/hashtable
+  DEPENDS:=+node
 endef
 
 define Package/node-hashtable/description

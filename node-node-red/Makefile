@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-node-red
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A visual tool for wiring the Internet of Things
   URL:=http://nodered.org/
+  DEPENDS:=+node
 endef
 
 define Package/node-node-red/description

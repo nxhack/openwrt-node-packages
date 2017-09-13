@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=LICENSE
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-nitrogen-cli
-  DEPENDS:=+node +node-nitrogen
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Nitrogen Command Line Interface
   URL:=https://www.npmjs.org/package/nitrogen-cli
+  DEPENDS:=+node +node-nitrogen
 endef
 
 define Package/node-nitrogen-cli/description

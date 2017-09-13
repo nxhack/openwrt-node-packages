@@ -24,12 +24,12 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-uglify-js
-  DEPENDS:=+node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=JavaScript compressor/minifier
   URL:=https://www.npmjs.org/package/uglify-js
+  DEPENDS:=+node
 endef
 
 define Package/node-uglify-js/description

@@ -23,12 +23,12 @@ PKG_LICENSE_FILES:=MIT-LICENSE.txt
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-authenticate-pam
-  DEPENDS:=+node +libpam
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Asynchronous PAM authentication for Node.js
   URL:=https://www.npmjs.org/package/authenticate-pam
+  DEPENDS:=+node +libpam
 endef
 
 define Package/node-authenticate-pam/description
