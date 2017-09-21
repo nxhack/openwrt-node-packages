@@ -64,6 +64,8 @@ make meuconfig
 >
 >    <*> libavahi-compat-libdnssd........ An mDNS/DNS-SD implementation (libdnssd)
 
+***It is meant select Avahi dbus version instead of Avahi non-dbus version.***
+
 (2)
 Some OpenWRT / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
 
