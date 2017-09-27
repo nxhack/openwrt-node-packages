@@ -64,7 +64,7 @@ define Build/Compile/module
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	NODE_PATH="$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NAME)/node_modules:$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NAME)/node_modules/$(1)/node_modules" \
-	npm install --no-cache --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)/packages/$(1)/
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)/packages/$(1)/
 endef
 
 define Build/Compile

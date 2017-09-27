@@ -49,7 +49,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --no-cache --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Package/node-mocha/install
@@ -68,7 +68,7 @@ define Host/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	PREFIX="$(STAGING_DIR_HOSTPKG)/" \
-	npm install --no-cache -g $(DL_DIR)/$(PKG_SOURCE)
+	npm install -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
 define Host/Install

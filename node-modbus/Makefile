@@ -50,7 +50,7 @@ define Build/Compile
 	GNU_TARGET_NAME="$(GNU_TARGET_NAME)" \
 	TARGET_CFLAGS="$(TARGET_CFLAGS)" \
 	TARGET_CPPFLAGS="$(TARGET_CPPFLAGS)" \
-	npm install --no-cache --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
 endef
 
 define Package/node-modbus/install
