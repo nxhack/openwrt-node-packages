@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=xmpp
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.1.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/node-xmpp/node-xmpp.git
@@ -61,7 +61,7 @@ define Build/Compile/module
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_cache=$(STAGING_DIR)/usr/share/node/npm-cache \
+	npm_config_cache=$(TMP_DIR)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	NODE_PATH="$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NAME)/node_modules:$(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NAME)/node_modules/$(1)/node_modules" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)/packages/$(1)/
