@@ -2,7 +2,7 @@ diff --git a/deps/npm/lib/config/defaults.js b/deps/npm/lib/config/defaults.js
 index da019ac4d6..8b81e28940 100644
 --- a/deps/npm/lib/config/defaults.js
 +++ b/deps/npm/lib/config/defaults.js
-@@ -166,7 +166,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
+@@ -167,7 +167,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
      'legacy-bundling': false,
      link: false,
      'local-address': undefined,
