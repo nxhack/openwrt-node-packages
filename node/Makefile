@@ -6,10 +6,16 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
-ifeq ($(CONFIG_NODEJS_8),y)
-PKG_VERSION:=v8.8.1
+ifeq ($(CONFIG_NODEJS_9),y)
+PKG_VERSION:=v9.0.0
 PKG_RELEASE:=1
-PKG_HASH:=5ce2c47ab779992db49942f757a01cc5131db5cef4e0dd270e48151b0887b57a
+PKG_HASH:=5b52bd6a90a611a42e11a908022ccfc1c2e77dcc70bfe38054a18dc57a3d5fa5
+PATCH_DIR:=./patches/v9.x
+else
+ifeq ($(CONFIG_NODEJS_8),y)
+PKG_VERSION:=v8.9.0
+PKG_RELEASE:=1
+PKG_HASH:=ae8258f89e127a76d4b4aff6fdb8dc395b7da0069cba054b913dfc36b3c91189
 PATCH_DIR:=./patches/v8.x
 else
 ifeq ($(CONFIG_NODEJS_4),y)
@@ -22,6 +28,7 @@ PKG_VERSION:=v6.11.5
 PKG_RELEASE:=1
 PKG_HASH:=1c6de415216799fbaeca82304b3fef87accc7101ebf2ead7d5c545e0779e8aaf
 PATCH_DIR:=./patches/v6.x
+endif
 endif
 endif
 
@@ -88,7 +95,10 @@ define Package/node/config
 			bool "6.x LTS"
 
 		config NODEJS_8
-			bool "8.x Current"
+			bool "8.x LTS"
+
+		config NODEJS_9
+			bool "9.x Current"
 	endchoice
 
 	config NODEJS_ICU
@@ -152,7 +162,7 @@ define Package/node-npm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
-ifeq ($(CONFIG_NODEJS_8),y)
+ifneq ($(filter y,$(CONFIG_NODEJS_8) $(CONFIG_NODEJS_9)),)
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
 endif
 endef
