@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_8),y)
-PKG_VERSION:=v8.8.1
+PKG_VERSION:=v8.9.0
 PKG_RELEASE:=1
-PKG_MD5SUM:=bf91f1bb404eace558057269206838b5
+PKG_MD5SUM:=49001b4037b2ddf10c2174c38a40f112
 PATCH_DIR:=./patches/v8.x
 else
 ifeq ($(CONFIG_NODEJS_4),y)
@@ -88,7 +88,7 @@ define Package/node/config
 			bool "6.x LTS"
 
 		config NODEJS_8
-			bool "8.x Current"
+			bool "8.x LTS"
 	endchoice
 
 	endmenu
