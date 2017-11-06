@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=levelup
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.3.9
-PKG_RELEASE:=4
+PKG_VERSION:=2.0.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=4c7ce729d32b62c138dbd91ce8a2acdb
+PKG_MD5SUM:=b744ec0badce5aa923b78be432e6aefa
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
