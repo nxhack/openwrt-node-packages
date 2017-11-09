@@ -106,6 +106,10 @@ define Package/node/config
 		bool "Enable i18n features"
 		default n
 
+	config NODEJS_DEBUG
+		bool "Debug build"
+		default n
+
 	endmenu
 endef
 
@@ -120,6 +124,7 @@ CONFIGURE_ARGS:= \
 	--without-snapshot \
 	--shared-zlib \
 	--shared-openssl \
+	$(if $(CONFIG_NODEJS_DEBUG),--debug,) \
 	$(if $(CONFIG_NODEJS_4),,--with-intl=$(if $(CONFIG_NODEJS_ICU),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
