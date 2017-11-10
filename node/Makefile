@@ -8,13 +8,13 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_9),y)
 PKG_VERSION:=v9.1.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=7e34d581332aedc85306859e613a81cce2531bdd30eef358cb54db8a4f5c3c49
 PATCH_DIR:=./patches/v9.x
 else
 ifeq ($(CONFIG_NODEJS_8),y)
 PKG_VERSION:=v8.9.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=ef160c21f60f8aca64145985e01b4044435e381dc16e8f0640ed0223e84f17e0
 PATCH_DIR:=./patches/v8.x
 else
@@ -106,6 +106,10 @@ define Package/node/config
 		bool "Enable i18n features"
 		default n
 
+	config NODEJS_DEBUG
+		bool "Debug build"
+		default n
+
 	endmenu
 endef
 
@@ -114,12 +118,17 @@ NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU)
 
+ifeq ($(CONFIG_NODEJS_DEBUG),y)
+	STRIP:="/bin/true"
+endif
+
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
 	--shared-openssl \
+	$(if $(CONFIG_NODEJS_DEBUG),--debug,) \
 	$(if $(CONFIG_NODEJS_4),,--with-intl=$(if $(CONFIG_NODEJS_ICU),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
@@ -155,6 +164,9 @@ endef
 define Package/node/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/node $(1)/usr/bin/
+ifeq ($(CONFIG_NODEJS_DEBUG),y)
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/node_g $(1)/usr/bin/
+endif
 endef
 
 define Package/node-npm/install
