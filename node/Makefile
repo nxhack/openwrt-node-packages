@@ -118,6 +118,10 @@ NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU)
 
+ifeq ($(CONFIG_NODEJS_DEBUG),y)
+	STRIP:="/bin/true"
+endif
+
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
@@ -160,6 +164,9 @@ endef
 define Package/node/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/node $(1)/usr/bin/
+ifeq ($(CONFIG_NODEJS_DEBUG),y)
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/node_g $(1)/usr/bin/
+endif
 endef
 
 define Package/node-npm/install
