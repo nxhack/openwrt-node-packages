@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=onoff
+PKG_NPM_NAME:=actions-on-google
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.1.8
+PKG_VERSION:=1.5.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=e4debd09d096655e8d26313d9133246b2a3f7fb9cd8a959df1cb9877eca51bb4
+PKG_HASH:=89470681075c941485cb6d28cf001c9725f7db37999645b35e3536fd35d84fed
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
+PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-onoff
+define Package/node-actions-on-google
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=GPIO access and interrupt detection with JavaScript
-  URL:=https://www.npmjs.org/package/onoff
+  TITLE:=Actions On Google Client Library
+  URL:=https://www.npmjs.org/package/actions-on-google
   DEPENDS:=+node
 endef
 
-define Package/node-onoff/description
- GPIO access and interrupt detection with Node.js on Linux boards like the Raspberry Pi Zero, 1, 2, or 3, BeagleBone, or BeagleBone Black
+define Package/node-actions-on-google/description
+ This Actions On Google client library makes it easy to create your apps for the Google Assistant. The client library supports both the Actions SDK webhook and Dialogflow fulfillment.
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -51,9 +51,9 @@ define Build/Compile
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 endef
 
-define Package/node-onoff/install
+define Package/node-actions-on-google/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 endef
 
-$(eval $(call BuildPackage,node-onoff))
+$(eval $(call BuildPackage,node-actions-on-google))
