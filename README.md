@@ -18,11 +18,7 @@ src-git node https://github.com/nxhack/openwrt-node-packages.git;for-15.05
 Run
 ```
 ./scripts/feeds update node
-rm ./package/feeds/packages/node
-rm ./package/feeds/packages/node-arduino-firmata
-rm ./package/feeds/packages/node-cylon
-rm ./package/feeds/packages/node-hid
-rm ./package/feeds/packages/node-serialport
+rm ./package/feeds/packages/node*
 ./scripts/feeds install -a -p node
 ```
 
