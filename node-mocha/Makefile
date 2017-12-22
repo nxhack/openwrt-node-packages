@@ -48,6 +48,7 @@ define Build/Compile
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm_config_tmp=$(TMP_DIR)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
 	npm_config_cache=$(TMP_DIR)/npm-cache \
@@ -69,6 +70,7 @@ endef
 define Host/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm_config_tmp=$(TMP_DIR)/npm-cache \
 	PREFIX="$(STAGING_DIR_HOSTPKG)/" \
 	npm install -g $(DL_DIR)/$(PKG_SOURCE)
 	npm_config_cache=$(TMP_DIR)/npm-cache \
