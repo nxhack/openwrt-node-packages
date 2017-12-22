@@ -51,6 +51,8 @@ define Build/Compile
 	TARGET_CFLAGS="$(TARGET_CFLAGS)" \
 	TARGET_CPPFLAGS="$(TARGET_CPPFLAGS)" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm cache clean --force
 endef
 
 define Package/node-modbus/install

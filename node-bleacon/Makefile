@@ -48,6 +48,8 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --no-optional --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm cache clean --force
 endef
 
 define Package/node-bleacon/install

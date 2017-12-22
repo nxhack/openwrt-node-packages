@@ -51,6 +51,8 @@ define Build/Compile
 	CMAKE_INCLUDE_PATH="$(STAGING_DIR)/usr/include:$(TOOLCHAIN_DIR)/include" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm cache clean --force
 endef
 
 define Package/node-ejdb/install

@@ -50,6 +50,8 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm cache clean --force
 endef
 
 define Package/node-uglify-js/install
@@ -68,6 +70,8 @@ define Host/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	PREFIX="$(STAGING_DIR_HOSTPKG)/" \
 	npm install -g $(DL_DIR)/$(PKG_SOURCE)
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm cache clean --force
 endef
 
 define Host/Install
