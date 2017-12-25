@@ -46,8 +46,11 @@ define Build/Compile
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm_config_tmp=$(TMP_DIR) \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm cache clean --force
 endef
 
 define Package/node-nitrogen-leveldb-store/install
