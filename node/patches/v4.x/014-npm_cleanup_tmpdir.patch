@@ -4,7 +4,7 @@
 --- a/deps/npm/lib/npm.js
 +++ b/deps/npm/lib/npm.js
 @@ -447,6 +447,25 @@
-   , enumerable: true
+   , enumerable : true
    })
  
 +  function rmdirSync(dir) {
@@ -22,10 +22,10 @@
 +    fs.rmdirSync(dir);
 +  };
 +  process.on("exit", function (code) {
-+	if (!code && tmpFolder)
-+	    rmdirSync(npm.tmp);
++    if (!code && tmpFolder)
++    rmdirSync(npm.tmp);
 +  });
 +
  // the better to repl you with
  Object.getOwnPropertyNames(npm.commands).forEach(function (n) {
-   if (npm.hasOwnProperty(n) || n === 'config') return
+   if (npm.hasOwnProperty(n) || n === "config") return
