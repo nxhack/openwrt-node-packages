@@ -47,10 +47,13 @@ define Build/Compile
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	CMAKE_INCLUDE_PATH="$(STAGING_DIR)/usr/include:$(TOOLCHAIN_DIR)/include" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
+	rm -rf $(TMP_DIR)/npm-tmp
+	rm -rf $(TMP_DIR)/npm-cache
 endef
 
 define Package/node-ejdb/install
