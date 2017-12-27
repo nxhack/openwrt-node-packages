@@ -47,11 +47,11 @@ define Build/Compile
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
-	npm_config_tmp=$(TMP_DIR) \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --no-optional --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
-	npm_config_cache=$(TMP_DIR)/npm-cache \
-	npm cache clean --force
+	rm -rf $(TMP_DIR)/npm-tmp
+	rm -rf $(TMP_DIR)/npm-cache
 endef
 
 define Package/node-ideino-linino-lib/install
