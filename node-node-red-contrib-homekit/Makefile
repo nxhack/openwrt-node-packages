@@ -11,7 +11,7 @@ PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=46357c4b4ae08ff30b2a2d0a32ec419d
+PKG_MD5SUM:=26569727cdaa19f6daf26bf2441e3c56
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -51,8 +51,11 @@ define Build/Compile
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
 	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(DL_DIR)/$(PKG_SOURCE)
+	rm -rf $(TMP_DIR)/npm-tmp
+	rm -rf $(TMP_DIR)/npm-cache
 endef
 
 define Package/node-node-red-contrib-homekit/install
