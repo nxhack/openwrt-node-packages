@@ -3,7 +3,7 @@
 	       author: @andiby
 --- a/deps/npm/lib/npm.js
 +++ b/deps/npm/lib/npm.js
-@@ -427,6 +427,25 @@
+@@ -437,6 +437,25 @@
        enumerable: true
      })
  
