@@ -11,7 +11,7 @@ index da019ac4d6..8b81e28940 100644
      logstream: process.stderr,
      'logs-max': 10,
      long: false,
-@@ -219,7 +219,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
+@@ -221,7 +221,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
      'sign-git-tag': false,
      'sso-poll-frequency': 500,
      'sso-type': 'oauth',
