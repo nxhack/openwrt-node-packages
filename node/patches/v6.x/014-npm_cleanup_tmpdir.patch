@@ -1,6 +1,6 @@
- guthub issue: '/tmp files not cleaned up for shrinkwrapped packages'
-               https://github.com/npm/npm/issues/6855
-	       author: @andiby
+npm  github issue: '/tmp files not cleaned up for shrinkwrapped packages'
+            https://github.com/npm/npm/issues/6855
+	    author: @andiby
 --- a/deps/npm/lib/npm.js
 +++ b/deps/npm/lib/npm.js
 @@ -376,6 +376,25 @@
