@@ -133,7 +133,7 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug,) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
-		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none))
+		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
