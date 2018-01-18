@@ -106,6 +106,7 @@ define Package/node/config
 
 		config NODEJS_ICU_SYSTEM
 			bool "system-icu"
+	endchoice
 
 	config NODEJS_DEBUG
 		bool "Debug build"
