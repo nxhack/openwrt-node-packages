@@ -8,27 +8,20 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_9),y)
 PKG_VERSION:=v9.4.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=7503e1f0f81288ff6e56009c0f399c0b5ebfe6f446734c5beb2d45393b21b20c
 PATCH_DIR:=./patches/v9.x
 else
-ifeq ($(CONFIG_NODEJS_8),y)
-PKG_VERSION:=v8.9.4
-PKG_RELEASE:=1
-PKG_HASH:=6cdcde9c9c1ca9f450a0b24eafa229ca759e576daa0fae892ce74d541ecdc86f
-PATCH_DIR:=./patches/v8.x
-else
-ifeq ($(CONFIG_NODEJS_4),y)
-PKG_VERSION:=v4.8.7
-PKG_RELEASE:=2
-PKG_HASH:=03479a8ce6affedde75d80a6c8c351a7afb5a85b8d7e5119ab6f349100e641f8
-PATCH_DIR:=./patches/v4.x
-else
+ifeq ($(CONFIG_NODEJS_6),y)
 PKG_VERSION:=v6.12.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=1a58672fa2178098c30306862cccdf02b8803dafe1d2e9f51c8c96749f3ddcdc
 PATCH_DIR:=./patches/v6.x
-endif
+else
+PKG_VERSION:=v8.9.4
+PKG_RELEASE:=2
+PKG_HASH:=6cdcde9c9c1ca9f450a0b24eafa229ca759e576daa0fae892ce74d541ecdc86f
+PATCH_DIR:=./patches/v8.x
 endif
 endif
 
@@ -36,7 +29,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host
+PKG_BUILD_DEPENDS:=python/host NODEJS_ICU_SMALL:node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -56,7 +49,8 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
-  DEPENDS:=+libstdcpp +libopenssl +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU:icu
+  DEPENDS:=+libstdcpp +libopenssl +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt \
+           +NODEJS_ICU_SYSTEM:icu
 endef
 
 define Package/node/description
@@ -84,12 +78,9 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_6
+		default NODEJS_8
 		help
 		 Select node.js version.
-
-		config NODEJS_4
-			bool "4.x LTS"
 
 		config NODEJS_6
 			bool "6.x LTS"
@@ -101,10 +92,21 @@ define Package/node/config
 			bool "9.x Current"
 	endchoice
 
-	config NODEJS_ICU
-		depends on !NODEJS_4
-		bool "Enable i18n features"
-		default n
+	choice
+		prompt "ICU Selection"
+		default NODEJS_ICU_NONE
+		help
+		 Select i18n features
+
+		config NODEJS_ICU_NONE
+			bool "Disable"
+
+		config NODEJS_ICU_SMALL
+			bool "small-icu"
+
+		config NODEJS_ICU_SYSTEM
+			bool "system-icu"
+	endchoice
 
 	config NODEJS_DEBUG
 		bool "Debug build"
@@ -129,7 +131,8 @@ CONFIGURE_ARGS:= \
 	--shared-zlib \
 	--shared-openssl \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug,) \
-	$(if $(CONFIG_NODEJS_4),,--with-intl=$(if $(CONFIG_NODEJS_ICU),system-icu,none)) \
+	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
+		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
@@ -143,10 +146,19 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
-	--with-intl=none \
+	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,none) \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python ./configure
+
+ifeq ($(CONFIG_NODEJS_ICU_SMALL),y)
+ICUPKG:=$(HOST_BUILD_DIR)/out/Release/icupkg
+ICULSLOCS:=$(HOST_BUILD_DIR)/out/Release/iculslocs
+GENRB:=$(HOST_BUILD_DIR)/out/Release/genrb
+GENCCODE:=$(HOST_BUILD_DIR)/out/Release/genccode
+ICUTRIM_PY:=$(PKG_BUILD_DIR)/tools/icu/icutrim.py
+ICU_GENERIC_GYP:=$(PKG_BUILD_DIR)/tools/icu/icu-generic.gyp
+endif
 
 define Build/Prepare
 	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
@@ -154,6 +166,13 @@ define Build/Prepare
 		exit 1; \
 	))
 	$(Build/Prepare/Default)
+
+ifeq ($(CONFIG_NODEJS_ICU_SMALL),y)
+	$(SED) "s#\"icupkg\"#\"$(ICUPKG)\"#g" $(ICUTRIM_PY)
+	$(SED) "s#\"iculslocs\"#\"$(ICULSLOCS)\"#g" $(ICUTRIM_PY)
+	$(SED) "s#\"genrb\"#\"$(GENRB)\"#g" $(ICUTRIM_PY)
+	$(SED) "s#<(PRODUCT_DIR)/genccode#$(GENCCODE)#g" $(ICU_GENERIC_GYP)
+endif
 endef
 
 define Build/InstallDev
