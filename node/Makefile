@@ -29,7 +29,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host CONFIG_NODEJS_ICU_SMALL:node/host
+PKG_BUILD_DEPENDS:=python/host NODEJS_ICU_SMALL:node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -50,7 +50,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
   DEPENDS:=+libstdcpp +libopenssl +zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt \
-           +CONFIG_NODEJS_ICU_SYSTEM:icu
+           +NODEJS_ICU_SYSTEM:icu
 endef
 
 define Package/node/description
