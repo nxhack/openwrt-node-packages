@@ -131,8 +131,8 @@ CONFIGURE_ARGS:= \
 	--shared-zlib \
 	--shared-openssl \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug,) \
-	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
-		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
+	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu, \
+		$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
@@ -146,7 +146,7 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
-	$(if $(CONFIG_NODEJS_ICU_SMALL),,--with-intl=none)) \
+	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,none) \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python ./configure
