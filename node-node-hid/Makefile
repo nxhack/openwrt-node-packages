@@ -32,7 +32,7 @@ define Package/node-node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +libusb-1.0 +hidapi +eudev +libudev-fbsd
+  DEPENDS:=+node +hidapi +eudev +libudev-fbsd
 endef
 
 define Package/node-node-hid/description
@@ -40,8 +40,6 @@ define Package/node-node-hid/description
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
-
-TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
 
 define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
