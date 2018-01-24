@@ -54,7 +54,7 @@ define Package/node-node-inspect/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/node-inspect/bin/cli.js $(1)/usr/bin/static
+	$(LN) ../lib/node/node-inspect/cli.js $(1)/usr/bin/node-inspect
 endef
 
 $(eval $(call BuildPackage,node-node-inspect))
