@@ -10,7 +10,8 @@ PKG_VERSION:=1.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/xmppjs/xmpp.js.git;node-xmpp
+PKG_SOURCE_URL:=https://github.com/xmppjs/xmpp.js.git
+PKG_SOURCE_OPTS:=--branch node-xmpp
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=b439f45824cfff079c823f6f2c8c67f14237731e
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
