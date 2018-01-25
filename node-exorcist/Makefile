@@ -4,35 +4,36 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=aws-iot-device-sdk
+PKG_NPM_NAME:=exorcist
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.2.0
+PKG_VERSION:=1.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=333278e8bdf0181eab1ce180cebd30c8eb050bd259c84937f9fcbb570d81e0da
+PKG_HASH:=e54a1fec5f1f5a5a00a0ce566e93412fa86a01723db3563c02c7c180d96cc2f9
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILES:=LICENSE.txt
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-aws-iot-device-sdk
+define Package/node-exorcist
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=AWS IoT Node.js SDK for Embedded Devices
-  URL:=https://www.npmjs.com/package/aws-iot-device-sdk
+  TITLE:=Externalizes the source map
+  URL:=https://www.npmjs.org/package/exorcist
   DEPENDS:=+node
 endef
 
-define Package/node-aws-iot-device-sdk/description
- The aws-iot-device-sdk.js package allows developers to write JavaScript applications which access the AWS IoT Platform via MQTT or MQTT over the Secure WebSocket Protocol
+define Package/node-exorcist/description
+ Externalizes the source map found inside a stream to an external .map file or stream.
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -54,9 +55,29 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache
 endef
 
-define Package/node-aws-iot-device-sdk/install
+define Package/node-exorcist/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(LN) ../lib/node/exorcist/bin/exorcist.js $(1)/usr/bin/exorcist
 endef
 
-$(eval $(call BuildPackage,node-aws-iot-device-sdk))
+define Host/Prepare
+	$(INSTALL_DIR) $(HOST_BUILD_DIR)
+endef
+
+define Host/Compile
+	npm_config_nodedir=$(STAGING_DIR)/usr/ \
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp \
+	PREFIX="$(STAGING_DIR_HOSTPKG)/" \
+	npm install -g $(DL_DIR)/$(PKG_SOURCE)
+	rm -rf $(TMP_DIR)/npm-tmp
+	rm -rf $(TMP_DIR)/npm-cache
+endef
+
+define Host/Install
+endef
+
+$(eval $(call HostBuild))
+$(eval $(call BuildPackage,node-exorcist))
