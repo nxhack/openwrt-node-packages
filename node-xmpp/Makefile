@@ -6,15 +6,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=xmpp
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.3.0
+PKG_VERSION:=1.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/xmppjs/xmpp.js.git
+PKG_SOURCE_URL:=https://github.com/xmppjs/xmpp.js.git;node-xmpp
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=2346fbdc57c51813b0d862a61ee37978663028b4
+PKG_SOURCE_VERSION:=b439f45824cfff079c823f6f2c8c67f14237731e
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_MIRROR_HASH:=badbd8bf34d5714a312d1214ec601eb59e6d1f24e390296c3c861fa958e3aa4e
+#PKG_MIRROR_HASH:=badbd8bf34d5714a312d1214ec601eb59e6d1f24e390296c3c861fa958e3aa4e
 
 PKG_BUILD_DEPENDS:=node/host node-browserify/host node-uglify-js/host node-exorcist/host
 PKG_USE_MIPS16:=0
