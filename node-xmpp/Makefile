@@ -14,9 +14,9 @@ PKG_SOURCE_URL:=https://github.com/xmppjs/xmpp.js.git;node-xmpp
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=b439f45824cfff079c823f6f2c8c67f14237731e
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-#PKG_MIRROR_HASH:=badbd8bf34d5714a312d1214ec601eb59e6d1f24e390296c3c861fa958e3aa4e
+PKG_MIRROR_HASH:=deccde6e02580d90907c4e4dd20a233290b22fa7c28124bfd60385669b98bc5a
 
-PKG_BUILD_DEPENDS:=node/host node-browserify/host node-uglify-js/host node-exorcist/host
+PKG_BUILD_DEPENDS:=node/host node-browserify/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
