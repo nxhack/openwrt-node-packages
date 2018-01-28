@@ -45,8 +45,8 @@ endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
+#TAR_OPTIONS+= --strip-components 1
+#TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 TARGET_CFLAGS+=-I$(BUILD_DIR)/libffi-$(PKG_LIBFFI_VERSION)/build
 
