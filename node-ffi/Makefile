@@ -9,16 +9,12 @@ PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.2.1
 PKG_RELEASE:=1
 
-#PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-#PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-#PKG_HASH:=c667bf69c2b5c98fc94878a45096a8ed11c54f3b800de3d5a30bae00a9d14d79
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/node-ffi/node-ffi.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=60282c29eb29eafb5d9b969b794a5ddf3e31e9d5
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_MIRROR_HASH:=4735523afd35d2bfee9d71130d632dfa4ec676aadf4cadfc1c1b735ac00d6fcd
-
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -44,9 +40,6 @@ define Package/node-ffi/description
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
-
-#TAR_OPTIONS+= --strip-components 1
-#TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 TARGET_CFLAGS+=-I$(BUILD_DIR)/libffi-$(PKG_LIBFFI_VERSION)/build
 
