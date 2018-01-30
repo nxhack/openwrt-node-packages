@@ -32,7 +32,7 @@ define Package/node-node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +hidapi +eudev +libudev-fbsd
+  DEPENDS:=+node +hidapi $(if $(CONFIG_BUSYBOX_DEFAULT_NSLOOKUP_LEDE),+eudev,+libudev-fbsd)
 endef
 
 define Package/node-node-hid/description

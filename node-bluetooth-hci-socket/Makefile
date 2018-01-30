@@ -28,8 +28,7 @@ define Package/node-bluetooth-hci-socket
   CATEGORY:=Languages
   TITLE:=Bluetooth HCI socket binding for Node.js
   URL:=https://www.npmjs.com/package/bluetooth-hci-socket
-  DEPENDS:=+node +bluez-libs +eudev +libudev-fbsd
-endef
+  DEPENDS:=+node +bluez-libs $(if $(CONFIG_BUSYBOX_DEFAULT_NSLOOKUP_LEDE),+eudev,+libudev-fbsd)
 
 define Package/node-bluetooth-hci-socket/description
  Bluetooth HCI socket binding for Node.js
