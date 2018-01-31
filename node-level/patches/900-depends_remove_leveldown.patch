@@ -5,8 +5,8 @@
    "main": "level.js",
    "dependencies": {
 -    "level-packager": "^2.0.2",
--    "leveldown": "^2.1.1"
-+    "level-packager": "^2.0.2"
+-    "leveldown": "^2.1.1",
++    "level-packager": "^2.0.2",
+     "opencollective": "^1.0.3"
    },
    "devDependencies": {
-     "standard": "^10.0.3",
