@@ -75,7 +75,7 @@ Please read this document. '[Why avahi and bonjour don't work on your home netwo
 
 ***IGMP-querier*** will solve your problem.
 
-## Modules that need build with '--build-from-source' option.
+## Modules that use pre-compiled binary (native module)
 ```
 node-alljoyn
 node-arduino-firmata		(serialport)
