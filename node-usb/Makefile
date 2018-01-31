@@ -20,6 +20,11 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
+PYTHON_MK:=$(TOPDIR)/feeds/packages/lang/python/python-package.mk
+ifneq ("$(wildcard $(PYTHON_MK))","")
+  IS_HEAD:=y
+endif
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-usb
@@ -28,7 +33,7 @@ define Package/node-usb
   CATEGORY:=Languages
   TITLE:=Library to access USB devices
   URL:=https://www.npmjs.com/package/usb
-  DEPENDS:=+node $(if $(CONFIG_BUSYBOX_DEFAULT_NSLOOKUP_LEDE),+eudev,+libudev-fbsd)
+  DEPENDS:=+node $(if $(IS_HEAD),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-usb/description

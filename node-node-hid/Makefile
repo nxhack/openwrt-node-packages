@@ -23,6 +23,11 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT or X11
 PKG_LICENSE_FILES:=
 
+PYTHON_MK:=$(TOPDIR)/feeds/packages/lang/python/python-package.mk
+ifneq ("$(wildcard $(PYTHON_MK))","")
+  IS_HEAD:=y
+endif
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
@@ -32,7 +37,7 @@ define Package/node-node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +hidapi $(if $(CONFIG_BUSYBOX_DEFAULT_NSLOOKUP_LEDE),+eudev,+libudev-fbsd)
+  DEPENDS:=+node +hidapi $(if $(IS_HEAD),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-node-hid/description

@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=leveldown
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=3.0.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -44,6 +44,9 @@ endef
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
+	$(if $(findstring mips,$(NODEJS_CPU)), \
+		$(if $(CONFIG_SOFT_FLOAT), \
+		GYPFLAGS="-Dv8_use_mips_abi_hardfloat=false -Dv8_can_use_fpu_instructions=false",)) \
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
