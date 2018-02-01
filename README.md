@@ -79,7 +79,7 @@ Also, you have to enable: dbus and avahi-daemon services to start automatically,
 /etc/init.d/avahi-daemon enable
 ```
 
-## Modules that need build with '--build-from-source' option.
+## Modules that use pre-compiled binary (native module)
 ```
 node-alljoyn
 node-arduino-firmata		(serialport)
