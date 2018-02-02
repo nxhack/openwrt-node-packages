@@ -37,6 +37,17 @@ If you want to try with Chaos Calmer(15.05), see [for-15.05 branch](https://gith
 
 If you are running nodejs on Atheros AR933x, You need to make a kernel with CONFIG_MIPS_FPU_EMULATOR=y.
 
+On Head branch, You can configure using menuconfig.
+```
+make menuconfig
+```
+> Global build settings  --->
+>
+> Kernel build options  --->
+>
+>  [*] Compile the kernel with MIPS FPU Emulator
+
+
 Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
 
 ## Note about avahi and homebridge
