@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt Node.js Packages : for trunk (Bleeding Edge) / LEDE
+OpenWrt/LEDE Node.js Packages : for trunk / lede-17.01
 
 Note: Testing target only ar71xx.
 
@@ -35,9 +35,9 @@ If you want to try with Chaos Calmer(15.05), see [for-15.05 branch](https://gith
 
 ***V8 JIT code DOES generate FP instructions. Node.js may not work without hardware FPU or kernel FPU emulation.***
 
-If you are running nodejs on Atheros AR933x, You need to make a kernel with CONFIG_MIPS_FPU_EMULATOR=y.
+If you are running nodejs on Atheros AR933x, You need to make a kernel with MIPS_FPU_EMULATOR option.
 
-On Head branch, You can configure using menuconfig.
+On Trunk branch, You can configure using menuconfig.
 ```
 make menuconfig
 ```
@@ -47,6 +47,13 @@ make menuconfig
 >
 >  [*] Compile the kernel with MIPS FPU Emulator
 
+On lede-17.01 branch, You can configure using kernel_menuconfig.
+```
+make kernel_menuconfig
+```
+> Kernel type  --->
+>
+> [*] MIPS FPU Emulator
 
 Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
 
