@@ -42,7 +42,9 @@ On Head branch, You can configure using menuconfig.
 make menuconfig
 ```
 > Global build settings  --->
+>
 > Kernel build options  --->
+>
 >  [*] Compile the kernel with MIPS FPU Emulator
 
 
