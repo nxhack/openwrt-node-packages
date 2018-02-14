@@ -87,6 +87,20 @@ Also, you have to enable: dbus and avahi-daemon services to start automatically,
 /etc/init.d/avahi-daemon enable
 ```
 
+(3)
+avahi on home network
+
+Please read this document. '[Why avahi and bonjour don't work on your home network](https://bitbucket.org/marc_culler/querierd/)'
+
+***IGMP-querier*** will solve your problem.
+
+## Low memory
+Specify v8-options.
+
+```
+--max_old_space_size=20 --initial_old_space_size=4 --max_semi_space_size=2 --max_executable_size=5 --optimize_for_size
+```
+
 ## Modules that use pre-compiled binary (native module)
 ```
 node-alljoyn
