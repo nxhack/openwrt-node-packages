@@ -13,9 +13,9 @@ PKG_HASH:=666b463a378b65bb83afb8f2c271865e03804d5930c95688ab4020c5dcd5146d
 PATCH_DIR:=./patches/v9.x
 else
 ifeq ($(CONFIG_NODEJS_6),y)
-PKG_VERSION:=v6.12.3
-PKG_RELEASE:=2
-PKG_HASH:=1a58672fa2178098c30306862cccdf02b8803dafe1d2e9f51c8c96749f3ddcdc
+PKG_VERSION:=v6.13.0
+PKG_RELEASE:=1
+PKG_HASH:=b7166fe2c6b29fbaa5a81c6953dc6764a91966ac00d746581fad66ddb1bb4d04
 PATCH_DIR:=./patches/v6.x
 else
 PKG_VERSION:=v8.9.4
@@ -135,6 +135,7 @@ CONFIGURE_ARGS:= \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
+	$(if $(findstring arm64,$(NODEJS_CPU)),--with-arm-fpu=neon,) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),, \
 			$(if $(findstring neon,$(CONFIG_CPU_TYPE)), --with-arm-fpu=neon, \
