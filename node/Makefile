@@ -135,7 +135,6 @@ CONFIGURE_ARGS:= \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
-	$(if $(findstring arm64,$(NODEJS_CPU)),--with-arm-fpu=neon,) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),, \
 			$(if $(findstring neon,$(CONFIG_CPU_TYPE)), --with-arm-fpu=neon, \
