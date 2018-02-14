@@ -93,8 +93,8 @@ Please read this document. '[Why avahi and bonjour don't work on your home netwo
 
 ***IGMP-querier*** will solve your problem.
 
-## In the case of environment with low memory
-Specify v8-options
+## Low memory
+Specify v8-options.
 
 ```
 --max_old_space_size=20 --initial_old_space_size=4 --max_semi_space_size=2 --max_executable_size=5 --optimize_for_size --always_compact
