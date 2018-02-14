@@ -18,9 +18,9 @@ PKG_RELEASE:=1
 PKG_MD5SUM:=ac634e8d1beee1a3bd77861eed81fdfa
 PATCH_DIR:=./patches/v4.x
 else
-PKG_VERSION:=v6.12.3
+PKG_VERSION:=v6.13.0
 PKG_RELEASE:=1
-PKG_MD5SUM:=37ba59912cf6d699f3b86ed5f5d91f10
+PKG_MD5SUM:=bb1776620ab21e146c240839e5afdc36
 PATCH_DIR:=./patches/v6.x
 endif
 endif
@@ -108,6 +108,7 @@ CONFIGURE_ARGS:= \
 	$(if $(CONFIG_NODEJS_4),,--with-intl=none) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
+	$(if $(findstring arm64,$(NODEJS_CPU)),--with-arm-fpu=neon,) \
 	$(if $(findstring arm,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),, \
 			$(if $(findstring neon,$(CONFIG_CPU_TYPE)), --with-arm-fpu=neon, \
