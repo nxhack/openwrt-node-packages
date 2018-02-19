@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ffi
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.2.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/node-ffi/node-ffi.git
