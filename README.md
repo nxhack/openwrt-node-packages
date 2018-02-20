@@ -56,7 +56,7 @@ make kernel_menuconfig
 >
 > [*] MIPS FPU Emulator
 
-Also ARM core without vfp or neon (***bcm53xx*** etc) not work.
+Also ARM core without vfp or neon (***bcm53xx*** etc) not work. There is no solution in this case.
 
 ## Note about avahi and homebridge
 (1)
@@ -100,6 +100,8 @@ Specify v8-options.
 ```
 --max_old_space_size=20 --initial_old_space_size=4 --max_semi_space_size=2 --max_executable_size=5 --optimize_for_size
 ```
+
+Or use [swap](https://openwrt.org/docs/user-guide/storage/fstab?s[]=swap).
 
 ## Modules that use pre-compiled binary (native module)
 ```
