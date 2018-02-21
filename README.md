@@ -93,6 +93,8 @@ Please read this document. '[Why avahi and bonjour don't work on your home netwo
 
 ***IGMP-querier*** will solve your problem.
 
+OpenWrt custom packages available: https://github.com/nxhack/openwrt-custom-packages
+
 ## Low memory
 Specify v8-options.
 
