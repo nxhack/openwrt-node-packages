@@ -4,7 +4,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=mozilla-iot-gateway
+PKG_NPM_NAME:=things-gateway
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.3.0
 PKG_RELEASE:=1
@@ -25,7 +25,7 @@ PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-mozilla-iot-gateway
+define Package/node-things-gateway
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -34,7 +34,7 @@ define Package/node-mozilla-iot-gateway
   DEPENDS:=+node +libusb-1.0 +node-openzwave-shared
 endef
 
-define Package/node-mozilla-iot-gateway/description
+define Package/node-things-gateway/description
  Web of Things gateway. The “Web of Things” (WoT) is the idea of taking the lessons learned from the World Wide Web and applying them to IoT. It’s about creating a decentralized Internet of Things by giving Things URLs on the web to make them linkable and discoverable, and defining a standard data model and APIs to make them interoperable.
 endef
 
@@ -53,7 +53,7 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache
 endef
 
-define Package/node-mozilla-iot-gateway/install
+define Package/node-things-gateway/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
@@ -73,4 +73,4 @@ define Package/node-mozilla-iot-gateway/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-mozilla-iot-gateway))
+$(eval $(call BuildPackage,node-things-gateway))
