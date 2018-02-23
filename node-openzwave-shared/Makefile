@@ -17,8 +17,8 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE:=ISC
+PKG_LICENSE_FILES:=LICENSE.md
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -40,9 +40,11 @@ TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/openzwave -I$(STAGING_DIR)/usr/include/openzwave/value_classes
+
 define Build/Prepare
 	$(Build/Prepare/Default)
-	$(SED) "s#/usr/local#$(STAGING_DIR)/usr#g" $(PKG_BUILD_DIR)/binding.gyp
+	$(SED) "s#<(OZW_INC)#$(STAGING_DIR)/usr/include#g" $(PKG_BUILD_DIR)/binding.gyp
 endef
 
 define Build/Compile
@@ -61,11 +63,13 @@ endef
 define Package/node-openzwave-shared/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,README.markdown} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,README.*} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,index.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,notes.txt,test*} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,binding} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{config,lib,src} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/openzwave-shared.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
