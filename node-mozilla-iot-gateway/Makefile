@@ -31,7 +31,7 @@ define Package/node-mozilla-iot-gateway
   CATEGORY:=Languages
   TITLE:=Things Gateway by Mozilla
   URL:=http://iot.mozilla.org/gateway
-  DEPENDS:=+node +libusb-1.0 +openzwave
+  DEPENDS:=+node +libusb-1.0 +node-openzwave-shared
 endef
 
 define Package/node-mozilla-iot-gateway/description
