@@ -28,7 +28,7 @@ define Package/node-openzwave-shared
   CATEGORY:=Languages
   TITLE:=Node.JS bindings for OpenZWave
   URL:=https://www.npmjs.org/package/openzwave-shared
-  DEPENDS:=+node +openzwave
+  DEPENDS:=+node openzwave
 endef
 
 define Package/node-openzwave-shared/description
