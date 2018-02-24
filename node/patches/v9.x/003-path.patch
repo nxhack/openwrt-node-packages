@@ -1,6 +1,6 @@
 --- a/lib/module.js
 +++ b/lib/module.js
-@@ -722,7 +722,8 @@
+@@ -724,7 +724,8 @@
    } else {
      prefixDir = path.resolve(process.execPath, '..', '..');
    }
