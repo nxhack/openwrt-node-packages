@@ -31,7 +31,7 @@ define Package/node-things-gateway
   CATEGORY:=Languages
   TITLE:=Things Gateway by Mozilla
   URL:=http://iot.mozilla.org/gateway
-  DEPENDS:=+node +node-npm +libusb-1.0 node-openzwave-shared +python-light +python-pip
+  DEPENDS:=+node +node-npm +libusb-1.0 node-openzwave-shared +python-pip
 endef
 
 define Package/node-things-gateway/description
@@ -66,8 +66,6 @@ define Package/node-things-gateway/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{static,tools} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{tsconfig.json,webpack.config.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{yarn.lock,.vscode} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
