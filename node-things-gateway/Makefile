@@ -31,7 +31,7 @@ define Package/node-things-gateway
   CATEGORY:=Languages
   TITLE:=Things Gateway by Mozilla
   URL:=http://iot.mozilla.org/gateway
-  DEPENDS:=+node +libusb-1.0 node-openzwave-shared
+  DEPENDS:=+node +node-npm +libusb-1.0 node-openzwave-shared +python-light +python-pip
 endef
 
 define Package/node-things-gateway/description
