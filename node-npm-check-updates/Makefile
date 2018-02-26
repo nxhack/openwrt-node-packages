@@ -4,6 +4,9 @@
 
 include $(TOPDIR)/rules.mk
 
+# make feeds/node/node-npm-check-updates/download V=s
+# make feeds/node/node-npm-check-updates/check FIXUP=1 V=s
+# cat package/kernel/mwlwifi/Makefile | less
 PKG_NPM_NAME:=npm-check-updates
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.14.0
