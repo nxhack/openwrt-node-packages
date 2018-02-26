@@ -26,7 +26,7 @@ define Package/node-npm-check-updates
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Allows you to upgrade your package.json / bower.json dependencies
+  TITLE:=Upgrade your dependencies
   URL:=https://www.npmjs.com/package/npm-check-updates/
   DEPENDS:=+node
 endef
