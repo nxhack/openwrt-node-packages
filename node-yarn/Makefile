@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=yarn
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.3.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -58,7 +58,7 @@ define Package/node-yarn/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	#$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarn
+	$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarn
 	$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarnpkg
 endef
 
