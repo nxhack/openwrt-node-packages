@@ -12,6 +12,7 @@ include $(TOPDIR)/rules.mk
 # ./scripts/feeds install node-npm-check-updates
 # make oldconfig
 # make V=s package/feeds/node/node-npm-check-updates/compile
+# make V=s package/feeds/node/node-npm-check-updates/{clean,prepare,compile}
 PKG_NPM_NAME:=npm-check-updates
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.14.0
