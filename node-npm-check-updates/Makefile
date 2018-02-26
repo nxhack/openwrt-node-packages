@@ -34,13 +34,13 @@ define Package/node-npm-check-updates
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Upgrade your dependencies
+  TITLE:=Upgrade your NPM/Bower dependencies
   URL:=https://www.npmjs.com/package/npm-check-updates/
   DEPENDS:=+node
 endef
 
 define Package/node-npm-check-updates/description
- npm-check-updates is a command-line tool that allows you to upgrade your package.json or bower.json dependencies to the latestversions, regardless of existing version constraints
+ The npm-check-updates program is a command-line tool that allows you to upgrade your package.json or bower.json dependencies to the latest versions, regardless of existing version constraints
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
