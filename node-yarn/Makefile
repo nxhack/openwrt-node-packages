@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=yarn
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.3.2
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -20,6 +20,7 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
 PKG_LICENSE_FILES:=LICENSE
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-yarn
@@ -62,4 +63,22 @@ define Package/node-yarn/install
 	$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarnpkg
 endef
 
+define Host/Prepare
+	$(INSTALL_DIR) $(HOST_BUILD_DIR)
+endef
+
+define Host/Compile
+	npm_config_nodedir=$(STAGING_DIR)/usr/ \
+	npm_config_cache=$(TMP_DIR)/npm-cache \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp \
+	PREFIX="$(STAGING_DIR_HOSTPKG)/" \
+	npm install -g $(DL_DIR)/$(PKG_SOURCE)
+	rm -rf $(TMP_DIR)/npm-tmp
+	rm -rf $(TMP_DIR)/npm-cache
+endef
+
+define Host/Install
+endef
+
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,node-yarn))
