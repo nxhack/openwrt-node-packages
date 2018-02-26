@@ -66,8 +66,8 @@ define Package/node-npm-check-updates/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/npm-check-updates/bin/npm-check-updates.js $(1)/usr/bin/npm-check-updates
-	$(LN) ../lib/node/npm-check-updates/bin/ncu.js $(1)/usr/bin/ncu
+	$(LN) ../lib/node/npm-check-updates/bin/npm-check-updates $(1)/usr/bin/npm-check-updates
+	$(LN) ../lib/node/npm-check-updates/bin/ncu $(1)/usr/bin/ncu
 endef
 
 $(eval $(call BuildPackage,node-npm-check-updates))
