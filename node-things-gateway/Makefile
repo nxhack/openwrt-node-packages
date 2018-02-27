@@ -49,24 +49,24 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g)
+	npm install --build-from-source --target_arch=$(NODEJS_CPU))
 	rm -rf $(TMP_DIR)/npm-tmp
 	rm -rf $(TMP_DIR)/npm-cache
 endef
 
 define Package/node-things-gateway/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,README.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{global.d.ts,*.sh,pagekite.py} \
+	$(CP) $(PKG_BUILD_DIR)/{global.d.ts,*.sh,pagekite.py} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{config,doc,image} \
+	$(CP) $(PKG_BUILD_DIR)/{config,doc,image} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,src,ssl} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,src,ssl} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{static,tools} \
+	$(CP) $(PKG_BUILD_DIR)/$(PKG_NPM_NAME)/{static,tools} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{tsconfig.json,webpack.config.js} \
+	$(CP) $(PKG_BUILD_DIR)/{tsconfig.json,webpack.config.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
