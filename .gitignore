@@ -1,0 +1,14 @@
+*.o
+.DS_Store
+.*.swp
+*.orig
+*.rej
+*~
+.#*
+*#
+.emacs.desktop*
+TAGS*~
+git-src
+.project
+.cproject
+.idea
