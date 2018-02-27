@@ -64,7 +64,7 @@ define Package/node-things-gateway/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,src,ssl} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/$(PKG_NPM_NAME)/{static,tools} \
+	$(CP) $(PKG_BUILD_DIR)/{static,tools} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{tsconfig.json,webpack.config.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
