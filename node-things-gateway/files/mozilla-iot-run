@@ -1,0 +1,20 @@
+#!/bin/sh -x
+
+MTG_HOME=${1:-/usr/share/things-gateway}
+
+run_app() {
+
+    cd ${MTG_HOME}
+
+    echo "node version"
+    node --version
+
+    echo "npm version"
+    npm --version
+
+    echo "Starting gateway ..."
+    npm start
+
+}
+
+run_app
