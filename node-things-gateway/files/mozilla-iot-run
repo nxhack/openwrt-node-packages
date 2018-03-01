@@ -1,10 +1,10 @@
 #!/bin/sh -x
 
-MTG_HOME=${1:-/usr/share/things-gateway}
+MOZIOT_HOME=${1:-/usr/share/things-gateway}
 
 run_app() {
 
-    cd ${MTG_HOME}
+    cd ${MOZIOT_HOME}
 
     echo "node version"
     node --version
