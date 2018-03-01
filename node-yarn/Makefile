@@ -16,7 +16,7 @@ PKG_HASH:=cd31657232cf48d57fdbff55f38bfa058d2fb4950450bd34af72dac796af4de1
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
-PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
+PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
 PKG_LICENSE_FILES:=LICENSE
 
