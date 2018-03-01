@@ -3,15 +3,15 @@
 START=98
 USE_PROCD=1
 
-MIG_HOME=/usr/share/things-gateway
+MOZIOT_HOME=/usr/share/things-gateway
 
 start_service() {
-	[ -d ${MIG_HOME}/.init-openwrt ] || {
-		mkdir -m 0755 -p ${MIG_HOME}/.init-openwrt
-		chown -R mozilla-iot:mozilla-iot ${MIG_HOME}
+	[ -d ${MOZIOT_HOME}/.init-openwrt ] || {
+		mkdir -m 0755 -p ${MOZIOT_HOME}/.init-openwrt
+		chown -R mozilla-iot:mozilla-iot ${MOZIOT_HOME}
 	}
 	procd_open_instance
-	procd_set_param command mozilla-iot-run ${MIG_HOME}
+	procd_set_param command mozilla-iot-run ${MOZIOT_HOME}
 	procd_set_param user mozilla-iot
 	procd_set_param stdout 1
 	procd_set_param stderr 1
