@@ -32,6 +32,7 @@ define Package/node-things-gateway
   TITLE:=Things Gateway by Mozilla
   URL:=http://iot.mozilla.org/gateway
   DEPENDS:=+node +node-npm +libusb-1.0 node-openzwave-shared +python-pip +openssl-util
+  USERID:=mozilla-iot:mozilla-iot
 endef
 
 define Package/node-things-gateway/description
@@ -55,19 +56,24 @@ define Build/Compile
 endef
 
 define Package/node-things-gateway/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/share/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,README.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/share/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{global.d.ts,*.sh,pagekite.py} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/share/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{config,doc,image} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/share/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,src,ssl} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/share/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{static,tools} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/share/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{tsconfig.json,webpack.config.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/share/$(PKG_NPM_NAME)/
+
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) ./files/mozilla-iot-run $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/mozilla-iot-gateway.init $(1)/etc/init.d/mozilla-iot-gateway
 endef
 
 $(eval $(call BuildPackage,node-things-gateway))
