@@ -113,6 +113,7 @@ node-autobahn			(utf-8-validate, bufferutil)
 node-bluetooth-hci-socket
 node-cylon-firmata		(serialport)
 node-ejdb
+node-epoll
 node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
