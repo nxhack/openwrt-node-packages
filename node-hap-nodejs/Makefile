@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=hap-nodejs
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.4.41
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -28,9 +28,8 @@ define Package/node-hap-nodejs
   CATEGORY:=Languages
   TITLE:=Node.js implementation of HomeKit Accessory Server
   URL:=https://www.npmjs.org/package/hap-nodejs
-  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
-  #  for InstallDev libdns_sd.so
-  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
+  # lede-17.01: need select 'y' libavahi-compat-libdnssd for InstallDev libdns_sd.so
+  DEPENDS:=+node libavahi-compat-libdnssd
 endef
 
 define Package/node-hap-nodejs/description

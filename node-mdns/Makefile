@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=mdns
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.3.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -28,9 +28,8 @@ define Package/node-mdns
   CATEGORY:=Languages
   TITLE:=multicast DNS service discovery
   URL:=https://www.npmjs.org/package/mdns
-  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
-  #  for InstallDev libdns_sd.so
-  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
+  # lede-17.01: need select 'y' libavahi-compat-libdnssd for InstallDev libdns_sd.so
+  DEPENDS:=+node libavahi-compat-libdnssd
 endef
 
 define Package/node-mdns/description
