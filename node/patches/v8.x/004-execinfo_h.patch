@@ -1,6 +1,6 @@
 --- a/deps/v8/src/external-reference-table.cc
 +++ b/deps/v8/src/external-reference-table.cc
-@@ -12,7 +12,7 @@
+@@ -11,7 +11,7 @@
  #include "src/ic/stub-cache.h"
  #include "src/objects-inl.h"
  
