@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=i2c-bus
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.2.5
+PKG_VERSION:=3.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=10a388a35e1fc951d984e55f19a5015ceddcc2663daa40c3ebc9779dbe1bee2a
+PKG_HASH:=24dee43025b0f7bbbe1b8d1e0941fffe4e996fe6dd5146ceab3d73affa33f1ea
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
