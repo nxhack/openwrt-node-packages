@@ -8,9 +8,10 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_8),y)
 PKG_VERSION:=v8.10.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_MD5SUM:=3f47386a36575c3b6f9ca7eb5fc67520
 PATCH_DIR:=./patches/v8.x
+HOST_PATCH_DIR:=./patches/v8.x-host
 else
 ifeq ($(CONFIG_NODEJS_4),y)
 PKG_VERSION:=v4.8.7
