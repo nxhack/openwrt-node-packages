@@ -8,19 +8,19 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_8),y)
 PKG_VERSION:=v8.10.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_MD5SUM:=3f47386a36575c3b6f9ca7eb5fc67520
 PATCH_DIR:=./patches/v8.x
 HOST_PATCH_DIR:=./patches/v8.x-host
 else
 ifeq ($(CONFIG_NODEJS_4),y)
 PKG_VERSION:=v4.8.7
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_MD5SUM:=ac634e8d1beee1a3bd77861eed81fdfa
 PATCH_DIR:=./patches/v4.x
 else
 PKG_VERSION:=v6.13.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_MD5SUM:=e2c0a1c16dea80c3344d19f7005e5ebd
 PATCH_DIR:=./patches/v6.x
 endif
@@ -99,6 +99,10 @@ NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU)
+
+CONFIGURE_VARS:= \
+	CC="$(TARGET_CC) $(TARGET_CFLAGS)" \
+	CC_host="$(HOSTCC)"
 
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
