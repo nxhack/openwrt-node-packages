@@ -41,14 +41,6 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-# Raspberry Pi B/B+/CM/Zero/ZeroW
-ifeq ($(CONFIG_TARGET_brcm2708_bcm2708),y)
-TARGET_CFLAGS=-Os -pipe -march=armv6 -mfpu=vfp -fhonour-copts -Wno-error=unused-but-set-variable -Wno-error=unused-result -mfloat-abi=hard
-TARGET_CXXFLAGS=$(TARGET_CFLAGS)
-TARGET_ASFLAGS_DEFAULT=$(TARGET_CFLAGS)
-TARGET_ASFLAGS=$(TARGET_ASFLAGS_DEFAULT)
-endif
-
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
@@ -132,6 +124,9 @@ MAKE_VARS+= \
 ifeq ($(CONFIG_NODEJS_DEBUG),y)
 	STRIP:="/bin/true"
 endif
+
+CONFIGURE_VARS:= \
+	CC="$(TARGET_CC) $(TARGET_CFLAGS)"
 
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
