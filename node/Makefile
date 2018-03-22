@@ -8,18 +8,18 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_9),y)
 PKG_VERSION:=v9.8.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=0706bb49e4fa5fa64c6c51941becb4b3854a6c0335425d7312bc086c37b41eac
 PATCH_DIR:=./patches/v9.x
 else
 ifeq ($(CONFIG_NODEJS_6),y)
 PKG_VERSION:=v6.13.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=c437350b476503a0f5605a5cc08bc41fe3bdb8ec100939ec7ea6600e44d56a46
 PATCH_DIR:=./patches/v6.x
 else
 PKG_VERSION:=v8.10.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_HASH:=b72d4e71618d6bcbd039b487b51fa7543631a4ac3331d7caf69bdf55b5b2901a
 PATCH_DIR:=./patches/v8.x
 HOST_PATCH_DIR:=./patches/v8.x-host
@@ -40,6 +40,13 @@ PKG_BUILD_PARALLEL:=1
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+
+# Raspberry Pi B/B+/CM/Zero/ZeroW
+ifeq ($(CONFIG_TARGET_brcm2708_bcm2708),y)
+TARGET_CFLAGS=-Os -pipe -march=armv6 -mfpu=vfp -fhonour-copts -Wno-error=unused-but-set-variable -Wno-error=unused-result -mfloat-abi=hard
+TARGET_CXXFLAGS=$(TARGET_CFLAGS)
+TARGET_ASFLAGS_DEFAULT=$(TARGET_CFLAGS)
+endif
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
