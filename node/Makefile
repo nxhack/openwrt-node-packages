@@ -46,6 +46,7 @@ ifeq ($(CONFIG_TARGET_brcm2708_bcm2708),y)
 TARGET_CFLAGS=-Os -pipe -march=armv6 -mfpu=vfp -fhonour-copts -Wno-error=unused-but-set-variable -Wno-error=unused-result -mfloat-abi=hard
 TARGET_CXXFLAGS=$(TARGET_CFLAGS)
 TARGET_ASFLAGS_DEFAULT=$(TARGET_CFLAGS)
+TARGET_ASFLAGS=$(TARGET_ASFLAGS_DEFAULT)
 endif
 
 include $(INCLUDE_DIR)/host-build.mk
