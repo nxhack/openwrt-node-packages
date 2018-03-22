@@ -126,7 +126,8 @@ ifeq ($(CONFIG_NODEJS_DEBUG),y)
 endif
 
 CONFIGURE_VARS:= \
-	CC="$(TARGET_CC) $(TARGET_CFLAGS)"
+	CC="$(TARGET_CC) $(TARGET_CFLAGS)" \
+	CC_host=$(HOSTCC)
 
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
