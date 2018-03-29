@@ -6,17 +6,17 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=bower
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.8.2
+PKG_VERSION:=1.8.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6bcf10e9c192fdbd6e89f98e431e095764c8571f66bcd6dd08fbcbd52e8dd722
+PKG_HASH:=e5071eca9d4b69aee04f8dc5cea0304b259b496e969c7e997e8b6fc3089857af
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
-PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
+PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
