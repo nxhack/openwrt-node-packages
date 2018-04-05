@@ -46,7 +46,7 @@ make toolchain/compile
 
 ***V8 JIT code DOES generate FP instructions. Node.js may not work without hardware FPU or kernel FPU emulation.***
 
-If you are running nodejs on Atheros AR933x, You need to make a kernel with MIPS_FPU_EMULATOR option.
+If you are running nodejs on Atheros AR71xx, AR933x, You need to make a kernel with MIPS_FPU_EMULATOR option.
 
 You can configure using kernel_menuconfig.
 ```
