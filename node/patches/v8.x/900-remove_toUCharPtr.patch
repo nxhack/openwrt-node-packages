@@ -1,0 +1,40 @@
+From 772393c79b039ab7eb73b54aa4e1b93147653340 Mon Sep 17 00:00:00 2001
+From: Ben Noordhuis <info@bnoordhuis.nl>
+Date: Fri, 30 Mar 2018 12:47:02 +0200
+Subject: [PATCH] deps: cherry-pick b767cde1e7 from upstream V8
+
+Original commit message:
+
+    [intl] unbreak build with ICU 57
+
+    Remove a call to `icu::toUCharPtr()` that wasn't present in other
+    similar looking call sites either, just reinterpret_cast directly.
+
+    Fixes https://github.com/nodejs/node/issues/19656.
+
+    Cq-Include-Trybots: luci.v8.try:v8_linux_noi18n_rel_ng
+    Change-Id: If281ce0a39356aa8bd20efb24c3e4b52b06841a3
+    Reviewed-on: https://chromium-review.googlesource.com/987953
+    Reviewed-by: Daniel Ehrenberg <littledan@chromium.org>
+    Commit-Queue: Ben Noordhuis <info@bnoordhuis.nl>
+    Cr-Commit-Position: refs/heads/master@{#52311}
+
+Fixes: https://github.com/nodejs/node/issues/19656
+---
+ deps/v8/src/runtime/runtime-intl.cc | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/deps/v8/src/runtime/runtime-intl.cc b/deps/v8/src/runtime/runtime-intl.cc
+index c4f132b1340..aaa6034e80d 100644
+--- a/deps/v8/src/runtime/runtime-intl.cc
++++ b/deps/v8/src/runtime/runtime-intl.cc
+@@ -626,8 +626,7 @@ RUNTIME_FUNCTION(Runtime_PluralRulesSelect) {
+   icu::UnicodeString result = plural_rules->select(rounded);
+   return *isolate->factory()
+               ->NewStringFromTwoByte(Vector<const uint16_t>(
+-                  reinterpret_cast<const uint16_t*>(
+-                      icu::toUCharPtr(result.getBuffer())),
++                  reinterpret_cast<const uint16_t*>(result.getBuffer()),
+                   result.length()))
+               .ToHandleChecked();
+ }
