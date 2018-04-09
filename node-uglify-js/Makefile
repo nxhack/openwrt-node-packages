@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=uglify-js
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.3.8
+PKG_VERSION:=3.3.18
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=f9e2ce952a7f4dcaee05eff0c6f13ab3
+PKG_MD5SUM:=d7ae43f67edeeca213d899c1664c7d63
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
