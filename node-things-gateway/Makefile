@@ -30,7 +30,7 @@ define Package/node-things-gateway
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Things Gateway by Mozilla
-  URL:=http://iot.mozilla.org/gateway
+  URL:=https://iot.mozilla.org/gateway
   DEPENDS:=+node +node-npm +libusb-1.0 node-openzwave-shared +python-pip +openssl-util
   USERID:=mozilla-iot:mozilla-iot
 endef
