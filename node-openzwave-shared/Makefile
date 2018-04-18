@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=openzwave-shared
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.4.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -28,7 +28,7 @@ define Package/node-openzwave-shared
   CATEGORY:=Languages
   TITLE:=Node.JS bindings for OpenZWave
   URL:=https://www.npmjs.org/package/openzwave-shared
-  DEPENDS:=+node openzwave
+  DEPENDS:=+node libopenzwave
 endef
 
 define Package/node-openzwave-shared/description
@@ -39,13 +39,6 @@ TAR_OPTIONS+= --strip-components 1
 TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
-
-TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/openzwave -I$(STAGING_DIR)/usr/include/openzwave/value_classes
-
-define Build/Prepare
-	$(Build/Prepare/Default)
-	$(SED) "s#<(OZW_INC)#$(STAGING_DIR)/usr/include#g" $(PKG_BUILD_DIR)/binding.gyp
-endef
 
 define Build/Compile
 	$(MAKE_VARS) \
