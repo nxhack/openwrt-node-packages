@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=things-gateway
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.3.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/mozilla-iot/gateway.git
@@ -31,7 +31,7 @@ define Package/node-things-gateway
   CATEGORY:=Languages
   TITLE:=Things Gateway by Mozilla
   URL:=https://iot.mozilla.org/gateway
-  DEPENDS:=+node +node-npm +libusb-1.0 node-openzwave-shared +python-pip +openssl-util
+  DEPENDS:=+node +node-npm +libusb-1.0 libopenzwave +python-pip +openssl-util
   USERID:=mozilla-iot:mozilla-iot
 endef
 
@@ -42,7 +42,6 @@ endef
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
 define Build/Compile
-	(cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -50,7 +49,7 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp \
 	PREFIX="$(PKG_INSTALL_DIR)/usr/" \
-	npm install --build-from-source --target_arch=$(NODEJS_CPU))
+	npm install --build-from-source --target_arch=$(NODEJS_CPU) -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp
 	rm -rf $(TMP_DIR)/npm-cache
 endef
