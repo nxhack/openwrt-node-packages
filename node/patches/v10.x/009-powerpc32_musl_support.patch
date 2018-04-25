@@ -1,6 +1,6 @@
 --- a/deps/v8/src/libsampler/sampler.cc
 +++ b/deps/v8/src/libsampler/sampler.cc
-@@ -458,9 +458,9 @@
+@@ -502,9 +502,9 @@
        reinterpret_cast<void*>(ucontext->uc_mcontext.regs->gpr[PT_R31]);
  #else
    // Some C libraries, notably Musl, define the regs member as a void pointer
