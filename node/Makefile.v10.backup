@@ -6,16 +6,18 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
-ifeq ($(CONFIG_NODEJS_9),y)
+ifeq ($(CONFIG_NODEJS_10),y)
+#PKG_VERSION:=v10.0.0
 PKG_VERSION:=v9.11.1
 PKG_RELEASE:=1
+#PKG_HASH:=e239109020755db8a58e6bcb8b9375439e31cf3bbe92d0670a320a47a4e8ab50
 PKG_HASH:=23dc3d133924f5c7453c479d5eceb3b6af932415cb67d99798c313573d9b9d4c
-PATCH_DIR:=./patches/v9.x
+PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_6),y)
-PKG_VERSION:=v6.14.2
+PKG_VERSION:=v6.14.1
 PKG_RELEASE:=1
-PKG_HASH:=b3a534b2ad5e96c6ff67f3a1356b94f7a28ef118eb1d420b314fe5aafe6d62d1
+PKG_HASH:=115eda89ff718abe811cb14c31dec891efa20b92c99e715f5e094641bc56bec3
 PATCH_DIR:=./patches/v6.x
 else
 PKG_VERSION:=v8.11.1
@@ -89,8 +91,8 @@ define Package/node/config
 		config NODEJS_8
 			bool "8.x LTS"
 
-		config NODEJS_9
-			bool "9.x Current"
+		config NODEJS_10
+			bool "10.x Current"
 	endchoice
 
 	choice
@@ -200,7 +202,7 @@ define Package/node-npm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
-ifneq ($(filter y,$(CONFIG_NODEJS_8) $(CONFIG_NODEJS_9)),)
+ifneq ($(filter y,$(CONFIG_NODEJS_8) $(CONFIG_NODEJS_10)),)
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
 endif
 endef
