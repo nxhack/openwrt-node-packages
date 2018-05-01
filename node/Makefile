@@ -6,6 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
+ifeq ($(CONFIG_NODEJS_10),y)
+PKG_VERSION:=v10.0.0
+PKG_RELEASE:=1
+PKG_HASH:=e239109020755db8a58e6bcb8b9375439e31cf3bbe92d0670a320a47a4e8ab50
+PATCH_DIR:=./patches/v10.x
+else
 ifeq ($(CONFIG_NODEJS_9),y)
 PKG_VERSION:=v9.11.1
 PKG_RELEASE:=1
@@ -22,6 +28,7 @@ PKG_VERSION:=v8.11.1
 PKG_RELEASE:=2
 PKG_HASH:=40a6eb51ea37fafcf0cfb58786b15b99152bec672cccf861c14d1cca0ad4758a
 PATCH_DIR:=./patches/v8.x
+endif
 endif
 endif
 
@@ -90,6 +97,9 @@ define Package/node/config
 
 		config NODEJS_9
 			bool "9.x Current"
+
+		config NODEJS_10
+			bool "10.x Current"
 	endchoice
 
 	choice
@@ -135,7 +145,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
-	--shared-openssl \
+	$(if $(CONFIG_NODEJS_10),,--shared-openssl) \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug,) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
@@ -199,7 +209,7 @@ define Package/node-npm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
-ifneq ($(filter y,$(CONFIG_NODEJS_8) $(CONFIG_NODEJS_9)),)
+ifneq ($(filter y,$(CONFIG_NODEJS_8) $(CONFIG_NODEJS_9) $(CONFIG_NODEJS_10)),)
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
 endif
 endef
