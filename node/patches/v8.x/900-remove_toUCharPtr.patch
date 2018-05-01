@@ -28,7 +28,7 @@ diff --git a/deps/v8/src/runtime/runtime-intl.cc b/deps/v8/src/runtime/runtime-i
 index c4f132b1340..aaa6034e80d 100644
 --- a/deps/v8/src/runtime/runtime-intl.cc
 +++ b/deps/v8/src/runtime/runtime-intl.cc
-@@ -626,8 +626,7 @@ RUNTIME_FUNCTION(Runtime_PluralRulesSelect) {
+@@ -631,8 +631,7 @@ RUNTIME_FUNCTION(Runtime_PluralRulesSelect) {
    icu::UnicodeString result = plural_rules->select(rounded);
    return *isolate->factory()
                ->NewStringFromTwoByte(Vector<const uint16_t>(
