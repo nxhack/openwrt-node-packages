@@ -19,10 +19,9 @@ PKG_HASH:=b3a534b2ad5e96c6ff67f3a1356b94f7a28ef118eb1d420b314fe5aafe6d62d1
 PATCH_DIR:=./patches/v6.x
 else
 PKG_VERSION:=v8.11.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=40a6eb51ea37fafcf0cfb58786b15b99152bec672cccf861c14d1cca0ad4758a
 PATCH_DIR:=./patches/v8.x
-HOST_PATCH_DIR:=./patches/v8.x-host
 endif
 endif
 
