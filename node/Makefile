@@ -28,7 +28,6 @@ PKG_VERSION:=v8.11.1
 PKG_RELEASE:=3
 PKG_HASH:=40a6eb51ea37fafcf0cfb58786b15b99152bec672cccf861c14d1cca0ad4758a
 PATCH_DIR:=./patches/v8.x
-HOST_PATCH_DIR:=./patches/v8.x-host
 endif
 endif
 endif
@@ -164,6 +163,7 @@ HOST_CONFIGURE_ARGS:= \
 	--without-snapshot \
 	--shared-zlib \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,none) \
+	--systemtap-includes=$(HOST_BUILD_DIR)/deps/openssl/openssl/include \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python ./configure
