@@ -36,7 +36,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host NODEJS_ICU_SMALL:node/host
+PKG_BUILD_DEPENDS:=python/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -168,28 +168,12 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
-ifeq ($(CONFIG_NODEJS_ICU_SMALL),y)
-ICUPKG:=$(HOST_BUILD_DIR)/out/Release/icupkg
-ICULSLOCS:=$(HOST_BUILD_DIR)/out/Release/iculslocs
-GENRB:=$(HOST_BUILD_DIR)/out/Release/genrb
-GENCCODE:=$(HOST_BUILD_DIR)/out/Release/genccode
-ICUTRIM_PY:=$(PKG_BUILD_DIR)/tools/icu/icutrim.py
-ICU_GENERIC_GYP:=$(PKG_BUILD_DIR)/tools/icu/icu-generic.gyp
-endif
-
 define Build/Prepare
 	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
 		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
 		exit 1; \
 	))
 	$(Build/Prepare/Default)
-
-ifeq ($(CONFIG_NODEJS_ICU_SMALL),y)
-	$(SED) "s#\"icupkg\"#\"$(ICUPKG)\"#g" $(ICUTRIM_PY)
-	$(SED) "s#\"iculslocs\"#\"$(ICULSLOCS)\"#g" $(ICUTRIM_PY)
-	$(SED) "s#\"genrb\"#\"$(GENRB)\"#g" $(ICUTRIM_PY)
-	$(SED) "s#<(PRODUCT_DIR)/genccode#$(GENCCODE)#g" $(ICU_GENERIC_GYP)
-endif
 endef
 
 define Build/InstallDev
