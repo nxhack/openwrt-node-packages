@@ -18,9 +18,9 @@ PKG_RELEASE:=1
 PKG_MD5SUM:=b69940f0c201f753ec1eaffd35a36231
 PATCH_DIR:=./patches/v4.x
 else
-PKG_VERSION:=v6.14.1
+PKG_VERSION:=v6.14.2
 PKG_RELEASE:=1
-PKG_MD5SUM:=ff6230875f39197b5a1f7fbbb68f40f1
+PKG_MD5SUM:=d60e4ccd4bed7c4d4be5a4e43250e316
 PATCH_DIR:=./patches/v6.x
 endif
 endif
@@ -82,7 +82,7 @@ define Package/node/config
 		 Select node.js version.
 
 		config NODEJS_4
-			bool "4.x LTS"
+			bool "4.x *EOL*"
 
 		config NODEJS_6
 			bool "6.x LTS"
