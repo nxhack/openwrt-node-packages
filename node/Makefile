@@ -99,7 +99,7 @@ define Package/node/config
 			bool "9.x Current"
 
 		config NODEJS_10
-			bool "10.x Current"
+			bool "10.x ***"
 	endchoice
 
 	choice
