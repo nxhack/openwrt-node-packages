@@ -12,7 +12,7 @@ diff --git a/node.gyp b/node.gyp
 index 8a8bd00..fdccd60 100644
 --- a/node.gyp
 +++ b/node.gyp
-@@ -356,7 +356,7 @@
+@@ -606,7 +606,7 @@
        'type': 'none',
        'toolsets': ['host'],
        'conditions': [
@@ -21,10 +21,9 @@ index 8a8bd00..fdccd60 100644
            'actions': [
              {
                'action_name': 'v8_inspector_compress_protocol_json',
-@@ -633,7 +633,7 @@
-       ],
- 
-       'conditions': [
+@@ -931,6 +931,6 @@
+           ],
+         }],
 -        ['v8_inspector=="true"', {
 +        ['v8_inspector=="true" and node_use_openssl =="true"', {
            'sources': [
