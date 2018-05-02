@@ -194,7 +194,7 @@ define Package/node-npm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
-ifneq ($(filter y,$(CONFIG_NODEJS_8) $(CONFIG_NODEJS_9) $(CONFIG_NODEJS_10)),)
+ifneq ($(CONFIG_NODEJS_6),y)
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
 endif
 endef
