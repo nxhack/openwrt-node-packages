@@ -162,7 +162,6 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
-	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,none) \
 	--systemtap-includes=$(HOST_BUILD_DIR)/deps/openssl/openssl/include \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
