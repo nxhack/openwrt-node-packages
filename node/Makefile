@@ -151,10 +151,6 @@ CONFIGURE_ARGS:= \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
-	$(if $(findstring arm,$(NODEJS_CPU)), \
-		$(if $(CONFIG_SOFT_FLOAT),, \
-			$(if $(findstring neon,$(CONFIG_CPU_TYPE)), --with-arm-fpu=neon, \
-			$(if $(findstring vfpv3,$(CONFIG_CPU_TYPE)), --with-arm-fpu=vfpv3,)))) \
 	--prefix=/usr
 
 HOST_CONFIGURE_VARS:=
@@ -162,7 +158,7 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	--shared-zlib \
-	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,none) \
+	--with-intl=none \
 	--systemtap-includes=$(HOST_BUILD_DIR)/deps/openssl/openssl/include \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
