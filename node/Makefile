@@ -111,11 +111,11 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	$(if $(CONFIG_NODEJS_4),,--with-intl=none) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
-		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
-	$(if $(findstring arm,$(NODEJS_CPU)), \
-		$(if $(CONFIG_SOFT_FLOAT),, \
-			$(if $(findstring neon,$(CONFIG_CPU_TYPE)), --with-arm-fpu=neon, \
-			$(if $(findstring vfpv3,$(CONFIG_CPU_TYPE)), --with-arm-fpu=vfpv3,)))) \
+		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft)) \
+	$(if $(findstring +neon,$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
+	$(if $(findstring +vfp",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfp) \
+	$(if $(findstring +vfpv3",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3-d16) \
+	$(if $(findstring +vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3) \
 	--prefix=/usr
 
 HOST_CONFIGURE_VARS:=
@@ -124,6 +124,7 @@ HOST_CONFIGURE_ARGS:= \
 	--without-snapshot \
 	--shared-zlib \
 	--with-intl=none \
+	--systemtap-includes=$(HOST_BUILD_DIR)/deps/openssl/openssl/include \
 	--prefix=$(STAGING_DIR_HOST)
 
 HOST_CONFIGURE_CMD:=python ./configure
