@@ -146,13 +146,15 @@ CONFIGURE_ARGS:= \
 	--without-snapshot \
 	--shared-zlib \
 	$(if $(CONFIG_NODEJS_10),,--shared-openssl) \
-	$(if $(CONFIG_NODEJS_DEBUG),--debug,) \
+	$(if $(CONFIG_NODEJS_DEBUG),--debug) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
-		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft,)) \
+		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft)) \
 	$(if $(findstring +neon,$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
+	$(if $(findstring +vfp",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfp) \
 	$(if $(findstring +vfpv3",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3-d16) \
+	$(if $(findstring +vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3) \
 	--prefix=/usr
 
 HOST_CONFIGURE_VARS:=
