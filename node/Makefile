@@ -163,9 +163,7 @@ HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
-	--shared-zlib \
 	--with-intl=none \
-	--systemtap-includes=$(HOST_BUILD_DIR)/deps/openssl/openssl/include \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python ./configure
