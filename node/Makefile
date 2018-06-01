@@ -90,16 +90,16 @@ define Package/node/config
 		 Select node.js version.
 
 		config NODEJS_6
-			bool "6.x LTS"
+			bool "6.x Maintenance LTS"
 
 		config NODEJS_8
-			bool "8.x LTS"
+			bool "8.x Active LTS"
 
 		config NODEJS_9
-			bool "9.x Current"
+			bool "9.x Maintenance"
 
 		config NODEJS_10
-			bool "10.x ***"
+			bool "10.x Current Release"
 	endchoice
 
 	choice
