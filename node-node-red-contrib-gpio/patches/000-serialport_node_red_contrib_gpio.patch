@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -39,7 +39,7 @@
+     "mqtt": "^2.15.2",
+     "mqtt-serial": "^0.6.0",
+     "node-led": "^0.3.1",
+-    "serialport": "^6.0.5",
++    "serialport": "6.1.1",
+     "socket.io-serial": "^0.4.0",
+     "udp-serial": "^0.2.0"
+   },
