@@ -129,6 +129,7 @@ node-level			(leveldown)
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
 node-mknod
 node-modbus
+node-net-ping			(raw-socket)
 node-node-expat
 node-node-hid
 node-node-red			(bcrypt)
