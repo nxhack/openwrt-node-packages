@@ -158,6 +158,7 @@ CONFIGURE_ARGS:= \
 	$(if $(findstring +vfpv3",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3-d16) \
 	$(if $(findstring +vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3) \
 	$(if $(findstring arm926ej-s,$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3) \
+	$(if $(findstring arm_xscale,$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3) \
 	--prefix=/usr
 
 HOST_CONFIGURE_VARS:=
