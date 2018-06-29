@@ -1,0 +1,22 @@
+--- a/src/BluetoothHciSocket.cpp
++++ b/src/BluetoothHciSocket.cpp
+@@ -275,7 +275,7 @@
+     Nan::New(strerror(errno)).ToLocalChecked()
+   };
+ 
+-  Local<Value> error = errorConstructor->NewInstance(1, constructorArgs);
++  Local<Value> error = Nan::NewInstance(errorConstructor, 1, constructorArgs).ToLocalChecked();
+ 
+   Local<Value> argv[2] = {
+     Nan::New("error").ToLocalChecked(),
+--- a/package.json
++++ b/package.json
+@@ -29,7 +29,7 @@
+   ],
+   "dependencies": {
+     "debug": "^2.2.0",
+-    "nan": "^2.0.5"
++    "nan": "^2.10.0"
+   },
+   "optionalDependencies": {
+     "usb": "^1.1.0"
