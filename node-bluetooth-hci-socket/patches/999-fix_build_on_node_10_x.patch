@@ -1,0 +1,62 @@
+From 462e332cfa92da7d4e7dc610826c923f104b1dad Mon Sep 17 00:00:00 2001
+From: johnny <johnny@localmomentum.net>
+Date: Mon, 18 Jun 2018 01:19:20 -0400
+Subject: [PATCH 1/2] Fix build on node 10.x
+
+This fix comes from
+https://github.com/noble/node-bluetooth-hci-socket/issues/84#issuecomment-391951781
+,  so I can't personally vouch for it.
+---
+ package.json               | 2 +-
+ src/BluetoothHciSocket.cpp | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/package.json b/package.json
+index 43ee21f..017aae3 100644
+--- a/package.json
++++ b/package.json
+@@ -27,7 +27,7 @@
+   ],
+   "dependencies": {
+     "debug": "^2.2.0",
+-    "nan": "^2.0.5",
++    "nan": "^2.10.0",
+     "node-pre-gyp": "0.6.x"
+   },
+   "optionalDependencies": {
+diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
+index 469cda2..0cc7427 100644
+--- a/src/BluetoothHciSocket.cpp
++++ b/src/BluetoothHciSocket.cpp
+@@ -273,7 +273,7 @@ void BluetoothHciSocket::emitErrnoError() {
+     Nan::New(strerror(errno)).ToLocalChecked()
+   };
+ 
+-  Local<Value> error = errorConstructor->NewInstance(1, constructorArgs);
++  Local<Value> error = Nan::NewInstance(errorConstructor, 1, constructorArgs).ToLocalChecked();
+ 
+   Local<Value> argv[2] = {
+     Nan::New("error").ToLocalChecked(),
+
+From a1877898ce435f4e72da71689ca7e0cc8bc4f200 Mon Sep 17 00:00:00 2001
+From: johnny <johnny@localmomentum.net>
+Date: Sat, 23 Jun 2018 02:59:55 -0400
+Subject: [PATCH 2/2] Add binding_path path fix
+
+---
+ lib/native.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/native.js b/lib/native.js
+index 68c4e79..051c847 100644
+--- a/lib/native.js
++++ b/lib/native.js
+@@ -2,7 +2,7 @@ var events = require('events');
+ 
+ var binary = require('node-pre-gyp');
+ var path = require('path');
+-var binding_path = binary.find(path.resolve(path.join(__dirname,'./package.json')));
++var binding_path = binary.find(path.resolve(path.join(__dirname,'../package.json')));
+ var binding = require(binding_path);
+ 
+ var BluetoothHciSocket = binding.BluetoothHciSocket;
