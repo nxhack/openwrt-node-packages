@@ -15,13 +15,12 @@ diff --git a/package.json b/package.json
 index 43ee21f..017aae3 100644
 --- a/package.json
 +++ b/package.json
-@@ -27,7 +27,7 @@
+@@ -29,6 +29,6 @@
    ],
    "dependencies": {
      "debug": "^2.2.0",
 -    "nan": "^2.0.5",
-+    "nan": "^2.10.0",
-     "node-pre-gyp": "0.6.x"
++    "nan": "^2.10.0"
    },
    "optionalDependencies": {
 diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
@@ -38,25 +37,3 @@ index 469cda2..0cc7427 100644
    Local<Value> argv[2] = {
      Nan::New("error").ToLocalChecked(),
 
-From a1877898ce435f4e72da71689ca7e0cc8bc4f200 Mon Sep 17 00:00:00 2001
-From: johnny <johnny@localmomentum.net>
-Date: Sat, 23 Jun 2018 02:59:55 -0400
-Subject: [PATCH 2/2] Add binding_path path fix
-
----
- lib/native.js | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/native.js b/lib/native.js
-index 68c4e79..051c847 100644
---- a/lib/native.js
-+++ b/lib/native.js
-@@ -2,7 +2,7 @@ var events = require('events');
- 
- var binary = require('node-pre-gyp');
- var path = require('path');
--var binding_path = binary.find(path.resolve(path.join(__dirname,'./package.json')));
-+var binding_path = binary.find(path.resolve(path.join(__dirname,'../package.json')));
- var binding = require(binding_path);
- 
- var BluetoothHciSocket = binding.BluetoothHciSocket;
