@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=bignum
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.12.5
-PKG_RELEASE:=7
+PKG_VERSION:=0.13.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=1ae026049342eba548c93aeee551af1b8bcd084f0ae893f7c03b2a24021d96ff
+PKG_HASH:=1125a3b9849c647caa6f604cdb51fd192dea1bf0b06e3f3cd014e47842109a7f
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -60,7 +60,7 @@ define Package/node-bignum/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,index.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,binding} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bignum.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/

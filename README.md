@@ -109,8 +109,8 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 node-alljoyn
 node-arduino-firmata		(serialport)
 node-authenticate-pam
-node-autobahn			(utf-8-validate, bufferutil)
 node-bluetooth-hci-socket
+node-bufferutil
 node-cylon-firmata		(serialport)
 node-ejdb
 node-epoll
@@ -121,7 +121,6 @@ node-hashtable
 node-homebridge			(mdns [need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so], curve25519-n2, ed25519)
 node-hap-nodejs			(mdns [need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so], curve25519-n2, ed25519)
 node-i2c-bus
-node-ibmiotf			(utf-8-validate, bufferutil)
 node-ideino-linino-lib
 node-johnny-five		(serialport)
 node-leveldown
@@ -143,6 +142,7 @@ node-sleep
 node-sqlite3
 node-statvfs
 node-usb
+node-utf-8-validate
 ```
 Other modules can be installed by 'npm install'.
 

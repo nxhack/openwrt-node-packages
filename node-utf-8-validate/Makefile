@@ -4,46 +4,38 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=homebridge
+PKG_NPM_NAME:=utf-8-validate
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.4.44
+PKG_VERSION:=4.0.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=dfe9b7457f2c25ff46e8a6bae5e9d952eb9d57cfa008c0d9fceee32d3d3ce38f
+PKG_HASH:=8065953cc5bd80638ab357eb348b4a9e9372d304cd98f1c54208473a2b145972
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=ISC Apache-2.0
+PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-homebridge
+define Package/node-utf-8-validate
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js HomeKit Server
-  URL:=https://www.npmjs.org/package/homebridge
-  # lede-17.01: need select 'y' libavahi-compat-libdnssd for InstallDev libdns_sd.so
-  DEPENDS:=+node +node-npm libavahi-compat-libdnssd
-  USERID:=homebridge:homebridge
+  TITLE:=Check if a buffer contains valid UTF-8
+  URL:=https://www.npmjs.org/package/utf-8-validate
+  DEPENDS:=+node
 endef
 
-define Package/node-homebridge/description
- Homebridge is a lightweight Node.js server you can run on your home network that emulates the iOS HomeKit API
+define Package/node-utf-8-validate/description
+ Check if a buffer contains valid UTF-8 encoded text
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
-
-TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/avahi-compat-libdns_sd
-
-define Build/Prepare
-	$(INSTALL_DIR) $(PKG_BUILD_DIR)
-endef
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -58,13 +50,9 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache
 endef
 
-define Package/node-homebridge/install
+define Package/node-utf-8-validate/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/homebridge/bin/homebridge $(1)/usr/bin/homebridge
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 endef
 
-$(eval $(call BuildPackage,node-homebridge))
+$(eval $(call BuildPackage,node-utf-8-validate))
