@@ -1,20 +1,20 @@
 --- a/package.json
 +++ b/package.json
-@@ -29,7 +29,7 @@
-   },
-   "bundleDependencies": false,
-   "dependencies": {
--    "node-gyp-build": "~3.4.0"
-+    "prebuild-install": "^2.1.0"
-   },
-   "deprecated": false,
+@@ -4,7 +4,7 @@
    "description": "WebSocket buffer utils",
-@@ -49,7 +49,7 @@
-     "url": "git+https://github.com/websockets/bufferutil.git"
-   },
+   "main": "index.js",
    "scripts": {
 -    "install": "node-gyp-build",
 +    "install": "prebuild-install || node-gyp rebuild",
      "prebuild": "prebuildify --napi",
      "test": "mocha"
    },
+@@ -22,7 +22,7 @@
+   },
+   "homepage": "https://github.com/websockets/bufferutil",
+   "dependencies": {
+-    "node-gyp-build": "~3.4.0"
++    "prebuild-install": "^2.1.0"
+   },
+   "devDependencies": {
+     "mocha": "~5.2.0",
