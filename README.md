@@ -109,8 +109,8 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 node-alljoyn
 node-arduino-firmata		(serialport)
 node-authenticate-pam
-node-autobahn			(utf-8-validate, bufferutil)
 node-bluetooth-hci-socket
+node-bufferutil
 node-cylon-firmata		(serialport)
 node-ejdb
 node-epoll
@@ -143,6 +143,7 @@ node-sleep
 node-sqlite3
 node-statvfs
 node-usb
+node-utf-8-validate
 ```
 Other modules can be installed by 'npm install'.
 
