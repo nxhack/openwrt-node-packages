@@ -19,7 +19,7 @@ index 43ee21f..017aae3 100644
    ],
    "dependencies": {
      "debug": "^2.2.0",
--    "nan": "^2.0.5",
+-    "nan": "^2.0.5"
 +    "nan": "^2.10.0"
    },
    "optionalDependencies": {
@@ -27,7 +27,7 @@ diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
 index 469cda2..0cc7427 100644
 --- a/src/BluetoothHciSocket.cpp
 +++ b/src/BluetoothHciSocket.cpp
-@@ -273,7 +273,7 @@ void BluetoothHciSocket::emitErrnoError() {
+@@ -275,7 +275,7 @@ void BluetoothHciSocket::emitErrnoError() {
      Nan::New(strerror(errno)).ToLocalChecked()
    };
  
