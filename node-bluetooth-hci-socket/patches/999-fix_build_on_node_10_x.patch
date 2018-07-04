@@ -1,33 +1,6 @@
-From 462e332cfa92da7d4e7dc610826c923f104b1dad Mon Sep 17 00:00:00 2001
-From: johnny <johnny@localmomentum.net>
-Date: Mon, 18 Jun 2018 01:19:20 -0400
-Subject: [PATCH 1/2] Fix build on node 10.x
-
-This fix comes from
-https://github.com/noble/node-bluetooth-hci-socket/issues/84#issuecomment-391951781
-,  so I can't personally vouch for it.
----
- package.json               | 2 +-
- src/BluetoothHciSocket.cpp | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/package.json b/package.json
-index 43ee21f..017aae3 100644
---- a/package.json
-+++ b/package.json
-@@ -29,6 +29,6 @@
-   ],
-   "dependencies": {
-     "debug": "^2.2.0",
--    "nan": "^2.0.5"
-+    "nan": "^2.10.0"
-   },
-   "optionalDependencies": {
-diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
-index 469cda2..0cc7427 100644
 --- a/src/BluetoothHciSocket.cpp
 +++ b/src/BluetoothHciSocket.cpp
-@@ -275,7 +275,7 @@ void BluetoothHciSocket::emitErrnoError() {
+@@ -275,7 +275,7 @@
      Nan::New(strerror(errno)).ToLocalChecked()
    };
  
@@ -36,4 +9,14 @@ index 469cda2..0cc7427 100644
  
    Local<Value> argv[2] = {
      Nan::New("error").ToLocalChecked(),
-
+--- a/package.json
++++ b/package.json
+@@ -29,7 +29,7 @@
+   ],
+   "dependencies": {
+     "debug": "^2.2.0",
+-    "nan": "^2.0.5"
++    "nan": "^2.10.0"
+   },
+   "optionalDependencies": {
+     "usb": "^1.1.0"
