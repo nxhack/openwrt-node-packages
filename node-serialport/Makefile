@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=serialport
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.1.1
+PKG_VERSION:=6.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=09ecfd4c5537d9ce0a9105d77bb0ea87
+PKG_MD5SUM:=9ce2fcab359dab38e3cafa8fd5de211e
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
