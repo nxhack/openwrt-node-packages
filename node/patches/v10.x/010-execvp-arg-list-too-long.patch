@@ -152,7 +152,7 @@ index f7f519b3e6..ce3ef71e4a 100644
  # Due to circular dependencies between libraries :(, we wrap the
  # special "figure out circular dependencies" flags around the entire
  # input list during linking.
-@@ -1589,11 +1637,17 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)/%%%s FORCE_DO_CMD
+@@ -1584,11 +1632,17 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)/%%%s FORCE_DO_CMD
              "Spaces in alink input filenames not supported (%s)"  % link_dep)
        if (self.flavor not in ('mac', 'openbsd', 'netbsd', 'win') and not
            self.is_standalone_static_library):
