@@ -104,7 +104,7 @@ Specify v8-options.
 
 Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 
-## For LEDE-17.01.x user
+## For node v10.x & LEDE-17.01.x user
 ***Enable CONFIG_ADVISE_SYSCALLS***
 
 Without this, posix_[fm]advise does not work.
