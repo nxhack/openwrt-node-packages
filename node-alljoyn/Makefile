@@ -31,7 +31,7 @@ define Package/node-alljoyn
   CATEGORY:=Languages
   TITLE:=Alljoyn Node.js Integration
   URL:=https://www.npmjs.org/package/alljoyn
-  DEPENDS:=+node
+  DEPENDS:=+node @BROKEN
 endef
 
 define Package/node-alljoyn/description
