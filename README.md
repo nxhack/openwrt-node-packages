@@ -104,17 +104,6 @@ Specify v8-options.
 
 Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 
-## For node v10.x & LEDE-17.01.x user
-***Enable CONFIG_ADVISE_SYSCALLS***
-
-Without this, posix_[fm]advise does not work.
-```
-make kernel_menuconfig
-
-    General setup  --->
-     [*] Enable madvise/fadvise syscalls
-```
-
 ## Modules that use pre-compiled binary (native module)
 ```
 node-alljoyn
