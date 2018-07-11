@@ -14,7 +14,7 @@ diff --git a/deps/v8/src/base/platform/platform-posix.cc b/deps/v8/src/base/plat
 index d21107d..cf7f3ec 100644
 --- a/deps/v8/src/base/platform/platform-posix.cc
 +++ b/deps/v8/src/base/platform/platform-posix.cc
-@@ -156,6 +156,8 @@
+@@ -154,6 +154,8 @@
  #else
    int ret = madvise(address, size, MADV_FREE);
  #endif
