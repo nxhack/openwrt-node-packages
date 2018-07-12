@@ -1,0 +1,197 @@
+diff -urN a/ejdb_args.h b/ejdb_args.h
+--- a/ejdb_args.h	2017-03-21 18:31:23.000000000 +0900
++++ b/ejdb_args.h	2018-07-11 15:39:28.358429517 +0900
+@@ -32,7 +32,7 @@
+ #define REQ_STR_ARG(I, VAR)                                                               \
+   if (info.Length() <= (I) || !info[I]->IsString())                                       \
+     return Nan::ThrowTypeError("Argument " #I " must be a string");     \
+-  String::Utf8Value VAR(info[I]->ToString());
++  Nan::Utf8String VAR(info[I]->ToString());
+ 
+ #define REQ_STRW_ARG(I, VAR)                                                              \
+   if (info.Length() <= (I) || !info[I]->IsString())                                       \
+diff -urN a/ejdb_native.cc b/ejdb_native.cc
+--- a/ejdb_native.cc	2017-03-21 18:31:23.000000000 +0900
++++ b/ejdb_native.cc	2018-07-11 17:02:49.706429517 +0900
+@@ -110,7 +110,7 @@
+         if (fs) {
+             *fs = FETCH_VAL;
+         }
+-        return sobj->ToNumber()->IntegerValue();
++        return sobj->Uint32Value();
+     }
+ 
+     bool fetch_bool_data(Handle<Value> sobj, eFetchStatus* fs, bool def) {
+@@ -138,7 +138,7 @@
+         if (fs) {
+             *fs = FETCH_VAL;
+         }
+-        return sobj->ToNumber()->NumberValue();
++        return sobj->Int32Value();
+     }
+ 
+ 	struct V8ObjHash {
+@@ -389,14 +389,14 @@
+                 break;
+             }
+             Local<Value> pn = pnames->Get(i);
+-            String::Utf8Value spn(pn);
++            Nan::Utf8String spn(pn);
+             Local<Value> pv = obj->Get(pn);
+ 
+             if (!ctx->inquery && ctx->nlevel == 1 && !strcmp(JDBIDKEYNAME, *spn)) { //top level _id key
+                 if (pv->IsNull() || pv->IsUndefined()) { //skip _id addition for null or undefined vals
+                     continue;
+                 }
+-                String::Utf8Value idv(pv->ToString());
++                Nan::Utf8String idv(pv->ToString());
+                 if (ejdbisvalidoidstr(*idv)) {
+                     bson_oid_t oid;
+                     bson_oid_from_string(&oid, *idv);
+@@ -408,7 +408,7 @@
+                 }
+             }
+             if (pv->IsString()) {
+-                String::Utf8Value val(pv);
++                Nan::Utf8String val(pv);
+                 bson_append_string(bs, *spn, *val);
+             } else if (pv->IsInt32()) {
+                 bson_append_int(bs, *spn, pv->Int32Value());
+@@ -433,7 +433,7 @@
+             } else if (pv->IsRegExp()) {
+                 Handle<RegExp> regexp = Handle<RegExp>::Cast(pv);
+                 int flags = regexp->GetFlags();
+-                String::Utf8Value sr(regexp->GetSource());
++                Nan::Utf8String sr(regexp->GetSource());
+                 std::string sf;
+                 if (flags & RegExp::kIgnoreCase) {
+                     sf.append("i");
+@@ -1136,7 +1136,7 @@
+             } else {
+                 argv[0] = Nan::Null();
+             }
+-            TryCatch try_catch;
++            Nan::TryCatch try_catch;
+             task->cb->Call(1, argv);
+             if (try_catch.HasCaught()) {
+                 FatalException(try_catch);
+@@ -1173,7 +1173,7 @@
+             } else {
+                 argv[0] = Nan::Null();
+             }
+-            TryCatch try_catch;
++            Nan::TryCatch try_catch;
+             task->cb->Call(1, argv);
+             if (try_catch.HasCaught()) {
+                 FatalException(try_catch);
+@@ -1200,7 +1200,7 @@
+             } else {
+                 argv[0] = Nan::Null();
+             }
+-            TryCatch try_catch;
++            Nan::TryCatch try_catch;
+             task->cb->Call(1, argv);
+             if (try_catch.HasCaught()) {
+                 FatalException(try_catch);
+@@ -1240,7 +1240,7 @@
+                 } else
+                     return Nan::Undefined();
+             } else {
+-                TryCatch try_catch;
++                Nan::TryCatch try_catch;
+                 task->cb->Call(1, argv);
+                 if (try_catch.HasCaught()) {
+                     FatalException(try_catch);
+@@ -1311,7 +1311,7 @@
+                     }
+                 }
+             } else {
+-                TryCatch try_catch;
++                Nan::TryCatch try_catch;
+                 task->cb->Call(info, argv);
+                 if (try_catch.HasCaught()) {
+                     FatalException(try_catch);
+@@ -1380,7 +1380,7 @@
+                 } else 
+                     return scope.Escape(argv[1]);
+             } else {
+-                TryCatch try_catch;
++                Nan::TryCatch try_catch;
+                 task->cb->Call(2, argv);
+                 if (try_catch.HasCaught()) {
+                     FatalException(try_catch);
+@@ -1429,7 +1429,7 @@
+                 } else 
+                     return scope.Escape(argv[1]);
+             } else {
+-                TryCatch try_catch;
++                Nan::TryCatch try_catch;
+                 task->cb->Call(2, argv);
+                 if (try_catch.HasCaught()) {
+                     FatalException(try_catch);
+@@ -1564,7 +1564,7 @@
+                 if (sync)
+                     return Nan::Undefined();
+             }
+-            TryCatch try_catch;
++            Nan::TryCatch try_catch;
+             task->cb->Call(1, argv);
+             if (try_catch.HasCaught()) {
+                 FatalException(try_catch);
+@@ -1604,7 +1604,7 @@
+                 if (sync)
+                     return Nan::Undefined();
+             }
+-            TryCatch try_catch;
++            Nan::TryCatch try_catch;
+             task->cb->Call(1, argv);
+             if (try_catch.HasCaught()) {
+                 FatalException(try_catch);
+@@ -1642,7 +1642,7 @@
+                 if (sync)
+                     return Nan::Undefined();
+             }
+-            TryCatch try_catch;
++            Nan::TryCatch try_catch;
+             task->cb->Call(1, argv);
+             if (try_catch.HasCaught()) {
+                 FatalException(try_catch);
+@@ -1987,7 +1987,7 @@
+                 return Nan::Undefined();
+             } else {
+                 argv[0] = Nan::Error(task->cmd_ret_msg.c_str());
+-                TryCatch try_catch;
++                Nan::TryCatch try_catch;
+                 task->cb->Call(1, argv);
+                 if (try_catch.HasCaught()) {
+                     FatalException(try_catch);
+@@ -2002,7 +2002,7 @@
+             Local<Value> cursorArgv[2];
+             cursorArgv[0] = Nan::New<External>(task->wrapped);
+             cursorArgv[1] = Nan::New<External>(res);
+-            Local<Value> cursor(Nan::New(NodeEJDBCursor::constructor_template)->GetFunction()->NewInstance(2, cursorArgv));
++            Local<Value> cursor(Nan::NewInstance(Nan::New(NodeEJDBCursor::constructor_template)->GetFunction(), 2, cursorArgv).ToLocalChecked());
+             argv[1] = cursor;
+         } else { //this is update query so no result set
+             argv[1] = Nan::Null();
+@@ -2019,7 +2019,7 @@
+                 return scope.Escape(argv[2]); //count
+             }
+         } else {
+-            TryCatch try_catch;
++            Nan::TryCatch try_catch;
+             task->cb->Call((cmdata->log) ? 4 : 3, argv);
+             if (try_catch.HasCaught()) {
+                 FatalException(try_catch);
+diff -urN a/package.json b/package.json
+--- a/package.json	2017-03-21 18:31:27.000000000 +0900
++++ b/package.json	2018-07-11 15:38:57.070429517 +0900
+@@ -35,7 +35,7 @@
+     },
+     "dependencies" : {
+         "nodeunit" : ">=0.7.0",
+-        "nan" : ">=2.0.0",
++        "nan" : ">=2.10.0",
+         "node-pre-gyp" : ">=0.6.4"
+     },
+     "devDependencies" : {
