@@ -106,7 +106,7 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 
 ## Modules that use pre-compiled binary (native module)
 ```
-node-alljoyn
+node-alljoyn			(@BROKEN)
 node-arduino-firmata		(serialport)
 node-authenticate-pam
 node-bluetooth-hci-socket
