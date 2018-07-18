@@ -1,0 +1,21 @@
+diff -urN a/package.json b/package.json
+--- a/package.json	1985-10-26 17:15:00.000000000 +0900
++++ b/package.json	2018-07-18 11:02:42.435848991 +0900
+@@ -4,7 +4,7 @@
+   "description": "Check if a buffer contains valid UTF-8",
+   "main": "index.js",
+   "scripts": {
+-    "install": "node-gyp-build",
++    "install": "prebuild-install || node-gyp rebuild",
+     "prebuild": "prebuildify --napi",
+     "test": "mocha"
+   },
+@@ -22,7 +22,7 @@
+   },
+   "homepage": "https://github.com/websockets/utf-8-validate",
+   "dependencies": {
+-    "node-gyp-build": "~3.4.0"
++    "prebuild-install": "^2.1.0"
+   },
+   "devDependencies": {
+     "mocha": "~5.2.0",
