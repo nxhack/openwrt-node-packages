@@ -20,6 +20,11 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
+PYTHON_MK:=$(TOPDIR)/feeds/packages/lang/python/python-package.mk
+ifneq ("$(wildcard $(PYTHON_MK))","")
+  IS_HEAD:=y
+endif
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bleacon
@@ -28,7 +33,7 @@ define Package/node-bleacon
   CATEGORY:=Languages
   TITLE:=Library for creating/discovering/configuring iBeacons
   URL:=https://www.npmjs.org/package/bleacon
-  DEPENDS:=+node +node-bignum +bluez-libs +libudev-fbsd
+  DEPENDS:=+node +node-bignum +bluez-libs $(if $(IS_HEAD),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-bleacon/description
