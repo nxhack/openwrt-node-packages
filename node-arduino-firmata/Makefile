@@ -35,7 +35,7 @@ define Package/node-arduino-firmata
 endef
 
 define Package/node-arduino-firmata/description
- Arduino Firmata implementation for Node.js
+ Arduino Firmata protocol (http://firmata.org) implementation on Node.js.
 endef
 
 TAR_OPTIONS+= --strip-components 1
