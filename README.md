@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for trunk / lede-17.01
+OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06 / lede-17.01
 
 Note: Testing target only ar71xx.
 
