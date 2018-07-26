@@ -20,10 +20,7 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-PYTHON_MK:=$(TOPDIR)/feeds/packages/lang/python/python-package.mk
-ifneq ("$(wildcard $(PYTHON_MK))","")
-  IS_HEAD:=y
-endif
+OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -33,7 +30,7 @@ define Package/node-bluetooth-hci-socket
   CATEGORY:=Languages
   TITLE:=Bluetooth HCI socket binding for Node.js
   URL:=https://www.npmjs.com/package/bluetooth-hci-socket
-  DEPENDS:=+node +bluez-libs $(if $(IS_HEAD),+libudev-fbsd,+eudev)
+  DEPENDS:=+node +bluez-libs $(if $(filter reboot v18.06%, $(OW_VAR)),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-bluetooth-hci-socket/description
