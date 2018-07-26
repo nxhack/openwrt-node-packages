@@ -30,7 +30,7 @@ define Package/node-bleacon
   CATEGORY:=Languages
   TITLE:=Library for creating/discovering/configuring iBeacons
   URL:=https://www.npmjs.org/package/bleacon
-  DEPENDS:=+node +node-bignum +bluez-libs $(if $(filter reboot v18.06%, $(OW_VAR)),+libudev-fbsd,+eudev)
+  DEPENDS:=+node +node-bignum +bluez-libs $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-bleacon/description

@@ -30,7 +30,7 @@ define Package/node-usb
   CATEGORY:=Languages
   TITLE:=Library to access USB devices
   URL:=https://www.npmjs.com/package/usb
-  DEPENDS:=+node $(if $(filter reboot v18.06%, $(OW_VAR)),+libudev-fbsd,+eudev)
+  DEPENDS:=+node $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-usb/description
