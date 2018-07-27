@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-hid
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.7.3
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -23,10 +23,7 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT or X11
 PKG_LICENSE_FILES:=
 
-PYTHON_MK:=$(TOPDIR)/feeds/packages/lang/python/python-package.mk
-ifneq ("$(wildcard $(PYTHON_MK))","")
-  IS_HEAD:=y
-endif
+OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -37,7 +34,7 @@ define Package/node-node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +hidapi $(if $(IS_HEAD),+libudev-fbsd,+eudev)
+  DEPENDS:=+node +hidapi $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-node-hid/description
@@ -48,6 +45,10 @@ TAR_OPTIONS+= --strip-components 1
 TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+ifeq ($(filter reboot v18.06%, $(OW_VER)),)
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
+endif
 
 define Build/Compile
 	git init $(PKG_BUILD_DIR)
