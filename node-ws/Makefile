@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ws
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.1.1
+PKG_VERSION:=6.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=0525cfd19bac6b82a2ada3f9e1fb8487
+PKG_MD5SUM:=fc6c80f9a3158d7042fc0735dffd62c8
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -39,6 +39,10 @@ define Package/node-ws/description
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+define Build/Prepare
+	$(INSTALL_DIR) $(PKG_BUILD_DIR)
+endef
 
 define Build/Compile
 	$(MAKE_VARS) \

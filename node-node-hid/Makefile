@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-hid
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.6.0
+PKG_VERSION:=0.7.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=56a246a293fdd2689d619763b47412dc
+PKG_MD5SUM:=8e01905d3b488ccb13663f55977f3d54
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -32,7 +32,7 @@ define Package/node-node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +libusb-1.0 +hidapi
+  DEPENDS:=+node +libusb-1.0 +hidapi +udev
 endef
 
 define Package/node-node-hid/description

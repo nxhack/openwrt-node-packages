@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=browserify
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=16.1.1
+PKG_VERSION:=16.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=1ddd2ddb5261584a49319c0c4e0470bc
+PKG_MD5SUM:=adfeae33fdf65fdabe9b7720e9d61b02
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
