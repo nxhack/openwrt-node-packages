@@ -113,6 +113,7 @@ node-authenticate-pam
 node-bluetooth-hci-socket
 node-cylon-firmata		(serialport)
 node-ejdb
+node-epoll
 node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
@@ -127,6 +128,7 @@ node-level			(leveldown)
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
 node-mknod
 node-modbus
+node-net-ping
 node-node-expat
 node-node-hid
 node-node-red			(bcrypt)
