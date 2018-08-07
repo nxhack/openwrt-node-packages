@@ -20,6 +20,8 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apche-2.0
 PKG_LICENSE_FILES:=LICENSE.txt
 
+OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-eddystone-beacon
@@ -28,7 +30,7 @@ define Package/node-eddystone-beacon
   CATEGORY:=Languages
   TITLE:=Create an Eddystone Beacon using Node.js
   URL:=https://www.npmjs.org/package/eddystone-beacon
-  DEPENDS:=+node +bluez-libs
+  DEPENDS:=+node +bluez-libs $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
 endef
 
 define Package/node-eddystone-beacon/description
