@@ -1,6 +1,6 @@
 diff -urN a/deps/openssl/config/Makefile b/deps/openssl/config/Makefile
---- a/deps/openssl/config/Makefile	2018-05-30 01:35:17.000000000 +0900
-+++ b/deps/openssl/config/Makefile	2018-06-06 12:55:53.159999514 +0900
+--- a/deps/openssl/config/Makefile	2018-08-15 22:53:23.000000000 +0900
++++ b/deps/openssl/config/Makefile	2018-08-16 17:51:27.687455994 +0900
 @@ -13,6 +13,7 @@
  darwin64-x86_64-cc darwin-i386-cc linux-aarch64 \
  linux-armv4 linux-elf linux-x32 linux-x86_64 linux-ppc \
@@ -11,8 +11,8 @@ diff -urN a/deps/openssl/config/Makefile b/deps/openssl/config/Makefile
  CONFIGURE = ./Configure
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openssl/config/archs/linux-mips/asm/configdata.pm
 --- a/deps/openssl/config/archs/linux-mips/asm/configdata.pm	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/configdata.pm	2018-06-06 12:55:53.167999514 +0900
-@@ -0,0 +1,9772 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/configdata.pm	2018-08-16 17:54:08.499821999 +0900
+@@ -0,0 +1,9795 @@
 +package configdata;
 +
 +use strict;
@@ -54,13 +54,13 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +  minor => "1.0",
 +  openssl_algorithm_defines => [ "OPENSSL_NO_MD2", "OPENSSL_NO_RC5" ],
 +  openssl_api_defines => [  ],
-+  openssl_other_defines => [ "OPENSSL_NO_ASAN", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS" ],
++  openssl_other_defines => [ "OPENSSL_NO_ASAN", "OPENSSL_NO_ASYNC", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS" ],
 +  openssl_sys_defines => [  ],
 +  openssl_thread_defines => [ "OPENSSL_THREADS" ],
 +  openssldir => "",
-+  options => " no-asan no-crypto-mdebug no-crypto-mdebug-backtrace no-ec_nistp_64_gcc_128 no-egd no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-ssl-trace no-ssl3 no-ssl3-method no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
++  options => " no-asan no-async no-crypto-mdebug no-crypto-mdebug-backtrace no-ec_nistp_64_gcc_128 no-egd no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-ssl-trace no-ssl3 no-ssl3-method no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
 +  perl => "/usr/bin/perl",
-+  perlargv => [ "linux-mips32" ],
++  perlargv => [ "no-async", "linux-mips32" ],
 +  prefix => "",
 +  processor => "",
 +  rc4_int => "unsigned char",
@@ -72,8 +72,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +  shlib_version_number => "1.1",
 +  sourcedir => ".",
 +  target => "linux-mips32",
-+  version => "1.1.0h",
-+  version_num => "0x1010008fL",
++  version => "1.1.0i",
++  version_num => "0x1010009fL",
 +);
 +
 +our %target = (
@@ -250,6 +250,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +
 +our %disabled = (
 +  "asan" => "default",
++  "async" => "option",
 +  "crypto-mdebug" => "default",
 +  "crypto-mdebug-backtrace" => "default",
 +  "ec_nistp_64_gcc_128" => "default",
@@ -3044,6 +3045,12 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +                    "crypto/include",
 +                    "include",
 +                ],
++            "crypto/conf/conf_ssl.o" =>
++                [
++                    ".",
++                    "crypto/include",
++                    "include",
++                ],
 +            "crypto/cpt_err.o" =>
 +                [
 +                    ".",
@@ -5334,6 +5341,12 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +                    "crypto/include",
 +                    "include",
 +                ],
++            "crypto/x509/x509_meth.o" =>
++                [
++                    ".",
++                    "crypto/include",
++                    "include",
++                ],
 +            "crypto/x509/x509_obj.o" =>
 +                [
 +                    ".",
@@ -7145,6 +7158,10 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +                [
 +                    "crypto/conf/conf_sap.c",
 +                ],
++            "crypto/conf/conf_ssl.o" =>
++                [
++                    "crypto/conf/conf_ssl.c",
++                ],
 +            "crypto/cpt_err.o" =>
 +                [
 +                    "crypto/cpt_err.c",
@@ -8593,6 +8610,10 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +                [
 +                    "crypto/x509/x509_lu.c",
 +                ],
++            "crypto/x509/x509_meth.o" =>
++                [
++                    "crypto/x509/x509_meth.c",
++                ],
 +            "crypto/x509/x509_obj.o" =>
 +                [
 +                    "crypto/x509/x509_obj.c",
@@ -9153,6 +9174,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +                    "crypto/conf/conf_mall.o",
 +                    "crypto/conf/conf_mod.o",
 +                    "crypto/conf/conf_sap.o",
++                    "crypto/conf/conf_ssl.o",
 +                    "crypto/cpt_err.o",
 +                    "crypto/cryptlib.o",
 +                    "crypto/ct/ct_b64.o",
@@ -9515,6 +9537,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +                    "crypto/x509/x509_err.o",
 +                    "crypto/x509/x509_ext.o",
 +                    "crypto/x509/x509_lu.o",
++                    "crypto/x509/x509_meth.o",
 +                    "crypto/x509/x509_obj.o",
 +                    "crypto/x509/x509_r2x.o",
 +                    "crypto/x509/x509_req.o",
@@ -9787,7 +9810,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/configdata.pm b/deps/openss
 +1;
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/aes/aes-mips.S b/deps/openssl/config/archs/linux-mips/asm/crypto/aes/aes-mips.S
 --- a/deps/openssl/config/archs/linux-mips/asm/crypto/aes/aes-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/aes/aes-mips.S	2018-06-06 12:55:53.171999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/aes/aes-mips.S	2018-08-16 17:51:27.695459995 +0900
 @@ -0,0 +1,1831 @@
 +.text
 +#ifdef OPENSSL_FIPSCANISTER
@@ -11620,9 +11643,9 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/aes/aes-mips.S b/dep
 +.byte	0x10,0x00,0x00,0x00,	0x20,0x00,0x00,0x00
 +.byte	0x40,0x00,0x00,0x00,	0x80,0x00,0x00,0x00
 +.byte	0x1B,0x00,0x00,0x00,	0x36,0x00,0x00,0x00
-diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.S b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.S
---- a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.S	2018-06-06 12:55:53.171999514 +0900
+diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.s b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.s
+--- a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.s	1970-01-01 09:00:00.000000000 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.s	2018-08-16 17:51:27.699461995 +0900
 @@ -0,0 +1,2159 @@
 +.set	mips2
 +.rdata
@@ -13783,10 +13806,10 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/bn-mips.S b/deps/
 +	jr	$31
 +	nop
 +.end	bn_sqr_comba4
-diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.S b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.S
---- a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.S	2018-06-06 12:55:53.171999514 +0900
-@@ -0,0 +1,284 @@
+diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.s b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.s
+--- a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.s	1970-01-01 09:00:00.000000000 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.s	2018-08-16 17:57:35.991516009 +0900
+@@ -0,0 +1,282 @@
 +.text
 +
 +.set	noat
@@ -14038,15 +14061,13 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.S b/dep
 +	sub $4,$9	# restore rp
 +	not	$25,$11
 +
-+	and	$5,$11,$29
-+	and	$6,$25,$4
-+	or	$5,$5,$6	# ap=borrow?tp:rp
-+
-+.align	4
-+.Lcopy:	lw	$12,($5)
-+	add $5,4
++.Lcopy:	lw	$14,($15)	# conditional move
++	lw	$12,($4)
 +	sw	$0,($15)
 +	add $15,4
++	and	$14,$11
++	and	$12,$25
++	or	$12,$14
 +	sltu	$1,$15,$20
 +	sw	$12,($4)
 +	bnez	$1,.Lcopy
@@ -14073,7 +14094,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.S b/dep
 +.asciiz	"Montgomery Multiplication for MIPS, CRYPTOGAMS by <appro@openssl.org>"
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h b/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h
 --- a/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h	2018-06-06 13:00:35.471999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h	2018-08-16 17:51:27.699461995 +0900
 @@ -0,0 +1,28 @@
 +/* auto-generated by util/mkbuildinf.pl for crypto/cversion.c */
 +#define CFLAGS cflags
@@ -14105,7 +14126,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h b/deps/op
 +#define DATE "built on: Fri May 25 15:57:24 2018"
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/bn_conf.h b/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/bn_conf.h
 --- a/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/bn_conf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/bn_conf.h	2018-06-06 12:55:53.175999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/bn_conf.h	2018-08-16 17:51:27.699461995 +0900
 @@ -0,0 +1,28 @@
 +/* WARNING: do not edit! */
 +/* Generated by Makefile from crypto/include/internal/bn_conf.h.in */
@@ -14137,7 +14158,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/bn_
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/dso_conf.h b/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/dso_conf.h
 --- a/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/dso_conf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/dso_conf.h	2018-06-06 12:55:53.175999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/dso_conf.h	2018-08-16 17:51:27.703463995 +0900
 @@ -0,0 +1,16 @@
 +/* WARNING: do not edit! */
 +/* Generated by Makefile from crypto/include/internal/dso_conf.h.in */
@@ -14157,7 +14178,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/include/internal/dso
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha1-mips.S b/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha1-mips.S
 --- a/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha1-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha1-mips.S	2018-06-06 12:55:53.175999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha1-mips.S	2018-08-16 17:51:27.703463995 +0900
 @@ -0,0 +1,2755 @@
 +#ifdef OPENSSL_FIPSCANISTER
 +# include <openssl/fipssyms.h>
@@ -16916,7 +16937,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha1-mips.S b/de
 +.asciiz	"SHA1 for MIPS, CRYPTOGAMS by <appro@openssl.org>"
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha256-mips.S b/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha256-mips.S
 --- a/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha256-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha256-mips.S	2018-06-06 12:55:53.175999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha256-mips.S	2018-08-16 17:51:27.707465996 +0900
 @@ -0,0 +1,2754 @@
 +#ifdef OPENSSL_FIPSCANISTER
 +# include <openssl/fipssyms.h>
@@ -19674,8 +19695,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/sha/sha256-mips.S b/
 +
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf.h b/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf.h
 --- a/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf.h	2018-06-06 12:55:53.175999514 +0900
-@@ -0,0 +1,166 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf.h	2018-08-16 18:09:59.623145997 +0900
+@@ -0,0 +1,175 @@
 +/*
 + * WARNING: do not edit!
 + * Generated by Makefile from include/openssl/opensslconf.h.in
@@ -19711,6 +19732,9 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf
 +#endif
 +#ifndef OPENSSL_NO_ASAN
 +# define OPENSSL_NO_ASAN
++#endif
++#ifndef OPENSSL_NO_ASYNC
++# define OPENSSL_NO_ASYNC
 +#endif
 +#ifndef OPENSSL_NO_CRYPTO_MDEBUG
 +# define OPENSSL_NO_CRYPTO_MDEBUG
@@ -19771,12 +19795,18 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf
 + * still won't see them if the library has been built to disable deprecated
 + * functions.
 + */
-+#if defined(OPENSSL_NO_DEPRECATED)
-+# define DECLARE_DEPRECATED(f)
-+#elif __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ > 0)
-+# define DECLARE_DEPRECATED(f)    f __attribute__ ((deprecated));
-+#else
-+# define DECLARE_DEPRECATED(f)   f;
++#ifndef DECLARE_DEPRECATED
++# if defined(OPENSSL_NO_DEPRECATED)
++#  define DECLARE_DEPRECATED(f)
++# else
++#  define DECLARE_DEPRECATED(f)   f;
++#  ifdef __GNUC__
++#   if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ > 0)
++#    undef DECLARE_DEPRECATED
++#    define DECLARE_DEPRECATED(f)    f __attribute__ ((deprecated));
++#   endif
++#  endif
++# endif
 +#endif
 +
 +#ifndef OPENSSL_FILE
@@ -19844,7 +19874,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/include/openssl/opensslconf
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/include/progs.h b/deps/openssl/config/archs/linux-mips/asm/include/progs.h
 --- a/deps/openssl/config/archs/linux-mips/asm/include/progs.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/include/progs.h	2018-06-06 12:55:53.179999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/include/progs.h	2018-08-16 17:51:27.707465996 +0900
 @@ -0,0 +1,418 @@
 +/*
 + * WARNING: do not edit!
@@ -20266,7 +20296,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/include/progs.h b/deps/open
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi
 --- a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi	2018-06-06 12:55:53.179999514 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi	2018-08-16 17:51:27.707465996 +0900
 @@ -0,0 +1,82 @@
 +{
 +  'variables': {
@@ -20352,8 +20382,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +}
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2018-06-06 12:55:53.179999514 +0900
-@@ -0,0 +1,679 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2018-08-17 14:46:05.885325951 +0900
+@@ -0,0 +1,681 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -20576,6 +20606,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +      'openssl/crypto/conf/conf_mall.c',
 +      'openssl/crypto/conf/conf_mod.c',
 +      'openssl/crypto/conf/conf_sap.c',
++      'openssl/crypto/conf/conf_ssl.c',
 +      'openssl/crypto/cpt_err.c',
 +      'openssl/crypto/cryptlib.c',
 +      'openssl/crypto/ct/ct_b64.c',
@@ -20936,6 +20967,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +      'openssl/crypto/x509/x509_err.c',
 +      'openssl/crypto/x509/x509_ext.c',
 +      'openssl/crypto/x509/x509_lu.c',
++      'openssl/crypto/x509/x509_meth.c',
 +      'openssl/crypto/x509/x509_obj.c',
 +      'openssl/crypto/x509/x509_r2x.c',
 +      'openssl/crypto/x509/x509_req.c',
@@ -20998,8 +21030,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +    ],
 +    'openssl_sources_linux-mips': [
 +      './config/archs/linux-mips/asm/crypto/aes/aes-mips.S',
-+      './config/archs/linux-mips/asm/crypto/bn/bn-mips.S',
-+      './config/archs/linux-mips/asm/crypto/bn/mips-mont.S',
++      './config/archs/linux-mips/asm/crypto/bn/bn-mips.s',
++      './config/archs/linux-mips/asm/crypto/bn/mips-mont.s',
 +      './config/archs/linux-mips/asm/crypto/sha/sha1-mips.S',
 +      './config/archs/linux-mips/asm/crypto/sha/sha256-mips.S',
 +    ],
@@ -21035,8 +21067,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +}
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm
 --- a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm	2018-06-06 13:03:23.383999514 +0900
-@@ -0,0 +1,9772 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm	2018-08-17 15:58:49.350191678 +0900
+@@ -0,0 +1,9795 @@
 +package configdata;
 +
 +use strict;
@@ -21078,13 +21110,13 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +  minor => "1.0",
 +  openssl_algorithm_defines => [ "OPENSSL_NO_MD2", "OPENSSL_NO_RC5" ],
 +  openssl_api_defines => [  ],
-+  openssl_other_defines => [ "OPENSSL_NO_ASAN", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS" ],
++  openssl_other_defines => [ "OPENSSL_NO_ASAN", "OPENSSL_NO_ASYNC", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS" ],
 +  openssl_sys_defines => [  ],
 +  openssl_thread_defines => [ "OPENSSL_THREADS" ],
 +  openssldir => "",
-+  options => "no-asan no-crypto-mdebug no-crypto-mdebug-backtrace no-ec_nistp_64_gcc_128 no-egd no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-ssl-trace no-ssl3 no-ssl3-method no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
++  options => " no-asan no-async no-crypto-mdebug no-crypto-mdebug-backtrace no-ec_nistp_64_gcc_128 no-egd no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-ssl-trace no-ssl3 no-ssl3-method no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
 +  perl => "/usr/bin/perl",
-+  perlargv => [ "linux-mips32" ],
++  perlargv => [ "no-async", "linux-mips32" ],
 +  prefix => "",
 +  processor => "",
 +  rc4_int => "unsigned char",
@@ -21096,8 +21128,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +  shlib_version_number => "1.1",
 +  sourcedir => ".",
 +  target => "linux-mips32",
-+  version => "1.1.0h",
-+  version_num => "0x1010008fL",
++  version => "1.1.0i",
++  version_num => "0x1010009fL",
 +);
 +
 +our %target = (
@@ -21274,6 +21306,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +
 +our %disabled = (
 +  "asan" => "default",
++  "async" => "option",
 +  "crypto-mdebug" => "default",
 +  "crypto-mdebug-backtrace" => "default",
 +  "ec_nistp_64_gcc_128" => "default",
@@ -24068,6 +24101,12 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "crypto/include",
 +                    "include",
 +                ],
++            "crypto/conf/conf_ssl.o" =>
++                [
++                    ".",
++                    "crypto/include",
++                    "include",
++                ],
 +            "crypto/cpt_err.o" =>
 +                [
 +                    ".",
@@ -26358,6 +26397,12 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "crypto/include",
 +                    "include",
 +                ],
++            "crypto/x509/x509_meth.o" =>
++                [
++                    ".",
++                    "crypto/include",
++                    "include",
++                ],
 +            "crypto/x509/x509_obj.o" =>
 +                [
 +                    ".",
@@ -28169,6 +28214,10 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "crypto/conf/conf_sap.c",
 +                ],
++            "crypto/conf/conf_ssl.o" =>
++                [
++                    "crypto/conf/conf_ssl.c",
++                ],
 +            "crypto/cpt_err.o" =>
 +                [
 +                    "crypto/cpt_err.c",
@@ -29617,6 +29666,10 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "crypto/x509/x509_lu.c",
 +                ],
++            "crypto/x509/x509_meth.o" =>
++                [
++                    "crypto/x509/x509_meth.c",
++                ],
 +            "crypto/x509/x509_obj.o" =>
 +                [
 +                    "crypto/x509/x509_obj.c",
@@ -30177,6 +30230,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "crypto/conf/conf_mall.o",
 +                    "crypto/conf/conf_mod.o",
 +                    "crypto/conf/conf_sap.o",
++                    "crypto/conf/conf_ssl.o",
 +                    "crypto/cpt_err.o",
 +                    "crypto/cryptlib.o",
 +                    "crypto/ct/ct_b64.o",
@@ -30539,6 +30593,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "crypto/x509/x509_err.o",
 +                    "crypto/x509/x509_ext.o",
 +                    "crypto/x509/x509_lu.o",
++                    "crypto/x509/x509_meth.o",
 +                    "crypto/x509/x509_obj.o",
 +                    "crypto/x509/x509_r2x.o",
 +                    "crypto/x509/x509_req.o",
@@ -30811,7 +30866,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +1;
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/aes/aes-mips.S b/deps/openssl/config/archs/linux-mipsel/asm/crypto/aes/aes-mips.S
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/aes/aes-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/aes/aes-mips.S	2018-06-06 12:55:53.191999514 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/aes/aes-mips.S	2018-08-16 17:51:27.723473997 +0900
 @@ -0,0 +1,1831 @@
 +.text
 +#ifdef OPENSSL_FIPSCANISTER
@@ -32644,9 +32699,9 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/aes/aes-mips.S b/d
 +.byte	0x10,0x00,0x00,0x00,	0x20,0x00,0x00,0x00
 +.byte	0x40,0x00,0x00,0x00,	0x80,0x00,0x00,0x00
 +.byte	0x1B,0x00,0x00,0x00,	0x36,0x00,0x00,0x00
-diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.S b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.S
---- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.S	2018-06-06 12:55:53.191999514 +0900
+diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.s b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.s
+--- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.s	1970-01-01 09:00:00.000000000 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.s	2018-08-16 17:51:27.727475997 +0900
 @@ -0,0 +1,2159 @@
 +.set	mips2
 +.rdata
@@ -34807,10 +34862,10 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/bn-mips.S b/dep
 +	jr	$31
 +	nop
 +.end	bn_sqr_comba4
-diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S
---- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S	2018-06-06 12:55:53.191999514 +0900
-@@ -0,0 +1,284 @@
+diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.s b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.s
+--- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.s	1970-01-01 09:00:00.000000000 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.s	2018-08-17 16:00:30.515587346 +0900
+@@ -0,0 +1,282 @@
 +.text
 +
 +.set	noat
@@ -35062,15 +35117,13 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S b/d
 +	sub $4,$9	# restore rp
 +	not	$25,$11
 +
-+	and	$5,$11,$29
-+	and	$6,$25,$4
-+	or	$5,$5,$6	# ap=borrow?tp:rp
-+
-+.align	4
-+.Lcopy:	lw	$12,($5)
-+	add $5,4
++.Lcopy:	lw	$14,($15)	# conditional move
++	lw	$12,($4)
 +	sw	$0,($15)
 +	add $15,4
++	and	$14,$11
++	and	$12,$25
++	or	$12,$14
 +	sltu	$1,$15,$20
 +	sw	$12,($4)
 +	bnez	$1,.Lcopy
@@ -35097,7 +35150,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S b/d
 +.asciiz	"Montgomery Multiplication for MIPS, CRYPTOGAMS by <appro@openssl.org>"
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	2018-06-06 13:06:12.710641000 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	2018-08-16 17:51:27.727475997 +0900
 @@ -0,0 +1,29 @@
 +/* auto-generated by util/mkbuildinf.pl for crypto/cversion.c */
 +#define CFLAGS cflags
@@ -35130,7 +35183,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h b/deps/
 +#define DATE "built on: Mon Jun  4 08:54:29 2018"
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h b/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h	2018-06-06 12:55:53.195999514 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h	2018-08-16 17:51:27.731477998 +0900
 @@ -0,0 +1,28 @@
 +/* WARNING: do not edit! */
 +/* Generated by Makefile from crypto/include/internal/bn_conf.h.in */
@@ -35162,7 +35215,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/b
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/dso_conf.h b/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/dso_conf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/dso_conf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/dso_conf.h	2018-06-06 12:55:53.195999514 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/dso_conf.h	2018-08-16 17:51:27.731477998 +0900
 @@ -0,0 +1,16 @@
 +/* WARNING: do not edit! */
 +/* Generated by Makefile from crypto/include/internal/dso_conf.h.in */
@@ -35182,7 +35235,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/d
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha1-mips.S b/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha1-mips.S
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha1-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha1-mips.S	2018-06-06 12:55:53.195999514 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha1-mips.S	2018-08-16 17:51:27.735479998 +0900
 @@ -0,0 +1,2979 @@
 +#ifdef OPENSSL_FIPSCANISTER
 +# include <openssl/fipssyms.h>
@@ -38165,7 +38218,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha1-mips.S b/
 +.asciiz	"SHA1 for MIPS, CRYPTOGAMS by <appro@openssl.org>"
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S b/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S	2018-06-06 12:55:53.199999514 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S	2018-08-16 17:51:27.739481998 +0900
 @@ -0,0 +1,2978 @@
 +#ifdef OPENSSL_FIPSCANISTER
 +# include <openssl/fipssyms.h>
@@ -41147,8 +41200,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S 
 +
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h b/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h	2018-06-06 12:55:53.199999514 +0900
-@@ -0,0 +1,166 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h	2018-08-17 16:03:56.240680805 +0900
+@@ -0,0 +1,175 @@
 +/*
 + * WARNING: do not edit!
 + * Generated by Makefile from include/openssl/opensslconf.h.in
@@ -41184,6 +41237,9 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslco
 +#endif
 +#ifndef OPENSSL_NO_ASAN
 +# define OPENSSL_NO_ASAN
++#endif
++#ifndef OPENSSL_NO_ASYNC
++# define OPENSSL_NO_ASYNC
 +#endif
 +#ifndef OPENSSL_NO_CRYPTO_MDEBUG
 +# define OPENSSL_NO_CRYPTO_MDEBUG
@@ -41244,12 +41300,18 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslco
 + * still won't see them if the library has been built to disable deprecated
 + * functions.
 + */
-+#if defined(OPENSSL_NO_DEPRECATED)
-+# define DECLARE_DEPRECATED(f)
-+#elif __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ > 0)
-+# define DECLARE_DEPRECATED(f)    f __attribute__ ((deprecated));
-+#else
-+# define DECLARE_DEPRECATED(f)   f;
++#ifndef DECLARE_DEPRECATED
++# if defined(OPENSSL_NO_DEPRECATED)
++#  define DECLARE_DEPRECATED(f)
++# else
++#  define DECLARE_DEPRECATED(f)   f;
++#  ifdef __GNUC__
++#   if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ > 0)
++#    undef DECLARE_DEPRECATED
++#    define DECLARE_DEPRECATED(f)    f __attribute__ ((deprecated));
++#   endif
++#  endif
++# endif
 +#endif
 +
 +#ifndef OPENSSL_FILE
@@ -41317,7 +41379,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslco
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/progs.h b/deps/openssl/config/archs/linux-mipsel/asm/include/progs.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/include/progs.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/include/progs.h	2018-06-06 12:55:53.203999514 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/include/progs.h	2018-08-16 17:51:27.739481998 +0900
 @@ -0,0 +1,418 @@
 +/*
 + * WARNING: do not edit!
@@ -41739,7 +41801,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/progs.h b/deps/op
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi
 --- a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi	2018-06-06 13:02:36.319999514 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi	2018-08-16 17:51:27.743483999 +0900
 @@ -0,0 +1,82 @@
 +{
 +  'variables': {
@@ -41825,8 +41887,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +}
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2018-06-06 13:02:47.107999514 +0900
-@@ -0,0 +1,679 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2018-08-17 14:44:45.653459042 +0900
+@@ -0,0 +1,681 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -42049,6 +42111,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +      'openssl/crypto/conf/conf_mall.c',
 +      'openssl/crypto/conf/conf_mod.c',
 +      'openssl/crypto/conf/conf_sap.c',
++      'openssl/crypto/conf/conf_ssl.c',
 +      'openssl/crypto/cpt_err.c',
 +      'openssl/crypto/cryptlib.c',
 +      'openssl/crypto/ct/ct_b64.c',
@@ -42409,6 +42472,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +      'openssl/crypto/x509/x509_err.c',
 +      'openssl/crypto/x509/x509_ext.c',
 +      'openssl/crypto/x509/x509_lu.c',
++      'openssl/crypto/x509/x509_meth.c',
 +      'openssl/crypto/x509/x509_obj.c',
 +      'openssl/crypto/x509/x509_r2x.c',
 +      'openssl/crypto/x509/x509_req.c',
@@ -42471,8 +42535,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +    ],
 +    'openssl_sources_linux-mipsel': [
 +      './config/archs/linux-mipsel/asm/crypto/aes/aes-mips.S',
-+      './config/archs/linux-mipsel/asm/crypto/bn/bn-mips.S',
-+      './config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S',
++      './config/archs/linux-mipsel/asm/crypto/bn/bn-mips.s',
++      './config/archs/linux-mipsel/asm/crypto/bn/mips-mont.s',
 +      './config/archs/linux-mipsel/asm/crypto/sha/sha1-mips.S',
 +      './config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S',
 +    ],
@@ -42507,8 +42571,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +  'sources': ['<@(openssl_sources)', '<@(openssl_sources_linux-mipsel)'],
 +}
 diff -urN a/deps/openssl/config/bn_conf_asm.h b/deps/openssl/config/bn_conf_asm.h
---- a/deps/openssl/config/bn_conf_asm.h	2018-05-30 01:35:17.000000000 +0900
-+++ b/deps/openssl/config/bn_conf_asm.h	2018-06-06 12:55:53.203999514 +0900
+--- a/deps/openssl/config/bn_conf_asm.h	2018-08-15 22:53:23.000000000 +0900
++++ b/deps/openssl/config/bn_conf_asm.h	2018-08-16 17:51:27.743483999 +0900
 @@ -13,6 +13,10 @@
  # include "./archs/linux-armv4/asm/crypto/include/internal/bn_conf.h"
  #elif defined(OPENSSL_LINUX) && defined(__aarch64__)
@@ -42521,8 +42585,8 @@ diff -urN a/deps/openssl/config/bn_conf_asm.h b/deps/openssl/config/bn_conf_asm.
  # include "./archs/darwin-i386-cc/asm/crypto/include/internal/bn_conf.h"
  #elif defined(__APPLE__) && defined(__MACH__) && defined(__x86_64__)
 diff -urN a/deps/openssl/config/dso_conf_asm.h b/deps/openssl/config/dso_conf_asm.h
---- a/deps/openssl/config/dso_conf_asm.h	2018-05-30 01:35:17.000000000 +0900
-+++ b/deps/openssl/config/dso_conf_asm.h	2018-06-06 12:55:53.203999514 +0900
+--- a/deps/openssl/config/dso_conf_asm.h	2018-08-15 22:53:23.000000000 +0900
++++ b/deps/openssl/config/dso_conf_asm.h	2018-08-16 17:51:27.743483999 +0900
 @@ -13,6 +13,10 @@
  # include "./archs/linux-armv4/asm/crypto/include/internal/dso_conf.h"
  #elif defined(OPENSSL_LINUX) && defined(__aarch64__)
@@ -42535,8 +42599,8 @@ diff -urN a/deps/openssl/config/dso_conf_asm.h b/deps/openssl/config/dso_conf_as
  # include "./archs/darwin-i386-cc/asm/crypto/include/internal/dso_conf.h"
  #elif defined(__APPLE__) && defined(__MACH__) && defined(__x86_64__)
 diff -urN a/deps/openssl/config/opensslconf_asm.h b/deps/openssl/config/opensslconf_asm.h
---- a/deps/openssl/config/opensslconf_asm.h	2018-05-30 01:35:17.000000000 +0900
-+++ b/deps/openssl/config/opensslconf_asm.h	2018-06-06 12:55:53.203999514 +0900
+--- a/deps/openssl/config/opensslconf_asm.h	2018-08-15 22:53:23.000000000 +0900
++++ b/deps/openssl/config/opensslconf_asm.h	2018-08-16 17:51:27.747485999 +0900
 @@ -100,6 +100,10 @@
  # include "./archs/linux-armv4/asm/include/openssl/opensslconf.h"
  #elif defined(OPENSSL_LINUX) && defined(__aarch64__)
@@ -42549,8 +42613,8 @@ diff -urN a/deps/openssl/config/opensslconf_asm.h b/deps/openssl/config/opensslc
  # include "./archs/darwin-i386-cc/asm/include/openssl/opensslconf.h"
  #elif defined(__APPLE__) && defined(__MACH__) && defined(__x86_64__)
 diff -urN a/deps/openssl/openssl-cl_asm.gypi b/deps/openssl/openssl-cl_asm.gypi
---- a/deps/openssl/openssl-cl_asm.gypi	2018-05-30 01:35:17.000000000 +0900
-+++ b/deps/openssl/openssl-cl_asm.gypi	2018-06-06 12:55:53.203999514 +0900
+--- a/deps/openssl/openssl-cl_asm.gypi	2018-08-15 22:53:23.000000000 +0900
++++ b/deps/openssl/openssl-cl_asm.gypi	2018-08-16 17:51:27.747485999 +0900
 @@ -18,6 +18,10 @@
        'includes': ['config/archs/linux-armv4/asm/openssl-cl.gypi'],
      }, 'target_arch=="arm64" and OS=="linux"', {
@@ -42563,9 +42627,25 @@ diff -urN a/deps/openssl/openssl-cl_asm.gypi b/deps/openssl/openssl-cl_asm.gypi
        'includes': ['config/archs/linux-elf/asm/openssl-cl.gypi'],
      }, 'target_arch=="ia32" and OS=="mac"', {
 diff -urN a/deps/openssl/openssl.gypi b/deps/openssl/openssl.gypi
---- a/deps/openssl/openssl.gypi	2018-05-30 01:35:17.000000000 +0900
-+++ b/deps/openssl/openssl.gypi	2018-06-06 12:56:24.167999514 +0900
-@@ -1149,6 +1149,18 @@
+--- a/deps/openssl/openssl.gypi	2018-08-15 22:53:23.000000000 +0900
++++ b/deps/openssl/openssl.gypi	2018-08-17 16:13:15.858126820 +0900
+@@ -221,6 +221,7 @@
+       'openssl/crypto/conf/conf_mall.c',
+       'openssl/crypto/conf/conf_mod.c',
+       'openssl/crypto/conf/conf_sap.c',
++      'openssl/crypto/conf/conf_ssl.c',
+       'openssl/crypto/cpt_err.c',
+       'openssl/crypto/cryptlib.c',
+       'openssl/crypto/cversion.c',
+@@ -568,6 +569,7 @@
+       'openssl/crypto/x509/x509_err.c',
+       'openssl/crypto/x509/x509_ext.c',
+       'openssl/crypto/x509/x509_lu.c',
++      'openssl/crypto/x509/x509_meth.c',
+       'openssl/crypto/x509/x509_obj.c',
+       'openssl/crypto/x509/x509_r2x.c',
+       'openssl/crypto/x509/x509_req.c',
+@@ -1149,6 +1151,18 @@
        'SHA256_ASM',
        'SHA512_ASM',
      ],
@@ -42585,8 +42665,8 @@ diff -urN a/deps/openssl/openssl.gypi b/deps/openssl/openssl.gypi
        'VPAES_ASM',
        'BN_ASM',
 diff -urN a/deps/openssl/openssl_asm.gypi b/deps/openssl/openssl_asm.gypi
---- a/deps/openssl/openssl_asm.gypi	2018-05-30 01:35:18.000000000 +0900
-+++ b/deps/openssl/openssl_asm.gypi	2018-06-06 12:55:53.207999514 +0900
+--- a/deps/openssl/openssl_asm.gypi	2018-08-15 22:53:24.000000000 +0900
++++ b/deps/openssl/openssl_asm.gypi	2018-08-16 17:51:27.751487999 +0900
 @@ -18,6 +18,10 @@
        'includes': ['config/archs/linux-armv4/asm/openssl.gypi'],
      }, 'target_arch=="arm64" and OS=="linux"', {

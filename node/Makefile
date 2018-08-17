@@ -7,11 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_10),y)
-#PKG_VERSION:=v10.9.0
-PKG_VERSION:=v10.8.0
+PKG_VERSION:=v10.9.0
 PKG_RELEASE:=1
-#PKG_HASH:=d17ef8eb72d6a31f50a663d554beb9bcb55aa2ce57cf189abfc9b1ba20530d02
-PKG_HASH:=97bb21718228fd801c8355c842e764eefda888d3a87de8eb04315c74f546b9bc
+PKG_HASH:=d17ef8eb72d6a31f50a663d554beb9bcb55aa2ce57cf189abfc9b1ba20530d02
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_9),y)
@@ -59,7 +57,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
   DEPENDS:=+libstdcpp +!NODEJS_10:libopenssl +!NODEJS_10:zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt \
-           +NODEJS_ICU_SYSTEM:icu
+           +NODEJS_ICU_SYSTEM:icu +NODEJS_10:libatomic
 endef
 
 define Package/node/description
@@ -128,6 +126,10 @@ define Package/node/config
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+ifeq ($(CONFIG_NODEJS_10),y)
+TARGET_LDFLAGS+=-latomic
+endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU)
