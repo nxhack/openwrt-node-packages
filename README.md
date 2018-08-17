@@ -4,7 +4,7 @@
 
 OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06 / lede-17.01
 
-Note: Testing target only ar71xx.
+Note: Testing target only ar71xx. Probably works on MT7688(mipsel) and Raspberry Pi(arm, aarch64).
 
 ## License
 
