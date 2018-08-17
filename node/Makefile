@@ -59,7 +59,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
   DEPENDS:=+libstdcpp +!NODEJS_10:libopenssl +!NODEJS_10:zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt \
-           +NODEJS_ICU_SYSTEM:icu
+           +NODEJS_ICU_SYSTEM:icu +NODEJS_10:libatomic
 endef
 
 define Package/node/description
@@ -128,6 +128,10 @@ define Package/node/config
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+
+ifeq ($(CONFIG_NODEJS_10),y)
+TARGET_LDFLAGS+=-latomic
+endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU)
