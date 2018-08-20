@@ -96,7 +96,7 @@ define Package/node/config
 			bool "8.x Active LTS"
 
 		config NODEJS_9
-			bool "9.x Maintenance"
+			bool "9.x End-of-life"
 
 		config NODEJS_10
 			bool "10.x Current Release"
