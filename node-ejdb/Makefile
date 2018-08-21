@@ -28,7 +28,7 @@ define Package/node-ejdb
   CATEGORY:=Languages
   TITLE:=EJDB NodeJS binding
   URL:=https://www.npmjs.com/package/ejdb
-  DEPENDS:=+node +libbz2 +liblzma
+  DEPENDS:=+node +libbz2 +liblzma +zlib
 endef
 
 define Package/node-ejdb/description
