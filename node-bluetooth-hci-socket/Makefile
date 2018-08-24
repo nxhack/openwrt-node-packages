@@ -6,12 +6,19 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=bluetooth-hci-socket
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.5.1
-PKG_RELEASE:=16
+PKG_VERSION:=0.5.2
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=69fba6171c1fb981d61c0e789ebcd25869589181a03c836b1b5e4867bab957e5
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/noble/node-bluetooth-hci-socket.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=916158269f7e48ddc73d2448d2634e91538c8991
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+
+#PKG_MIRROR_HASH:=4735523afd35d2bfee9d71130d632dfa4ec676aadf4cadfc1c1b735ac00d6fcd
+#PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+#PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+#PKG_HASH:=69fba6171c1fb981d61c0e789ebcd25869589181a03c836b1b5e4867bab957e5
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -36,9 +43,6 @@ endef
 define Package/node-bluetooth-hci-socket/description
  Bluetooth HCI socket binding for Node.js
 endef
-
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
