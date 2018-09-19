@@ -79,6 +79,19 @@ define Package/node-npm/description
  NPM is the package manager for Node.js
 endef
 
+#define Package/node-inspect
+#  SECTION:=lang
+#  CATEGORY:=Languages
+#  SUBMENU:=Node.js
+#  TITLE:=Node Inspect
+#  URL:=http://npmjs.com/
+#  DEPENDS:=+node
+#endef
+
+#define Package/node-inspect/description
+# node-inspect re-implementing node debug against the new V8 debugger protocol.
+#endef
+
 define Package/node/config
 	menu "Configuration"
 		depends on PACKAGE_node
@@ -201,6 +214,14 @@ ifneq ($(CONFIG_NODEJS_6),y)
 endif
 endef
 
+#define Package/node-inspect/install
+#	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
+#	$(INSTALL_DIR) $(1)/usr/bin
+#	$(LN) ../lib/node_modules/node-inspect/cli.js $(1)/usr/bin/node-inspect
+#endef
+
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node))
 $(eval $(call BuildPackage,node-npm))
+#$(eval $(call BuildPackage,node-inspect))
