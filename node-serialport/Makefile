@@ -67,7 +67,7 @@ define Package/node-serialport/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/serialport/bin/echo.js $(1)/usr/bin/serialport-echo
+	#$(LN) ../lib/node/serialport/bin/echo.js $(1)/usr/bin/serialport-echo
 	$(LN) ../lib/node/serialport/bin/list.js $(1)/usr/bin/serialport-list
 	$(LN) ../lib/node/serialport/bin/repl.js $(1)/usr/bin/serialport-repl
 	$(LN) ../lib/node/serialport/bin/terminal.js $(1)/usr/bin/serialport-term
