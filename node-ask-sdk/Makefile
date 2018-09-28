@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=iothub-explorer
+PKG_NPM_NAME:=ask-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.2.1
+PKG_VERSION:=2.0.10
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=2a82519804cc1939a901005ffbbaf2b628219a229cb2d2b0f93ff4fda4ebc867
+PKG_HASH:=20b1f06cb44740c8f2d4b82798f085c889c654265e3cb669d305622addb17f59
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=
+PKG_LICENSE:=Apache-2.0
+PKG_LICENSE_FILES:=LICENSE.txt
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-iothub-explorer
+define Package/node-ask-sdk
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=IoT Hub Explorer for Azure IoT
-  URL:=https://www.npmjs.org/package/iothub-explorer
+  TITLE:=Alexa Skills Kit SDK for Node.js
+  URL:=https://www.npmjs.org/package/ask-sdk
   DEPENDS:=+node
 endef
 
-define Package/node-iothub-explorer/description
- A CLI tool to manage device identities in your IoT hub registry, send and receive messages and files from your devices, and monitor your IoT hub operations
+define Package/node-ask-sdk/description
+ The ASK SDK v2 for Node.js is an open-source Alexa Skill Development Kit. ASK SDK v2 for Node.js makes it easier for you to build highly engaging skills, by allowing you to spend more time on implementing features and less on writing boiler-plate code.
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -56,11 +56,9 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache
 endef
 
-define Package/node-iothub-explorer/install
+define Package/node-ask-sdk/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/iothub-explorer/iothub-explorer.js $(1)/usr/bin/iothub-explorer
 endef
 
-$(eval $(call BuildPackage,node-iothub-explorer))
+$(eval $(call BuildPackage,node-ask-sdk))
