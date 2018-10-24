@@ -177,10 +177,8 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--without-snapshot \
-	$(if $(CONFIG_NODEJS_10),,--shared-zlib) \
-	$(if $(CONFIG_NODEJS_10),,--shared-openssl) \
-	$(if $(CONFIG_NODEJS_11),,--shared-zlib) \
-	$(if $(CONFIG_NODEJS_11),,--shared-openssl) \
+	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-zlib)) \
+	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
