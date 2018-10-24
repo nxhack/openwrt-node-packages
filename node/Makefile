@@ -38,6 +38,7 @@ PATCH_DIR:=./patches/v8.x
 endif
 endif
 endif
+endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
