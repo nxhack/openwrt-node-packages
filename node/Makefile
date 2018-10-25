@@ -7,6 +7,12 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
+ifeq ($(CONFIG_NODEJS_11),y)
+PKG_VERSION:=v11.0.0
+PKG_RELEASE:=1
+PKG_HASH:=235ab494fb76cdfe302fce68c4038a14ae82b1679cd5d40ae8049ba3a9c8bdd4
+PATCH_DIR:=./patches/v11.x
+else
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.12.0
 PKG_RELEASE:=1
@@ -29,6 +35,7 @@ PKG_VERSION:=v8.12.0
 PKG_RELEASE:=1
 PKG_HASH:=5a9dff58016c18fb4bf902d963b124ff058a550ebcd9840c677757387bce419a
 PATCH_DIR:=./patches/v8.x
+endif
 endif
 endif
 endif
@@ -57,8 +64,9 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=http://nodejs.org/
-  DEPENDS:=+libstdcpp +!NODEJS_10:libopenssl +!NODEJS_10:zlib +USE_UCLIBC:libpthread +USE_UCLIBC:librt \
-           +NODEJS_ICU_SYSTEM:icu +NODEJS_10:libatomic
+  DEPENDS:=+libstdcpp +(!NODEJS_10&&!NODEJS_11):libopenssl +(!NODEJS_10&&!NODEJS_11):zlib \
+           +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU_SYSTEM:icu \
+           +(NODEJS_10||NODEJS_11):libatomic
 endef
 
 define Package/node/description
@@ -114,6 +122,9 @@ define Package/node/config
 
 		config NODEJS_10
 			bool "10.x Current Release"
+
+		config NODEJS_11
+			bool "11.x Current"
 	endchoice
 
 	choice
@@ -145,6 +156,10 @@ ifeq ($(CONFIG_NODEJS_10),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
+ifeq ($(CONFIG_NODEJS_11),y)
+TARGET_LDFLAGS+=-latomic
+endif
+
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU)
 
@@ -162,8 +177,8 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--without-snapshot \
-	$(if $(CONFIG_NODEJS_10),,--shared-zlib) \
-	$(if $(CONFIG_NODEJS_10),,--shared-openssl) \
+	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-zlib)) \
+	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \

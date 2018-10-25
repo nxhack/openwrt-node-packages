@@ -1,0 +1,10 @@
+--- a/deps/v8/gypfiles/v8.gyp
++++ b/deps/v8/gypfiles/v8.gyp
+@@ -2534,6 +2534,7 @@
+       'target_name': 'torque',
+       'type': 'executable',
+       'toolsets': ['host'],
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata' ],
+       'dependencies': ['v8_libbase'],
+       'defines!': [
+         '_HAS_EXCEPTIONS=0',
