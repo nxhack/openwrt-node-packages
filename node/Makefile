@@ -14,9 +14,9 @@ PKG_HASH:=235ab494fb76cdfe302fce68c4038a14ae82b1679cd5d40ae8049ba3a9c8bdd4
 PATCH_DIR:=./patches/v11.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.12.0
+PKG_VERSION:=v10.13.0
 PKG_RELEASE:=1
-PKG_HASH:=d9cd890d6c3b060f7a5497a522564328fe73ec39dda082f41c4141a73ac30ae4
+PKG_HASH:=8d80c96a0c28fb508c90de474b1967acd800896f184b8a18235a7e4613fae641
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_9),y)
@@ -121,10 +121,10 @@ define Package/node/config
 			bool "9.x End-of-life"
 
 		config NODEJS_10
-			bool "10.x Current Release"
+			bool "10.x Active LTS"
 
 		config NODEJS_11
-			bool "11.x Current"
+			bool "11.x Current Release"
 	endchoice
 
 	choice
