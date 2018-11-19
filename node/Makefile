@@ -41,7 +41,7 @@ endif
 endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=http://nodejs.org/dist/${PKG_VERSION}
+PKG_SOURCE_URL:=https://nodejs.org/dist/${PKG_VERSION}
 
 HOST_BUILD_DEPENDS:=python/host
 PKG_BUILD_DEPENDS:=python/host
@@ -63,7 +63,7 @@ define Package/node
   CATEGORY:=Languages
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
-  URL:=http://nodejs.org/
+  URL:=https://nodejs.org/
   DEPENDS:=+libstdcpp +(!NODEJS_10&&!NODEJS_11):libopenssl +(!NODEJS_10&&!NODEJS_11):zlib \
            +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU_SYSTEM:icu \
            +(NODEJS_10||NODEJS_11):libatomic
@@ -80,7 +80,7 @@ define Package/node-npm
   CATEGORY:=Languages
   SUBMENU:=Node.js
   TITLE:=NPM stands for Node Package Manager
-  URL:=http://npmjs.com/
+  URL:=https://www.npmjs.com/
   DEPENDS:=+node
 endef
 
@@ -93,7 +93,7 @@ endef
 #  CATEGORY:=Languages
 #  SUBMENU:=Node.js
 #  TITLE:=Node Inspect
-#  URL:=http://npmjs.com/
+#  URL:=https://www.npmjs.com/
 #  DEPENDS:=+node
 #endef
 
