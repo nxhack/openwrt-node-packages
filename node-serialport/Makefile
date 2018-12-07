@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=serialport
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=7.0.2
+PKG_VERSION:=7.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8623aa65b4eafb0c62cf168445735b2c1f57701e533c66bd1ad7c7b5e0850add
+PKG_HASH:=eb205242e3a4ade0ad3e692fa5f03dc341c1830e183f837eab60dbccce257674
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -64,13 +64,8 @@ define Package/node-serialport/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/test.js \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	#$(LN) ../lib/node/serialport/bin/echo.js $(1)/usr/bin/serialport-echo
-	$(LN) ../lib/node/serialport/bin/list.js $(1)/usr/bin/serialport-list
-	$(LN) ../lib/node/serialport/bin/repl.js $(1)/usr/bin/serialport-repl
-	$(LN) ../lib/node/serialport/bin/terminal.js $(1)/usr/bin/serialport-term
 endef
 
 $(eval $(call BuildPackage,node-serialport))

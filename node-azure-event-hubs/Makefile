@@ -4,14 +4,15 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=azure-event-hubs
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.2.11
+PKG_NPM_SCOPE:=azure
+PKG_NPM_NAME:=event-hubs
+PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
+PKG_VERSION:=1.0.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a305aed825fc2fecd1be4c4bf5505ececfd2ac2d75dda0807b2a50adc52c6321
+PKG_SOURCE_URL:=http://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
+PKG_HASH:=3c48de0b64294a74d80d7aa9113d24b64dc227b09620b00267dd404f4b204a7b
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
