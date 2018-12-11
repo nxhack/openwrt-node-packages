@@ -61,7 +61,7 @@ define Package/node-serialport-repl/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/@serialport/repl/lib/repl.js $(1)/usr/bin/serialport-repl
+	$(LN) ../lib/node/@serialport/repl/lib/repl.js $(1)/usr/bin/serialport-repl
 endef
 
 $(eval $(call BuildPackage,node-serialport-repl))
