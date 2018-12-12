@@ -41,6 +41,8 @@ define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
 endef
 
+TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/libusb-1.0
+
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
