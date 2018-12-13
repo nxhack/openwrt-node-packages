@@ -28,7 +28,7 @@ define Package/node-node-enocean-utils
   CATEGORY:=Languages
   TITLE:=The Node.js module for EnOcean devices
   URL:=https://www.npmjs.org/package/node-enocean-utils
-  DEPENDS:=+node +node-serialport
+  DEPENDS:=+node
 endef
 
 define Package/node-node-enocean-utils/description
