@@ -27,7 +27,7 @@ define Package/node-typescript
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=TypeScript is a language for application-scale JavaScript
+  TITLE:=A language for application-scale JavaScript
   URL:=http://www.typescriptlang.org/
   DEPENDS:=+node
 endef
