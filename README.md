@@ -129,7 +129,7 @@ node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_s
 node-mknod
 node-modbus
 node-net-ping			(raw-socket)
-node-node-enocean-utils	(serialport)
+node-node-enocean-utils		(serialport)
 node-node-expat
 node-node-hid-stream		(node-hid)
 node-node-hid
