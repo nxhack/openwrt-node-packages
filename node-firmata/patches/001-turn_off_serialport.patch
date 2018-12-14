@@ -1,0 +1,12 @@
+--- a/package.json
++++ b/package.json
+@@ -30,8 +30,7 @@
+     "webpack": "^1.12.14"
+   },
+   "dependencies": {
+-    "browser-serialport": "latest",
+-    "serialport": "~6.0.4"
++    "browser-serialport": "latest"
+   },
+   "scripts": {
+     "test": "grunt",
