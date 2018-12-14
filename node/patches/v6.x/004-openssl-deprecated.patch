@@ -2,9 +2,9 @@ diff --git a/src/node_crypto.cc b/src/node_crypto.cc
 index c3779c0..611fb43 100644
 --- a/src/node_crypto.cc
 +++ b/src/node_crypto.cc
-@@ -43,6 +43,11 @@
+@@ -19,6 +19,11 @@
+ #include <stdlib.h>
  #include <string.h>
- #include <vector>
  
 +#if OPENSSL_VERSION_NUMBER < 0x10100000L
 +#define X509_get0_notBefore X509_get_notBefore
@@ -14,7 +14,7 @@ index c3779c0..611fb43 100644
  #define THROW_AND_RETURN_IF_NOT_STRING_OR_BUFFER(val, prefix)                  \
    do {                                                                         \
      if (!Buffer::HasInstance(val) && !val->IsString()) {                       \
-@@ -536,6 +541,7 @@ void SecureContext::Init(const FunctionCallbackInfo<Value>& args) {
+@@ -344,6 +349,7 @@
        method = SSLv23_server_method();
      } else if (strcmp(*sslmethod, "SSLv23_client_method") == 0) {
        method = SSLv23_client_method();
@@ -22,7 +22,7 @@ index c3779c0..611fb43 100644
      } else if (strcmp(*sslmethod, "TLSv1_method") == 0) {
        method = TLSv1_method();
      } else if (strcmp(*sslmethod, "TLSv1_server_method") == 0) {
-@@ -554,6 +560,14 @@ void SecureContext::Init(const FunctionCallbackInfo<Value>& args) {
+@@ -362,6 +368,14 @@
        method = TLSv1_2_server_method();
      } else if (strcmp(*sslmethod, "TLSv1_2_client_method") == 0) {
        method = TLSv1_2_client_method();
@@ -37,25 +37,24 @@ index c3779c0..611fb43 100644
      } else {
        return env->ThrowError("Unknown method");
      }
-@@ -1799,7 +1813,7 @@ static Local<Object> X509ToObject(Environment* env, X509* cert) {
+@@ -1552,14 +1566,14 @@
      rsa = nullptr;
    }
  
 -  ASN1_TIME_print(bio, X509_get_notBefore(cert));
 +  ASN1_TIME_print(bio, X509_get0_notBefore(cert));
    BIO_get_mem_ptr(bio, &mem);
-   info->Set(context, env->valid_from_string(),
+   info->Set(env->valid_from_string(),
              String::NewFromUtf8(env->isolate(), mem->data,
-@@ -1807,7 +1821,7 @@ static Local<Object> X509ToObject(Environment* env, X509* cert) {
-                                 mem->length)).FromJust();
+                                 String::kNormalString, mem->length));
    (void) BIO_reset(bio);
  
 -  ASN1_TIME_print(bio, X509_get_notAfter(cert));
 +  ASN1_TIME_print(bio, X509_get0_notAfter(cert));
    BIO_get_mem_ptr(bio, &mem);
-   info->Set(context, env->valid_to_string(),
+   info->Set(env->valid_to_string(),
              String::NewFromUtf8(env->isolate(), mem->data,
-@@ -6194,8 +6208,12 @@ void TimingSafeEqual(const FunctionCallbackInfo<Value>& args) {
+@@ -5994,8 +6008,12 @@
  }
  
  void InitCryptoOnce() {
@@ -68,7 +67,7 @@ index c3779c0..611fb43 100644
  
    // --openssl-config=...
    if (!openssl_config.empty()) {
-@@ -6217,10 +6235,10 @@ void InitCryptoOnce() {
+@@ -6017,12 +6035,14 @@
      }
    }
  
@@ -76,15 +75,18 @@ index c3779c0..611fb43 100644
    SSL_library_init();
    OpenSSL_add_all_algorithms();
  
--#if OPENSSL_VERSION_NUMBER < 0x10100000L
    crypto_lock_init();
    CRYPTO_set_locking_callback(crypto_lock_cb);
    CRYPTO_THREADID_set_callback(crypto_threadid_cb);
++#endif
+ 
+ #ifdef NODE_FIPS_MODE
+   /* Override FIPS settings in cnf file, if needed. */
 diff --git a/src/node_crypto.h b/src/node_crypto.h
 index 58f5b72..875a787 100644
 --- a/src/node_crypto.h
 +++ b/src/node_crypto.h
-@@ -37,6 +37,9 @@
+@@ -16,6 +16,9 @@
  #include "v8.h"
  
  #include <openssl/ssl.h>
