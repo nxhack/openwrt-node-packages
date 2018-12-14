@@ -28,7 +28,7 @@ define Package/node-firmata
   CATEGORY:=Languages
   TITLE:=JavaScript implementation of the Firmata protocol
   URL:=https://www.npmjs.com/package/firmata
-  DEPENDS:=+node
+  DEPENDS:=+node +node-serialport
 endef
 
 define Package/node-firmata/description
