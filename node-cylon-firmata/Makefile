@@ -31,7 +31,7 @@ define Package/node-cylon-firmata
   CATEGORY:=Languages
   TITLE:=Cylon adaptor for the Firmata protocol
   URL:=https://www.npmjs.org/package/cylon-firmata
-  DEPENDS:=+node
+  DEPENDS:=+node +node-cylon +node-firmata
 endef
 
 define Package/node-cylon-firmata/description
@@ -64,7 +64,7 @@ define Package/node-cylon-firmata/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{docs,examples,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,spec} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,spec} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
