@@ -111,7 +111,7 @@ node-arduino-firmata		(serialport)
 node-authenticate-pam
 node-bluetooth-hci-socket
 node-bufferutil
-node-cylon-firmata		(serialport)
+node-cylon-firmata		(firmata)
 node-ejdb
 node-epoll
 node-ffi			(ffi, ref)
