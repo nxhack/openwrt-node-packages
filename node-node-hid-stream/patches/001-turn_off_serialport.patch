@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -15,7 +15,6 @@
+     "test": "jasmine"
+   },
+   "dependencies": {
+-    "node-hid": "^0.5.1",
+     "split": "^1.0.0",
+     "underscore": "^1.8.3"
+   },
