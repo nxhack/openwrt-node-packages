@@ -31,7 +31,7 @@ define Package/node-cylon-gpio
   CATEGORY:=Languages
   TITLE:=Cylon module for General Purpose Input/Output (GPIO)
   URL:=https://www.npmjs.org/package/cylon-gpio
-  DEPENDS:=+node
+  DEPENDS:=+node +node-cylon
 endef
 
 define Package/node-cylon-gpio/description
@@ -64,7 +64,7 @@ define Package/node-cylon-gpio/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{docs,examples,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,spec,utilities} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,spec,utilities} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 

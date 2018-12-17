@@ -31,7 +31,7 @@ define Package/node-cylon-i2c
   CATEGORY:=Languages
   TITLE:=Cylon.js drivers for i2c devices
   URL:=https://www.npmjs.org/package/cylon-i2c
-  DEPENDS:=+node
+  DEPENDS:=+node +node-cylon
 endef
 
 define Package/node-cylon-i2c/description
@@ -64,7 +64,7 @@ define Package/node-cylon-i2c/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{docs,examples,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,spec} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,spec} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
