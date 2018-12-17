@@ -28,7 +28,7 @@ define Package/node-node-red-node-arduino
   CATEGORY:=Languages
   TITLE:=node to talk to an Arduino running firmata
   URL:=http://nodered.org/
-  DEPENDS:=+node +node-node-red
+  DEPENDS:=+node +node-node-red +node-firmata
 endef
 
 define Package/node-node-red-node-arduino/description
@@ -61,7 +61,7 @@ define Package/node-node-red-node-arduino/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.js,*.html,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,locales} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/locales \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
