@@ -134,9 +134,9 @@ node-node-expat
 node-node-hid-stream		(node-hid)
 node-node-hid
 node-node-red			(bcrypt)
-node-node-red-contrib-gpio	(serialport)
+node-node-red-contrib-gpio	(johnny-five)
 node-node-red-contrib-homekit	(mdns [need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so], curve25519-n2, ed25519)
-node-node-red-node-arduino	(serialport)
+node-node-red-node-arduino	(firmata)
 node-onoff
 node-pi-spi
 node-rpi-gpio			(epoll)
