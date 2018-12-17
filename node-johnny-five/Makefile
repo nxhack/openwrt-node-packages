@@ -28,7 +28,7 @@ define Package/node-johnny-five
   CATEGORY:=Languages
   TITLE:=JavaScript Robotics and Hardware Programming Framework
   URL:=https://www.npmjs.org/package/johnny-five
-  DEPENDS:=+node
+  DEPENDS:=+node +node-firmata +node-serialport
 endef
 
 define Package/node-johnny-five/description
@@ -50,7 +50,7 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp \
-	npm install -g $(PKG_BUILD_DIR)
+	npm install --no-optional -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp
 	rm -rf $(TMP_DIR)/npm-cache
 endef
