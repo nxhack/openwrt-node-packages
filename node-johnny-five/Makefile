@@ -28,7 +28,7 @@ define Package/node-johnny-five
   CATEGORY:=Languages
   TITLE:=JavaScript Robotics and Hardware Programming Framework
   URL:=https://www.npmjs.org/package/johnny-five
-  DEPENDS:=+node +node-firmata +node-serialport
+  DEPENDS:=+node +node-firmata
 endef
 
 define Package/node-johnny-five/description
