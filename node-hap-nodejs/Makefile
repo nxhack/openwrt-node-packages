@@ -28,7 +28,7 @@ define Package/node-hap-nodejs
   CATEGORY:=Languages
   TITLE:=Node.js implementation of HomeKit Accessory Server
   URL:=https://www.npmjs.org/package/hap-nodejs
-  DEPENDS:=+node +node-mdns +libopenssl
+  DEPENDS:=+node +libopenssl
 endef
 
 define Package/node-hap-nodejs/description
