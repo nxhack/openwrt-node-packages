@@ -118,8 +118,8 @@ node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
 node-hashtable
-node-homebridge			(mdns [need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so], curve25519-n2, ed25519)
-node-hap-nodejs			(mdns [need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so], curve25519-n2, ed25519)
+node-homebridge			(hap-nodejs)
+node-hap-nodejs			(mdns, curve25519-n2, ed25519)
 node-i2c-bus
 node-ideino-linino-lib
 node-johnny-five		(serialport)
@@ -135,7 +135,7 @@ node-node-hid-stream		(node-hid)
 node-node-hid
 node-node-red			(bcrypt)
 node-node-red-contrib-gpio	(johnny-five)
-node-node-red-contrib-homekit	(mdns [need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so], curve25519-n2, ed25519)
+node-node-red-contrib-homekit	(hap-nodejs)
 node-node-red-node-arduino	(firmata)
 node-onoff
 node-pi-spi
