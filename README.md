@@ -118,8 +118,8 @@ node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
 node-hashtable
-node-homebridge			(hap-nodejs)[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
-node-hap-nodejs			(curve25519-n2, ed25519)
+node-homebridge			(hap-nodejs)
+node-hap-nodejs			(mdns, curve25519-n2, ed25519)
 node-i2c-bus
 node-ideino-linino-lib
 node-johnny-five		(serialport)
