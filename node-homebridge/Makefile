@@ -28,8 +28,7 @@ define Package/node-homebridge
   CATEGORY:=Languages
   TITLE:=Node.js HomeKit Server
   URL:=https://www.npmjs.org/package/homebridge
-  # lede-17.01: need select 'y' libavahi-compat-libdnssd for InstallDev libdns_sd.so
-  DEPENDS:=+node +node-npm +node-hap-nodejs libavahi-compat-libdnssd
+  DEPENDS:=+node +node-npm +node-hap-nodejs
   USERID:=homebridge:homebridge
 endef
 
