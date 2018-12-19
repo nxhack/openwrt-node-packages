@@ -28,8 +28,7 @@ define Package/node-hap-nodejs
   CATEGORY:=Languages
   TITLE:=Node.js implementation of HomeKit Accessory Server
   URL:=https://www.npmjs.org/package/hap-nodejs
-  # lede-17.01: need select 'y' libavahi-compat-libdnssd for InstallDev libdns_sd.so
-  DEPENDS:=+node +libopenssl libavahi-compat-libdnssd
+  DEPENDS:=+node +libopenssl
 endef
 
 define Package/node-hap-nodejs/description
