@@ -10,7 +10,7 @@ PKG_VERSION:=0.14.0
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=d3a4d007638bc3f55e9fbd8bd01a35469e9e9f43f8e0ff116fa3915e2be9e1e7
 
 PKG_BUILD_DEPENDS:=node/host
@@ -27,7 +27,7 @@ define Package/node-node-red-contrib-gpio
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=nodes for using johnny-five and IO plugins
-  URL:=http://nodered.org/
+  URL:=https://nodered.org/
   DEPENDS:=+node +node-johnny-five +node-mqtt
 endef
 

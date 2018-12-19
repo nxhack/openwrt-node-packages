@@ -10,7 +10,7 @@ PKG_VERSION:=0.0.18
 PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=53cde493c5fd73f1cbcc54dd0729bd5581f310e97cbf8c62833751bef63b1051
 
 PKG_BUILD_DEPENDS:=node/host
@@ -27,7 +27,7 @@ define Package/node-node-red-node-arduino
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=node to talk to an Arduino running firmata
-  URL:=http://nodered.org/
+  URL:=https://nodered.org/
   DEPENDS:=+node +node-node-red +node-firmata
 endef
 

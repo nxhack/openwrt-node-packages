@@ -10,7 +10,7 @@ PKG_VERSION:=0.0.16
 PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=d4bae14cd77c4cf6eccff3a290398430e014c0165f8341b9e03efbd1e62bb16f
 
 PKG_BUILD_DEPENDS:=node/host
@@ -32,7 +32,7 @@ define Package/node-modbus
 endef
 
 define Package/node-modbus/description
- This is binding to native library libmodbus (http://libmodbus.org/)
+ This is binding to native library libmodbus (https://libmodbus.org/)
 endef
 
 TAR_OPTIONS+= --strip-components 1

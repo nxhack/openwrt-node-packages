@@ -30,7 +30,7 @@ define Package/node-xmpp/default
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=XMPP $(1) for JavaScript
-  URL:=http://node-xmpp.org/
+  URL:=https://github.com/xmppjs/xmpp.js/tree/node-xmpp
   DEPENDS:=+node
 endef
 
