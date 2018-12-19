@@ -10,7 +10,7 @@ PKG_VERSION:=0.19.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=44545c8f2f76a4cfbfde7e46bdfb94117cba43fee76b2ec5afa0d66d67029e06
 
 PKG_BUILD_DEPENDS:=node/host
@@ -27,7 +27,7 @@ define Package/node-node-red
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A visual tool for wiring the Internet of Things
-  URL:=http://nodered.org/
+  URL:=https://nodered.org/
   DEPENDS:=+node
 endef
 

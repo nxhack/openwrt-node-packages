@@ -10,7 +10,7 @@ PKG_VERSION:=3.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=98cfaa85ca3e1f46cd2c263d1ddcbfd689df46eb3183ca4aafe0d1af283ae298
 
 PKG_BUILD_DEPENDS:=node/host
@@ -28,7 +28,7 @@ define Package/node-typescript
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A language for application-scale JavaScript
-  URL:=http://www.typescriptlang.org/
+  URL:=https://www.typescriptlang.org/
   DEPENDS:=+node
 endef
 

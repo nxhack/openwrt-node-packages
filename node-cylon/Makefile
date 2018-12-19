@@ -13,7 +13,7 @@ PKG_VERSION:=1.3.0
 PKG_RELEASE:=24
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=a8e67e65ea9574aa47979b950c8588a9e4e9b11069caf82cbc4e250c790f970f
 
 PKG_BUILD_DEPENDS:=node/host

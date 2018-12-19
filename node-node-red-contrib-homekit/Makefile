@@ -10,7 +10,7 @@ PKG_VERSION:=0.2.1
 PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=d9e92e1ce23f152c17a4457243a56ee5f1923ff76b89629595e88406af6c2c19
 
 PKG_BUILD_DEPENDS:=node/host
@@ -27,7 +27,7 @@ define Package/node-node-red-contrib-homekit
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=nodes to simulate Apple HomeKit devices
-  URL:=http://nodered.org/
+  URL:=https://nodered.org/
   DEPENDS:=+node +node-hap-nodejs
 endef
 

@@ -10,7 +10,7 @@ PKG_VERSION:=3.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
+PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=b874194c4a9f29f949686455c2cf72bbc3f3f9cdf9717c6c833dd74ecdadfcea
 
 PKG_BUILD_DEPENDS:=node/host
@@ -27,7 +27,7 @@ define Package/node-pm2
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Production process manager for Node.js
-  URL:=http://pm2.keymetrics.io/
+  URL:=https://pm2.keymetrics.io/
   DEPENDS:=+node
 endef
 
