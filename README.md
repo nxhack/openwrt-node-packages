@@ -119,7 +119,7 @@ node-firmata			(serialport)
 node-fuse-bindings
 node-hashtable
 node-homebridge			(hap-nodejs)
-node-hap-nodejs			(curve25519-n2, ed25519)
+node-hap-nodejs			(curve25519-n, ed25519-hap)
 node-i2c-bus
 node-ideino-linino-lib
 node-johnny-five		(serialport)
