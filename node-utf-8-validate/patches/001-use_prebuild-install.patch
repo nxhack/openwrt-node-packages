@@ -14,8 +14,8 @@ diff -urN a/package.json b/package.json
    },
    "homepage": "https://github.com/websockets/utf-8-validate",
    "dependencies": {
--    "node-gyp-build": "~3.4.0"
-+    "prebuild-install": "^2.1.0"
+-    "node-gyp-build": "~3.7.0"
++    "prebuild-install": "^5.2.0"
    },
    "devDependencies": {
      "mocha": "~5.2.0",
