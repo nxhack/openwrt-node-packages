@@ -109,6 +109,9 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 node-alljoyn			[mark @BROKEN]
 node-arduino-firmata		(serialport)
 node-authenticate-pam
+node-bignum
+node-binaryjs			(streamws)
+node-bleacon			(usb, bluetooth-hci-socket)
 node-bluetooth-hci-socket
 node-bufferutil
 node-cylon-firmata		(firmata)
@@ -117,32 +120,41 @@ node-epoll
 node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
+node-hap-nodejs			(curve25519-n, ed25519-hap)
 node-hashtable
 node-homebridge			(hap-nodejs)
-node-hap-nodejs			(curve25519-n, ed25519-hap)
 node-i2c-bus
-node-ideino-linino-lib
+node-ideino-linino-lib		(epoll)
 node-johnny-five		(serialport)
-node-leveldown
 node-level			(leveldown)
+node-leveldown
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
 node-mknod
 node-modbus
+node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
+node-nitrogen			(ws[legacy])
+node-nitrogen-cli		(ws[legacy])
 node-node-enocean-utils		(serialport)
 node-node-expat
-node-node-hid-stream		(node-hid)
 node-node-hid
+node-node-hid-stream		(node-hid)
 node-node-red			(bcrypt)
 node-node-red-contrib-gpio	(johnny-five)
 node-node-red-contrib-homekit	(hap-nodejs)
 node-node-red-node-arduino	(firmata)
-node-onoff
+node-onoff			(epoll)
 node-pi-spi
+node-reverse-wstunnel
 node-rpi-gpio			(epoll)
 node-rpio
-node-serialport
+node-serialport			(@serialport/bindings)
+node-serialport-list		(@serialport/bindings)
+node-serialport-repl		(@serialport/bindings)
+node-serialport-terminal	(@serialport/bindings)
 node-sleep
+node-socket.io-client-legacy	(ws[legacy])
+node-socket.io-legacy		(ws[legacy])
 node-spi-device
 node-sqlite3
 node-statvfs
