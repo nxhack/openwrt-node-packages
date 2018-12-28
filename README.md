@@ -131,10 +131,10 @@ node-leveldown
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
 node-mknod
 node-modbus
-node-muzzley-client		(ws)
+node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
-node-nitrogen			(ws)
-node-nitrogen-cli		(ws)
+node-nitrogen			(ws[legacy])
+node-nitrogen-cli		(ws[legacy])
 node-node-enocean-utils		(serialport)
 node-node-expat
 node-node-hid
@@ -153,8 +153,8 @@ node-serialport-list		(@serialport/bindings)
 node-serialport-repl		(@serialport/bindings)
 node-serialport-terminal	(@serialport/bindings)
 node-sleep
-node-socket.io-client-legacy	(ws)
-node-socket.io-legacy		(ws)
+node-socket.io-client-legacy	(ws[legacy])
+node-socket.io-legacy		(ws[legacy])
 node-spi-device
 node-sqlite3
 node-statvfs
