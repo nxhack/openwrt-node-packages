@@ -153,7 +153,7 @@ node-utf-8-validate
 ```
 Other modules can be installed by 'npm install'.
 
-***If you want new module that requires pre-compiled binary (native module), please open issues.***
+***If you want a new module (native module) that requires a precompiled binary, please open the issue.***
 
 ## Package Guidelines
 
