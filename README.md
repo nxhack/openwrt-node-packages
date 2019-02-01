@@ -58,7 +58,7 @@ make kernel_menuconfig
 >
 > [*] MIPS FPU Emulator
 
-Also ARM core without vfp or neon (***bcm53xx*** etc) not work. There is no solution in this case.
+ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In this case, there is no solution.
 
 ## Note about avahi and homebridge
 (1)
