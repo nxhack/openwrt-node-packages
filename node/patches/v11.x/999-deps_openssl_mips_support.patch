@@ -20399,7 +20399,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/bn/mips-mont.S b/dep
 +.asciiz	"Montgomery Multiplication for MIPS, CRYPTOGAMS by <appro@openssl.org>"
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h b/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h
 --- a/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h	2019-02-01 13:54:50.165794066 +0900
++++ b/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h	2019-02-01 16:58:20.592369602 +0900
 @@ -0,0 +1,39 @@
 +/*
 + * WARNING: do not edit!
@@ -20421,7 +20421,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/crypto/buildinf.h b/deps/op
 + * workaround for the situation where CFLAGS gets too long for a C90 string
 + * literal
 + */
-+static const char cflags[] = {
++static const char compiler_flags[] = {
 +    'c','o','m','p','i','l','e','r',':',' ','m','i','p','s','-','o',
 +    'p','e','n','w','r','t','-','l','i','n','u','x','-','g','c','c',
 +    ' ','-','D','D','S','O','_','D','L','F','C','N',' ','-','D','H',
@@ -48056,7 +48056,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S b/d
 +.asciiz	"Montgomery Multiplication for MIPS, CRYPTOGAMS by <appro@openssl.org>"
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	2019-02-01 13:54:26.441912421 +0900
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	2019-02-01 16:58:59.720166959 +0900
 @@ -0,0 +1,40 @@
 +/*
 + * WARNING: do not edit!
@@ -48078,7 +48078,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h b/deps/
 + * workaround for the situation where CFLAGS gets too long for a C90 string
 + * literal
 + */
-+static const char cflags[] = {
++static const char compiler_flags[] = {
 +    'c','o','m','p','i','l','e','r',':',' ','m','i','p','s','e','l',
 +    '-','o','p','e','n','w','r','t','-','l','i','n','u','x','-','g',
 +    'c','c',' ','-','D','D','S','O','_','D','L','F','C','N',' ','-',
