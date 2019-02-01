@@ -10,7 +10,7 @@ See [LICENSE](LICENSE) file.
 
 ## Usage
 
-Add follow line to feeds.conf or feeds.conf.default
+Add the following line to feeds.conf or feeds.conf.default.
 ```
 src-git node https://github.com/nxhack/openwrt-node-packages.git;for-15.05
 ```
@@ -28,7 +28,7 @@ Tested OpenWrt Chaos Calmer(15.05)
 
 ## Prepare for building node.js
 
-***Make sure to apply this patch before building. And rebuild toolchain.***
+***Please make sure to apply this patch before building. And rebuild the toolchain.***
 
 ```
 patch -p1 < ./feeds/node/for_building_latest_node.patch
@@ -44,10 +44,11 @@ make toolchain/compile
 
 ## Illegal instruction issue
 
-***V8 JIT code DOES generate FP instructions. Node.js may not work without hardware FPU or kernel FPU emulation.***
+***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU or kernel FPU emulation.***
 
-If you are running nodejs on Atheros AR71xx, AR933x, You need to make a ***kernel*** with MIPS_FPU_EMULATOR option.
-***(This meaning you have to rebuild firmware.)***
+If you are running nodejs with Atheros AR 71xx, AR 933x, you need to create the ***kernel*** using the MIPS_FPU_EMULATOR option.
+
+***(This means that you need to rebuild the firmware.)***
 
 You can configure using ***kernel_menuconfig***.
 ```
@@ -61,18 +62,6 @@ Also ARM core without vfp or neon (***bcm53xx*** etc) not work. There is no solu
 
 ## Note about avahi and homebridge
 (1)
-"libdns_sd.so" is required to build homebridge package. To install this library, select "libavahi-compat-libdnssd" and press 'y' sets the <*> as built-in label.
-
-```
-make meuconfig
-```
-> Libraries  --->
->
->    <*> libavahi-compat-libdnssd........ An mDNS/DNS-SD implementation (libdnssd)
-
-***It is meant select Avahi dbus version instead of Avahi non-dbus version.***
-
-(2)
 Some OpenWRT / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
 
 In that case, installed avahi-daemon will not start on ipv4 interface, only on ipv6 because ipv4 port is taken.
@@ -88,7 +77,7 @@ Also, you have to enable: dbus and avahi-daemon services to start automatically,
 /etc/init.d/avahi-daemon enable
 ```
 
-(3)
+(2)
 avahi on home network
 
 Please read this document. '[Why avahi and bonjour don't work on your home network](https://bitbucket.org/marc_culler/querierd/)'
@@ -146,4 +135,4 @@ node-usb
 ```
 Other modules can be installed by 'npm install'.
 
-***If you want new module that requires pre-compiled binary (native module), please open issues.***
+***If you want a new module (native module) that requires a precompiled binary, please open the issue.***
