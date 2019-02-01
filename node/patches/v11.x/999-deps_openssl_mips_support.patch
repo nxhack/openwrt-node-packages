@@ -26842,8 +26842,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/include/progs.h b/deps/open
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi
 --- a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi	2019-02-01 11:38:10.370829597 +0900
-@@ -0,0 +1,82 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi	2019-02-01 14:52:26.007561216 +0900
+@@ -0,0 +1,84 @@
 +{
 +  'variables': {
 +    'openssl_defines_linux-mips': [
@@ -26865,8 +26865,6 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +      '-ldl -pthread',
 +    ],
 +    'openssl_cli_srcs_linux-mips': [
-+      'openssl/apps/app_rand.c',
-+      'openssl/apps/apps.c',
 +      'openssl/apps/asn1pars.c',
 +      'openssl/apps/ca.c',
 +      'openssl/apps/ciphers.c',
@@ -26888,7 +26886,6 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +      'openssl/apps/nseq.c',
 +      'openssl/apps/ocsp.c',
 +      'openssl/apps/openssl.c',
-+      'openssl/apps/opt.c',
 +      'openssl/apps/passwd.c',
 +      'openssl/apps/pkcs12.c',
 +      'openssl/apps/pkcs7.c',
@@ -26902,20 +26899,25 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +      'openssl/apps/req.c',
 +      'openssl/apps/rsa.c',
 +      'openssl/apps/rsautl.c',
-+      'openssl/apps/s_cb.c',
 +      'openssl/apps/s_client.c',
 +      'openssl/apps/s_server.c',
-+      'openssl/apps/s_socket.c',
 +      'openssl/apps/s_time.c',
 +      'openssl/apps/sess_id.c',
 +      'openssl/apps/smime.c',
 +      'openssl/apps/speed.c',
 +      'openssl/apps/spkac.c',
 +      'openssl/apps/srp.c',
++      'openssl/apps/storeutl.c',
 +      'openssl/apps/ts.c',
 +      'openssl/apps/verify.c',
 +      'openssl/apps/version.c',
 +      'openssl/apps/x509.c',
++      'openssl/apps/app_rand.c',
++      'openssl/apps/apps.c',
++      'openssl/apps/bf_prefix.c',
++      'openssl/apps/opt.c',
++      'openssl/apps/s_cb.c',
++      'openssl/apps/s_socket.c',
 +    ],
 +  },
 +  'defines': ['<@(openssl_defines_linux-mips)'],
@@ -26928,8 +26930,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +}
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-01 14:03:19.543152257 +0900
-@@ -0,0 +1,682 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-01 14:57:30.817992956 +0900
+@@ -0,0 +1,681 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -26967,7 +26969,6 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +      'openssl/ssl/statem/statem_lib.c',
 +      'openssl/ssl/statem/statem_srvr.c',
 +      'openssl/ssl/t1_enc.c',
-+      'openssl/ssl/t1_ext.c',
 +      'openssl/ssl/t1_lib.c',
 +      'openssl/ssl/t1_reneg.c',
 +      'openssl/ssl/t1_trce.c',
@@ -54905,8 +54906,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/progs.h b/deps/op
 +#endif
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi
 --- a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi	2019-02-01 11:38:10.386829518 +0900
-@@ -0,0 +1,82 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi	2019-02-01 14:54:46.958835396 +0900
+@@ -0,0 +1,84 @@
 +{
 +  'variables': {
 +    'openssl_defines_linux-mipsel': [
@@ -54928,8 +54929,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +      '-ldl -pthread',
 +    ],
 +    'openssl_cli_srcs_linux-mipsel': [
-+      'openssl/apps/app_rand.c',
-+      'openssl/apps/apps.c',
 +      'openssl/apps/asn1pars.c',
 +      'openssl/apps/ca.c',
 +      'openssl/apps/ciphers.c',
@@ -54951,7 +54950,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +      'openssl/apps/nseq.c',
 +      'openssl/apps/ocsp.c',
 +      'openssl/apps/openssl.c',
-+      'openssl/apps/opt.c',
 +      'openssl/apps/passwd.c',
 +      'openssl/apps/pkcs12.c',
 +      'openssl/apps/pkcs7.c',
@@ -54965,20 +54963,25 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +      'openssl/apps/req.c',
 +      'openssl/apps/rsa.c',
 +      'openssl/apps/rsautl.c',
-+      'openssl/apps/s_cb.c',
 +      'openssl/apps/s_client.c',
 +      'openssl/apps/s_server.c',
-+      'openssl/apps/s_socket.c',
 +      'openssl/apps/s_time.c',
 +      'openssl/apps/sess_id.c',
 +      'openssl/apps/smime.c',
 +      'openssl/apps/speed.c',
 +      'openssl/apps/spkac.c',
 +      'openssl/apps/srp.c',
++      'openssl/apps/storeutl.c',
 +      'openssl/apps/ts.c',
 +      'openssl/apps/verify.c',
 +      'openssl/apps/version.c',
 +      'openssl/apps/x509.c',
++      'openssl/apps/app_rand.c',
++      'openssl/apps/apps.c',
++      'openssl/apps/bf_prefix.c',
++      'openssl/apps/opt.c',
++      'openssl/apps/s_cb.c',
++      'openssl/apps/s_socket.c',
 +    ],
 +  },
 +  'defines': ['<@(openssl_defines_linux-mipsel)'],
@@ -54991,8 +54994,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +}
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-01 14:03:39.343049157 +0900
-@@ -0,0 +1,682 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-01 14:57:50.345892652 +0900
+@@ -0,0 +1,681 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -55030,7 +55033,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +      'openssl/ssl/statem/statem_lib.c',
 +      'openssl/ssl/statem/statem_srvr.c',
 +      'openssl/ssl/t1_enc.c',
-+      'openssl/ssl/t1_ext.c',
 +      'openssl/ssl/t1_lib.c',
 +      'openssl/ssl/t1_reneg.c',
 +      'openssl/ssl/t1_trce.c',
