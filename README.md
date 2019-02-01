@@ -33,10 +33,11 @@ If you want to try with Chaos Calmer(15.05), see [for-15.05 branch](https://gith
 
 ## Illegal instruction issue
 
-***V8 JIT code DOES generate FP instructions. Node.js may not work without hardware FPU or kernel FPU emulation.***
+***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU or kernel FPU emulation.***
 
-If you are running nodejs on Atheros AR71xx, AR933x, You need to make a ***kernel*** with MIPS_FPU_EMULATOR option.
-***(This meaning you have to rebuild firmware.)***
+If you are running nodejs with Atheros AR 71xx, AR 933x, you need to create the ***kernel*** using the MIPS_FPU_EMULATOR option.
+
+***(This means that you need to rebuild the firmware.)***
 
 On Trunk branch, You can configure using menuconfig.
 ```
