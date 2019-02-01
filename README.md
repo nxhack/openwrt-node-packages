@@ -61,19 +61,7 @@ Also ARM core without vfp or neon (***bcm53xx*** etc) not work. There is no solu
 
 ## Note about avahi and homebridge
 (1)
-"libdns_sd.so" is required to build homebridge package. To install this library, select "libavahi-compat-libdnssd" and press 'y' sets the <*> as built-in label.
-
-```
-make meuconfig
-```
-> Libraries  --->
->
->    <*> libavahi-compat-libdnssd........ An mDNS/DNS-SD implementation (libdnssd)
-
-***It is meant select Avahi dbus version instead of Avahi non-dbus version.***
-
-(2)
-Some OpenWRT / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
+Some OpenWrt / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
 
 In that case, installed avahi-daemon will not start on ipv4 interface, only on ipv6 because ipv4 port is taken.
 
@@ -88,7 +76,7 @@ Also, you have to enable: dbus and avahi-daemon services to start automatically,
 /etc/init.d/avahi-daemon enable
 ```
 
-(3)
+(2)
 avahi on home network
 
 Please read this document. '[Why avahi and bonjour don't work on your home network](https://bitbucket.org/marc_culler/querierd/)'
