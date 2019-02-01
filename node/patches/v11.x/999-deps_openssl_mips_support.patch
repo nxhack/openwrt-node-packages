@@ -26930,8 +26930,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +}
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-01 17:58:27.197744423 +0900
-@@ -0,0 +1,726 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-01 18:11:49.917574425 +0900
+@@ -0,0 +1,722 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -27090,7 +27090,6 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +      'openssl/crypto/blake2/m_blake2b.c',
 +      'openssl/crypto/blake2/m_blake2s.c',
 +      'openssl/crypto/bn/bn_add.c',
-+      'openssl/crypto/bn/bn_asm.c',
 +      'openssl/crypto/bn/bn_blind.c',
 +      'openssl/crypto/bn/bn_const.c',
 +      'openssl/crypto/bn/bn_ctx.c',
@@ -27615,10 +27614,7 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +      'openssl/crypto/x509v3/v3_tlsf.c',
 +      'openssl/crypto/x509v3/v3_utl.c',
 +      'openssl/crypto/x509v3/v3err.c',
-+      'openssl/engines/e_afalg.c',
 +      'openssl/engines/e_capi.c',
-+      'openssl/engines/e_dasync.c',
-+      'openssl/engines/e_ossltest.c',
 +      'openssl/engines/e_padlock.c',
 +    ],
 +    'openssl_sources_linux-mips': [
@@ -55039,8 +55035,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +}
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-01 18:01:17.360857197 +0900
-@@ -0,0 +1,726 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-01 18:12:20.525416153 +0900
+@@ -0,0 +1,722 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -55199,7 +55195,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +      'openssl/crypto/blake2/m_blake2b.c',
 +      'openssl/crypto/blake2/m_blake2s.c',
 +      'openssl/crypto/bn/bn_add.c',
-+      'openssl/crypto/bn/bn_asm.c',
 +      'openssl/crypto/bn/bn_blind.c',
 +      'openssl/crypto/bn/bn_const.c',
 +      'openssl/crypto/bn/bn_ctx.c',
@@ -55724,10 +55719,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +      'openssl/crypto/x509v3/v3_tlsf.c',
 +      'openssl/crypto/x509v3/v3_utl.c',
 +      'openssl/crypto/x509v3/v3err.c',
-+      'openssl/engines/e_afalg.c',
 +      'openssl/engines/e_capi.c',
-+      'openssl/engines/e_dasync.c',
-+      'openssl/engines/e_ossltest.c',
 +      'openssl/engines/e_padlock.c',
 +    ],
 +    'openssl_sources_linux-mipsel': [
@@ -55925,6 +55917,22 @@ diff -urN a/deps/openssl/openssl-cl_asm.gypi b/deps/openssl/openssl-cl_asm.gypi
 diff -urN a/deps/openssl/openssl.gypi b/deps/openssl/openssl.gypi
 --- a/deps/openssl/openssl.gypi	2019-01-31 05:43:12.000000000 +0900
 +++ b/deps/openssl/openssl.gypi	2019-02-01 11:38:10.394829478 +0900
+@@ -221,6 +221,7 @@
+       'openssl/crypto/conf/conf_mall.c',
+       'openssl/crypto/conf/conf_mod.c',
+       'openssl/crypto/conf/conf_sap.c',
++      'openssl/crypto/conf/conf_ssl.c',
+       'openssl/crypto/cpt_err.c',
+       'openssl/crypto/cryptlib.c',
+       'openssl/crypto/cversion.c',
+@@ -568,6 +569,7 @@
+       'openssl/crypto/x509/x509_err.c',
+       'openssl/crypto/x509/x509_ext.c',
+       'openssl/crypto/x509/x509_lu.c',
++      'openssl/crypto/x509/x509_meth.c',
+       'openssl/crypto/x509/x509_obj.c',
+       'openssl/crypto/x509/x509_r2x.c',
+       'openssl/crypto/x509/x509_req.c',
 @@ -1149,6 +1151,18 @@
        'SHA256_ASM',
        'SHA512_ASM',
