@@ -27500,8 +27500,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +}
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm
 --- a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm	2019-02-01 13:49:10.811488140 +0900
-@@ -0,0 +1,16054 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm	2019-02-04 14:59:28.762244621 +0900
+@@ -0,0 +1,15904 @@
 +#! /usr/bin/env perl
 +
 +package configdata;
@@ -27530,14 +27530,13 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +  PERL => "/usr/bin/perl",
 +  RANLIB => "ranlib",
 +  RC => "windres",
-+  afalgeng => "",
 +  b32 => "1",
 +  b64 => "0",
 +  b64l => "0",
 +  bn_ll => "1",
 +  build_file => "Makefile",
 +  build_file_templates => [ "Configurations/common0.tmpl", "Configurations/unix-Makefile.tmpl", "Configurations/common.tmpl" ],
-+  build_infos => [ "./build.info", "crypto/build.info", "ssl/build.info", "engines/build.info", "apps/build.info", "test/build.info", "util/build.info", "tools/build.info", "fuzz/build.info", "crypto/objects/build.info", "crypto/md4/build.info", "crypto/md5/build.info", "crypto/sha/build.info", "crypto/mdc2/build.info", "crypto/hmac/build.info", "crypto/ripemd/build.info", "crypto/whrlpool/build.info", "crypto/poly1305/build.info", "crypto/blake2/build.info", "crypto/siphash/build.info", "crypto/sm3/build.info", "crypto/des/build.info", "crypto/aes/build.info", "crypto/rc2/build.info", "crypto/rc4/build.info", "crypto/idea/build.info", "crypto/aria/build.info", "crypto/bf/build.info", "crypto/cast/build.info", "crypto/camellia/build.info", "crypto/seed/build.info", "crypto/sm4/build.info", "crypto/chacha/build.info", "crypto/modes/build.info", "crypto/bn/build.info", "crypto/ec/build.info", "crypto/rsa/build.info", "crypto/dsa/build.info", "crypto/dh/build.info", "crypto/sm2/build.info", "crypto/dso/build.info", "crypto/engine/build.info", "crypto/buffer/build.info", "crypto/bio/build.info", "crypto/stack/build.info", "crypto/lhash/build.info", "crypto/rand/build.info", "crypto/err/build.info", "crypto/evp/build.info", "crypto/asn1/build.info", "crypto/pem/build.info", "crypto/x509/build.info", "crypto/x509v3/build.info", "crypto/conf/build.info", "crypto/txt_db/build.info", "crypto/pkcs7/build.info", "crypto/pkcs12/build.info", "crypto/comp/build.info", "crypto/ocsp/build.info", "crypto/ui/build.info", "crypto/cms/build.info", "crypto/ts/build.info", "crypto/srp/build.info", "crypto/cmac/build.info", "crypto/ct/build.info", "crypto/async/build.info", "crypto/kdf/build.info", "crypto/store/build.info", "test/ossl_shim/build.info" ],
++  build_infos => [ "./build.info", "crypto/build.info", "ssl/build.info", "engines/build.info", "apps/build.info", "test/build.info", "util/build.info", "tools/build.info", "fuzz/build.info", "crypto/objects/build.info", "crypto/md4/build.info", "crypto/md5/build.info", "crypto/sha/build.info", "crypto/mdc2/build.info", "crypto/hmac/build.info", "crypto/ripemd/build.info", "crypto/whrlpool/build.info", "crypto/poly1305/build.info", "crypto/blake2/build.info", "crypto/siphash/build.info", "crypto/sm3/build.info", "crypto/des/build.info", "crypto/aes/build.info", "crypto/rc2/build.info", "crypto/rc4/build.info", "crypto/idea/build.info", "crypto/aria/build.info", "crypto/bf/build.info", "crypto/cast/build.info", "crypto/camellia/build.info", "crypto/seed/build.info", "crypto/sm4/build.info", "crypto/chacha/build.info", "crypto/modes/build.info", "crypto/bn/build.info", "crypto/ec/build.info", "crypto/rsa/build.info", "crypto/dsa/build.info", "crypto/dh/build.info", "crypto/sm2/build.info", "crypto/dso/build.info", "crypto/engine/build.info", "crypto/buffer/build.info", "crypto/bio/build.info", "crypto/stack/build.info", "crypto/lhash/build.info", "crypto/rand/build.info", "crypto/err/build.info", "crypto/evp/build.info", "crypto/asn1/build.info", "crypto/pem/build.info", "crypto/x509/build.info", "crypto/x509v3/build.info", "crypto/conf/build.info", "crypto/txt_db/build.info", "crypto/pkcs7/build.info", "crypto/pkcs12/build.info", "crypto/ocsp/build.info", "crypto/ui/build.info", "crypto/cms/build.info", "crypto/ts/build.info", "crypto/srp/build.info", "crypto/cmac/build.info", "crypto/ct/build.info", "crypto/async/build.info", "crypto/kdf/build.info", "crypto/store/build.info", "test/ossl_shim/build.info" ],
 +  build_type => "release",
 +  builddir => ".",
 +  cflags => [ "-mips2", "-Wa,--noexecstack" ],
@@ -27546,8 +27545,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +  cxxflags => [ "-mips2" ],
 +  defines => [ "NDEBUG" ],
 +  dirs => [ "crypto", "ssl", "engines", "apps", "test", "util", "tools", "fuzz" ],
-+  dynamic_engines => "1",
-+  engdirs => [ "afalg" ],
++  dynamic_engines => "0",
++  engdirs => [  ],
 +  ex_libs => [  ],
 +  export_var_as_fn => "0",
 +  includes => [  ],
@@ -27557,17 +27556,17 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +  major => "1",
 +  makedepprog => "\$(CROSS_COMPILE)gcc",
 +  minor => "1.1",
-+  openssl_algorithm_defines => [ "OPENSSL_NO_MD2", "OPENSSL_NO_RC5" ],
++  openssl_algorithm_defines => [ "OPENSSL_NO_COMP", "OPENSSL_NO_MD2", "OPENSSL_NO_RC5" ],
 +  openssl_api_defines => [  ],
-+  openssl_other_defines => [ "OPENSSL_RAND_SEED_OS", "OPENSSL_NO_ASAN", "OPENSSL_NO_ASYNC", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_DEVCRYPTOENG", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_EXTERNAL_TESTS", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS", "OPENSSL_NO_STATIC_ENGINE" ],
++  openssl_other_defines => [ "OPENSSL_RAND_SEED_OS", "OPENSSL_NO_AFALGENG", "OPENSSL_NO_ASAN", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_DEVCRYPTOENG", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_EXTERNAL_TESTS", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS", "OPENSSL_NO_DYNAMIC_ENGINE", "OPENSSL_NO_AFALGENG" ],
 +  openssl_sys_defines => [  ],
 +  openssl_thread_defines => [ "OPENSSL_THREADS" ],
 +  openssldir => "",
-+  options => " no-asan no-async no-crypto-mdebug no-crypto-mdebug-backtrace no-devcryptoeng no-ec_nistp_64_gcc_128 no-egd no-external-tests no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-ssl-trace no-ssl3 no-ssl3-method no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
++  options => " no-afalgeng no-asan no-comp no-crypto-mdebug no-crypto-mdebug-backtrace no-devcryptoeng no-dynamic-engine no-ec_nistp_64_gcc_128 no-egd no-external-tests no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-shared no-ssl-trace no-ssl3 no-ssl3-method no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
 +  perl_archname => "x86_64-linux-gnu-thread-multi",
 +  perl_cmd => "/usr/bin/perl",
 +  perl_version => "5.22.1",
-+  perlargv => [ "no-async", "linux-mips32" ],
++  perlargv => [ "no-comp", "no-shared", "no-afalgeng", "linux-mips32" ],
 +  perlenv => {
 +      "AR" => undef,
 +      "ARFLAGS" => undef,
@@ -27607,7 +27606,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +  prefix => "",
 +  processor => "",
 +  rc4_int => "unsigned char",
-+  sdirs => [ "objects", "md4", "md5", "sha", "mdc2", "hmac", "ripemd", "whrlpool", "poly1305", "blake2", "siphash", "sm3", "des", "aes", "rc2", "rc4", "idea", "aria", "bf", "cast", "camellia", "seed", "sm4", "chacha", "modes", "bn", "ec", "rsa", "dsa", "dh", "sm2", "dso", "engine", "buffer", "bio", "stack", "lhash", "rand", "err", "evp", "asn1", "pem", "x509", "x509v3", "conf", "txt_db", "pkcs7", "pkcs12", "comp", "ocsp", "ui", "cms", "ts", "srp", "cmac", "ct", "async", "kdf", "store" ],
++  sdirs => [ "objects", "md4", "md5", "sha", "mdc2", "hmac", "ripemd", "whrlpool", "poly1305", "blake2", "siphash", "sm3", "des", "aes", "rc2", "rc4", "idea", "aria", "bf", "cast", "camellia", "seed", "sm4", "chacha", "modes", "bn", "ec", "rsa", "dsa", "dh", "sm2", "dso", "engine", "buffer", "bio", "stack", "lhash", "rand", "err", "evp", "asn1", "pem", "x509", "x509v3", "conf", "txt_db", "pkcs7", "pkcs12", "ocsp", "ui", "cms", "ts", "srp", "cmac", "ct", "async", "kdf", "store" ],
 +  shlib_major => "1",
 +  shlib_minor => "1",
 +  shlib_version_history => "",
@@ -27823,11 +27822,13 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +);
 +
 +our %disabled = (
++  "afalgeng" => "option",
 +  "asan" => "default",
-+  "async" => "option",
++  "comp" => "option",
 +  "crypto-mdebug" => "default",
 +  "crypto-mdebug-backtrace" => "default",
 +  "devcryptoeng" => "default",
++  "dynamic-engine" => "forced",
 +  "ec_nistp_64_gcc_128" => "default",
 +  "egd" => "default",
 +  "external-tests" => "default",
@@ -27838,6 +27839,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +  "msan" => "default",
 +  "rc5" => "default",
 +  "sctp" => "default",
++  "shared" => "option",
 +  "ssl-trace" => "default",
 +  "ssl3" => "default",
 +  "ssl3-method" => "default",
@@ -28161,26 +28163,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "crypto/perlasm/x86asm.pl",
 +                ],
-+            "engines/afalg" =>
-+                [
-+                    "libcrypto",
-+                ],
-+            "engines/capi" =>
-+                [
-+                    "libcrypto",
-+                ],
-+            "engines/dasync" =>
-+                [
-+                    "libcrypto",
-+                ],
-+            "engines/ossltest" =>
-+                [
-+                    "libcrypto",
-+                ],
-+            "engines/padlock" =>
-+                [
-+                    "libcrypto",
-+                ],
 +            "fuzz/asn1-test" =>
 +                [
 +                    "libcrypto",
@@ -28334,6 +28316,11 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "libcrypto",
 +                    "libssl",
 +                ],
++            "test/buildtest_async" =>
++                [
++                    "libcrypto",
++                    "libssl",
++                ],
 +            "test/buildtest_bio" =>
 +                [
 +                    "libcrypto",
@@ -28370,11 +28357,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "libssl",
 +                ],
 +            "test/buildtest_cms" =>
-+                [
-+                    "libcrypto",
-+                    "libssl",
-+                ],
-+            "test/buildtest_comp" =>
 +                [
 +                    "libcrypto",
 +                    "libssl",
@@ -28667,6 +28649,12 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/chacha_internal_test" =>
 +                [
 +                    "libcrypto.a",
++                    "test/libtestutil.a",
++                ],
++            "test/cipher_overhead_test" =>
++                [
++                    "libcrypto",
++                    "libssl",
 +                    "test/libtestutil.a",
 +                ],
 +            "test/cipherbytes_test" =>
@@ -28984,10 +28972,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "libssl",
 +                    "test/libtestutil.a",
 +                ],
-+            "test/shlibloadtest" =>
-+                [
-+                    "test/libtestutil.a",
-+                ],
 +            "test/siphash_internal_test" =>
 +                [
 +                    "libcrypto.a",
@@ -29084,12 +29068,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "libcrypto",
 +                    "libssl.a",
-+                    "test/libtestutil.a",
-+                ],
-+            "test/tls13secretstest" =>
-+                [
-+                    "libcrypto",
-+                    "libssl",
 +                    "test/libtestutil.a",
 +                ],
 +            "test/uitest" =>
@@ -29567,22 +29545,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                            "crypto/cms/cms_pwri.o",
 +                            "crypto/cms/cms_sd.o",
 +                            "crypto/cms/cms_smime.o",
-+                        ],
-+                    "products" =>
-+                        {
-+                            "lib" =>
-+                                [
-+                                    "libcrypto",
-+                                ],
-+                        },
-+                },
-+            "crypto/comp" =>
-+                {
-+                    "deps" =>
-+                        [
-+                            "crypto/comp/c_zlib.o",
-+                            "crypto/comp/comp_err.o",
-+                            "crypto/comp/comp_lib.o",
 +                        ],
 +                    "products" =>
 +                        {
@@ -30632,15 +30594,16 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                },
 +            "engines" =>
 +                {
++                    "deps" =>
++                        [
++                            "engines/e_capi.o",
++                            "engines/e_padlock.o",
++                        ],
 +                    "products" =>
 +                        {
-+                            "dso" =>
++                            "lib" =>
 +                                [
-+                                    "engines/afalg",
-+                                    "engines/capi",
-+                                    "engines/dasync",
-+                                    "engines/ossltest",
-+                                    "engines/padlock",
++                                    "libcrypto",
 +                                ],
 +                        },
 +                },
@@ -30668,8 +30631,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                {
 +                    "deps" =>
 +                        [
-+                            "ssl/packet.o",
-+                            "ssl/tls13_enc.o",
 +                            "ssl/bio_ssl.o",
 +                            "ssl/d1_lib.o",
 +                            "ssl/d1_msg.o",
@@ -30702,10 +30663,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                        ],
 +                    "products" =>
 +                        {
-+                            "bin" =>
-+                                [
-+                                    "test/tls13secretstest",
-+                                ],
 +                            "lib" =>
 +                                [
 +                                    "libssl",
@@ -30800,11 +30757,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +        },
 +    "engines" =>
 +        [
-+            "engines/afalg",
-+            "engines/capi",
-+            "engines/dasync",
-+            "engines/ossltest",
-+            "engines/padlock",
 +        ],
 +    "extra" =>
 +        [
@@ -31735,6 +31687,11 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "test/generate_buildtest.pl",
 +                    "asn1t",
 +                ],
++            "test/buildtest_async.c" =>
++                [
++                    "test/generate_buildtest.pl",
++                    "async",
++                ],
 +            "test/buildtest_bio.c" =>
 +                [
 +                    "test/generate_buildtest.pl",
@@ -31774,11 +31731,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "test/generate_buildtest.pl",
 +                    "cms",
-+                ],
-+            "test/buildtest_comp.c" =>
-+                [
-+                    "test/generate_buildtest.pl",
-+                    "comp",
 +                ],
 +            "test/buildtest_conf.c" =>
 +                [
@@ -33508,24 +33460,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "include",
 +                ],
 +            "crypto/cms/cms_smime.o" =>
-+                [
-+                    ".",
-+                    "crypto/include",
-+                    "include",
-+                ],
-+            "crypto/comp/c_zlib.o" =>
-+                [
-+                    ".",
-+                    "crypto/include",
-+                    "include",
-+                ],
-+            "crypto/comp/comp_err.o" =>
-+                [
-+                    ".",
-+                    "crypto/include",
-+                    "include",
-+                ],
-+            "crypto/comp/comp_lib.o" =>
 +                [
 +                    ".",
 +                    "crypto/include",
@@ -36452,24 +36386,16 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "crypto/include",
 +                    "include",
 +                ],
-+            "engines/e_afalg.o" =>
-+                [
-+                    "include",
-+                ],
 +            "engines/e_capi.o" =>
 +                [
-+                    "include",
-+                ],
-+            "engines/e_dasync.o" =>
-+                [
-+                    "include",
-+                ],
-+            "engines/e_ossltest.o" =>
-+                [
++                    ".",
++                    "crypto/include",
 +                    "include",
 +                ],
 +            "engines/e_padlock.o" =>
 +                [
++                    ".",
++                    "crypto/include",
 +                    "include",
 +                ],
 +            "fuzz/asn1.o" =>
@@ -36818,6 +36744,10 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "include",
 +                ],
++            "test/buildtest_async.o" =>
++                [
++                    "include",
++                ],
 +            "test/buildtest_bio.o" =>
 +                [
 +                    "include",
@@ -36847,10 +36777,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "include",
 +                ],
 +            "test/buildtest_cms.o" =>
-+                [
-+                    "include",
-+                ],
-+            "test/buildtest_comp.o" =>
 +                [
 +                    "include",
 +                ],
@@ -37087,6 +37013,11 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    ".",
 +                    "include",
 +                    "crypto/include",
++                ],
++            "test/cipher_overhead_test.o" =>
++                [
++                    ".",
++                    "include",
 +                ],
 +            "test/cipherbytes_test.o" =>
 +                [
@@ -37356,11 +37287,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "include",
 +                ],
-+            "test/shlibloadtest.o" =>
-+                [
-+                    "include",
-+                    "crypto/include",
-+                ],
 +            "test/siphash_internal_test.o" =>
 +                [
 +                    ".",
@@ -37495,11 +37421,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    ".",
 +                    "include",
 +                ],
-+            "test/tls13secretstest.o" =>
-+                [
-+                    ".",
-+                    "include",
-+                ],
 +            "test/uitest.o" =>
 +                [
 +                    ".",
@@ -37550,12 +37471,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +        },
 +    "install" =>
 +        {
-+            "engines" =>
-+                [
-+                    "engines/afalg",
-+                    "engines/capi",
-+                    "engines/padlock",
-+                ],
 +            "libraries" =>
 +                [
 +                    "libcrypto",
@@ -37617,6 +37532,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/buildtest_aes",
 +            "test/buildtest_asn1",
 +            "test/buildtest_asn1t",
++            "test/buildtest_async",
 +            "test/buildtest_bio",
 +            "test/buildtest_blowfish",
 +            "test/buildtest_bn",
@@ -37625,7 +37541,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/buildtest_cast",
 +            "test/buildtest_cmac",
 +            "test/buildtest_cms",
-+            "test/buildtest_comp",
 +            "test/buildtest_conf",
 +            "test/buildtest_conf_api",
 +            "test/buildtest_crypto",
@@ -37684,6 +37599,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/buildtest_x509v3",
 +            "test/casttest",
 +            "test/chacha_internal_test",
++            "test/cipher_overhead_test",
 +            "test/cipherbytes_test",
 +            "test/cipherlist_test",
 +            "test/ciphername_test",
@@ -37745,7 +37661,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/sanitytest",
 +            "test/secmemtest",
 +            "test/servername_test",
-+            "test/shlibloadtest",
 +            "test/siphash_internal_test",
 +            "test/sm2_internal_test",
 +            "test/sm4_internal_test",
@@ -37764,7 +37679,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/time_offset_test",
 +            "test/tls13ccstest",
 +            "test/tls13encryptiontest",
-+            "test/tls13secretstest",
 +            "test/uitest",
 +            "test/v3ext",
 +            "test/v3nametest",
@@ -37823,19 +37737,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +        ],
 +    "shared_sources" =>
 +        {
-+            "libcrypto" =>
-+                [
-+                    "libcrypto.map",
-+                ],
-+            "libssl" =>
-+                [
-+                    "libssl.map",
-+                ],
-+        },
-+    "sharednames" =>
-+        {
-+            "libcrypto" => "libcrypto",
-+            "libssl" => "libssl",
 +        },
 +    "sources" =>
 +        {
@@ -38817,18 +38718,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "crypto/cms/cms_smime.o" =>
 +                [
 +                    "crypto/cms/cms_smime.c",
-+                ],
-+            "crypto/comp/c_zlib.o" =>
-+                [
-+                    "crypto/comp/c_zlib.c",
-+                ],
-+            "crypto/comp/comp_err.o" =>
-+                [
-+                    "crypto/comp/comp_err.c",
-+                ],
-+            "crypto/comp/comp_lib.o" =>
-+                [
-+                    "crypto/comp/comp_lib.c",
 +                ],
 +            "crypto/conf/conf_api.o" =>
 +                [
@@ -40678,45 +40567,13 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "crypto/x509v3/v3err.c",
 +                ],
-+            "engines/afalg" =>
-+                [
-+                    "engines/e_afalg.o",
-+                ],
-+            "engines/capi" =>
-+                [
-+                    "engines/e_capi.o",
-+                ],
-+            "engines/dasync" =>
-+                [
-+                    "engines/e_dasync.o",
-+                ],
-+            "engines/e_afalg.o" =>
-+                [
-+                    "engines/e_afalg.c",
-+                ],
 +            "engines/e_capi.o" =>
 +                [
 +                    "engines/e_capi.c",
 +                ],
-+            "engines/e_dasync.o" =>
-+                [
-+                    "engines/e_dasync.c",
-+                ],
-+            "engines/e_ossltest.o" =>
-+                [
-+                    "engines/e_ossltest.c",
-+                ],
 +            "engines/e_padlock.o" =>
 +                [
 +                    "engines/e_padlock.c",
-+                ],
-+            "engines/ossltest" =>
-+                [
-+                    "engines/e_ossltest.o",
-+                ],
-+            "engines/padlock" =>
-+                [
-+                    "engines/e_padlock.o",
 +                ],
 +            "fuzz/asn1-test" =>
 +                [
@@ -40998,9 +40855,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "crypto/cms/cms_pwri.o",
 +                    "crypto/cms/cms_sd.o",
 +                    "crypto/cms/cms_smime.o",
-+                    "crypto/comp/c_zlib.o",
-+                    "crypto/comp/comp_err.o",
-+                    "crypto/comp/comp_lib.o",
 +                    "crypto/conf/conf_api.o",
 +                    "crypto/conf/conf_def.o",
 +                    "crypto/conf/conf_err.o",
@@ -41463,6 +41317,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                    "crypto/x509v3/v3_tlsf.o",
 +                    "crypto/x509v3/v3_utl.o",
 +                    "crypto/x509v3/v3err.o",
++                    "engines/e_capi.o",
++                    "engines/e_padlock.o",
 +                ],
 +            "libssl" =>
 +                [
@@ -41832,6 +41688,14 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "test/buildtest_asn1t.c",
 +                ],
++            "test/buildtest_async" =>
++                [
++                    "test/buildtest_async.o",
++                ],
++            "test/buildtest_async.o" =>
++                [
++                    "test/buildtest_async.c",
++                ],
 +            "test/buildtest_bio" =>
 +                [
 +                    "test/buildtest_bio.o",
@@ -41895,14 +41759,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/buildtest_cms.o" =>
 +                [
 +                    "test/buildtest_cms.c",
-+                ],
-+            "test/buildtest_comp" =>
-+                [
-+                    "test/buildtest_comp.o",
-+                ],
-+            "test/buildtest_comp.o" =>
-+                [
-+                    "test/buildtest_comp.c",
 +                ],
 +            "test/buildtest_conf" =>
 +                [
@@ -42367,6 +42223,14 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +            "test/chacha_internal_test.o" =>
 +                [
 +                    "test/chacha_internal_test.c",
++                ],
++            "test/cipher_overhead_test" =>
++                [
++                    "test/cipher_overhead_test.o",
++                ],
++            "test/cipher_overhead_test.o" =>
++                [
++                    "test/cipher_overhead_test.c",
 +                ],
 +            "test/cipherbytes_test" =>
 +                [
@@ -42885,14 +42749,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "test/servername_test.c",
 +                ],
-+            "test/shlibloadtest" =>
-+                [
-+                    "test/shlibloadtest.o",
-+                ],
-+            "test/shlibloadtest.o" =>
-+                [
-+                    "test/shlibloadtest.c",
-+                ],
 +            "test/siphash_internal_test" =>
 +                [
 +                    "test/siphash_internal_test.o",
@@ -43096,16 +42952,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +                [
 +                    "test/tls13encryptiontest.c",
 +                ],
-+            "test/tls13secretstest" =>
-+                [
-+                    "ssl/packet.o",
-+                    "ssl/tls13_enc.o",
-+                    "test/tls13secretstest.o",
-+                ],
-+            "test/tls13secretstest.o" =>
-+                [
-+                    "test/tls13secretstest.c",
-+                ],
 +            "test/uitest" =>
 +                [
 +                    "test/uitest.o",
@@ -43233,11 +43079,15 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/configdata.pm b/deps/open
 +    'RM',
 +);
 +my %disabled_info = (
++    'afalgeng' => {
++        macro => 'OPENSSL_NO_AFALGENG',
++    },
 +    'asan' => {
 +        macro => 'OPENSSL_NO_ASAN',
 +    },
-+    'async' => {
-+        macro => 'OPENSSL_NO_ASYNC',
++    'comp' => {
++        macro => 'OPENSSL_NO_COMP',
++        skipped => [ 'crypto/comp' ],
 +    },
 +    'crypto-mdebug' => {
 +        macro => 'OPENSSL_NO_CRYPTO_MDEBUG',
@@ -47899,8 +47749,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/bn/mips-mont.S b/d
 +.asciiz	"Montgomery Multiplication for MIPS, CRYPTOGAMS by <appro@openssl.org>"
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	2019-02-01 16:58:59.720166959 +0900
-@@ -0,0 +1,40 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h	2019-02-04 15:02:30.453325312 +0900
+@@ -0,0 +1,34 @@
 +/*
 + * WARNING: do not edit!
 + * Generated by util/mkbuildinf.pl
@@ -47914,7 +47764,7 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h b/deps/
 + */
 +
 +#define PLATFORM "platform: linux-mips32"
-+#define DATE "built on: Fri Feb  1 04:39:37 2019 UTC"
++#define DATE "built on: Mon Feb  4 05:55:07 2019 UTC"
 +
 +/*
 + * Generate compiler_flags as an array of individual characters. This is a
@@ -47922,24 +47772,18 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/buildinf.h b/deps/
 + * literal
 + */
 +static const char compiler_flags[] = {
-+    'c','o','m','p','i','l','e','r',':',' ','m','i','p','s','e','l',
-+    '-','o','p','e','n','w','r','t','-','l','i','n','u','x','-','g',
-+    'c','c',' ','-','D','D','S','O','_','D','L','F','C','N',' ','-',
-+    'D','H','A','V','E','_','D','L','F','C','N','_','H',' ','-','D',
-+    'N','D','E','B','U','G',' ','-','D','O','P','E','N','S','S','L',
-+    '_','T','H','R','E','A','D','S',' ','-','D','O','P','E','N','S',
-+    'S','L','_','N','O','_','S','T','A','T','I','C','_','E','N','G',
-+    'I','N','E',' ','-','D','O','P','E','N','S','S','L','_','P','I',
-+    'C',' ','-','D','O','P','E','N','S','S','L','_','B','N','_','A',
-+    'S','M','_','M','O','N','T',' ','-','D','S','H','A','1','_','A',
-+    'S','M',' ','-','D','S','H','A','2','5','6','_','A','S','M',' ',
-+    '-','D','A','E','S','_','A','S','M',' ','-','D','O','P','E','N',
-+    'S','S','L','D','I','R','=','"','\\','"','/','u','s','r','/','l',
-+    'o','c','a','l','/','s','s','l','\\','"','"',' ','-','D','E','N',
-+    'G','I','N','E','S','D','I','R','=','"','\\','"','/','u','s','r',
-+    '/','l','o','c','a','l','/','l','i','b','/','e','n','g','i','n',
-+    'e','s','-','1','.','1','\\','"','"',' ','-','m','i','p','s','2',
-+    ' ','\0'
++    'c','o','m','p','i','l','e','r',':',' ','g','c','c',' ','-','f',
++    'P','I','C',' ','-','p','t','h','r','e','a','d',' ','-','m','a',
++    'b','i','=','3','2',' ','-','m','i','p','s','2',' ','-','W','a',
++    ',','-','-','n','o','e','x','e','c','s','t','a','c','k',' ','-',
++    'W','a','l','l',' ','-','O','3',' ','-','D','O','P','E','N','S',
++    'S','L','_','U','S','E','_','N','O','D','E','L','E','T','E',' ',
++    '-','D','B','N','_','D','I','V','3','W',' ','-','D','O','P','E',
++    'N','S','S','L','_','P','I','C',' ','-','D','O','P','E','N','S',
++    'S','L','_','B','N','_','A','S','M','_','M','O','N','T',' ','-',
++    'D','S','H','A','1','_','A','S','M',' ','-','D','S','H','A','2',
++    '5','6','_','A','S','M',' ','-','D','A','E','S','_','A','S','M',
++    ' ','-','D','N','D','E','B','U','G','\0'
 +};
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h b/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/crypto/include/internal/bn_conf.h	1970-01-01 09:00:00.000000000 +0900
@@ -54081,8 +53925,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S 
 +
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h b/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h
 --- a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h	2019-02-01 13:59:37.792308895 +0900
-@@ -0,0 +1,195 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslconf.h	2019-02-04 15:03:26.537041803 +0900
+@@ -0,0 +1,201 @@
 +/*
 + * WARNING: do not edit!
 + * Generated by Makefile from include/openssl/opensslconf.h.in
@@ -54109,6 +53953,9 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslco
 + * OpenSSL was configured with the following options:
 + */
 +
++#ifndef OPENSSL_NO_COMP
++# define OPENSSL_NO_COMP
++#endif
 +#ifndef OPENSSL_NO_MD2
 +# define OPENSSL_NO_MD2
 +#endif
@@ -54121,11 +53968,11 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslco
 +#ifndef OPENSSL_RAND_SEED_OS
 +# define OPENSSL_RAND_SEED_OS
 +#endif
++#ifndef OPENSSL_NO_AFALGENG
++# define OPENSSL_NO_AFALGENG
++#endif
 +#ifndef OPENSSL_NO_ASAN
 +# define OPENSSL_NO_ASAN
-+#endif
-+#ifndef OPENSSL_NO_ASYNC
-+# define OPENSSL_NO_ASYNC
 +#endif
 +#ifndef OPENSSL_NO_CRYPTO_MDEBUG
 +# define OPENSSL_NO_CRYPTO_MDEBUG
@@ -54178,8 +54025,11 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/include/openssl/opensslco
 +#ifndef OPENSSL_NO_WEAK_SSL_CIPHERS
 +# define OPENSSL_NO_WEAK_SSL_CIPHERS
 +#endif
-+#ifndef OPENSSL_NO_STATIC_ENGINE
-+# define OPENSSL_NO_STATIC_ENGINE
++#ifndef OPENSSL_NO_DYNAMIC_ENGINE
++# define OPENSSL_NO_DYNAMIC_ENGINE
++#endif
++#ifndef OPENSSL_NO_AFALGENG
++# define OPENSSL_NO_AFALGENG
 +#endif
 +
 +
@@ -54877,8 +54727,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +}
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-04 10:57:56.210305587 +0900
-@@ -0,0 +1,720 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-04 15:05:09.104523622 +0900
+@@ -0,0 +1,717 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -55098,9 +54948,6 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +      'openssl/crypto/cms/cms_pwri.c',
 +      'openssl/crypto/cms/cms_sd.c',
 +      'openssl/crypto/cms/cms_smime.c',
-+      'openssl/crypto/comp/c_zlib.c',
-+      'openssl/crypto/comp/comp_err.c',
-+      'openssl/crypto/comp/comp_lib.c',
 +      'openssl/crypto/conf/conf_api.c',
 +      'openssl/crypto/conf/conf_def.c',
 +      'openssl/crypto/conf/conf_err.c',
