@@ -26779,8 +26779,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +}
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-04 10:56:44.078651887 +0900
-@@ -0,0 +1,720 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-04 14:40:59.131808809 +0900
+@@ -0,0 +1,717 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -27000,9 +27000,6 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +      'openssl/crypto/cms/cms_pwri.c',
 +      'openssl/crypto/cms/cms_sd.c',
 +      'openssl/crypto/cms/cms_smime.c',
-+      'openssl/crypto/comp/c_zlib.c',
-+      'openssl/crypto/comp/comp_err.c',
-+      'openssl/crypto/comp/comp_lib.c',
 +      'openssl/crypto/conf/conf_api.c',
 +      'openssl/crypto/conf/conf_def.c',
 +      'openssl/crypto/conf/conf_err.c',
