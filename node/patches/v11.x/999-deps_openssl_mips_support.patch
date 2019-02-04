@@ -55474,6 +55474,17 @@ diff -urN a/deps/openssl/config/dso_conf_asm.h b/deps/openssl/config/dso_conf_as
  #elif defined(__APPLE__) && defined(__MACH__) && defined(__i386__)
  # include "./archs/darwin-i386-cc/asm/crypto/include/internal/dso_conf.h"
  #elif defined(__APPLE__) && defined(__MACH__) && defined(__x86_64__)
+diff -urN a/deps/openssl/config/Makefile b/deps/openssl/config/Makefile
+--- a/deps/openssl/config/Makefile	2019-01-31 05:43:11.000000000 +0900
++++ b/deps/openssl/config/Makefile	2019-02-04 15:36:16.911076890 +0900
+@@ -13,6 +13,7 @@
+ darwin64-x86_64-cc darwin-i386-cc linux-aarch64 \
+ linux-armv4 linux-elf linux-x32 linux-x86_64 linux-ppc \
+ linux-ppc64 linux-ppc64le linux32-s390x linux64-s390x \
++linux-mips linux-mipsel \
+ solaris-x86-gcc solaris64-x86_64-gcc VC-WIN64A VC-WIN32
+ 
+ CC = gcc
 diff -urN a/deps/openssl/config/opensslconf_asm.h b/deps/openssl/config/opensslconf_asm.h
 --- a/deps/openssl/config/opensslconf_asm.h	2019-01-31 05:43:12.000000000 +0900
 +++ b/deps/openssl/config/opensslconf_asm.h	2019-02-01 11:38:10.390829498 +0900
