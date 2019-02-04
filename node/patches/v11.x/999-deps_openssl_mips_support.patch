@@ -26930,8 +26930,8 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl-cl.gypi b/deps/open
 +}
 diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-01 18:11:49.917574425 +0900
-@@ -0,0 +1,722 @@
++++ b/deps/openssl/config/archs/linux-mips/asm/openssl.gypi	2019-02-04 10:56:44.078651887 +0900
+@@ -0,0 +1,720 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -27625,11 +27625,9 @@ diff -urN a/deps/openssl/config/archs/linux-mips/asm/openssl.gypi b/deps/openssl
 +      './config/archs/linux-mips/asm/crypto/sha/sha256-mips.S',
 +    ],
 +    'openssl_defines_linux-mips': [
-+      'DSO_DLFCN',
-+      'HAVE_DLFCN_H',
 +      'NDEBUG',
-+      'OPENSSL_THREADS',
-+      'OPENSSL_NO_STATIC_ENGINE',
++      'OPENSSL_USE_NODELETE',
++      'BN_DIV3W',
 +      'OPENSSL_PIC',
 +      'OPENSSL_BN_ASM_MONT',
 +      'SHA1_ASM',
@@ -55035,8 +55033,8 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl-cl.gypi b/deps/op
 +}
 diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi
 --- a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	1970-01-01 09:00:00.000000000 +0900
-+++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-01 18:12:20.525416153 +0900
-@@ -0,0 +1,722 @@
++++ b/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi	2019-02-04 10:57:56.210305587 +0900
+@@ -0,0 +1,720 @@
 +{
 +  'variables': {
 +    'openssl_sources': [
@@ -55730,11 +55728,9 @@ diff -urN a/deps/openssl/config/archs/linux-mipsel/asm/openssl.gypi b/deps/opens
 +      './config/archs/linux-mipsel/asm/crypto/sha/sha256-mips.S',
 +    ],
 +    'openssl_defines_linux-mipsel': [
-+      'DSO_DLFCN',
-+      'HAVE_DLFCN_H',
 +      'NDEBUG',
-+      'OPENSSL_THREADS',
-+      'OPENSSL_NO_STATIC_ENGINE',
++      'OPENSSL_USE_NODELETE',
++      'BN_DIV3W',
 +      'OPENSSL_PIC',
 +      'OPENSSL_BN_ASM_MONT',
 +      'SHA1_ASM',
