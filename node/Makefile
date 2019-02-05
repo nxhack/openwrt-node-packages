@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_8),y)
-PKG_VERSION:=v8.14.1
+PKG_VERSION:=v8.15.0
 PKG_RELEASE:=1
-PKG_MD5SUM:=716d5695412ab047cb096cef2cff31f5
+PKG_MD5SUM:=bfc5da493c72ded3a7f43b5662bfc53c
 PATCH_DIR:=./patches/v8.x
 else
 ifeq ($(CONFIG_NODEJS_4),y)
@@ -18,9 +18,9 @@ PKG_RELEASE:=1
 PKG_MD5SUM:=b69940f0c201f753ec1eaffd35a36231
 PATCH_DIR:=./patches/v4.x
 else
-PKG_VERSION:=v6.15.1
+PKG_VERSION:=v6.16.0
 PKG_RELEASE:=1
-PKG_MD5SUM:=e90d7113954f73de654fe9fe82575a8e
+PKG_MD5SUM:=0e5b2a16bd830f844bd5965ea4e1074d
 PATCH_DIR:=./patches/v6.x
 endif
 endif
@@ -88,7 +88,7 @@ define Package/node/config
 			bool "6.x Maintenance LTS"
 
 		config NODEJS_8
-			bool "8.x Active LTS"
+			bool "8.x Maintenance LTS"
 	endchoice
 
 	endmenu
