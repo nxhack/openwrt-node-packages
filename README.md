@@ -132,6 +132,7 @@ node-node-hid-stream		(node-hid)
 node-node-red			(bcrypt)
 node-node-red-contrib-gpio	(johnny-five)
 node-node-red-contrib-homekit	(hap-nodejs)
+node-node-red-contrib-modbus	(@serialport/bindings, modbus-serial)
 node-node-red-node-arduino	(firmata)
 node-onoff			(epoll)
 node-pi-spi
