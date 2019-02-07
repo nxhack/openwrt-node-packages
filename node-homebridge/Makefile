@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.4.45
+PKG_VERSION:=0.4.46
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_MD5SUM:=710782587a02aea06b374f3afaea4969
+PKG_MD5SUM:=ac77e7b00a990431a6a3603a6d379112
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -28,9 +28,7 @@ define Package/node-homebridge
   CATEGORY:=Languages
   TITLE:=Node.js HomeKit Server
   URL:=https://www.npmjs.org/package/homebridge
-  # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
-  #  for InstallDev libdns_sd.so
-  DEPENDS:=+node +node-npm libavahi-compat-libdnssd libavahi-dbus-support
+  DEPENDS:=+node +node-npm
   USERID:=homebridge=154:homebridge=154
 endef
 
@@ -39,8 +37,6 @@ define Package/node-homebridge/description
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
-
-TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/avahi-compat-libdns_sd
 
 define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
