@@ -96,7 +96,7 @@ index 58f5b72..875a787 100644
  #include <openssl/ec.h>
  #include <openssl/ecdh.h>
  #ifndef OPENSSL_NO_ENGINE
-@@ -90,8 +93,20 @@
+@@ -87,8 +90,20 @@
    static const int kTicketKeyNameIndex = 3;
    static const int kTicketKeyIVIndex = 4;
  
@@ -117,7 +117,7 @@ index 58f5b72..875a787 100644
  
    static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
    static void Init(const v8::FunctionCallbackInfo<v8::Value>& args);
-@@ -129,6 +144,15 @@
+@@ -126,6 +141,15 @@
                                 HMAC_CTX* hctx,
                                 int enc);
  
@@ -133,7 +133,7 @@ index 58f5b72..875a787 100644
    SecureContext(Environment* env, v8::Local<v8::Object> wrap)
        : BaseObject(env, wrap),
          ctx_(nullptr),
-@@ -205,19 +229,32 @@
+@@ -202,19 +226,32 @@
   protected:
    typedef void (*CertCb)(void* arg);
  
