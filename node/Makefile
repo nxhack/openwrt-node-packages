@@ -58,7 +58,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=+libstdcpp +(!NODEJS_10&&!NODEJS_11):libopenssl +(!NODEJS_10&&!NODEJS_11):zlib \
-           +CONFIG_PACKAGE_libopenssl-conf:libopenssl \
+           +PACKAGE_libopenssl-conf:libopenssl \
            +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU_SYSTEM:icu \
            +(NODEJS_10||NODEJS_11):libatomic
 endef
@@ -107,6 +107,7 @@ define Package/node/config
 
 		config NODEJS_6
 			bool "6.x Maintenance LTS"
+			depends on !PACKAGE_libopenssl-conf
 
 		config NODEJS_8
 			bool "8.x Active LTS"
