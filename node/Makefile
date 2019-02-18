@@ -59,7 +59,7 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=+libstdcpp +(!NODEJS_10&&!NODEJS_11):zlib \
+  DEPENDS:=+libstdcpp +zlib \
            $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_11):libopenssl) \
            +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU_SYSTEM:icu \
            +(NODEJS_10||NODEJS_11):libatomic
@@ -170,7 +170,7 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--without-snapshot \
-	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-zlib)) \
+	--shared-zlib \
 	$(if $(filter reboot, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl))) \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug) \
