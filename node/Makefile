@@ -48,6 +48,8 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
+OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
+
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
@@ -57,7 +59,8 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=+libstdcpp +(!NODEJS_10&&!NODEJS_11):libopenssl +(!NODEJS_10&&!NODEJS_11):zlib \
+  DEPENDS:=+libstdcpp +(!NODEJS_10&&!NODEJS_11):zlib \
+           $(if $(filter reboot $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_11):libopenssl) \
            +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU_SYSTEM:icu \
            +(NODEJS_10||NODEJS_11):libatomic
 endef
@@ -168,7 +171,8 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-zlib)) \
-	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl)) \
+	$(if $(filter reboot $(OW_VER)),+libopenssl, \
+		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl))) \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
