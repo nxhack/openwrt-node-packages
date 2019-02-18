@@ -171,7 +171,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--without-snapshot \
 	$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-zlib)) \
-	$(if $(filter reboot, $(OW_VER)),+libopenssl, \
+	$(if $(filter reboot, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl))) \
 	$(if $(CONFIG_NODEJS_DEBUG),--debug) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
