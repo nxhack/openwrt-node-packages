@@ -4,7 +4,7 @@
        'target_name': 'torque',
        'type': 'executable',
        'toolsets': ['host'],
-+      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl' ],
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz' ],
        'dependencies': ['v8_libbase'],
        'defines!': [
          '_HAS_EXCEPTIONS=0',
