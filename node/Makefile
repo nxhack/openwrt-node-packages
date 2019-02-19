@@ -198,6 +198,10 @@ define Build/Prepare
 		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
 		exit 1; \
 	))
+	$(if $(filter reboot, $(OW_VER)), $(if $(CONFIG_NODEJS_6), \
+		echo "Node.js v6.x no longer supported with openssl 1.1.x."; \
+		exit 1; \
+	))
 	$(Build/Prepare/Default)
 endef
 
