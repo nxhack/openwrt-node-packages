@@ -199,7 +199,7 @@ define Build/Prepare
 		exit 1; \
 	))
 	$(if $(filter reboot, $(OW_VER)), $(if $(CONFIG_NODEJS_6), \
-		echo "Node.js v6.x no longer supported with openssl 1.1.x."; \
+		echo "Node.js v6.x no longer supported in the OpenWrt head."; \
 		exit 1; \
 	))
 	$(Build/Prepare/Default)
