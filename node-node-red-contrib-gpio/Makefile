@@ -28,7 +28,7 @@ define Package/node-node-red-contrib-gpio
   CATEGORY:=Languages
   TITLE:=nodes for using johnny-five and IO plugins
   URL:=http://nodered.org/
-  DEPENDS:=+node
+  DEPENDS:=+node +node-node-red
 endef
 
 define Package/node-node-red-contrib-gpio/description

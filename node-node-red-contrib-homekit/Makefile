@@ -30,7 +30,7 @@ define Package/node-node-red-contrib-homekit
   URL:=http://nodered.org/
   # need select 'y' libavahi-compat-libdnssd and libavahi-dbus-support
   #  for InstallDev libdns_sd.so
-  DEPENDS:=+node libavahi-compat-libdnssd libavahi-dbus-support
+  DEPENDS:=+node +node-node-red libavahi-compat-libdnssd libavahi-dbus-support
 endef
 
 define Package/node-node-red-contrib-homekit/description

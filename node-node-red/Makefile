@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-red
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.19.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=http://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -28,7 +28,7 @@ define Package/node-node-red
   CATEGORY:=Languages
   TITLE:=A visual tool for wiring the Internet of Things
   URL:=http://nodered.org/
-  DEPENDS:=+node
+  DEPENDS:=+node +node-npm
 endef
 
 define Package/node-node-red/description
