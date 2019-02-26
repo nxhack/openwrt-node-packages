@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-red-contrib-modbus
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.1.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -28,7 +28,7 @@ define Package/node-node-red-contrib-modbus
   CATEGORY:=Languages
   TITLE:=Node-RED contribution package for Modbus
   URL:=https://nodered.org/
-  DEPENDS:=+node
+  DEPENDS:=+node +node-node-red
 endef
 
 define Package/node-node-red-contrib-modbus/description

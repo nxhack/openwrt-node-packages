@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-red-contrib-homekit
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.1
-PKG_RELEASE:=7
+PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -28,7 +28,7 @@ define Package/node-node-red-contrib-homekit
   CATEGORY:=Languages
   TITLE:=nodes to simulate Apple HomeKit devices
   URL:=https://nodered.org/
-  DEPENDS:=+node +node-hap-nodejs
+  DEPENDS:=+node +node-node-red +node-hap-nodejs
 endef
 
 define Package/node-node-red-contrib-homekit/description
