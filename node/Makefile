@@ -62,7 +62,7 @@ define Package/node
   DEPENDS:=+libstdcpp +zlib \
            $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_11):libopenssl) \
            +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU_SYSTEM:icu \
-           +(NODEJS_10||NODEJS_11):libatomic
+           +NODEJS_ICU_SYSTEM:icu-full-data +(NODEJS_10||NODEJS_11):libatomic
 endef
 
 define Package/node/description
