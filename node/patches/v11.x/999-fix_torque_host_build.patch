@@ -1,6 +1,6 @@
 --- a/deps/v8/gypfiles/v8.gyp
 +++ b/deps/v8/gypfiles/v8.gyp
-@@ -2536,6 +2536,7 @@
+@@ -2539,6 +2539,7 @@
        'target_name': 'torque',
        'type': 'executable',
        'toolsets': ['host'],
