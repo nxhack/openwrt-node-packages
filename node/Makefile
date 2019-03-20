@@ -9,24 +9,24 @@ PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_11),y)
 PKG_VERSION:=v11.12.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=8429778f13eb0194768ff988ae94c34713656e21de569e8ffd92aa67c8e2178c
 PATCH_DIR:=./patches/v11.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.15.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=4e22d926f054150002055474e452ed6cbb85860aa7dc5422213a2002ed9791d5
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_6),y)
 PKG_VERSION:=v6.17.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=c1dac78ea71c2e622cea6f94ba97a4be49329a1d36cd05945a1baf1ae8652748
 PATCH_DIR:=./patches/v6.x
 else
 PKG_VERSION:=v8.15.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=6b6486a3f452624941f6e11dd5f878c298d43e9c21b5f43ca1721dc7ce25add1
 PATCH_DIR:=./patches/v8.x
 endif
@@ -37,7 +37,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://nodejs.org/dist/${PKG_VERSION}
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host
+PKG_BUILD_DEPENDS:=python/host node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -136,8 +136,11 @@ define Package/node/config
 			bool "system-icu"
 	endchoice
 
-	config NODEJS_DEBUG
-		bool "Debug build"
+	config NODEJS_WITH_SNAPSHOT
+		depends on !(TARGET_x86_64 || NODEJS_ICU_SYSTEM)
+		bool "Build with snapshot"
+		help
+		 Enable advanced debugging
 		default n
 
 	endmenu
@@ -156,10 +159,6 @@ endif
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU)
 
-ifeq ($(CONFIG_NODEJS_DEBUG),y)
-	STRIP:="/bin/true"
-endif
-
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
 	CXX="$(TARGET_CXX) $(TARGET_OPTIMIZATION)" \
@@ -169,11 +168,10 @@ CONFIGURE_VARS:= \
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
-	--without-snapshot \
+	$(if $(CONFIG_NODEJS_WITH_SNAPSHOT),,--without-snapshot) \
 	--shared-zlib \
 	$(if $(filter reboot, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl))) \
-	$(if $(CONFIG_NODEJS_DEBUG),--debug) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
@@ -213,9 +211,6 @@ endef
 define Package/node/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/node $(1)/usr/bin/
-ifeq ($(CONFIG_NODEJS_DEBUG),y)
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/node_g $(1)/usr/bin/
-endif
 endef
 
 define Package/node-npm/install
