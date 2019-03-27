@@ -137,7 +137,7 @@ define Package/node/config
 	endchoice
 
 	config NODEJS_WITH_SNAPSHOT
-		depends on !TARGET_x86_64
+		depends on !(TARGET_x86_64 || NODEJS_ICU_NONE)
 		bool "Build with snapshot"
 		help
 		 Enable advanced debugging
