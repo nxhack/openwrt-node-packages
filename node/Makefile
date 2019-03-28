@@ -156,7 +156,7 @@ ifeq ($(CONFIG_NODEJS_11),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
-ifneq ($(ARCH_64BIT),y)
+ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
 endif
 
