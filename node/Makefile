@@ -9,24 +9,24 @@ PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_11),y)
 PKG_VERSION:=v11.12.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_HASH:=8429778f13eb0194768ff988ae94c34713656e21de569e8ffd92aa67c8e2178c
 PATCH_DIR:=./patches/v11.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.15.3
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_HASH:=4e22d926f054150002055474e452ed6cbb85860aa7dc5422213a2002ed9791d5
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_6),y)
 PKG_VERSION:=v6.17.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_HASH:=c1dac78ea71c2e622cea6f94ba97a4be49329a1d36cd05945a1baf1ae8652748
 PATCH_DIR:=./patches/v6.x
 else
 PKG_VERSION:=v8.15.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_HASH:=6b6486a3f452624941f6e11dd5f878c298d43e9c21b5f43ca1721dc7ce25add1
 PATCH_DIR:=./patches/v8.x
 endif
@@ -137,7 +137,7 @@ define Package/node/config
 	endchoice
 
 	config NODEJS_WITH_SNAPSHOT
-		depends on !(TARGET_x86_64 || NODEJS_ICU_SYSTEM)
+		depends on !(TARGET_x86_64 || NODEJS_ICU_NONE || !ARCH_64BIT)
 		bool "Build with snapshot"
 		help
 		 Enable advanced debugging
@@ -157,7 +157,8 @@ TARGET_LDFLAGS+=-latomic
 endif
 
 MAKE_VARS+= \
-	DESTCPU=$(NODEJS_CPU)
+	DESTCPU=$(NODEJS_CPU) \
+	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/63.1/lib
 
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
