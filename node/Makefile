@@ -141,7 +141,7 @@ define Package/node/config
 		bool "Build with snapshot"
 		help
 		 Enable advanced debugging
-		default n
+		default y
 
 	endmenu
 endef
