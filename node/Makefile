@@ -156,6 +156,10 @@ ifeq ($(CONFIG_NODEJS_11),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
+ifneq ($(ARCH_64BIT),y)
+FORCE_32BIT:=-m32
+endif
+
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
 	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/63.1/lib
@@ -163,8 +167,8 @@ MAKE_VARS+= \
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
 	CXX="$(TARGET_CXX) $(TARGET_OPTIMIZATION)" \
-	CC_host="$(HOSTCC)" \
-	CXX_host="$(HOSTCXX)"
+	CC_host="$(HOSTCC) $(FORCE_32BIT)" \
+	CXX_host="$(HOSTCXX) $(FORCE_32BIT)"
 
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
