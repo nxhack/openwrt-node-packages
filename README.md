@@ -60,6 +60,8 @@ make kernel_menuconfig
 ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In this case, there is no solution.
 
 ## Note about avahi and homebridge
+***If you use node-homebridge(node-hap-nodejs), please install avahi-nodbus-daemon or avahi-dbus-daemon according to your situation.***
+
 (1)
 Some OpenWrt / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
 
