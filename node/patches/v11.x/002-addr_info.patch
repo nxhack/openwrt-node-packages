@@ -1,6 +1,6 @@
 --- a/deps/uv/src/unix/getaddrinfo.c
 +++ b/deps/uv/src/unix/getaddrinfo.c
-@@ -101,6 +101,7 @@
+@@ -103,6 +103,7 @@
    int err;
  
    req = container_of(w, uv_getaddrinfo_t, work_req);
