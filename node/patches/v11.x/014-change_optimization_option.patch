@@ -1,0 +1,24 @@
+diff -urN a/node-v11.13.0/common.gypi b/node-v11.13.0/common.gypi
+--- a/node-v11.13.0/common.gypi	2019-03-28 18:27:01.000000000 +0900
++++ b/node-v11.13.0/common.gypi	2019-04-03 11:08:09.158642460 +0900
+@@ -164,7 +164,7 @@
+         'variables': {
+           'v8_enable_handle_zapping': 0,
+         },
+-        'cflags': [ '-O3' ],
++        'cflags': [ '-Os' ],
+         'conditions': [
+           ['target_arch=="x64"', {
+             'msvs_configuration_platform': 'x64',
+diff -urN a/node-v11.13.0.orig/node.gypi b/node-v11.13.0/node.gypi
+--- a/node-v11.13.0/node.gypi	2019-03-28 18:27:13.000000000 +0900
++++ b/node-v11.13.0/node.gypi	2019-04-03 11:08:23.454592048 +0900
+@@ -282,7 +282,7 @@
+                    '-Wl,--no-whole-archive' ]
+     }],
+     [ 'coverage=="true" and node_shared=="false" and OS in "mac freebsd linux"', {
+-      'cflags!': [ '-O3' ],
++      'cflags!': [ '-Os' ],
+       'ldflags': [ '--coverage',
+                    '-g',
+                    '-O0' ],
