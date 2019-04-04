@@ -8,9 +8,9 @@ PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_11),y)
-PKG_VERSION:=v11.12.0
-PKG_RELEASE:=3
-PKG_HASH:=8429778f13eb0194768ff988ae94c34713656e21de569e8ffd92aa67c8e2178c
+PKG_VERSION:=v11.13.0
+PKG_RELEASE:=1
+PKG_HASH:=7411952da11f6033d4ca5993d68f52b0d7eb90538099102c37d5221c445dc38a
 PATCH_DIR:=./patches/v11.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -59,10 +59,10 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=+libstdcpp +zlib \
+  DEPENDS:=+libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_11):libopenssl) \
-           +USE_UCLIBC:libpthread +USE_UCLIBC:librt +NODEJS_ICU_SYSTEM:icu \
-           +NODEJS_ICU_SYSTEM:icu-full-data +(NODEJS_10||NODEJS_11):libatomic
+           +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
+           +(NODEJS_10||NODEJS_11):libatomic
 endef
 
 define Package/node/description
@@ -137,11 +137,11 @@ define Package/node/config
 	endchoice
 
 	config NODEJS_WITH_SNAPSHOT
-		depends on !(TARGET_x86_64 || NODEJS_ICU_NONE || !ARCH_64BIT)
+		depends on !(TARGET_x86_64 || NODEJS_ICU_NONE || (!ARCH_64BIT && NODEJS_ICU_SYSTEM))
 		bool "Build with snapshot"
 		help
 		 Enable advanced debugging
-		default n
+		default y
 
 	endmenu
 endef
@@ -156,15 +156,19 @@ ifeq ($(CONFIG_NODEJS_11),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
+ifneq ($(CONFIG_ARCH_64BIT),y)
+FORCE_32BIT:=-m32
+endif
+
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
-	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/63.1/lib
+	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/64.1/lib
 
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
 	CXX="$(TARGET_CXX) $(TARGET_OPTIMIZATION)" \
-	CC_host="$(HOSTCC)" \
-	CXX_host="$(HOSTCXX)"
+	CC_host="$(HOSTCC) $(FORCE_32BIT)" \
+	CXX_host="$(HOSTCXX) $(FORCE_32BIT)"
 
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
