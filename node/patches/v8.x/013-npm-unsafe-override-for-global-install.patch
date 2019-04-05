@@ -12,10 +12,10 @@ diff --git a/deps/npm/lib/config/defaults.js b/deps/npm/lib/config/defaults.js
 index f023d85724..49a9b9936c 100644
 --- a/deps/npm/lib/config/defaults.js
 +++ b/deps/npm/lib/config/defaults.js
-@@ -226,7 +226,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
-                      !(process.getuid && process.setuid &&
+@@ -238,7 +238,7 @@
                         process.getgid && process.setgid) ||
                       process.getuid() !== 0,
+     'update-notifier': true,
 -    usage: false,
 +    usage: true,
      user: process.platform === 'win32' ? 0 : 'nobody',
