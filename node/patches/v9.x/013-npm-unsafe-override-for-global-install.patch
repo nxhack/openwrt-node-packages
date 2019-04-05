@@ -1,0 +1,26 @@
+From cdb02b95ed9b12f82620ae1652cba20464c2ccf0 Mon Sep 17 00:00:00 2001
+From: Arturo Rinaldi <arty.net2@gmail.com>
+Date: Wed, 1 Nov 2017 14:51:43 +0100
+Subject: [PATCH] npm: overriding unsafe-perm setting to install packages
+ globally
+
+---
+ deps/npm/lib/config/defaults.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/deps/npm/lib/config/defaults.js b/deps/npm/lib/config/defaults.js
+index f023d85724..49a9b9936c 100644
+--- a/deps/npm/lib/config/defaults.js
++++ b/deps/npm/lib/config/defaults.js
+@@ -230,7 +230,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
+                      !(process.getuid && process.setuid &&
+                        process.getgid && process.setgid) ||
+                      process.getuid() !== 0,
+-    usage: false,
++    usage: true,
+     user: process.platform === 'win32' ? 0 : 'nobody',
+     userconfig: path.resolve(home, '.npmrc'),
+     umask: process.umask ? process.umask() : umask.fromString('022'),
+-- 
+2.14.2
+
