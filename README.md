@@ -61,8 +61,8 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 
 ## Enable Inspector
 
-| processors | i18n features | inspector |
-| --- | --- | --- |
+| processor | i18n features | inspector |
+| --- | --- | :---: |
 | 32bit | Disable | NO |
 | 32bit | small-icu | YES |
 | 32bit | system-icu | NO |
@@ -70,6 +70,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 | 64bit | small-icu | YES |
 | 64bit | system-icu | YES |
 
+ [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/)
 
 ## Note about avahi and homebridge
 ***If you use node-homebridge(node-hap-nodejs), please install avahi-nodbus-daemon or avahi-dbus-daemon according to your situation.***
