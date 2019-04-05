@@ -59,6 +59,18 @@ make kernel_menuconfig
 
 ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In this case, there is no solution.
 
+## Enable Inspector
+
+| processors | i18n features | inspector |
+| --- | --- | --- |
+| 32bit | Disable | NO |
+| 32bit | small-icu | YES |
+| 32bit | system-icu | NO |
+| 64bit | Disable | NO |
+| 64bit | small-icu | YES |
+| 64bit | system-icu | YES |
+
+
 ## Note about avahi and homebridge
 ***If you use node-homebridge(node-hap-nodejs), please install avahi-nodbus-daemon or avahi-dbus-daemon according to your situation.***
 
