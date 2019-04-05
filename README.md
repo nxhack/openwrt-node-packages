@@ -62,7 +62,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 ## Enable Inspector
 
 | processor | i18n features | inspector |
-| --- | --- | :---: |
+| :---: | --- | :---: |
 | 32bit | Disable | NO |
 | 32bit | small-icu | YES |
 | 32bit | system-icu | NO |
