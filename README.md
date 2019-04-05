@@ -62,7 +62,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 ## Enable Inspector
 Node.js 8 and later
 
-| processor | i18n features | inspector |
+| Processor | ICU | Inspector |
 | :---: | --- | :---: |
 | 32bit | Disable | NO |
 | 32bit | small-icu | YES |
