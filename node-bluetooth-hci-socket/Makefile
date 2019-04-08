@@ -45,6 +45,7 @@ define Package/node-bluetooth-hci-socket/description
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -54,11 +55,11 @@ define Build/Compile
 	npm_config_build_from_source=true \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
-	npm_config_cache=$(TMP_DIR)/npm-cache \
-	npm_config_tmp=$(TMP_DIR)/npm-tmp \
+	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	npm install -g $(PKG_BUILD_DIR)
-	rm -rf $(TMP_DIR)/npm-tmp
-	rm -rf $(TMP_DIR)/npm-cache
+	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
+	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
 define Package/node-bluetooth-hci-socket/install
