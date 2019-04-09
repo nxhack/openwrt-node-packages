@@ -1,13 +1,10 @@
 --- a/package.json
 +++ b/package.json
-@@ -15,9 +15,8 @@
-   },
-   "browser": "browser.js",
+@@ -17,7 +17,6 @@
    "dependencies": {
      "level-js": "^4.0.0",
--    "level-packager": "^5.0.0",
+     "level-packager": "^5.0.0",
 -    "leveldown": "^5.0.0",
-+    "level-packager": "^5.0.0",
      "opencollective-postinstall": "^2.0.0"
    },
    "devDependencies": {
