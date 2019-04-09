@@ -71,7 +71,7 @@ Node.js 8 and later
 | 64bit | small-icu | YES |
 | 64bit | system-icu | YES |
 
- [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/)
+ [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
 
 ## Note about avahi and homebridge
 ***If you use node-homebridge(node-hap-nodejs), please install avahi-nodbus-daemon or avahi-dbus-daemon according to your situation.***
