@@ -55568,7 +55568,7 @@ diff -urN a/deps/openssl/config/Makefile b/deps/openssl/config/Makefile
 +linux-mips linux-mipsel \
  solaris-x86-gcc solaris64-x86_64-gcc VC-WIN64A VC-WIN32
  
- CC = gcc
+ NO_ASM_ARCHS = VC-WIN64-ARM
 diff -urN a/deps/openssl/config/opensslconf_asm.h b/deps/openssl/config/opensslconf_asm.h
 --- a/deps/openssl/config/opensslconf_asm.h	2019-02-28 15:42:11.000000000 +0900
 +++ b/deps/openssl/config/opensslconf_asm.h	2019-03-06 10:02:09.492718043 +0900
