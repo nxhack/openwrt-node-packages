@@ -39,10 +39,8 @@ endef
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
-TARGET_CFLAGS+=$(FPIC)
+TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/avahi-compat-libdns_sd
 TARGET_CPPFLAGS+=$(FPIC)
-
-TARGET_CFLAGS+=-I$(STAGING_DIR)/usr/include/avahi-compat-libdns_sd
 
 define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
