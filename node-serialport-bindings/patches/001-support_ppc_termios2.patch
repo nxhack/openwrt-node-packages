@@ -1,0 +1,10 @@
+--- a/src/serialport_linux.cpp
++++ b/src/serialport_linux.cpp
+@@ -3,6 +3,7 @@
+ #include <sys/ioctl.h>
+ #include <asm/ioctls.h>
+ #include <asm/termbits.h>
++#include <termios.h>
+ 
+ // Uses the termios2 interface to set nonstandard baud rates
+ int linuxSetCustomBaudRate(const int fd, const unsigned int baudrate) {
