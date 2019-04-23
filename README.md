@@ -156,9 +156,7 @@ node-reverse-wstunnel
 node-rpi-gpio			(epoll)
 node-rpio
 node-serialport			(@serialport/bindings)
-node-serialport-list		(@serialport/bindings)
-node-serialport-repl		(@serialport/bindings)
-node-serialport-terminal	(@serialport/bindings)
+node-serialport-bindings	(@serialport/bindings)
 node-sleep
 node-socket.io-client-legacy	(ws[legacy])
 node-socket.io-legacy		(ws[legacy])
