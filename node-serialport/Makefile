@@ -31,7 +31,7 @@ define Package/node-serialport
   CATEGORY:=Languages
   TITLE:=Node.js package to access serial ports
   URL:=https://www.npmjs.org/package/serialport
-  DEPENDS:=+node +node-serialport-bindings
+  DEPENDS:=+node
 endef
 
 define Package/node-serialport/description
