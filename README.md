@@ -157,8 +157,8 @@ node-rpi-gpio			(epoll)
 node-rpio
 node-serialport			(@serialport/bindings)
 node-serialport-list		(@serialport/bindings)
-node-serialport-repl		(@serialport/bindings)
-node-serialport-terminal	(@serialport/bindings)
+node-serialport-repl		(serialport)
+node-serialport-terminal	(serialport)
 node-sleep
 node-socket.io-client-legacy	(ws[legacy])
 node-socket.io-legacy		(ws[legacy])

@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -6,7 +6,6 @@
+     "serialport-list": "./lib/list.js"
+   },
+   "dependencies": {
+-    "@serialport/bindings": "^2.0.7",
+     "commander": "^2.13.0"
+   },
+   "engines": {

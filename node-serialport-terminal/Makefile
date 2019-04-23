@@ -36,15 +36,14 @@ define Package/node-serialport-terminal/description
  The package @serialport/terminal will install the serialport-terminal cli tool which provides a basic terminal interface for communicating over a serial port. ctrl+c will exit.
 endef
 
+TAR_OPTIONS+= --strip-components 1
+TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
+
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
-
-define Build/Prepare
-	$(INSTALL_DIR) $(PKG_BUILD_DIR)
-endef
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -62,10 +61,13 @@ define Build/Compile
 endef
 
 define Package/node-serialport-terminal/install
-	$(INSTALL_DIR) $(1)/usr/lib/node
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/{package.json,LICENSE,*.md} \
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/{node_modules,lib} \
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/@serialport/terminal/lib/terminal.js $(1)/usr/bin/serialport-terminal
+	$(LN) ../lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/lib/terminal.js $(1)/usr/bin/serialport-terminal
 endef
 
 $(eval $(call BuildPackage,node-serialport-terminal))

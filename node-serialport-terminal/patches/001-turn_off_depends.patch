@@ -1,0 +1,12 @@
+--- a/package.json
++++ b/package.json
+@@ -7,8 +7,7 @@
+   },
+   "dependencies": {
+     "commander": "^2.13.0",
+-    "prompt-list": "^3.2.0",
+-    "serialport": "^7.1.4"
++    "prompt-list": "^3.2.0"
+   },
+   "engines": {
+     "node": ">=6.0.0"

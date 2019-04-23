@@ -29,22 +29,21 @@ define Package/node-serialport-list
   CATEGORY:=Languages
   TITLE:=SerialPort List
   URL:=https://www.npmjs.com/package/@serialport/list
-  DEPENDS:=+node +node-serialport
+  DEPENDS:=+node +node-serialport-bindings
 endef
 
 define Package/node-serialport-list/description
  The package @serialport/list will install the serialport-list cli tool which lists all available serial ports in different formats.
 endef
 
+TAR_OPTIONS+= --strip-components 1
+TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
+
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
-
-define Build/Prepare
-	$(INSTALL_DIR) $(PKG_BUILD_DIR)
-endef
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -62,10 +61,13 @@ define Build/Compile
 endef
 
 define Package/node-serialport-list/install
-	$(INSTALL_DIR) $(1)/usr/lib/node
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/{package.json,LICENSE,*.md} \
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/{node_modules,lib} \
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/@serialport/list/lib/list.js $(1)/usr/bin/serialport-list
+	$(LN) ../lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/lib/list.js $(1)/usr/bin/serialport-list
 endef
 
 $(eval $(call BuildPackage,node-serialport-list))
