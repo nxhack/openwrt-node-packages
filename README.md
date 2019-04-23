@@ -156,6 +156,7 @@ node-reverse-wstunnel
 node-rpi-gpio			(epoll)
 node-rpio
 node-serialport			(@serialport/bindings)
+node-serialport-bindings	(@serialport/bindings)
 node-serialport-list		(@serialport/bindings)
 node-serialport-repl		(serialport)
 node-serialport-terminal	(serialport)
