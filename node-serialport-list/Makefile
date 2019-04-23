@@ -29,7 +29,7 @@ define Package/node-serialport-list
   CATEGORY:=Languages
   TITLE:=SerialPort List
   URL:=https://www.npmjs.com/package/@serialport/list
-  DEPENDS:=+node +node-serialport-bindings
+  DEPENDS:=+node
 endef
 
 define Package/node-serialport-list/description

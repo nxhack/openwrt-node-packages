@@ -29,7 +29,7 @@ define Package/node-serialport-repl
   CATEGORY:=Languages
   TITLE:=SerialPort Repl
   URL:=https://www.npmjs.com/package/@serialport/repl
-  DEPENDS:=+node +node-serialport
+  DEPENDS:=+node
 endef
 
 define Package/node-serialport-repl/description

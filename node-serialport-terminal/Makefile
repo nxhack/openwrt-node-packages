@@ -29,7 +29,7 @@ define Package/node-serialport-terminal
   CATEGORY:=Languages
   TITLE:=SerialPort Terminal
   URL:=https://www.npmjs.com/package/@serialport/terminal
-  DEPENDS:=+node +node-serialport
+  DEPENDS:=+node
 endef
 
 define Package/node-serialport-terminal/description
