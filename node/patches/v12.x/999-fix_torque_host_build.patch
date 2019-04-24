@@ -5,6 +5,6 @@
        'type': 'executable',
        'toolsets': ['host'],
 +      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz' ],
-       'dependencies': ['v8_libbase'],
+       'dependencies': ['torque_base'],
        'defines!': [
          '_HAS_EXCEPTIONS=0',

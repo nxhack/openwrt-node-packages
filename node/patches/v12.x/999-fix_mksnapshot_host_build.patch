@@ -1,6 +1,6 @@
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -2674,6 +2674,8 @@
+@@ -2644,6 +2644,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
