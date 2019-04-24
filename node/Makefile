@@ -37,7 +37,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://nodejs.org/dist/${PKG_VERSION}
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host
+PKG_BUILD_DEPENDS:=python/host node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -196,6 +196,9 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
+MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
+FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
+
 define Build/Prepare
 	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
 		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
@@ -206,6 +209,9 @@ define Build/Prepare
 		exit 1; \
 	))
 	$(Build/Prepare/Default)
+ifeq ($(CONFIG_NODEJS_12),y)
+	$(SED) "s#<(mkcodecache_exec)#$(MKTOOL)#g" $(FILE_NODE_GYP)
+endif
 endef
 
 define Build/InstallDev
