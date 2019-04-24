@@ -1,5 +1,5 @@
---- a/deps/v8/gypfiles/v8.gyp
-+++ b/deps/v8/gypfiles/v8.gyp
+--- a/tools/v8_gypfiles/v8.gyp
++++ b/tools/v8_gypfiles/v8.gyp
 @@ -2674,6 +2674,8 @@
      {
        'target_name': 'mksnapshot',
