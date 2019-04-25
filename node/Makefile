@@ -7,11 +7,11 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
-ifeq ($(CONFIG_NODEJS_11),y)
-PKG_VERSION:=v11.14.0
+ifeq ($(CONFIG_NODEJS_12),y)
+PKG_VERSION:=v12.0.0
 PKG_RELEASE:=1
-PKG_HASH:=9df61d885765fd56148807092d019f07ad593c85faab2c7caaad21b8e9f66de7
-PATCH_DIR:=./patches/v11.x
+PKG_HASH:=93c48550e5da71cf3809ba765e8f8c01124a6b5f8b69869fe3ea8f168fcbfc78
+PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.15.3
@@ -37,7 +37,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://nodejs.org/dist/${PKG_VERSION}
 
 HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host
+PKG_BUILD_DEPENDS:=python/host node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -60,9 +60,9 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=+libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
-           $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_11):libopenssl) \
+           $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_12):libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
-           +(NODEJS_10||NODEJS_11):libatomic
+           +(NODEJS_10||NODEJS_12):libatomic
 endef
 
 define Package/node/description
@@ -116,8 +116,8 @@ define Package/node/config
 		config NODEJS_10
 			bool "10.x Active LTS"
 
-		config NODEJS_11
-			bool "11.x Current Release"
+		config NODEJS_12
+			bool "12.x Current Release"
 	endchoice
 
 	choice
@@ -152,7 +152,7 @@ ifeq ($(CONFIG_NODEJS_10),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
-ifeq ($(CONFIG_NODEJS_11),y)
+ifeq ($(CONFIG_NODEJS_12),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
@@ -176,7 +176,7 @@ CONFIGURE_ARGS:= \
 	$(if $(CONFIG_NODEJS_WITH_SNAPSHOT),,--without-snapshot) \
 	--shared-zlib \
 	$(if $(filter reboot, $(OW_VER)),--shared-openssl, \
-		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_11),,--shared-openssl))) \
+		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_12),,--shared-openssl))) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
@@ -196,6 +196,9 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python ./configure
 
+MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
+FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
+
 define Build/Prepare
 	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
 		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
@@ -206,6 +209,9 @@ define Build/Prepare
 		exit 1; \
 	))
 	$(Build/Prepare/Default)
+ifeq ($(CONFIG_NODEJS_12),y)
+	$(SED) "s#<(mkcodecache_exec)#$(MKTOOL)#g" $(FILE_NODE_GYP)
+endif
 endef
 
 define Build/InstallDev
