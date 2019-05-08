@@ -8,9 +8,9 @@ PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.1.0
+PKG_VERSION:=v12.2.0
 PKG_RELEASE:=1
-PKG_HASH:=1efb792c689fed2e028025e1398e84193281f329427a17a62b0bffee8e771395
+PKG_HASH:=c5d19744fa506ae1e4bc963dcf760267c6ff2193ecd0f3be56acb69db1477983
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -59,7 +59,8 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=+libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
+  DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!TARGET_arc770 @!TARGET_archs38 @!TARGET_ixp4xx \
+           +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_12):libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
            +(NODEJS_10||NODEJS_12):libatomic
