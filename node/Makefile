@@ -59,7 +59,7 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!TARGET_arc770 @!TARGET_archs38 @!TARGET_ixp4xx \
+  DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb @!mips64 \
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_12):libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
@@ -201,10 +201,6 @@ MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
 
 define Build/Prepare
-	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
-		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
-		exit 1; \
-	))
 	$(if $(filter reboot, $(OW_VER)), $(if $(CONFIG_NODEJS_6), \
 		echo "Node.js v6.x no longer supported in the OpenWrt head."; \
 		exit 1; \
