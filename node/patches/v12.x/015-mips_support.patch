@@ -5,7 +5,7 @@
  valid_os = ('win', 'mac', 'solaris', 'freebsd', 'openbsd', 'linux',
              'android', 'aix', 'cloudabi')
 -valid_arch = ('arm', 'arm64', 'ia32', 'ppc',
-+valid_arch = ('arm', 'arm64', 'ia32', 'mips', 'mipsel', 'mips64el', 'ppc',
++valid_arch = ('arm', 'arm64', 'ia32', 'mips', 'mipsel', 'mips64', 'mips64el', 'ppc',
                'ppc64', 'x32','x64', 'x86', 'x86_64', 's390', 's390x')
  valid_arm_float_abi = ('soft', 'softfp', 'hard')
  valid_arm_fpu = ('vfp', 'vfpv3', 'vfpv3-d16', 'neon')
@@ -55,12 +55,15 @@
      '__PPC64__'   : 'ppc64',
      '__PPC__'     : 'ppc64',
      '__x86_64__'  : 'x64',
-@@ -852,6 +881,9 @@
+@@ -852,6 +881,12 @@
        if rtn != 's390':
          break
  
 +  if rtn == 'mipsel' and '_LP64' in k:
 +    rtn = 'mips64el'
++
++  if rtn == 'mips' and '_LP64' in k:
++    rtn = 'mips64'
 +
    return rtn
  
@@ -92,7 +95,7 @@
  
    if target_arch == 'arm':
      configure_arm(o)
-+  elif target_arch in ('mips', 'mipsel', 'mips64el'):
++  elif target_arch in ('mips', 'mipsel', 'mips64', 'mips64el'):
 +    configure_mips(o)
  
    if flavor == 'aix':
