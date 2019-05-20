@@ -36,8 +36,8 @@ endif
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://nodejs.org/dist/${PKG_VERSION}
 
-HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host node/host
+HOST_BUILD_DEPENDS:=python3/host
+PKG_BUILD_DEPENDS:=python3/host node/host
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
 
@@ -195,7 +195,7 @@ HOST_CONFIGURE_ARGS:= \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
-HOST_CONFIGURE_CMD:=python ./configure
+HOST_CONFIGURE_CMD:=python3 ./configure
 
 MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
