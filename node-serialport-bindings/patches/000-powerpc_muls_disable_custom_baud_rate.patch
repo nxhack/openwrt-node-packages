@@ -1,0 +1,24 @@
+diff -urN a/src/serialport_linux.cpp b/src/serialport_linux.cpp
+--- a/src/serialport_linux.cpp	1985-10-26 17:15:00.000000000 +0900
++++ b/src/serialport_linux.cpp	2019-05-21 09:59:00.072719856 +0900
+@@ -1,5 +1,5 @@
+-#if defined(__linux__)
++#if defined(__linux__) && !defined(__powerpc__)
+ 
+ #include <sys/ioctl.h>
+ #include <asm/ioctls.h>
+ #include <asm/termbits.h>
+diff -urN a/src/serialport_unix.cpp b/src/serialport_unix.cpp
+--- a/src/serialport_unix.cpp	1985-10-26 17:15:00.000000000 +0900
++++ b/src/serialport_unix.cpp	2019-05-21 09:59:50.524604626 +0900
+@@ -108,9 +108,9 @@
+     return -1;
+   }
+ 
+   // If there is a custom baud rate on linux you can do the following trick with B38400
+-  #if defined(__linux__) && defined(ASYNC_SPD_CUST)
++  #if defined(__linux__) && defined(ASYNC_SPD_CUST) && !defined(__powerpc__)
+     if (baudRate == -1) {
+       int err = linuxSetCustomBaudRate(fd, data->baudRate);
+ 
+       if (err == -1) {
