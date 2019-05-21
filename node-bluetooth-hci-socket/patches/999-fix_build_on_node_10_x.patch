@@ -2893,7 +2893,7 @@ diff --git a/package.json b/package.json
 index 43ee21f..78dd347 100644
 --- a/package.json
 +++ b/package.json
-@@ -26,26 +26,27 @@
+@@ -26,26 +26,26 @@
      "win32"
    ],
    "dependencies": {
@@ -2905,8 +2905,7 @@ index 43ee21f..78dd347 100644
 -    "usb": "^1.1.0"
 +    "debug": "^3.1.0",
 +    "nan": "^2.10.0",
-+    "node-pre-gyp": "^0.11.0",
-+    "usb": "git://github.com/jrobeson/node-usb.git#fork"
++    "node-pre-gyp": "^0.11.0"
    },
 +  "optionalDependencies": {},
    "devDependencies": {
