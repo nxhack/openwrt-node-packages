@@ -195,7 +195,7 @@ HOST_CONFIGURE_ARGS:= \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
-HOST_CONFIGURE_CMD:=python ./configure
+HOST_CONFIGURE_CMD:=python2 ./configure
 
 MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
