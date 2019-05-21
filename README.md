@@ -136,7 +136,7 @@ node-level			(leveldown)
 node-leveldown
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
 node-mknod
-node-modbus
+node-modbus			[DEPRECATE]
 node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
 node-nitrogen			(ws[legacy])
@@ -148,7 +148,7 @@ node-node-hid-stream		(node-hid)
 node-node-red			(bcrypt)
 node-node-red-contrib-gpio	(johnny-five)
 node-node-red-contrib-homekit	(hap-nodejs)
-node-node-red-contrib-modbus	(@serialport/bindings, modbus-serial)
+node-node-red-contrib-modbus	(@serialport/bindings)
 node-node-red-node-arduino	(firmata)
 node-onoff			(epoll)
 node-pi-spi
