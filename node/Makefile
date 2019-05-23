@@ -8,9 +8,9 @@ PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.2.0
+PKG_VERSION:=v12.3.1
 PKG_RELEASE:=1
-PKG_HASH:=c5d19744fa506ae1e4bc963dcf760267c6ff2193ecd0f3be56acb69db1477983
+PKG_HASH:=ba2b50acffe67068f44e06e5c6938f9a391086d7f8386aea829a199db02d0bfe
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
