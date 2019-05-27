@@ -84,7 +84,7 @@ diff -urN a/src/ffi.cc b/src/ffi.cc
  
    // `ffi_status` enum values
    SET_ENUM_VALUE(FFI_OK);
-@@ -150,8 +152,8 @@
+@@ -161,8 +163,8 @@
    ftmap->Set(Nan::New<String>("float").ToLocalChecked(), WrapPointer((char *)&ffi_type_float));
    ftmap->Set(Nan::New<String>("double").ToLocalChecked(), WrapPointer((char *)&ffi_type_double));
    ftmap->Set(Nan::New<String>("pointer").ToLocalChecked(), WrapPointer((char *)&ffi_type_pointer));
@@ -95,7 +95,7 @@ diff -urN a/src/ffi.cc b/src/ffi.cc
    ftmap->Set(Nan::New<String>("ulonglong").ToLocalChecked(), WrapPointer((char *)&ffi_type_ulong));
    ftmap->Set(Nan::New<String>("longlong").ToLocalChecked(), WrapPointer((char *)&ffi_type_slong));
  
-@@ -181,16 +183,17 @@
+@@ -192,16 +194,17 @@
      return THROW_ERROR_EXCEPTION("ffi_prep_cif() requires 5 arguments!");
    }
  
@@ -118,7 +118,7 @@ diff -urN a/src/ffi.cc b/src/ffi.cc
  
    status = ffi_prep_cif(
        (ffi_cif *)cif,
-@@ -225,17 +228,19 @@
+@@ -236,17 +239,19 @@
      return THROW_ERROR_EXCEPTION("ffi_prep_cif() requires 5 arguments!");
    }
  
@@ -144,7 +144,7 @@ diff -urN a/src/ffi.cc b/src/ffi.cc
  
    status = ffi_prep_cif_var(
        (ffi_cif *)cif,
-@@ -262,10 +267,11 @@
+@@ -273,10 +278,11 @@
      return THROW_ERROR_EXCEPTION("ffi_call() requires 4 arguments!");
    }
  
@@ -160,7 +160,7 @@ diff -urN a/src/ffi.cc b/src/ffi.cc
  
  #if __OBJC__ || __OBJC2__
      @try {
-@@ -304,10 +310,11 @@
+@@ -315,10 +321,11 @@
    p->result = FFI_OK;
  
    // store a persistent references to all the Buffers and the callback function
@@ -176,7 +176,7 @@ diff -urN a/src/ffi.cc b/src/ffi.cc
  
    Local<Function> callback = Local<Function>::Cast(info[4]);
    p->callback = new Nan::Callback(callback);
-@@ -366,7 +373,7 @@
+@@ -377,7 +384,7 @@
    // invoke the registered callback function
    p->callback->Call(1, argv);
  
