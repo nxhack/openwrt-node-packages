@@ -1,6 +1,6 @@
 --- a/deps/v8/gypfiles/v8.gyp
 +++ b/deps/v8/gypfiles/v8.gyp
-@@ -2903,6 +2903,8 @@
+@@ -2905,6 +2905,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
