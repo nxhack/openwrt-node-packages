@@ -9,7 +9,7 @@
  #include <gnu/libc-version.h>  /* gnu_get_libc_version() */
  #endif
  
-@@ -436,7 +436,7 @@
+@@ -461,7 +461,7 @@
  
  #else /* !(defined(__APPLE__) && defined(__MACH__)) */
  
@@ -18,7 +18,7 @@
  
  /* Hack around https://sourceware.org/bugzilla/show_bug.cgi?id=12674
   * by providing a custom implementation for glibc < 2.21 in terms of other
-@@ -601,7 +601,7 @@
+@@ -626,7 +626,7 @@
  }
  
  int uv_sem_init(uv_sem_t* sem, unsigned int value) {
