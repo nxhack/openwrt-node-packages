@@ -5,7 +5,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-expat
-PKG_NAME:=node-$(PKG_NPM_NAME)
+PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=2.3.17
 PKG_RELEASE:=2
 
@@ -22,7 +22,7 @@ PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-expat
+define Package/node-expat
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -31,7 +31,7 @@ define Package/node-node-expat
   DEPENDS:=+node +libexpat
 endef
 
-define Package/node-node-expat/description
+define Package/node-expat/description
  Node.js binding for fast XML parsing
 endef
 
@@ -59,7 +59,7 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-expat/install
+define Package/node-expat/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
@@ -70,4 +70,4 @@ define Package/node-node-expat/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 endef
 
-$(eval $(call BuildPackage,node-node-expat))
+$(eval $(call BuildPackage,node-expat))

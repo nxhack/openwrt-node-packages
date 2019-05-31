@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-lambda
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.13.0
+PKG_NPM_NAME:=node-red
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.20.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a20f6de2e31d010b46a89ec03aead93ca130173679de51f15ea60d928cb28608
+PKG_HASH:=8d2fc3078c7324d628d0a186a2bb8a90316005dd113e85c2d59b160834eb015e
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=BSD-2-Clause
+PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-lambda
+define Package/node-red
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Tools for Amazon Lambda
-  URL:=https://www.npmjs.org/package/node-lambda
-  DEPENDS:=+node
+  TITLE:=A visual tool for wiring the Internet of Things
+  URL:=https://nodered.org/
+  DEPENDS:=+node +node-npm
 endef
 
-define Package/node-node-lambda/description
- Command line tool for locally running and remotely deploying your node.js applications to Amazon Lambda
+define Package/node-red/description
+ A visual tool for wiring the Internet of Things
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
@@ -60,11 +60,12 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-lambda/install
+define Package/node-red/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/node-lambda/bin/node-lambda $(1)/usr/bin/node-lambda
+	$(LN) ../lib/node/node-red/red.js $(1)/usr/bin/node-red
+	$(LN) ../lib/node/node-red/bin/node-red-pi $(1)/usr/bin/node-red-pi
 endef
 
-$(eval $(call BuildPackage,node-node-lambda))
+$(eval $(call BuildPackage,node-red))

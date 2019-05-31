@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-hid-stream
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.0
-PKG_RELEASE:=2
+PKG_NPM_NAME:=node-red-contrib-homekit
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.2.1
+PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=44cad5987b2b7b46a352b336f8e7b07f58c7dd34f0bdd8a5e53b8ecd2a962f4b
+PKG_HASH:=d9e92e1ce23f152c17a4457243a56ee5f1923ff76b89629595e88406af6c2c19
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
+PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-hid-stream
+define Package/node-red-contrib-homekit
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Stream data from HID device in Node.js
-  URL:=https://www.npmjs.org/package/node-hid-stream
-  DEPENDS:=+node +node-node-hid
+  TITLE:=nodes to simulate Apple HomeKit devices
+  URL:=https://nodered.org/
+  DEPENDS:=+node +node-red +node-hap-nodejs
 endef
 
-define Package/node-node-hid-stream/description
- Stream data from HID device in Node.js. Wraps node-hid in a node.js Stream.
+define Package/node-red-contrib-homekit/description
+ Node-RED nodes to simulate Apple HomeKit devices
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -59,14 +59,14 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-hid-stream/install
+define Package/node-red-contrib-homekit/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,*.js,*.html} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{examples,spec,LICENSE} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,icons} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-node-hid-stream))
+$(eval $(call BuildPackage,node-red-contrib-homekit))

@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-enocean-utils
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.3.1
-PKG_RELEASE:=1
+PKG_NPM_NAME:=node-hid-stream
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=1.0.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=ecb157798c82d568f2be25783192a623e00f4715eeefcd870c227ef9b2ef6f44
+PKG_HASH:=44cad5987b2b7b46a352b336f8e7b07f58c7dd34f0bdd8a5e53b8ecd2a962f4b
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -22,17 +22,17 @@ PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-enocean-utils
+define Package/node-hid-stream
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=The Node.js module for EnOcean devices
-  URL:=https://www.npmjs.org/package/node-enocean-utils
-  DEPENDS:=+node +node-serialport
+  TITLE:=Stream data from HID device in Node.js
+  URL:=https://www.npmjs.org/package/node-hid-stream
+  DEPENDS:=+node +node-hid
 endef
 
-define Package/node-node-enocean-utils/description
- The node-enocean-utils is a Node.js module which allows you to get and analyze telegrams came from EnOcean devices via a gateway such as USB 300/300U/400J or EnOcean Pi.
+define Package/node-hid-stream/description
+ Stream data from HID device in Node.js. Wraps node-hid in a node.js Stream.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -59,12 +59,14 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-enocean-utils/install
+define Package/node-hid-stream/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{examples,spec,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-node-enocean-utils))
+$(eval $(call BuildPackage,node-hid-stream))
