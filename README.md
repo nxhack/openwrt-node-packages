@@ -135,11 +135,11 @@ node-nitrogen-cli		(ws[legacy])
 node-enocean-utils		(serialport)
 node-expat
 node-hid
-node-hid-stream		(node-hid)
+node-hid-stream			(node-hid)
 node-red			(bcrypt)
 node-red-contrib-gpio		(johnny-five)
 node-red-contrib-homekit	(hap-nodejs)
-node-red-contrib-modbus	(@serialport/bindings)
+node-red-contrib-modbus		(@serialport/bindings)
 node-red-node-arduino		(firmata)
 node-onoff			(epoll)
 node-pi-spi
