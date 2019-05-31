@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06 / lede-17.01
+OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06
 
 Note: The test target is only ar71xx. It will probably work with MT7688(mipsel) and Raspberry Pi(arm, aarch64).
 
@@ -26,7 +26,7 @@ rm ./package/feeds/packages/node-*
 ```
 
 ## Note
-OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) are not supported.
+OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) , LEDE(17.01) are not supported.
 
 If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/for-15.05)
 
