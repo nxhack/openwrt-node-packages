@@ -54,7 +54,6 @@ make menuconfig
 ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In this case, there is no solution.
 
 ## Enable Inspector
-Node.js 8 and later
 
 | Processor | ICU | Inspector |
 | :---: | --- | :---: |
