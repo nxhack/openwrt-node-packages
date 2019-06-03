@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06
+OpenWrt/LEDE Node.js Packages : lede-17.01
 
 Note: The test target is only ar71xx. It will probably work with MT7688(mipsel) and Raspberry Pi(arm, aarch64).
 
@@ -25,12 +25,6 @@ rm ./package/feeds/packages/node-*
 ./scripts/feeds install -a -p node
 ```
 
-## Note
-OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) , LEDE(17.01) are not supported.
-
-If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/for-15.05)
-
-
 ## Illegal instruction issue
 
 ***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU or kernel FPU emulation.***
@@ -39,15 +33,13 @@ If you are running nodejs with Atheros AR71xx, AR933x, you need to create the **
 
 ***(This means that you need to rebuild the firmware.)***
 
-You can configure using menuconfig.
+On lede-17.01 branch, You can configure using kernel_menuconfig.
 ```
-make menuconfig
+make kernel_menuconfig
 ```
-> Global build settings  --->
+> Kernel type  --->
 >
-> Kernel build options  --->
->
->  [*] Compile the kernel with MIPS FPU Emulator
+> [*] MIPS FPU Emulator
 
 ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In this case, there is no solution.
 
