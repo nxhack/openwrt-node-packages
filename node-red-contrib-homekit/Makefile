@@ -4,46 +4,45 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-lambda
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.13.0
-PKG_RELEASE:=1
+PKG_NPM_NAME:=node-red-contrib-homekit
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.2.1
+PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a20f6de2e31d010b46a89ec03aead93ca130173679de51f15ea60d928cb28608
+PKG_HASH:=d9e92e1ce23f152c17a4457243a56ee5f1923ff76b89629595e88406af6c2c19
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=BSD-2-Clause
+PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-lambda
+define Package/node-red-contrib-homekit
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Tools for Amazon Lambda
-  URL:=https://www.npmjs.org/package/node-lambda
-  DEPENDS:=+node
+  TITLE:=nodes to simulate Apple HomeKit devices
+  URL:=https://nodered.org/
+  DEPENDS:=+node +node-red +node-hap-nodejs
 endef
 
-define Package/node-node-lambda/description
- Command line tool for locally running and remotely deploying your node.js applications to Amazon Lambda
+define Package/node-red-contrib-homekit/description
+ Node-RED nodes to simulate Apple HomeKit devices
 endef
+
+TAR_OPTIONS+= --strip-components 1
+TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
-
-define Build/Prepare
-	$(INSTALL_DIR) $(PKG_BUILD_DIR)
-endef
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -55,16 +54,19 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(DL_DIR)/$(PKG_SOURCE)
+	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-lambda/install
-	$(INSTALL_DIR) $(1)/usr/lib/node
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/node-lambda/bin/node-lambda $(1)/usr/bin/node-lambda
+define Package/node-red-contrib-homekit/install
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,*.js,*.html} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,icons} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-node-lambda))
+$(eval $(call BuildPackage,node-red-contrib-homekit))

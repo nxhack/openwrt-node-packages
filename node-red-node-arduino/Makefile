@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-red-contrib-gpio
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.14.0
-PKG_RELEASE:=4
+PKG_NPM_NAME:=node-red-node-arduino
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.1.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d3a4d007638bc3f55e9fbd8bd01a35469e9e9f43f8e0ff116fa3915e2be9e1e7
+PKG_HASH:=52b09a73d0fd00f693909706a66983f7f95e729d56f3e55f64e6319d07ea4ede
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=License.md
+PKG_LICENSE:=Apache-2.0
+PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-red-contrib-gpio
+define Package/node-red-node-arduino
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=nodes for using johnny-five and IO plugins
+  TITLE:=node to talk to an Arduino running firmata
   URL:=https://nodered.org/
-  DEPENDS:=+node +node-node-red +node-johnny-five +node-mqtt
+  DEPENDS:=+node +node-red +node-firmata
 endef
 
-define Package/node-node-red-contrib-gpio/description
- A set of input and output nodes for controlling General Purpose Input and Outputs (GPIOs) though the use of johnny-five I/O Plugins as well as running johnny-five scripts!
+define Package/node-red-node-arduino/description
+ A Node-RED node to talk to an Arduino running firmata
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -59,14 +59,14 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-red-contrib-gpio/install
+define Package/node-red-node-arduino/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.js,*.html,*.png} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.js,*.html,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,icons} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/locales \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-node-red-contrib-gpio))
+$(eval $(call BuildPackage,node-red-node-arduino))

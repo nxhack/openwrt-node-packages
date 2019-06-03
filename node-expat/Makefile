@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-red-contrib-homekit
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.2.1
-PKG_RELEASE:=8
+PKG_NPM_NAME:=node-expat
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=2.3.17
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d9e92e1ce23f152c17a4457243a56ee5f1923ff76b89629595e88406af6c2c19
+PKG_HASH:=eb5bbc70563c80f4decf20a6d5231b23e6f1137c8931dee843ce9914d11bcdab
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=Apache-2.0
+PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-red-contrib-homekit
+define Package/node-expat
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=nodes to simulate Apple HomeKit devices
-  URL:=https://nodered.org/
-  DEPENDS:=+node +node-node-red +node-hap-nodejs
+  TITLE:=Node.js binding for fast XML parsing
+  URL:=https://www.npmjs.org/package/node-expat
+  DEPENDS:=+node +libexpat
 endef
 
-define Package/node-node-red-contrib-homekit/description
- Node-RED nodes to simulate Apple HomeKit devices
+define Package/node-expat/description
+ Node.js binding for fast XML parsing
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -59,14 +59,15 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-red-contrib-homekit/install
+define Package/node-expat/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,*.js,*.html} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,icons} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/node_expat.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 endef
 
-$(eval $(call BuildPackage,node-node-red-contrib-homekit))
+$(eval $(call BuildPackage,node-expat))

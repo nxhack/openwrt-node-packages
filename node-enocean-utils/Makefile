@@ -1,44 +1,38 @@
-#
-# Copyright (C) 2015 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-hid
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.7.8
+PKG_NPM_NAME:=node-enocean-utils
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.3.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a1ebbfd33139f7a7cd8c6a617b57229f45bf9ea9fa81563b7806738951d1d581
+PKG_HASH:=ecb157798c82d568f2be25783192a623e00f4715eeefcd870c227ef9b2ef6f44
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT or X11
-PKG_LICENSE_FILES:=
-
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/nls.mk
 
-define Package/node-node-hid
+define Package/node-enocean-utils
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Access USB HID devices from node.js
-  URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +hidapi +libusb-1.0 $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
+  TITLE:=The Node.js module for EnOcean devices
+  URL:=https://www.npmjs.org/package/node-enocean-utils
+  DEPENDS:=+node +node-serialport
 endef
 
-define Package/node-node-hid/description
- Access USB HID devices from node.js
+define Package/node-enocean-utils/description
+ The node-enocean-utils is a Node.js module which allows you to get and analyze telegrams came from EnOcean devices via a gateway such as USB 300/300U/400J or EnOcean Pi.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -47,11 +41,10 @@ TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
-TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
+TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
-	git init $(PKG_BUILD_DIR)
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -66,19 +59,12 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-hid/install
+define Package/node-enocean-utils/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,src} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/HID.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/node-hid/src/show-devices.js $(1)/usr/bin/hid-showdevices
 endef
 
-$(eval $(call BuildPackage,node-node-hid))
+$(eval $(call BuildPackage,node-enocean-utils))

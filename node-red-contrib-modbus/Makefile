@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-red-node-arduino
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.1.0
+PKG_NPM_NAME:=node-red-contrib-modbus
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=4.1.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=52b09a73d0fd00f693909706a66983f7f95e729d56f3e55f64e6319d07ea4ede
+PKG_HASH:=a65fd278e34c0483a397272a4b456d8b82a2c23a9144edc17752ed5b2c6603b2
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=Apache-2.0
+PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-red-node-arduino
+define Package/node-red-contrib-modbus
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=node to talk to an Arduino running firmata
+  TITLE:=Node-RED contribution package for Modbus
   URL:=https://nodered.org/
-  DEPENDS:=+node +node-node-red +node-firmata
+  DEPENDS:=+node +node-red
 endef
 
-define Package/node-node-red-node-arduino/description
- A Node-RED node to talk to an Arduino running firmata
+define Package/node-red-contrib-modbus/description
+ The all in one Modbus TCP and Serial contribution package for Node-RED. Based on modbus-serial with TCP, C701, Telnet, Serial, RTU buffered, and ASCII.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -54,19 +54,21 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(PKG_BUILD_DIR)
+	npm install -g --build-from-source $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-red-node-arduino/install
+define Package/node-red-contrib-modbus/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.js,*.html,LICENSE} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/LICENSE \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/locales \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,docs} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{examples,modbus} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-node-red-node-arduino))
+$(eval $(call BuildPackage,node-red-contrib-modbus))

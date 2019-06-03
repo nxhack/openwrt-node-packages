@@ -4,35 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-enocean-utils
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.3.1
-PKG_RELEASE:=1
+PKG_NPM_NAME:=node-red-contrib-gpio
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.14.0
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=ecb157798c82d568f2be25783192a623e00f4715eeefcd870c227ef9b2ef6f44
+PKG_HASH:=d3a4d007638bc3f55e9fbd8bd01a35469e9e9f43f8e0ff116fa3915e2be9e1e7
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE_FILES:=License.md
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-enocean-utils
+define Package/node-red-contrib-gpio
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=The Node.js module for EnOcean devices
-  URL:=https://www.npmjs.org/package/node-enocean-utils
-  DEPENDS:=+node +node-serialport
+  TITLE:=nodes for using johnny-five and IO plugins
+  URL:=https://nodered.org/
+  DEPENDS:=+node +node-red +node-johnny-five +node-mqtt
 endef
 
-define Package/node-node-enocean-utils/description
- The node-enocean-utils is a Node.js module which allows you to get and analyze telegrams came from EnOcean devices via a gateway such as USB 300/300U/400J or EnOcean Pi.
+define Package/node-red-contrib-gpio/description
+ A set of input and output nodes for controlling General Purpose Input and Outputs (GPIOs) though the use of johnny-five I/O Plugins as well as running johnny-five scripts!
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -59,12 +59,14 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-node-enocean-utils/install
+define Package/node-red-contrib-gpio/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.js,*.html,*.png} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,icons} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-node-enocean-utils))
+$(eval $(call BuildPackage,node-red-contrib-gpio))

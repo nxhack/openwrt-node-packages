@@ -19,17 +19,10 @@ PKG_RELEASE:=1
 PKG_HASH:=18e37f891d10ea7fbc8f6410c444c2b1d9cc3cbbb1d35aa9c41f761816956608
 PATCH_DIR:=./patches/v10.x
 else
-ifeq ($(CONFIG_NODEJS_6),y)
-PKG_VERSION:=v6.17.1
-PKG_RELEASE:=1
-PKG_HASH:=6f6dc9624656a008513b7608bfc105dd92ceea5d7b4516edeca7e6b19d2edd94
-PATCH_DIR:=./patches/v6.x
-else
 PKG_VERSION:=v8.16.0
 PKG_RELEASE:=1
 PKG_HASH:=3515e8e01568a5dc4dff3d91a76ebc6724f5fa2fbb58b4b0c5da7b178a2f7340
 PATCH_DIR:=./patches/v8.x
-endif
 endif
 endif
 
@@ -85,19 +78,6 @@ define Package/node-npm/description
  NPM is the package manager for Node.js
 endef
 
-#define Package/node-inspect
-#  SECTION:=lang
-#  CATEGORY:=Languages
-#  SUBMENU:=Node.js
-#  TITLE:=Node Inspect
-#  URL:=https://www.npmjs.com/
-#  DEPENDS:=+node
-#endef
-
-#define Package/node-inspect/description
-# node-inspect re-implementing node debug against the new V8 debugger protocol.
-#endef
-
 define Package/node/config
 	menu "Configuration"
 		depends on PACKAGE_node
@@ -107,9 +87,6 @@ define Package/node/config
 		default NODEJS_8
 		help
 		 Select node.js version.
-
-		config NODEJS_6
-			bool "6.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_8
 			bool "8.x Maintenance LTS"
@@ -201,10 +178,6 @@ MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
 
 define Build/Prepare
-	$(if $(filter reboot, $(OW_VER)), $(if $(CONFIG_NODEJS_6), \
-		echo "Node.js v6.x no longer supported in the OpenWrt head."; \
-		exit 1; \
-	))
 	$(Build/Prepare/Default)
 ifeq ($(CONFIG_NODEJS_12),y)
 	$(SED) "s#<(mkcodecache_exec)#$(MKTOOL)#g" $(FILE_NODE_GYP)
@@ -226,19 +199,9 @@ define Package/node-npm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
-ifneq ($(CONFIG_NODEJS_6),y)
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
-endif
 endef
-
-#define Package/node-inspect/install
-#	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
-#	$(INSTALL_DIR) $(1)/usr/bin
-#	$(LN) ../lib/node_modules/node-inspect/cli.js $(1)/usr/bin/node-inspect
-#endef
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node))
 $(eval $(call BuildPackage,node-npm))
-#$(eval $(call BuildPackage,node-inspect))
