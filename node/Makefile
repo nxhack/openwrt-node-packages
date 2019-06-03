@@ -78,19 +78,6 @@ define Package/node-npm/description
  NPM is the package manager for Node.js
 endef
 
-#define Package/node-inspect
-#  SECTION:=lang
-#  CATEGORY:=Languages
-#  SUBMENU:=Node.js
-#  TITLE:=Node Inspect
-#  URL:=https://www.npmjs.com/
-#  DEPENDS:=+node
-#endef
-
-#define Package/node-inspect/description
-# node-inspect re-implementing node debug against the new V8 debugger protocol.
-#endef
-
 define Package/node/config
 	menu "Configuration"
 		depends on PACKAGE_node
@@ -208,21 +195,13 @@ define Package/node/install
 endef
 
 define Package/node-npm/install
-	$(INSTALL_DIR) $(1)/usr/lib/node_modules/npm
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/* $(1)/usr/lib/node_modules/npm/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
 endef
 
-#define Package/node-inspect/install
-#	$(INSTALL_DIR) $(1)/usr/lib/node_modules/node-inspect
-#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-inspect/* $(1)/usr/lib/node_modules/node-inspect/
-#	$(INSTALL_DIR) $(1)/usr/bin
-#	$(LN) ../lib/node_modules/node-inspect/cli.js $(1)/usr/bin/node-inspect
-#endef
-
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node))
 $(eval $(call BuildPackage,node-npm))
-#$(eval $(call BuildPackage,node-inspect))
