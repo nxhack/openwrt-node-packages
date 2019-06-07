@@ -103,17 +103,6 @@ Specify v8-options.
 
 Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 
-## rng-tools
-```bach
-opkg update
-opkg install rng-tools
-uci set system.@rngd[0].enabled="1"
-uci set system.@rngd[0].device="/dev/urandom"
-uci set system.@rngd[0].fill_watermark="4000"
-uci commit system
-service rngd restart
-```
-
 ## Modules that use pre-compiled binary (native module)
 ```
 node-alljoyn			[mark @BROKEN]
