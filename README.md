@@ -115,12 +115,16 @@ node-bluetooth-hci-socket	(usb)
 node-bufferutil
 node-cylon-firmata		(firmata)
 node-ejdb
+node-enocean-utils		(serialport)
 node-epoll
+node-expat
 node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
 node-hap-nodejs			(curve25519-n, ed25519-hap)
 node-hashtable
+node-hid
+node-hid-stream			(node-hid)
 node-homebridge			(hap-nodejs)
 node-i2c-bus
 node-ideino-linino-lib		(epoll)
@@ -133,17 +137,13 @@ node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
 node-nitrogen			(ws[legacy])
 node-nitrogen-cli		(ws[legacy])
-node-enocean-utils		(serialport)
-node-expat
-node-hid
-node-hid-stream			(node-hid)
+node-onoff			(epoll)
+node-pi-spi
 node-red			(bcrypt)
 node-red-contrib-gpio		(johnny-five)
 node-red-contrib-homekit	(hap-nodejs)
 node-red-contrib-modbus		(@serialport/bindings)
 node-red-node-arduino		(firmata)
-node-onoff			(epoll)
-node-pi-spi
 node-reverse-wstunnel
 node-rpi-gpio			(epoll)
 node-rpio
