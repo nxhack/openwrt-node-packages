@@ -67,7 +67,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
  [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
 
 ## Note about avahi and homebridge
-***If you use node-homebridge(node-hap-nodejs), please install avahi-nodbus-daemon or avahi-dbus-daemon according to your situation.***
+***If you use node-homebridge(node-hap-nodejs), please install avahi-dbus-daemon.***
 
 (1)
 Some OpenWrt / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
