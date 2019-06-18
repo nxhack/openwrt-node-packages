@@ -42,7 +42,7 @@ define Package/node-hap-nodejs/description
  HAP-NodeJS is a Node.js implementation of HomeKit Accessory Server
 endef
 
-define Package/node/config
+define Package/node-hap-nodejs/config
 	menu "Configuration"
 		depends on PACKAGE_node
 
