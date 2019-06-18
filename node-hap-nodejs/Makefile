@@ -6,12 +6,19 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=hap-nodejs
 PKG_NAME:=node-$(PKG_NPM_NAME)
+
+ifeq ($(CONFIG_HAP_NODEJS_LEGACY),y)
+PKG_VERSION:=0.4.49
+PKG_RELEASE:=1
+PKG_HASH:=53e8da0df1eb5eb967e6a728277c3ce68c849746058b85b148e790a100a79fc7
+else
 PKG_VERSION:=0.4.51
 PKG_RELEASE:=1
+PKG_HASH:=12416f8e3f92af86ec82c8edc21581939a0b20a2d0012ece673d9214737c907f
+endif
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=12416f8e3f92af86ec82c8edc21581939a0b20a2d0012ece673d9214737c907f
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
@@ -33,6 +40,19 @@ endef
 
 define Package/node-hap-nodejs/description
  HAP-NodeJS is a Node.js implementation of HomeKit Accessory Server
+endef
+
+define Package/node-hap-nodejs/config
+	menu "Configuration"
+		depends on PACKAGE_node
+
+	config HAP_NODEJS_LEGACY
+		bool "Use legacy version"
+		help
+		 Use native binary module for curve25519 ed25519
+		default n
+
+	endmenu
 endef
 
 TAR_OPTIONS+= --strip-components 1
