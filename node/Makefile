@@ -174,13 +174,13 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
-MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
-FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
+HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
+FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 
 define Build/Prepare
 	$(Build/Prepare/Default)
 ifeq ($(CONFIG_NODEJS_12),y)
-	$(SED) "s#<(mkcodecache_exec)#$(MKTOOL)#g" $(FILE_NODE_GYP)
+	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
 endif
 endef
 
