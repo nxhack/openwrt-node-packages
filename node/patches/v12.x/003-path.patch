@@ -1,6 +1,6 @@
 --- a/lib/internal/modules/cjs/loader.js
 +++ b/lib/internal/modules/cjs/loader.js
-@@ -899,7 +899,8 @@
+@@ -901,7 +901,8 @@
    } else {
      prefixDir = path.resolve(process.execPath, '..', '..');
    }
