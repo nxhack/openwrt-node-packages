@@ -8,9 +8,9 @@ PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.5.0
+PKG_VERSION:=v12.4.0
 PKG_RELEASE:=1
-PKG_HASH:=8715b7099c87c395a205777c76c00cfed8a65188d1f525122584530282c60a22
+PKG_HASH:=20b52366d3502c60d4aec0bd5052c841a94bf1cd5d74b2ea1e498c1a2ada8ce3
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -174,13 +174,13 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
-HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
-FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
+MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
+FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
 
 define Build/Prepare
 	$(Build/Prepare/Default)
 ifeq ($(CONFIG_NODEJS_12),y)
-	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
+	$(SED) "s#<(mkcodecache_exec)#$(MKTOOL)#g" $(FILE_NODE_GYP)
 endif
 endef
 

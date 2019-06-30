@@ -46,7 +46,7 @@
  parser.add_option('--with-dtrace',
      action='store_true',
      dest='with_dtrace',
-@@ -846,6 +873,8 @@
+@@ -837,6 +864,8 @@
      '__aarch64__' : 'arm64',
      '__arm__'     : 'arm',
      '__i386__'    : 'ia32',
@@ -55,7 +55,7 @@
      '__PPC64__'   : 'ppc64',
      '__PPC__'     : 'ppc64',
      '__x86_64__'  : 'x64',
-@@ -861,6 +890,12 @@
+@@ -852,6 +881,12 @@
        if rtn != 's390':
          break
  
@@ -68,7 +68,7 @@
    return rtn
  
  
-@@ -874,6 +909,7 @@
+@@ -865,6 +900,7 @@
      'AMD64'  : 'x64',
      'x86'    : 'ia32',
      'arm'    : 'arm',
@@ -76,7 +76,7 @@
    }
  
    return matchup.get(arch, 'ia32')
-@@ -905,6 +941,14 @@
+@@ -896,6 +932,14 @@
    o['variables']['arm_fpu'] = options.arm_fpu or arm_fpu
  
  
@@ -91,7 +91,7 @@
  def gcc_version_ge(version_checked):
    for compiler in [(CC, 'c'), (CXX, 'c++')]:
      ok, is_clang, clang_version, compiler_version = \
-@@ -949,6 +993,8 @@
+@@ -942,6 +986,8 @@
  
    if target_arch == 'arm':
      configure_arm(o)
