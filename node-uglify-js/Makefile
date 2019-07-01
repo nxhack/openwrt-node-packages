@@ -7,13 +7,14 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=uglify-js
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=3.5.15
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=063dfd67126d8a2f3cd603fc714ae91085ed973a84f0f9fadaf32f5e1dbaeaf9
 
 PKG_BUILD_DEPENDS:=node/host
+HOST_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
