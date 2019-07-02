@@ -29,17 +29,17 @@ endif
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://nodejs.org/dist/$(PKG_VERSION)
 
-HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host node/host
-PKG_INSTALL:=1
-PKG_USE_MIPS16:=0
-
-HOST_BUILD_PARALLEL:=1
-PKG_BUILD_PARALLEL:=1
-
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+
+HOST_BUILD_DEPENDS:=python/host
+HOST_BUILD_PARALLEL:=1
+
+PKG_BUILD_DEPENDS:=python/host node/host
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+PKG_USE_MIPS16:=0
 
 OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
 
