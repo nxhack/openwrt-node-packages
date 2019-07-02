@@ -15,6 +15,7 @@ PKG_HASH:=62731ec2169b86e7d529934dc92b84e235a8bc62d342306ed171c9a571333cb1
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
+PKG_BUILD_PARALLEL:=1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=Apache-2.0
