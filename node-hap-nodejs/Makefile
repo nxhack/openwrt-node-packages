@@ -21,8 +21,8 @@ PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_USE_MIPS16:=0
 PKG_BUILD_PARALLEL:=1
+PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
