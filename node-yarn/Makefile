@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=yarn
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.16.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -16,6 +16,9 @@ PKG_HASH:=df202627d9a70cf09ef2fb11cb298cb619db1b958590959d6f6e571b50656029
 PKG_BUILD_DEPENDS:=node/host
 HOST_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
+
+HOST_BUILD_PARALLEL:=1
+PKG_BUILD_PARALLEL:=1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
