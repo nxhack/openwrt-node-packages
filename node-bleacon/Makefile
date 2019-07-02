@@ -21,8 +21,6 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bleacon
@@ -31,7 +29,7 @@ define Package/node-bleacon
   CATEGORY:=Languages
   TITLE:=Library for creating/discovering/configuring iBeacons
   URL:=https://www.npmjs.org/package/bleacon
-  DEPENDS:=+node +node-bignum +bluez-libs $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
+  DEPENDS:=+node +node-bignum +bluez-libs +libudev-fbsd
 endef
 
 define Package/node-bleacon/description

@@ -24,8 +24,6 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
-
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
@@ -35,7 +33,7 @@ define Package/node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +hidapi +libusb-1.0 $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
+  DEPENDS:=+node +hidapi +libusb-1.0 +libudev-fbsd
 endef
 
 define Package/node-hid/description
