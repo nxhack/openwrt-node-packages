@@ -21,8 +21,6 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-usb
@@ -31,7 +29,7 @@ define Package/node-usb
   CATEGORY:=Languages
   TITLE:=Library to access USB devices
   URL:=https://www.npmjs.com/package/usb
-  DEPENDS:=+node $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
+  DEPENDS:=+node +libudev-fbsd
 endef
 
 define Package/node-usb/description

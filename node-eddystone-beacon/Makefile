@@ -21,8 +21,6 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-eddystone-beacon
@@ -31,7 +29,7 @@ define Package/node-eddystone-beacon
   CATEGORY:=Languages
   TITLE:=Create an Eddystone Beacon using Node.js
   URL:=https://www.npmjs.org/package/eddystone-beacon
-  DEPENDS:=+node +bluez-libs $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev)
+  DEPENDS:=+node +bluez-libs +libudev-fbsd
 endef
 
 define Package/node-eddystone-beacon/description

@@ -28,8 +28,6 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/node-bluetooth-hci-socket
@@ -38,7 +36,7 @@ define Package/node-bluetooth-hci-socket
   CATEGORY:=Languages
   TITLE:=Bluetooth HCI socket binding for Node.js
   URL:=https://www.npmjs.com/package/bluetooth-hci-socket
-  DEPENDS:=+node +bluez-libs $(if $(filter reboot v18.06%, $(OW_VER)),+libudev-fbsd,+eudev) +node-usb
+  DEPENDS:=+node +bluez-libs +libudev-fbsd +node-usb
 endef
 
 define Package/node-bluetooth-hci-socket/description
