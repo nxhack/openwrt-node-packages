@@ -16,13 +16,13 @@ PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=a13710ebff0a2d0e60e08442db192a4e891db89d535306d461b8a95ede7dbd90
 
-PKG_BUILD_DEPENDS:=node/host
-PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
-
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT or X11
 PKG_LICENSE_FILES:=
+
+PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_PARALLEL:=1
+PKG_USE_MIPS16:=0
 
 OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
 
