@@ -42,6 +42,7 @@ endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
+HOSTTMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
@@ -77,13 +78,14 @@ define Host/Prepare
 endef
 
 define Host/Compile
+	$(HOST_MAKE_VARS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_prefix=$(STAGING_DIR_HOSTPKG)/ \
-	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
-	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
+	npm_config_cache=$(TMP_DIR)/npm-cache-$(HOSTTMPNPM) \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(HOSTTMPNPM) \
 	npm install -g $(DL_DIR)/$(PKG_SOURCE)
-	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
-	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
+	rm -rf $(TMP_DIR)/npm-tmp-$(HOSTTMPNPM)
+	rm -rf $(TMP_DIR)/npm-cache-$(HOSTTMPNPM)
 endef
 
 define Host/Install
