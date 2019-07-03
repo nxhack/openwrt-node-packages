@@ -54,7 +54,7 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb \
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
-           $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_12):libopenssl) \
+           $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_12):libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
            +(NODEJS_10||NODEJS_12):libatomic
 endef
@@ -153,7 +153,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	$(if $(CONFIG_NODEJS_WITH_SNAPSHOT),,--without-snapshot) \
 	--shared-zlib \
-	$(if $(filter reboot, $(OW_VER)),--shared-openssl, \
+	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_12),,--shared-openssl))) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
