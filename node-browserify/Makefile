@@ -85,7 +85,7 @@ define Host/Compile
 	npm_config_prefix=$(HOST_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(HOSTTMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(HOSTTMPNPM) \
-	npm -g install $(HOST_BUILD_DIR)
+	npm install -g $(HOST_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(HOSTTMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(HOSTTMPNPM)
 endef
