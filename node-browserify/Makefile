@@ -81,6 +81,7 @@ endef
 
 define Host/Compile
 	$(HOST_MAKE_VARS) \
+	PATH=$(STAGING_DIR_HOSTPKG)/bin:$(PATH) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_prefix=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(HOSTTMPNPM) \
