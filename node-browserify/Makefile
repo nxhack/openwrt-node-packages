@@ -80,13 +80,12 @@ define Package/node-browserify/install
 endef
 
 define Host/Compile
-	$(INSTALL_DIR) $(HOST_BUILD_DIR)/node_modules
 	$(HOST_MAKE_VARS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_prefix=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(HOSTTMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(HOSTTMPNPM) \
-	npm install -g $(HOST_BUILD_DIR)
+	npm install -g --unsafe-perm $(HOST_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(HOSTTMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(HOSTTMPNPM)
 endef
