@@ -81,9 +81,8 @@ endef
 
 define Host/Compile
 	$(HOST_MAKE_VARS) \
-	npm_config_build_from_source=true \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_prefix=$(HOST_BUILD_PREFIX)/ \
+	npm_config_prefix=$(STAGING_DIR_HOSTPKG)/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(HOSTTMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(HOSTTMPNPM) \
 	npm install -g $(HOST_BUILD_DIR)
