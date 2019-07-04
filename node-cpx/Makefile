@@ -97,7 +97,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,bin} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/cpx/bin/index.js $(1)/usr/bin/cpx
+	$(LN) ../lib/node/cpx/bin/index.js $(1)/bin/cpx
 endef
 
 $(eval $(call HostBuild))
