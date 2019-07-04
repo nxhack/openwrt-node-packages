@@ -91,6 +91,17 @@ define Host/Compile
 endef
 
 define Host/Install
+	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
+	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
+		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
+	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.yml,*.markdown,*.md,*.js} \
+		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
+	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,bin} \
+		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
+	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,example,test} \
+		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(LN) ../lib/node_modules/browserify/bin/cmd.js $(1)/bin/browserify
 endef
 
 $(eval $(call HostBuild))
