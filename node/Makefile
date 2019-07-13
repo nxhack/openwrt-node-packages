@@ -108,9 +108,11 @@ define Package/node/config
 			bool "Disable"
 
 		config NODEJS_ICU_SMALL
+			depends on CPU_LITTLE_ENDIAN
 			bool "small-icu"
 
 		config NODEJS_ICU_SYSTEM
+			depends on CPU_LITTLE_ENDIAN
 			bool "system-icu"
 	endchoice
 
