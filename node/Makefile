@@ -8,9 +8,9 @@ PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.4.0
+PKG_VERSION:=v12.6.0
 PKG_RELEASE:=1
-PKG_HASH:=20b52366d3502c60d4aec0bd5052c841a94bf1cd5d74b2ea1e498c1a2ada8ce3
+PKG_HASH:=9e0a4bb2dbc66e76a999aebde8425e2f1df13231938df996bbff14e47bcaf089
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -36,7 +36,7 @@ PKG_LICENSE_FILES:=LICENSE
 HOST_BUILD_DEPENDS:=python/host
 HOST_BUILD_PARALLEL:=1
 
-PKG_BUILD_DEPENDS:=python/host node/host
+PKG_BUILD_DEPENDS:=python/host NODEJS_12:node/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
@@ -54,9 +54,9 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb \
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
-           $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_12):libopenssl) \
+           $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
-           +(NODEJS_10||NODEJS_12):libatomic
+           +!NODEJS_8:libatomic
 endef
 
 define Package/node/description
@@ -116,13 +116,6 @@ define Package/node/config
 			bool "system-icu"
 	endchoice
 
-	config NODEJS_WITH_SNAPSHOT
-		depends on !(TARGET_x86_64 || NODEJS_ICU_NONE || (!ARCH_64BIT && NODEJS_ICU_SYSTEM))
-		bool "Build with snapshot"
-		help
-		 Enable advanced debugging
-		default y
-
 	endmenu
 endef
 
@@ -153,10 +146,10 @@ CONFIGURE_VARS:= \
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
-	$(if $(CONFIG_NODEJS_WITH_SNAPSHOT),,--without-snapshot) \
+	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
 	--shared-zlib \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
-		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_12),,--shared-openssl))) \
+		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
@@ -176,13 +169,15 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
-MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
+HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
+FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
 
 define Build/Prepare
 	$(Build/Prepare/Default)
 ifeq ($(CONFIG_NODEJS_12),y)
-	$(SED) "s#<(mkcodecache_exec)#$(MKTOOL)#g" $(FILE_NODE_GYP)
+	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
+	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_NODE_GYP)
 endif
 endef
 

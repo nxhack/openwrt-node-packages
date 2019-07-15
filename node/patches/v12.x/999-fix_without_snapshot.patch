@@ -1,0 +1,99 @@
+From a8ed416eadd1cb11843016eda13206e7cec54be1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micha=C3=ABl=20Zasso?= <targos@protonmail.com>
+Date: Fri, 28 Jun 2019 15:44:49 +0200
+Subject: [PATCH] build: do not always build the default V8 snapshot
+
+It should be skipped if Node.js is built with the --without-snapshot
+configure flag.
+
+PR-URL: https://github.com/nodejs/node/pull/28467
+Reviewed-By: Ben Noordhuis <info@bnoordhuis.nl>
+Reviewed-By: Colin Ihrig <cjihrig@gmail.com>
+Reviewed-By: Joyee Cheung <joyeec9h3@gmail.com>
+Reviewed-By: Richard Lau <riclau@uk.ibm.com>
+Reviewed-By: Ujjwal Sharma <usharma1998@gmail.com>
+Reviewed-By: Rich Trott <rtrott@gmail.com>
+---
+ common.gypi | 48 ++++++++++++++++++++++++++++++++++++------------
+ node.gypi   |  2 +-
+ 2 files changed, 37 insertions(+), 13 deletions(-)
+
+diff --git a/common.gypi b/common.gypi
+index c106549f67c2..63cd2e29c3c1 100644
+--- a/common.gypi
++++ b/common.gypi
+@@ -84,25 +84,49 @@
+       }, {
+         'openssl_no_asm%': 0,
+       }],
+-      ['GENERATOR=="ninja"', {
+-        'obj_dir': '<(PRODUCT_DIR)/obj',
+-        'v8_base': '<(PRODUCT_DIR)/obj/tools/v8_gypfiles/libv8_snapshot.a',
+-       }, {
+-        'obj_dir%': '<(PRODUCT_DIR)/obj.target',
+-        'v8_base': '<(PRODUCT_DIR)/obj.target/tools/v8_gypfiles/libv8_snapshot.a',
+-      }],
+       ['OS == "win"', {
+         'os_posix': 0,
+         'v8_postmortem_support%': 0,
+-        'obj_dir': '<(PRODUCT_DIR)/obj',
+-        'v8_base': '<(PRODUCT_DIR)/lib/libv8_snapshot.a',
+       }, {
+         'os_posix': 1,
+         'v8_postmortem_support%': 1,
+       }],
+-      ['OS == "mac"', {
+-        'obj_dir%': '<(PRODUCT_DIR)/obj.target',
+-        'v8_base': '<(PRODUCT_DIR)/libv8_snapshot.a',
++      ['v8_use_snapshot==1', {
++        'conditions': [
++          ['GENERATOR == "ninja"', {
++            'obj_dir': '<(PRODUCT_DIR)/obj',
++            'v8_base': '<(PRODUCT_DIR)/obj/tools/v8_gypfiles/libv8_snapshot.a',
++           }, {
++            'obj_dir%': '<(PRODUCT_DIR)/obj.target',
++            'v8_base': '<(PRODUCT_DIR)/obj.target/tools/v8_gypfiles/libv8_snapshot.a',
++          }],
++          ['OS == "win"', {
++            'obj_dir': '<(PRODUCT_DIR)/obj',
++            'v8_base': '<(PRODUCT_DIR)/lib/libv8_snapshot.a',
++          }],
++          ['OS == "mac"', {
++            'obj_dir%': '<(PRODUCT_DIR)/obj.target',
++            'v8_base': '<(PRODUCT_DIR)/libv8_snapshot.a',
++          }],
++        ],
++      }, {
++        'conditions': [
++          ['GENERATOR == "ninja"', {
++            'obj_dir': '<(PRODUCT_DIR)/obj',
++            'v8_base': '<(PRODUCT_DIR)/obj/tools/v8_gypfiles/libv8_nosnapshot.a',
++           }, {
++            'obj_dir%': '<(PRODUCT_DIR)/obj.target',
++            'v8_base': '<(PRODUCT_DIR)/obj.target/tools/v8_gypfiles/libv8_nosnapshot.a',
++          }],
++          ['OS == "win"', {
++            'obj_dir': '<(PRODUCT_DIR)/obj',
++            'v8_base': '<(PRODUCT_DIR)/lib/libv8_nosnapshot.a',
++          }],
++          ['OS == "mac"', {
++            'obj_dir%': '<(PRODUCT_DIR)/obj.target',
++            'v8_base': '<(PRODUCT_DIR)/libv8_nosnapshot.a',
++          }],
++        ],
+       }],
+       ['openssl_fips != ""', {
+         'openssl_product': '<(STATIC_LIB_PREFIX)crypto<(STATIC_LIB_SUFFIX)',
+diff --git a/node.gypi b/node.gypi
+index 8f01cb206ca4..cc98b0f7239b 100644
+--- a/node.gypi
++++ b/node.gypi
+@@ -70,7 +70,7 @@
+     }],
+     [ 'node_use_bundled_v8=="true"', {
+       'dependencies': [
+-        'tools/v8_gypfiles/v8.gyp:v8_snapshot',
++        'tools/v8_gypfiles/v8.gyp:v8_maybe_snapshot',
+         'tools/v8_gypfiles/v8.gyp:v8_libplatform',
+       ],
+     }],
