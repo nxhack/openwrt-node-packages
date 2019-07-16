@@ -66,6 +66,11 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 
  [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
 
+ Note: ICU currently supports only ***LITTLE ENDIAN***.
+
+## homebridge on mips with kernel FPU emulation
+In many cases, it does not work because key generation is slow.
+
 ## Note about mDNS and homebridge
 ***If you use node-homebridge(node-hap-nodejs), please install mDNS package (umdns / avahi-dbus-daemon / mdnsresponder).***
 
