@@ -112,7 +112,7 @@ define Package/node/config
 			bool "small-icu"
 
 		config NODEJS_ICU_SYSTEM
-			depends on ARCH_64BIT&&!BIG_ENDIAN
+			depends on !BIG_ENDIAN
 			bool "system-icu"
 	endchoice
 
@@ -146,7 +146,9 @@ CONFIGURE_VARS:= \
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
+	--cross-compiling \
 	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
+	$(if $(CONFIG_NODEJS_ICU_SYSTEM),$(if $(CONFIG_ARCH_64BIT),,--without-snapshot)) \
 	--shared-zlib \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
