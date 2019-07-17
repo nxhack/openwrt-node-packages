@@ -147,7 +147,7 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
+	$(if $(CONFIG_NODEJS_ICU_SYSTEM),,--without-snapshot) \
 	--shared-zlib \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
@@ -170,7 +170,7 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
-ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
+ifneq ($(CONFIG_NODEJS_ICU_SYSTEM),y)
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
