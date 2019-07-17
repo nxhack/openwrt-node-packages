@@ -170,7 +170,7 @@ HOST_CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
-ifneq ($(CONFIG_NODEJS_ICU_NONE),y)
+ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
