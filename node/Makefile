@@ -173,17 +173,17 @@ HOST_CONFIGURE_CMD:=python2 ./configure
 
 # NODE_12 SNAPSHOT IS BROKEN
 # ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
+ifeq ($(CONFIG_NODEJS_12),y)
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
 
 define Build/Prepare
 	$(Build/Prepare/Default)
-ifeq ($(CONFIG_NODEJS_12),y)
 	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
 	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_NODE_GYP)
-endif
 endef
+endif
 # endif
 
 define Build/InstallDev
