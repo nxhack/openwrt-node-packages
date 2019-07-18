@@ -68,7 +68,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 
  Note: ICU currently supports only ***LITTLE ENDIAN***.
 
- Note: v12.6.0 currently not work snapshot.
+ Note: v12.6.0 v8 snapshot currently not work.
 
 ## homebridge on mips with kernel FPU emulation
 In many cases, it does not work because key generation is slow.
