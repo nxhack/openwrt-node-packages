@@ -148,7 +148,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--cross-compiling \
 	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
-	$(if $(CONFIG_NODEJS_ICU_SYSTEM),$(if $(CONFIG_ARCH_64BIT),,--without-snapshot)) \
+	$(if $(CONFIG_NODEJS_12),--without-snapshot) \
 	--shared-zlib \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
@@ -165,22 +165,26 @@ CONFIGURE_ARGS:= \
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=linux \
+	--without-snapshot \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
+# NODE_12 SNAPSHOT IS BROKEN
+# ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
+ifeq ($(CONFIG_NODEJS_12),y)
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
 
 define Build/Prepare
 	$(Build/Prepare/Default)
-ifeq ($(CONFIG_NODEJS_12),y)
 	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
 	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_NODE_GYP)
-endif
 endef
+endif
+# endif
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
