@@ -67,6 +67,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
  [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
 
  Note: ICU currently supports only ***LITTLE ENDIAN***.
+
  Note: v12.6.0 currently not work snapshot.
 
 ## homebridge on mips with kernel FPU emulation
