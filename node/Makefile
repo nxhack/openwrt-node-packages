@@ -112,7 +112,7 @@ define Package/node/config
 			bool "small-icu"
 
 		config NODEJS_ICU_SYSTEM
-			depends on !BIG_ENDIAN
+			depends on ARCH_64BIT&&!BIG_ENDIAN
 			bool "system-icu"
 	endchoice
 
