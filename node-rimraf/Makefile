@@ -66,7 +66,7 @@ define Build/Compile
 endef
 
 define Package/node-rimraf/install
-	$(INSTALL_DIR) $(1)/usr/lib/node
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.css,*.md,*.js} \
