@@ -146,6 +146,7 @@ node-nitrogen			(ws[legacy])
 node-nitrogen-cli		(ws[legacy])
 node-onoff			(epoll)
 node-pi-spi
+node-pty
 node-red			(bcrypt)
 node-red-contrib-gpio		(johnny-five)
 node-red-contrib-homekit	(hap-nodejs)
