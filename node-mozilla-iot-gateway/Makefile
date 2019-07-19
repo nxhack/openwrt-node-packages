@@ -75,8 +75,12 @@ define Package/node-mozilla-iot-gateway/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/* $(1)/opt/mozilla-iot/gateway
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	$(STAGING_DIR_HOSTPKG)/bin/npm --prefix=$(1)/opt/mozilla-iot/gateway install \
-		--build-from-source --target_arch=$(CPU) $(1)/opt/mozilla-iot/gateway
+	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
+	npm --prefix=$(1)/opt/mozilla-iot/gateway install \
+		--build-from-source --target_arch=$(NODEJS_CPU) $(1)/opt/mozilla-iot/gateway
+	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
+	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/mozilla-iot-gateway.init $(1)/etc/init.d/mozilla-iot-gateway
 endef
