@@ -73,20 +73,10 @@ endef
 define Package/node-mozilla-iot-gateway/install
 	$(INSTALL_DIR) $(1)/opt/mozilla-iot/gateway/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/* $(1)/opt/mozilla-iot/gateway
-
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(NODEJS_CPU) \
-	npm_config_target_arch=$(NODEJS_CPU) \
-	npm_config_build_from_source=true \
-	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_prefix=$(1)/opt/mozilla-iot/gateway/ \
-	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
-	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install $(1)/opt/mozilla-iot/gateway
-	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
-	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
-
+	$(STAGING_DIR_HOSTPKG)/bin/npm --prefix=$(1)/opt/mozilla-iot/gateway install \
+		--build-from-source --target_arch=$(CPU) $(1)/opt/mozilla-iot/gateway
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/mozilla-iot-gateway.init $(1)/etc/init.d/mozilla-iot-gateway
 endef
