@@ -29,7 +29,7 @@ define Package/node-ejdb2_node
   CATEGORY:=Languages
   TITLE:=EJDB2 Node.js native binding
   URL:=https://www.npmjs.com/package/ejdb2_node
-  DEPENDS:=+node +libbz2 +liblzma +zlib +libatomic @!NODEJS_8
+  DEPENDS:=+node +libatomic @!NODEJS_8
 endef
 
 define Package/node-ejdb2_node/description
@@ -65,17 +65,15 @@ endef
 
 define Package/node-ejdb2_node/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,README.md} \
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/linux-x64
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{Changelog,*.ts,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/ejdb2_node_native.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/ejdb2_node/bin/cli.js $(1)/usr/bin/ejdb2_node
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/linux-x64/ejdb2_node.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/linux-x64/
 endef
 
 $(eval $(call BuildPackage,node-ejdb2_node))
