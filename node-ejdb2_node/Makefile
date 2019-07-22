@@ -4,36 +4,36 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=ejdb
+PKG_NPM_NAME:=ejdb2_node
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.2.12-42
-PKG_RELEASE:=6
+PKG_VERSION:=1.0.8
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=22aff6fe9baad4313bf1428736141493b3412a6d3bc49b1997b3f2270b82aeee
+PKG_HASH:=c96c73ae58291de887f90f583f0d1381ab2feae001d54d7b39568bffecb8beeb
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=LGPL-2.1
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node/host node-yarn/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-ejdb
+define Package/node-ejdb2_node
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=EJDB NodeJS binding
-  URL:=https://www.npmjs.com/package/ejdb
-  DEPENDS:=+node +libbz2 +liblzma +zlib @!NODEJS_12
+  TITLE:=EJDB2 Node.js native binding
+  URL:=https://www.npmjs.com/package/ejdb2_node
+  DEPENDS:=+node +libatomic @!NODEJS_8 @BROKEN
 endef
 
-define Package/node-ejdb/description
- EJDB NodeJS binding
+define Package/node-ejdb2_node/description
+ Embeddable JSON Database engine http://ejdb.org Node.js binding.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -44,6 +44,7 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
+TARGET_LDFLAGS+=-latomic
 
 define Build/Compile
 	$(MAKE_VARS) \
@@ -62,19 +63,17 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-ejdb/install
+define Package/node-ejdb2_node/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,README.md} \
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/linux-x64
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{Changelog,*.ts,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/ejdb_native.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/ejdb/bin/cli.js $(1)/usr/bin/ejdb
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/linux-x64/ejdb2_node.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/linux-x64/
 endef
 
-$(eval $(call BuildPackage,node-ejdb))
+$(eval $(call BuildPackage,node-ejdb2_node))

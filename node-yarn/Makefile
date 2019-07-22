@@ -97,9 +97,9 @@ define Host/Install
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,lib} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/usr/bin/yarn
-	$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/usr/bin/yarnpkg
+	$(INSTALL_DIR) $(1)/bin
+	$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/bin/yarn
+	$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/bin/yarnpkg
 endef
 
 $(eval $(call HostBuild))

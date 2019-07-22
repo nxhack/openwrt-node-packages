@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=browserify
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=16.2.3
-PKG_RELEASE:=4
+PKG_VERSION:=16.3.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=275b7748d4d169dd4fcc49c651ba944da798297e28b1197b2ecb1affd0f62b04
+PKG_HASH:=ee33f5028cb73b38246732c21f964bf23379e7a5db2b1dcfbe2c4b62e9cb3fbf
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -100,7 +100,7 @@ define Host/Install
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,example,test} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/browserify/bin/cmd.js $(1)/bin/browserify
 endef
 

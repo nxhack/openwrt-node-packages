@@ -96,8 +96,8 @@ define Host/Install
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/rimraf/bin.js $(1)/usr/bin/rimraf
+	$(INSTALL_DIR) $(1)/bin
+	$(LN) ../lib/node_modules/rimraf/bin.js $(1)/bin/rimraf
 endef
 
 $(eval $(call HostBuild))

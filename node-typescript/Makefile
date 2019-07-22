@@ -93,9 +93,9 @@ define Host/Install
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,lib} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/typescript/bin/tsc $(1)/usr/bin/tsc
-	$(LN) ../lib/node_modules/typescript/bin/tsserver $(1)/usr/bin/tsserver
+	$(INSTALL_DIR) $(1)/bin
+	$(LN) ../lib/node_modules/typescript/bin/tsc $(1)/bin/tsc
+	$(LN) ../lib/node_modules/typescript/bin/tsserver $(1)/bin/tsserver
 endef
 
 $(eval $(call HostBuild))
