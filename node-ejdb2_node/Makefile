@@ -56,11 +56,10 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	YARN_CACHE_FOLDER=$(TMP_DIR)/yarn-cache-$(TMPNPM) \
+	NODE_PUB_DIR=$(PKG_BUILD_DIR) \
 	CMAKE_INCLUDE_PATH="$(STAGING_DIR)/usr/include:$(TOOLCHAIN_DIR)/include" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
 	npm install -g $(PKG_BUILD_DIR)
-	rm -rf $(TMP_DIR)/yarn-cache-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
