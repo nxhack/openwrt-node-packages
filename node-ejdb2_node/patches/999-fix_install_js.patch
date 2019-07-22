@@ -1,5 +1,5 @@
---- install.js
-+++ install.js
+--- a/install.js
++++ b/install.js
 @@ -54,7 +54,7 @@
    console.log(out);
  
