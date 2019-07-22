@@ -29,7 +29,7 @@ define Package/node-hashtable
   CATEGORY:=Languages
   TITLE:=Native HashTable and ES6 compatible Map for Node.js
   URL:=https://www.npmjs.org/package/hashtable
-  DEPENDS:=+node
+  DEPENDS:=+node @!NODEJS_12
 endef
 
 define Package/node-hashtable/description
