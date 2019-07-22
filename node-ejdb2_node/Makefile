@@ -44,6 +44,7 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
+TARGET_LDFLAGS+=-latomic
 
 define Build/Compile
 	$(MAKE_VARS) \
