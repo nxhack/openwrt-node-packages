@@ -117,7 +117,7 @@ node-arduino-firmata		(serialport)
 node-authenticate-pam
 node-bignum
 node-binaryjs			(streamws)
-node-bleacon			(bluetooth-hci-socket)
+node-bleacon			(bignum)
 node-bluetooth-hci-socket	(usb)
 node-bufferutil
 node-cylon-firmata		(firmata)
