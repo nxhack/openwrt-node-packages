@@ -5,7 +5,7 @@
  
    console.log('Building EJDB2 native binding...');
 -  const wdir = await promisify(fs.mkdtemp)(path.join(os.tmpdir(), 'ejdb2-node'));
-+  const wdir = await promisify(fs.mkdtemp)(path.join(process.env.PKG_BUILD_DIR, 'ejdb2-node'));
++  const wdir = await promisify(fs.mkdtemp)(path.join('.', 'ejdb2-node'));
    console.log(`Git revision: ${REVISION}`);
    console.log(`Build temp dir: ${wdir}`);
  
