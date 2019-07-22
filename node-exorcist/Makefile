@@ -101,7 +101,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{example,test} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/exorcist/bin/exorcist.js $(1)/usr/bin/exorcist
+	$(LN) ../../lib/node_modules/exorcist/bin/exorcist.js $(1)/usr/bin/exorcist
 endef
 
 $(eval $(call HostBuild))

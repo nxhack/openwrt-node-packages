@@ -102,8 +102,8 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,lib} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/mocha/bin/mocha $(1)/usr/bin/mocha
-	$(LN) ../lib/node_modules/mocha/bin/_mocha $(1)/usr/bin/_mocha
+	$(LN) ../../lib/node_modules/mocha/bin/mocha $(1)/usr/bin/mocha
+	$(LN) ../../lib/node_modules/mocha/bin/_mocha $(1)/usr/bin/_mocha
 endef
 
 $(eval $(call HostBuild))

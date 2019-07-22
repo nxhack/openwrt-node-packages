@@ -101,7 +101,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,example,test} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/browserify/bin/cmd.js $(1)/bin/browserify
+	$(LN) ../../lib/node_modules/browserify/bin/cmd.js $(1)/bin/browserify
 endef
 
 $(eval $(call HostBuild))

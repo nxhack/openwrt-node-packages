@@ -97,7 +97,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,lib,tools} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node_modules/uglify-js/bin/uglifyjs $(1)/usr/bin/uglifyjs
+	$(LN) ../../lib/node_modules/uglify-js/bin/uglifyjs $(1)/usr/bin/uglifyjs
 endef
 
 $(eval $(call HostBuild))
