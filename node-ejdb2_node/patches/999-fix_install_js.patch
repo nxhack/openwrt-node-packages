@@ -9,3 +9,12 @@
    console.log(`Git revision: ${REVISION}`);
    console.log(`Build temp dir: ${wdir}`);
  
+@@ -73,7 +73,7 @@
+     'cmake',
+     ['..', '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_NODEJS_BINDING=ON', `-DNODE_BIN_ROOT=${__dirname}`],
+     buildDir);
+-  await utils.runProcess('make', [], buildDir);
++  await utils.runProcess('make', ['ejdb2_node'], buildDir);
+   await rimraf(wdir);
+ }
+ 
