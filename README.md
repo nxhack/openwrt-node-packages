@@ -73,6 +73,16 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 ## homebridge on mips with kernel FPU emulation
 In many cases, it does not work because key generation is slow.
 
+In the case of such devices, this may be useful.
+
+[https://github.com/etwmc/Personal-HomeKit-HAP](https://github.com/etwmc/Personal-HomeKit-HAP)
+
+However, you have to program the accessories yourself.
+
+Here are some tips for cross compiling with OpenWrt.
+
+[https://github.com/nxhack/openwrt-custom-packages/tree/master/PHK](https://github.com/nxhack/openwrt-custom-packages/tree/master/PHK)
+
 ## Note about mDNS and homebridge
 ***If you use node-homebridge(node-hap-nodejs), please install mDNS package (umdns / avahi-dbus-daemon / mdnsresponder).***
 

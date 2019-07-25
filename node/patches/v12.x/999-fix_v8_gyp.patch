@@ -1,6 +1,6 @@
 --- a/tools/v8_gypfiles/v8.gyp	2019-06-27 19:12:20.000000000 +0900
 +++ b/tools/v8_gypfiles/v8.gyp	2019-07-01 14:40:48.292020880 +0900
-@@ -2849,6 +2849,7 @@
+@@ -2857,6 +2857,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -8,7 +8,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -2872,6 +2873,8 @@
+@@ -2880,6 +2881,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
@@ -17,7 +17,7 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -2902,6 +2905,7 @@
+@@ -2910,6 +2913,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
