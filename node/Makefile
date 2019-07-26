@@ -148,7 +148,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--cross-compiling \
 	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
-	$(if $(CONFIG_NODEJS_12),$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
+	$(if $(CONFIG_BIG_ENDIAN),--without-snapshot) \
 	--shared-zlib \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
