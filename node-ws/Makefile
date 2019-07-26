@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ws
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=7.0.1
+PKG_VERSION:=7.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=24032a71d9e90973514fa0387de4c66d4fbf4aed5de54f61024bab2e16f5bcf3
+PKG_HASH:=9fb5eeffefac35b85a0a73cc450b9ae240771853883c9a3bd71422d024266b39
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -36,7 +36,7 @@ define Package/node-ws
 endef
 
 define Package/node-ws/description
- Simple to use, blazing fast and thoroughly tested websocket client, server and console for node.js, up-to-date against RFC-6455
+ Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
