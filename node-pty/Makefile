@@ -29,7 +29,7 @@ define Package/node-pty
   CATEGORY:=Languages
   TITLE:=Fork pseudoterminals in Node.JS
   URL:=https://www.npmjs.com/package/node-pty
-  DEPENDS:=+node @!CONFIG_NODEJS_12
+  DEPENDS:=+node
 endef
 
 define Package/node-pty/description

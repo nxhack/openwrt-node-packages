@@ -29,7 +29,7 @@ define Package/node-net-ping
   CATEGORY:=Languages
   TITLE:=Raw sockets for Node.js
   URL:=https://www.npmjs.com/package/net-ping
-  DEPENDS:=+node @!CONFIG_NODEJS_12
+  DEPENDS:=+node
 endef
 
 define Package/node-net-ping/description

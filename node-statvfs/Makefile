@@ -29,7 +29,7 @@ define Package/node-statvfs
   CATEGORY:=Languages
   TITLE:=node binding to POSIX statvfs (file system information)
   URL:=https://www.npmjs.org/package/statvfs
-  DEPENDS:=+node @!CONFIG_NODEJS_12
+  DEPENDS:=+node
 endef
 
 define Package/node-statvfs/description

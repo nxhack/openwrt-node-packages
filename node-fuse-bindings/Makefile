@@ -29,7 +29,7 @@ define Package/node-fuse-bindings
   CATEGORY:=Languages
   TITLE:=Fully maintained fuse bindings for Node.js
   URL:=https://www.npmjs.org/package/fuse-bindings
-  DEPENDS:=+node +libfuse @!CONFIG_NODEJS_12
+  DEPENDS:=+node +libfuse
 endef
 
 define Package/node-fuse-bindings/description
