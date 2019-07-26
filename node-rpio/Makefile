@@ -29,7 +29,7 @@ define Package/node-rpio
   CATEGORY:=Languages
   TITLE:=High performance GPIO/i2c/PWM/SPI module for Raspberry Pi
   URL:=https://www.npmjs.org/package/rpio
-  DEPENDS:=+node @!CONFIG_NODEJS_12
+  DEPENDS:=+node @!NODEJS_12
 endef
 
 define Package/node-rpio/description

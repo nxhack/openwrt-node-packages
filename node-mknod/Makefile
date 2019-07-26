@@ -29,7 +29,7 @@ define Package/node-mknod
   CATEGORY:=Languages
   TITLE:=Node bindings for mknod
   URL:=https://www.npmjs.org/package/mknod
-  DEPENDS:=+node @!CONFIG_NODEJS_12
+  DEPENDS:=+node @!NODEJS_12
 endef
 
 define Package/node-mknod/description
