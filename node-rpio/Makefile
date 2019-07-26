@@ -29,8 +29,12 @@ define Package/node-rpio
   CATEGORY:=Languages
   TITLE:=High performance GPIO/i2c/PWM/SPI module for Raspberry Pi
   URL:=https://www.npmjs.org/package/rpio
-  DEPENDS:=+node @!NODEJS_12
+  DEPENDS:=+node
 endef
+
+ifeq ($(CONFIG_NODEJS_12),y)
+  DEPENDS+=@BROKEN
+endif
 
 define Package/node-rpio/description
  This is a high performance node.js addon which provides access to the Raspberry Pi GPIO interface, supporting regular GPIO as well as i²c, PWM, and SPI

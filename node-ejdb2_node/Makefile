@@ -29,8 +29,12 @@ define Package/node-ejdb2_node
   CATEGORY:=Languages
   TITLE:=EJDB2 Node.js native binding
   URL:=https://www.npmjs.com/package/ejdb2_node
-  DEPENDS:=+node +libatomic @!NODEJS_8
+  DEPENDS:=+node +libatomic
 endef
+
+ifeq ($(CONFIG_NODEJS_8),y)
+  DEPENDS+=@BROKEN
+endif
 
 define Package/node-ejdb2_node/description
  Embeddable JSON Database engine http://ejdb.org Node.js binding.

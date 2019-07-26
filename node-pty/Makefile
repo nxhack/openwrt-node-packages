@@ -29,8 +29,12 @@ define Package/node-pty
   CATEGORY:=Languages
   TITLE:=Fork pseudoterminals in Node.JS
   URL:=https://www.npmjs.com/package/node-pty
-  DEPENDS:=+node @!NODEJS_12
+  DEPENDS:=+node
 endef
+
+ifeq ($(CONFIG_NODEJS_12),y)
+  DEPENDS+=@BROKEN
+endif
 
 define Package/node-pty/description
  forkpty(3) bindings for node.js. This allows you to fork processes with pseudoterminal file descriptors. It returns a terminal object which allows reads and writes.

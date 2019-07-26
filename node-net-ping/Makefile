@@ -29,8 +29,12 @@ define Package/node-net-ping
   CATEGORY:=Languages
   TITLE:=Raw sockets for Node.js
   URL:=https://www.npmjs.com/package/net-ping
-  DEPENDS:=+node @!NODEJS_12
+  DEPENDS:=+node
 endef
+
+ifeq ($(CONFIG_NODEJS_12),y)
+  DEPENDS+=@BROKEN
+endif
 
 define Package/node-net-ping/description
  This module implements ICMP Echo (ping) support for Node.js
