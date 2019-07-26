@@ -32,10 +32,6 @@ define Package/node-bleacon
   DEPENDS:=+node +node-bignum +bluez-libs +libudev-fbsd
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-bleacon/description
  A Node.js library for creating, discovering, and configuring iBeacons
 endef

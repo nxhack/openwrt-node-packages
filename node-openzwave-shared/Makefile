@@ -32,10 +32,6 @@ define Package/node-openzwave-shared
   DEPENDS:=+node libopenzwave
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-openzwave-shared/description
  You can now easily control and manage your ZWave devices (lights, dimmers, blinds, you name it) from within Node.js applications. This library also supports secure devices (eg door locks) that require encryption.
 endef

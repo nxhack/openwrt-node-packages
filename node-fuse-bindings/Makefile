@@ -32,10 +32,6 @@ define Package/node-fuse-bindings
   DEPENDS:=+node +libfuse
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-fuse-bindings/description
  Fully maintained fuse bindings for Node that aims to cover the entire FUSE api
 endef

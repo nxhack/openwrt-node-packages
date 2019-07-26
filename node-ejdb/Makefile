@@ -32,10 +32,6 @@ define Package/node-ejdb
   DEPENDS:=+node +libbz2 +liblzma +zlib
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-ejdb/description
  EJDB NodeJS binding
 endef

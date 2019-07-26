@@ -32,10 +32,6 @@ define Package/node-authenticate-pam
   DEPENDS:=+node +libpam
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-authenticate-pam/description
  Asynchronous PAM authentication for Node.js
 endef

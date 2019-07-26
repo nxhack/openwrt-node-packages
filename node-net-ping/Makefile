@@ -32,10 +32,6 @@ define Package/node-net-ping
   DEPENDS:=+node
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-net-ping/description
  This module implements ICMP Echo (ping) support for Node.js
 endef

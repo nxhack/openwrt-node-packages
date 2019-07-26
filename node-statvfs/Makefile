@@ -32,10 +32,6 @@ define Package/node-statvfs
   DEPENDS:=+node
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-statvfs/description
  statvfs is a super simple module that just gives you access to statvfs(3)
 endef

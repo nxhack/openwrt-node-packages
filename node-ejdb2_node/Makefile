@@ -32,10 +32,6 @@ define Package/node-ejdb2_node
   DEPENDS:=+node +libatomic
 endef
 
-ifeq ($(CONFIG_NODEJS_8),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-ejdb2_node/description
  Embeddable JSON Database engine http://ejdb.org Node.js binding.
 endef

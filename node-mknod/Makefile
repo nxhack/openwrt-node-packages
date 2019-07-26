@@ -32,10 +32,6 @@ define Package/node-mknod
   DEPENDS:=+node
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-mknod/description
  Node bindings for mknod
 endef

@@ -32,10 +32,6 @@ define Package/node-hashtable
   DEPENDS:=+node
 endef
 
-ifeq ($(CONFIG_NODEJS_12),y)
-  DEPENDS+=@BROKEN
-endif
-
 define Package/node-hashtable/description
  Native HashTable and ES6 compatible Map for Node.js
 endef
