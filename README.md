@@ -175,6 +175,7 @@ node-sqlite3
 node-statvfs
 node-usb
 node-utf-8-validate
+node-websocket
 ```
 Other modules can be installed by 'npm install'.
 
