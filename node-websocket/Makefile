@@ -29,7 +29,7 @@ define Package/node-websocket
   CATEGORY:=Languages
   TITLE:=WebSocket Client & Server Implementation for Node
   URL:=https://www.npmjs.org/package/websocket
-  DEPENDS:=+node +libopenssl
+  DEPENDS:=+node
 endef
 
 define Package/node-websocket/description
