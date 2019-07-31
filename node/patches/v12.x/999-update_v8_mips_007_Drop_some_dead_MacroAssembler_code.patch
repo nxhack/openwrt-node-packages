@@ -20,7 +20,7 @@ diff --git a/deps/v8/src/mips/macro-assembler-mips.cc b/deps/v8/src/mips/macro-a
 index 7740d61..8520aad 100644
 --- a/deps/v8/src/mips/macro-assembler-mips.cc
 +++ b/deps/v8/src/mips/macro-assembler-mips.cc
-@@ -4976,15 +4976,6 @@
+@@ -4997,15 +4997,6 @@
      }
  }
  
@@ -36,7 +36,7 @@ index 7740d61..8520aad 100644
  void TurboAssembler::JumpIfSmi(Register value, Label* smi_label,
                                 Register scratch, BranchDelaySlot bd) {
    DCHECK_EQ(0, kSmiTag);
-@@ -5001,19 +4992,6 @@
+@@ -5022,19 +5013,6 @@
    Branch(bd, not_smi_label, ne, scratch, Operand(zero_reg));
  }
  
@@ -60,7 +60,7 @@ diff --git a/deps/v8/src/mips64/macro-assembler-mips64.cc b/deps/v8/src/mips64/m
 index 58f283a..ff65ea8 100644
 --- a/deps/v8/src/mips64/macro-assembler-mips64.cc
 +++ b/deps/v8/src/mips64/macro-assembler-mips64.cc
-@@ -5332,16 +5332,6 @@
+@@ -5353,16 +5353,6 @@
    }
  }
  
@@ -77,7 +77,7 @@ index 58f283a..ff65ea8 100644
  void TurboAssembler::JumpIfSmi(Register value, Label* smi_label,
                                 Register scratch, BranchDelaySlot bd) {
    DCHECK_EQ(0, kSmiTag);
-@@ -5358,24 +5348,6 @@
+@@ -5379,24 +5369,6 @@
    Branch(bd, not_smi_label, ne, scratch, Operand(zero_reg));
  }
  
