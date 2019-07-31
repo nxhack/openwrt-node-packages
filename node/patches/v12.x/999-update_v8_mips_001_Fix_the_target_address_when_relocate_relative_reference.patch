@@ -1,0 +1,25 @@
+From 1c4482ec3d38a4b445fd6d1281d2c5ff0877d517 Mon Sep 17 00:00:00 2001
+From: Peng Fei <pfgenyun@gmail.com>
+Date: Wed, 24 Apr 2019 14:33:50 +0800
+Subject: [PATCH] [mips32] Fix the target address when relocate relative reference.
+
+Change-Id: Ie44615daa6e0bef13a969cfb4fa62654ce31f448
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1581239
+Commit-Queue: peng fei <pfgenyun@gmail.com>
+Reviewed-by: Jakob Gruber <jgruber@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#61110}
+---
+
+diff --git a/deps/v8/src/mips/assembler-mips.cc b/deps/v8/src/mips/assembler-mips.cc
+index 0d957d8..a27cea7 100644
+--- a/deps/v8/src/mips/assembler-mips.cc
++++ b/deps/v8/src/mips/assembler-mips.cc
+@@ -3858,7 +3858,7 @@
+     if (imm == kEndOfJumpChain) {
+       return;
+     }
+-    imm += pc_delta;
++    imm -= pc_delta;
+     DCHECK_EQ(imm & 3, 0);
+     PatchLuiOriImmediate(pc, imm, instr1, 0 * kInstrSize, instr2, ori_offset);
+     return;

@@ -1,0 +1,35 @@
+From 10b15ba853ece68668010dd099619896a2b4301b Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Thu, 13 Jun 2019 20:17:26 +0800
+Subject: [PATCH] [mips64] Do not use optimized word32 compare on simulator.
+
+Change-Id: I2453256c192a5b58f241c4c73a32e8d41cf55a0e
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1657973
+Auto-Submit: Yu Yin <xwafish@gmail.com>
+Reviewed-by: Bill Budge <bbudge@chromium.org>
+Commit-Queue: Yu Yin <xwafish@gmail.com>
+Cr-Commit-Position: refs/heads/master@{#62160}
+---
+
+diff --git a/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc b/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc
+index 9768a7d..3e8c634 100644
+--- a/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc
++++ b/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc
+@@ -1946,7 +1946,17 @@
+   // in those cases. Unfortunately, the solution is not complete because
+   // it might skip cases where Word32 full compare is needed, so
+   // basically it is a hack.
++  // When call to a host function in simulator, if the function return a
++  // int32 value, the simulator do not sign-extended to int64 because in
++  // simulator we do not know the function whether return a int32 or int64.
++  // so we need do a full word32 compare in this case.
++#ifndef USE_SIMULATOR
+   if (IsNodeUnsigned(node->InputAt(0)) != IsNodeUnsigned(node->InputAt(1))) {
++#else
++  if (IsNodeUnsigned(node->InputAt(0)) != IsNodeUnsigned(node->InputAt(1)) ||
++      node->InputAt(0)->opcode() == IrOpcode::kCall ||
++      node->InputAt(1)->opcode() == IrOpcode::kCall ) {
++#endif
+     VisitFullWord32Compare(selector, node, kMips64Cmp, cont);
+   } else {
+     VisitOptimizedWord32Compare(selector, node, kMips64Cmp, cont);

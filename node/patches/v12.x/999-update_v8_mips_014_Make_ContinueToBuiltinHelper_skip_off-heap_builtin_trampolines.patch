@@ -1,0 +1,139 @@
+From 212c962feeefda04317249aa666f8e9859719ce1 Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Sat, 15 Jun 2019 14:39:50 +0800
+Subject: [PATCH] [mips][builtins] Make ContinueToBuiltinHelper skip off-heap builtin trampolines
+
+Port 7b48dd55 https://crrev.com/c/1648155
+
+Original Commit Message:
+
+    This changes Generate_ContinueToBuiltinHelper to generate code to load
+    the builtin address directly from the builtins table rather than going
+    via the executable code in the trampoline's code object.
+
+    The set up for Generate_ContinueToBuiltinHelper is changed so that the
+    builtin index is stored on the stack in place of the builtin Code
+    object which is no longer needed.
+
+Change-Id: I1c8a5a18ac998b16d84556f08637b32d758f44da
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1659992
+Commit-Queue: Dan Elphick <delphick@chromium.org>
+Auto-Submit: Yu Yin <xwafish@gmail.com>
+Reviewed-by: Dan Elphick <delphick@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#62199}
+---
+
+diff --git a/deps/v8/src/builtins/mips/builtins-mips.cc b/deps/v8/src/builtins/mips/builtins-mips.cc
+index 5d4b8e9..096a8df 100644
+--- a/deps/v8/src/builtins/mips/builtins-mips.cc
++++ b/deps/v8/src/builtins/mips/builtins-mips.cc
+@@ -1467,11 +1467,13 @@
+   }
+   __ lw(fp, MemOperand(
+                 sp, BuiltinContinuationFrameConstants::kFixedFrameSizeFromFp));
++  // Load builtin index (stored as a Smi) and use it to get the builtin start
++  // address from the builtins table.
+   __ Pop(t0);
+   __ Addu(sp, sp,
+           Operand(BuiltinContinuationFrameConstants::kFixedFrameSizeFromFp));
+   __ Pop(ra);
+-  __ Addu(t0, t0, Operand(Code::kHeaderSize - kHeapObjectTag));
++  __ LoadEntryFromBuiltinIndex(t0);
+   __ Jump(t0);
+ }
+ }  // namespace
+diff --git a/deps/v8/src/builtins/mips64/builtins-mips64.cc b/deps/v8/src/builtins/mips64/builtins-mips64.cc
+index fd485c7..5f8a758 100644
+--- a/deps/v8/src/builtins/mips64/builtins-mips64.cc
++++ b/deps/v8/src/builtins/mips64/builtins-mips64.cc
+@@ -1483,11 +1483,13 @@
+   }
+   __ Ld(fp, MemOperand(
+                 sp, BuiltinContinuationFrameConstants::kFixedFrameSizeFromFp));
++  // Load builtin index (stored as a Smi) and use it to get the builtin start
++  // address from the builtins table.
+   __ Pop(t0);
+   __ Daddu(sp, sp,
+            Operand(BuiltinContinuationFrameConstants::kFixedFrameSizeFromFp));
+   __ Pop(ra);
+-  __ Daddu(t0, t0, Operand(Code::kHeaderSize - kHeapObjectTag));
++  __ LoadEntryFromBuiltinIndex(t0);
+   __ Jump(t0);
+ }
+ }  // namespace
+diff --git a/deps/v8/src/codegen/mips/macro-assembler-mips.cc b/deps/v8/src/codegen/mips/macro-assembler-mips.cc
+index 923ebfa..1c9c89b 100644
+--- a/deps/v8/src/codegen/mips/macro-assembler-mips.cc
++++ b/deps/v8/src/codegen/mips/macro-assembler-mips.cc
+@@ -3974,7 +3974,7 @@
+   Call(code.address(), rmode, cond, rs, rt, bd);
+ }
+ 
+-void TurboAssembler::CallBuiltinByIndex(Register builtin_index) {
++void TurboAssembler::LoadEntryFromBuiltinIndex(Register builtin_index) {
+   STATIC_ASSERT(kSystemPointerSize == 4);
+   STATIC_ASSERT(kSmiShiftSize == 0);
+   STATIC_ASSERT(kSmiTagSize == 1);
+@@ -3985,6 +3985,10 @@
+   Lsa(builtin_index, kRootRegister, builtin_index, kSystemPointerSizeLog2);
+   lw(builtin_index,
+      MemOperand(builtin_index, IsolateData::builtin_entry_table_offset()));
++}
++
++void TurboAssembler::CallBuiltinByIndex(Register builtin_index) {
++  LoadEntryFromBuiltinIndex(builtin_index);
+   Call(builtin_index);
+ }
+ 
+diff --git a/deps/v8/src/codegen/mips/macro-assembler-mips.h b/deps/v8/src/codegen/mips/macro-assembler-mips.h
+index 84de82b..8fc4af8 100644
+--- a/deps/v8/src/codegen/mips/macro-assembler-mips.h
++++ b/deps/v8/src/codegen/mips/macro-assembler-mips.h
+@@ -214,6 +214,9 @@
+   void Call(Label* target);
+   void LoadAddress(Register dst, Label* target);
+ 
++  // Load the builtin given by the Smi in |builtin_index| into the same
++  // register.
++  void LoadEntryFromBuiltinIndex(Register builtin_index);
+   void CallBuiltinByIndex(Register builtin_index) override;
+ 
+   void LoadCodeObjectEntry(Register destination,
+diff --git a/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc b/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc
+index a433799..9cd7c51 100644
+--- a/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc
++++ b/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc
+@@ -4274,7 +4274,7 @@
+   Call(code.address(), rmode, cond, rs, rt, bd);
+ }
+ 
+-void TurboAssembler::CallBuiltinByIndex(Register builtin_index) {
++void TurboAssembler::LoadEntryFromBuiltinIndex(Register builtin_index) {
+   STATIC_ASSERT(kSystemPointerSize == 8);
+   STATIC_ASSERT(kSmiShiftSize == 31);
+   STATIC_ASSERT(kSmiTagSize == 1);
+@@ -4285,6 +4285,10 @@
+   Dlsa(builtin_index, kRootRegister, builtin_index, kSystemPointerSizeLog2);
+   Ld(builtin_index,
+      MemOperand(builtin_index, IsolateData::builtin_entry_table_offset()));
++}
++
++void TurboAssembler::CallBuiltinByIndex(Register builtin_index) {
++  LoadEntryFromBuiltinIndex(builtin_index);
+   Call(builtin_index);
+ }
+ 
+diff --git a/deps/v8/src/codegen/mips64/macro-assembler-mips64.h b/deps/v8/src/codegen/mips64/macro-assembler-mips64.h
+index 39abfb1..1bda07e 100644
+--- a/deps/v8/src/codegen/mips64/macro-assembler-mips64.h
++++ b/deps/v8/src/codegen/mips64/macro-assembler-mips64.h
+@@ -236,6 +236,9 @@
+   void Call(Label* target);
+   void LoadAddress(Register dst, Label* target);
+ 
++  // Load the builtin given by the Smi in |builtin_index| into the same
++  // register.
++  void LoadEntryFromBuiltinIndex(Register builtin_index);
+   void CallBuiltinByIndex(Register builtin_index) override;
+ 
+   void LoadCodeObjectEntry(Register destination,

@@ -1,0 +1,64 @@
+From 553dcc62bf627a771a4cfaa66a3e64c76759eea9 Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Wed, 17 Jul 2019 14:23:09 +0800
+Subject: [PATCH] [mips][wasm] Split jump table and lazy compile table
+
+Port 56eaec9 https://crrev.com/c/1698393
+
+Original Commit Message:
+
+    We had both jump slots and lazy compile slots in the same table. This
+    increases the space per slot to the maximum of the two, even though we
+    often do not use lazy compilation and could have smaller jump slots.
+    This CL splits the two into two separate tables. The lazy compile table
+    will only be created on demand, and will never be patched.
+    The jump table now only contains jumps, and is more compact (which
+    might improve performance because of improved locality).
+
+Change-Id: I54a2985d777fd3fa30d420f5af27a3ddc79641b6
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1703991
+Reviewed-by: Clemens Hammacher <clemensh@chromium.org>
+Commit-Queue: Yu Yin <xwafish@gmail.com>
+Cr-Commit-Position: refs/heads/master@{#62759}
+---
+
+diff --git a/deps/v8/src/wasm/jump-table-assembler.cc b/deps/v8/src/wasm/jump-table-assembler.cc
+index 3c6a515..7c41c0a 100644
+--- a/deps/v8/src/wasm/jump-table-assembler.cc
++++ b/deps/v8/src/wasm/jump-table-assembler.cc
+@@ -158,10 +158,14 @@
+ #elif V8_TARGET_ARCH_MIPS || V8_TARGET_ARCH_MIPS64
+ void JumpTableAssembler::EmitLazyCompileJumpSlot(uint32_t func_index,
+                                                  Address lazy_compile_target) {
++  int start = pc_offset();
+   li(kWasmCompileLazyFuncIndexRegister, func_index);  // max. 2 instr
+   // Jump produces max. 4 instructions for 32-bit platform
+   // and max. 6 instructions for 64-bit platform.
+   Jump(lazy_compile_target, RelocInfo::NONE);
++  int nop_bytes = start + kLazyCompileTableSlotSize - pc_offset();
++  DCHECK_EQ(nop_bytes % kInstrSize, 0);
++  for (int i = 0; i < nop_bytes; i += kInstrSize) nop();
+ }
+ 
+ void JumpTableAssembler::EmitRuntimeStubSlot(Address builtin_target) {
+diff --git a/deps/v8/src/wasm/jump-table-assembler.h b/deps/v8/src/wasm/jump-table-assembler.h
+index 2d8347b..4b9f298 100644
+--- a/deps/v8/src/wasm/jump-table-assembler.h
++++ b/deps/v8/src/wasm/jump-table-assembler.h
+@@ -167,14 +167,12 @@
+   static constexpr int kJumpTableStubSlotSize = 7 * kInstrSize;
+ #elif V8_TARGET_ARCH_MIPS
+   static constexpr int kJumpTableLineSize = 6 * kInstrSize;
+-  // TODO(mips): Revisit this.
+-  static constexpr int kJumpTableSlotSize = 6 * kInstrSize;
++  static constexpr int kJumpTableSlotSize = 4 * kInstrSize;
+   static constexpr int kLazyCompileTableSlotSize = 6 * kInstrSize;
+   static constexpr int kJumpTableStubSlotSize = 4 * kInstrSize;
+ #elif V8_TARGET_ARCH_MIPS64
+   static constexpr int kJumpTableLineSize = 8 * kInstrSize;
+-  // TODO(mips): Revisit this.
+-  static constexpr int kJumpTableSlotSize = 8 * kInstrSize;
++  static constexpr int kJumpTableSlotSize = 6 * kInstrSize;
+   static constexpr int kLazyCompileTableSlotSize = 8 * kInstrSize;
+   static constexpr int kJumpTableStubSlotSize = 6 * kInstrSize;
+ #else

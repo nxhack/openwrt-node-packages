@@ -1,0 +1,182 @@
+From 6a912adb8a6fde85df25a2df7605506c5f5b4933 Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Mon, 10 Jun 2019 16:49:24 +0800
+Subject: [PATCH] [mips][lite] Allocate FeedbackCell arrays for create closures in lite mode
+
+port https://crrev.com/c/1339866
+     https://crrev.com/c/1511274
+
+Change-Id: Iea6bd86cfeb4230316ff3416d744fa9f4598a75f
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1649260
+Auto-Submit: Yu Yin <xwafish@gmail.com>
+Reviewed-by: Mythri Alle <mythria@chromium.org>
+Commit-Queue: Yu Yin <xwafish@gmail.com>
+Cr-Commit-Position: refs/heads/master@{#62072}
+---
+
+diff --git a/deps/v8/src/builtins/mips/builtins-mips.cc b/deps/v8/src/builtins/mips/builtins-mips.cc
+index ec65c78..a2ecefb 100644
+--- a/deps/v8/src/builtins/mips/builtins-mips.cc
++++ b/deps/v8/src/builtins/mips/builtins-mips.cc
+@@ -62,7 +62,6 @@
+ static void GenerateTailCallToReturnedCode(MacroAssembler* masm,
+                                            Runtime::FunctionId function_id) {
+   // ----------- S t a t e -------------
+-  //  -- a0 : argument count (preserved for callee)
+   //  -- a1 : target function (preserved for callee)
+   //  -- a3 : new target (preserved for callee)
+   // -----------------------------------
+@@ -70,14 +69,12 @@
+     FrameScope scope(masm, StackFrame::INTERNAL);
+     // Push a copy of the target function and the new target.
+     // Push function as parameter to the runtime call.
+-    __ SmiTag(a0);
+-    __ Push(a0, a1, a3, a1);
++    __ Push(a1, a3, a1);
+ 
+     __ CallRuntime(function_id, 1);
+ 
+     // Restore target function and new target.
+-    __ Pop(a0, a1, a3);
+-    __ SmiUntag(a0);
++    __ Pop(a1, a3);
+   }
+ 
+   static_assert(kJavaScriptCallCodeStartRegister == a2, "ABI mismatch");
+@@ -853,13 +850,11 @@
+                                            Register scratch1, Register scratch2,
+                                            Register scratch3) {
+   // ----------- S t a t e -------------
+-  //  -- a0 : argument count (preserved for callee if needed, and caller)
+   //  -- a3 : new target (preserved for callee if needed, and caller)
+   //  -- a1 : target function (preserved for callee if needed, and caller)
+   //  -- feedback vector (preserved for caller if needed)
+   // -----------------------------------
+-  DCHECK(
+-      !AreAliased(feedback_vector, a0, a1, a3, scratch1, scratch2, scratch3));
++  DCHECK(!AreAliased(feedback_vector, a1, a3, scratch1, scratch2, scratch3));
+ 
+   Label optimized_code_slot_is_weak_ref, fallthrough;
+ 
+@@ -1035,17 +1030,18 @@
+   __ lw(feedback_vector,
+         FieldMemOperand(closure, JSFunction::kFeedbackCellOffset));
+   __ lw(feedback_vector, FieldMemOperand(feedback_vector, Cell::kValueOffset));
++
++  Label push_stack_frame;
++  // Check if feedback vector is valid. If valid, check for optimized code
++  // and update invocation count. Otherwise, setup the stack frame.
++  __ lw(t0, FieldMemOperand(feedback_vector, HeapObject::kMapOffset));
++  __ lhu(t0, FieldMemOperand(t0, Map::kInstanceTypeOffset));
++  __ Branch(&push_stack_frame, ne, t0, Operand(FEEDBACK_VECTOR_TYPE));
++
+   // Read off the optimized code slot in the feedback vector, and if there
+   // is optimized code or an optimization marker, call that instead.
+   MaybeTailCallOptimizedCodeSlot(masm, feedback_vector, t0, t3, t1);
+ 
+-  // Open a frame scope to indicate that there is a frame on the stack.  The
+-  // MANUAL indicates that the scope shouldn't actually generate code to set up
+-  // the frame (that is done below).
+-  FrameScope frame_scope(masm, StackFrame::MANUAL);
+-  __ PushStandardFrame(closure);
+-
+-
+   // Increment invocation count for the function.
+   __ lw(t0, FieldMemOperand(feedback_vector,
+                             FeedbackVector::kInvocationCountOffset));
+@@ -1053,6 +1049,13 @@
+   __ sw(t0, FieldMemOperand(feedback_vector,
+                             FeedbackVector::kInvocationCountOffset));
+ 
++  // Open a frame scope to indicate that there is a frame on the stack.  The
++  // MANUAL indicates that the scope shouldn't actually generate code to set up
++  // the frame (that is done below).
++  __ bind(&push_stack_frame);
++  FrameScope frame_scope(masm, StackFrame::MANUAL);
++  __ PushStandardFrame(closure);
++
+   // Reset code age.
+   DCHECK_EQ(0, BytecodeArray::kNoAgeBytecodeAge);
+   __ sb(zero_reg, FieldMemOperand(kInterpreterBytecodeArrayRegister,
+diff --git a/deps/v8/src/builtins/mips64/builtins-mips64.cc b/deps/v8/src/builtins/mips64/builtins-mips64.cc
+index 34a5774..2c1ff50 100644
+--- a/deps/v8/src/builtins/mips64/builtins-mips64.cc
++++ b/deps/v8/src/builtins/mips64/builtins-mips64.cc
+@@ -62,7 +62,6 @@
+ static void GenerateTailCallToReturnedCode(MacroAssembler* masm,
+                                            Runtime::FunctionId function_id) {
+   // ----------- S t a t e -------------
+-  //  -- a0 : argument count (preserved for callee)
+   //  -- a1 : target function (preserved for callee)
+   //  -- a3 : new target (preserved for callee)
+   // -----------------------------------
+@@ -70,13 +69,11 @@
+     FrameScope scope(masm, StackFrame::INTERNAL);
+     // Push a copy of the function onto the stack.
+     // Push a copy of the target function and the new target.
+-    __ SmiTag(a0);
+-    __ Push(a0, a1, a3, a1);
++    __ Push(a1, a3, a1);
+ 
+     __ CallRuntime(function_id, 1);
+     // Restore target function and new target.
+-    __ Pop(a0, a1, a3);
+-    __ SmiUntag(a0);
++    __ Pop(a1, a3);
+   }
+ 
+   static_assert(kJavaScriptCallCodeStartRegister == a2, "ABI mismatch");
+@@ -870,13 +867,11 @@
+                                            Register scratch1, Register scratch2,
+                                            Register scratch3) {
+   // ----------- S t a t e -------------
+-  //  -- a0 : argument count (preserved for callee if needed, and caller)
+   //  -- a3 : new target (preserved for callee if needed, and caller)
+   //  -- a1 : target function (preserved for callee if needed, and caller)
+   //  -- feedback vector (preserved for caller if needed)
+   // -----------------------------------
+-  DCHECK(
+-      !AreAliased(feedback_vector, a0, a1, a3, scratch1, scratch2, scratch3));
++  DCHECK(!AreAliased(feedback_vector, a1, a3, scratch1, scratch2, scratch3));
+ 
+   Label optimized_code_slot_is_weak_ref, fallthrough;
+ 
+@@ -1052,16 +1047,18 @@
+   __ Ld(feedback_vector,
+         FieldMemOperand(closure, JSFunction::kFeedbackCellOffset));
+   __ Ld(feedback_vector, FieldMemOperand(feedback_vector, Cell::kValueOffset));
++
++  Label push_stack_frame;
++  // Check if feedback vector is valid. If valid, check for optimized code
++  // and update invocation count. Otherwise, setup the stack frame.
++  __ Ld(a4, FieldMemOperand(feedback_vector, HeapObject::kMapOffset));
++  __ Lhu(a4, FieldMemOperand(a4, Map::kInstanceTypeOffset));
++  __ Branch(&push_stack_frame, ne, a4, Operand(FEEDBACK_VECTOR_TYPE));
++
+   // Read off the optimized code slot in the feedback vector, and if there
+   // is optimized code or an optimization marker, call that instead.
+   MaybeTailCallOptimizedCodeSlot(masm, feedback_vector, a4, t3, a5);
+ 
+-  // Open a frame scope to indicate that there is a frame on the stack.  The
+-  // MANUAL indicates that the scope shouldn't actually generate code to set up
+-  // the frame (that is done below).
+-  FrameScope frame_scope(masm, StackFrame::MANUAL);
+-  __ PushStandardFrame(closure);
+-
+   // Increment invocation count for the function.
+   __ Lw(a4, FieldMemOperand(feedback_vector,
+                             FeedbackVector::kInvocationCountOffset));
+@@ -1069,6 +1066,13 @@
+   __ Sw(a4, FieldMemOperand(feedback_vector,
+                             FeedbackVector::kInvocationCountOffset));
+ 
++  // Open a frame scope to indicate that there is a frame on the stack.  The
++  // MANUAL indicates that the scope shouldn't actually generate code to set up
++  // the frame (that is done below).
++  __ bind(&push_stack_frame);
++  FrameScope frame_scope(masm, StackFrame::MANUAL);
++  __ PushStandardFrame(closure);
++
+   // Reset code age.
+   DCHECK_EQ(0, BytecodeArray::kNoAgeBytecodeAge);
+   __ sb(zero_reg, FieldMemOperand(kInterpreterBytecodeArrayRegister,

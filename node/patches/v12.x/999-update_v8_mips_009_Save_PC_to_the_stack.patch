@@ -1,0 +1,140 @@
+From a6973730b0cc1569b4aff298b4ab32503c3ecc38 Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Wed, 29 May 2019 06:47:05 +0000
+Subject: [PATCH] [mips][wasm-c-api] Save PC to the stack.
+
+port https://crrev.com/c/1627539 to mips.
+
+Change-Id: I18029495b6793fa1b981e28505a7c42842dacc97
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1634629
+Reviewed-by: Jakob Kummerow <jkummerow@chromium.org>
+Commit-Queue: Yu Yin <xwafish@gmail.com>
+Cr-Commit-Position: refs/heads/master@{#61926}
+---
+
+diff --git a/deps/v8/src/codegen/mips/macro-assembler-mips.cc b/deps/v8/src/codegen/mips/macro-assembler-mips.cc
+index 483b7e8..9adfde6 100644
+--- a/deps/v8/src/codegen/mips/macro-assembler-mips.cc
++++ b/deps/v8/src/codegen/mips/macro-assembler-mips.cc
+@@ -4111,6 +4111,11 @@
+ 
+ void TurboAssembler::Call(Label* target) { BranchAndLink(target); }
+ 
++void TurboAssembler::LoadAddress(Register dst, Label* target) {
++  uint32_t address = jump_address(target);
++  li(dst, address);
++}
++
+ void TurboAssembler::Push(Handle<HeapObject> handle) {
+   UseScratchRegisterScope temps(this);
+   Register scratch = temps.Acquire();
+diff --git a/deps/v8/src/codegen/mips/macro-assembler-mips.h b/deps/v8/src/codegen/mips/macro-assembler-mips.h
+index f394e01..812b362 100644
+--- a/deps/v8/src/codegen/mips/macro-assembler-mips.h
++++ b/deps/v8/src/codegen/mips/macro-assembler-mips.h
+@@ -212,6 +212,7 @@
+   void Call(Handle<Code> code, RelocInfo::Mode rmode = RelocInfo::CODE_TARGET,
+             COND_ARGS);
+   void Call(Label* target);
++  void LoadAddress(Register dst, Label* target);
+ 
+   void CallBuiltinPointer(Register builtin_pointer) override;
+ 
+diff --git a/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc b/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc
+index 65c0b59..f06aaa4 100644
+--- a/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc
++++ b/deps/v8/src/codegen/mips64/macro-assembler-mips64.cc
+@@ -4433,6 +4433,11 @@
+ 
+ void TurboAssembler::Call(Label* target) { BranchAndLink(target); }
+ 
++void TurboAssembler::LoadAddress(Register dst, Label* target) {
++  uint64_t address = jump_address(target);
++  li(dst, address);
++}
++
+ void TurboAssembler::Push(Smi smi) {
+   UseScratchRegisterScope temps(this);
+   Register scratch = temps.Acquire();
+diff --git a/deps/v8/src/codegen/mips64/macro-assembler-mips64.h b/deps/v8/src/codegen/mips64/macro-assembler-mips64.h
+index d0f9b7f..4e3e2fa 100644
+--- a/deps/v8/src/codegen/mips64/macro-assembler-mips64.h
++++ b/deps/v8/src/codegen/mips64/macro-assembler-mips64.h
+@@ -234,6 +234,7 @@
+   void Call(Handle<Code> code, RelocInfo::Mode rmode = RelocInfo::CODE_TARGET,
+             COND_ARGS);
+   void Call(Label* target);
++  void LoadAddress(Register dst, Label* target);
+ 
+   void CallBuiltinPointer(Register builtin_pointer) override;
+ 
+diff --git a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
+index 1f79386..0a6d231 100644
+--- a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
++++ b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
+@@ -778,6 +778,13 @@
+       break;
+     case kArchCallCFunction: {
+       int const num_parameters = MiscField::decode(instr->opcode());
++      Label return_location;
++      if (linkage()->GetIncomingDescriptor()->kind() ==
++          CallDescriptor::kCallWasmImportWrapper) {
++        __ LoadAddress(kScratchReg, &return_location);
++        __ sw(kScratchReg,
++              MemOperand(fp, WasmExitFrameConstants::kCallingPCOffset));
++      }
+       if (instr->InputAt(0)->IsImmediate()) {
+         ExternalReference ref = i.InputExternalReference(0);
+         __ CallCFunction(ref, num_parameters);
+@@ -785,6 +792,8 @@
+         Register func = i.InputRegister(0);
+         __ CallCFunction(func, num_parameters);
+       }
++      __ bind(&return_location);
++      RecordSafepoint(instr->reference_map(), Safepoint::kNoLazyDeopt);
+       frame_access_state()->SetFrameAccessToDefault();
+       // Ideally, we should decrement SP delta to match the change of stack
+       // pointer in CallCFunction. However, for certain architectures (e.g.
+@@ -3397,6 +3406,7 @@
+         __ lw(kWasmInstanceRegister,
+               FieldMemOperand(kWasmInstanceRegister, Tuple2::kValue1Offset));
+         __ Push(kWasmInstanceRegister);
++        __ Subu(sp, sp, Operand(kSystemPointerSize));
+       }
+     }
+   }
+diff --git a/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc b/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc
+index 5cd9bc5..7c50101 100644
+--- a/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc
++++ b/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc
+@@ -756,6 +756,13 @@
+       break;
+     case kArchCallCFunction: {
+       int const num_parameters = MiscField::decode(instr->opcode());
++      Label return_location;
++      if (linkage()->GetIncomingDescriptor()->kind() ==
++          CallDescriptor::kCallWasmImportWrapper) {
++        __ LoadAddress(kScratchReg, &return_location);
++        __ sd(kScratchReg,
++              MemOperand(fp, WasmExitFrameConstants::kCallingPCOffset));
++      }
+       if (instr->InputAt(0)->IsImmediate()) {
+         ExternalReference ref = i.InputExternalReference(0);
+         __ CallCFunction(ref, num_parameters);
+@@ -763,6 +770,8 @@
+         Register func = i.InputRegister(0);
+         __ CallCFunction(func, num_parameters);
+       }
++      __ bind(&return_location);
++      RecordSafepoint(instr->reference_map(), Safepoint::kNoLazyDeopt);
+       frame_access_state()->SetFrameAccessToDefault();
+       // Ideally, we should decrement SP delta to match the change of stack
+       // pointer in CallCFunction. However, for certain architectures (e.g.
+@@ -3556,6 +3565,7 @@
+         __ ld(kWasmInstanceRegister,
+               FieldMemOperand(kWasmInstanceRegister, Tuple2::kValue1Offset));
+         __ Push(kWasmInstanceRegister);
++        __ Dsubu(sp, sp, Operand(kSystemPointerSize));
+       }
+     }
+   }

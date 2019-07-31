@@ -1,0 +1,61 @@
+From 5ab03647c6c53cdb23647e6045117cb4252ff80e Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Fri, 28 Jun 2019 11:52:08 +0800
+Subject: [PATCH] [mips][wasm-c-api] Faster C-to-Wasm entry
+
+port e304d80 https://crrev.com/c/1660618
+Original Commit Message:
+
+    powered by a new function Execution::CallWasm and a corresponding,
+    Turbofan-generated CWasmEntry stub. This entirely sidesteps the
+    traditional Execution::Invoke -> JSEntryStub path.
+
+Change-Id: I4d3a284779ecff27e39fffb658c608b16c43d828
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1679962
+Commit-Queue: Jakob Kummerow <jkummerow@chromium.org>
+Reviewed-by: Jakob Kummerow <jkummerow@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#62438}
+---
+
+diff --git a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
+index 1048a70..67ec278 100644
+--- a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
++++ b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
+@@ -3386,8 +3386,14 @@
+   auto call_descriptor = linkage()->GetIncomingDescriptor();
+   if (frame_access_state()->has_frame()) {
+     if (call_descriptor->IsCFunctionCall()) {
+-      __ Push(ra, fp);
+-      __ mov(fp, sp);
++      if (info()->GetOutputStackFrameType() == StackFrame::C_WASM_ENTRY) {
++        __ StubPrologue(StackFrame::C_WASM_ENTRY);
++        // Reserve stack space for saving the c_entry_fp later.
++        __ Subu(sp, sp, Operand(kSystemPointerSize));
++      } else {
++        __ Push(ra, fp);
++        __ mov(fp, sp);
++      }
+     } else if (call_descriptor->IsJSFunctionCall()) {
+       __ Prologue();
+       if (call_descriptor->PushArgumentCount()) {
+diff --git a/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc b/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc
+index b87f449..9ce8c64 100644
+--- a/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc
++++ b/deps/v8/src/compiler/backend/mips64/code-generator-mips64.cc
+@@ -3545,8 +3545,14 @@
+ 
+   if (frame_access_state()->has_frame()) {
+     if (call_descriptor->IsCFunctionCall()) {
+-      __ Push(ra, fp);
+-      __ mov(fp, sp);
++      if (info()->GetOutputStackFrameType() == StackFrame::C_WASM_ENTRY) {
++        __ StubPrologue(StackFrame::C_WASM_ENTRY);
++        // Reserve stack space for saving the c_entry_fp later.
++        __ Dsubu(sp, sp, Operand(kSystemPointerSize));
++      } else {
++        __ Push(ra, fp);
++        __ mov(fp, sp);
++      }
+     } else if (call_descriptor->IsJSFunctionCall()) {
+       __ Prologue();
+       if (call_descriptor->PushArgumentCount()) {
