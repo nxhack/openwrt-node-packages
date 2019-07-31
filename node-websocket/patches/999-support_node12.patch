@@ -1,0 +1,68 @@
+From 4824f4216ec8f79c4f4db7205f918ad5e3986c88 Mon Sep 17 00:00:00 2001
+From: Steven Wu <capricorn0113@gmail.com>
+Date: Mon, 15 Jul 2019 17:37:49 +0800
+Subject: [PATCH] Fix build error at Node.js v12
+
+---
+ package.json      | 2 +-
+ src/bufferutil.cc | 4 ++--
+ src/validation.cc | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/package.json b/package.json
+index dbf457a..a0196e3 100644
+--- a/package.json
++++ b/package.json
+@@ -28,7 +28,7 @@
+   },
+   "dependencies": {
+     "debug": "^2.2.0",
+-    "nan": "^2.11.0",
++    "nan": "^2.14.0",
+     "gulp": "^4.0.2",
+     "typedarray-to-buffer": "^3.1.5",
+     "yaeti": "^0.0.6"
+diff --git a/src/bufferutil.cc b/src/bufferutil.cc
+index d2f8d2d..a53c246 100644
+--- a/src/bufferutil.cc
++++ b/src/bufferutil.cc
+@@ -23,7 +23,7 @@ class BufferUtil : public ObjectWrap
+ {
+ public:
+ 
+-  static void Initialize(v8::Handle<v8::Object> target)
++  static void Initialize(v8::Local<v8::Object> target)
+   {
+     Nan::HandleScope scope;
+     Local<FunctionTemplate> t = Nan::New<FunctionTemplate>(New);
+@@ -112,7 +112,7 @@ class BufferUtil : public ObjectWrap
+ #if !NODE_VERSION_AT_LEAST(0,10,0)
+ extern "C"
+ #endif
+-void init (Handle<Object> target)
++void init (Local<Object> target)
+ {
+   Nan::HandleScope scope;
+   BufferUtil::Initialize(target);
+diff --git a/src/validation.cc b/src/validation.cc
+index 8e2347e..3db4f65 100644
+--- a/src/validation.cc
++++ b/src/validation.cc
+@@ -105,7 +105,7 @@ class Validation : public ObjectWrap
+ {
+ public:
+ 
+-  static void Initialize(v8::Handle<v8::Object> target)
++  static void Initialize(v8::Local<v8::Object> target)
+   {
+     Nan::HandleScope scope;
+     Local<FunctionTemplate> t = Nan::New<FunctionTemplate>(New);
+@@ -139,7 +139,7 @@ class Validation : public ObjectWrap
+ #if !NODE_VERSION_AT_LEAST(0,10,0)
+ extern "C"
+ #endif
+-void init (Handle<Object> target)
++void init (Local<Object> target)
+ {
+   Nan::HandleScope scope;
+   Validation::Initialize(target);
