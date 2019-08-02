@@ -29,7 +29,7 @@ diff --git a/deps/openssl/openssl/crypto/rand/rand_unix.c b/deps/openssl/openssl
 index 2b3e32dc962..3a6e00959c7 100644
 --- a/deps/openssl/openssl/crypto/rand/rand_unix.c
 +++ b/deps/openssl/openssl/crypto/rand/rand_unix.c
-@@ -489,29 +489,6 @@ size_t rand_pool_acquire_entropy(RAND_POOL *pool)
+@@ -510,29 +510,6 @@ size_t rand_pool_acquire_entropy(RAND_POOL *pool)
      bytes_needed = rand_pool_bytes_needed(pool, 1 /*entropy_factor*/);
      {
          size_t i;
