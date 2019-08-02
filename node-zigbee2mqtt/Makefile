@@ -59,15 +59,17 @@ define Build/Compile
 endef
 
 define Package/node-zigbee2mqtt/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.md,*.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{data,docs,images,scripts,test} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/opt/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/zigbee2mqtt.init $(1)/etc/init.d/zigbee2mqtt
 endef
 
 $(eval $(call BuildPackage,node-zigbee2mqtt))
