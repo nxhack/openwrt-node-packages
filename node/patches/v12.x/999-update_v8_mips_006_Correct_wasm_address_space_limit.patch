@@ -1,0 +1,31 @@
+From a814f29f67e8974da55f439337d1fa0ceef2afea Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Fri, 10 May 2019 17:05:21 +0800
+Subject: [PATCH] [mips64] Correct wasm address space limit.
+
+MIPS64 has a user space of 2^40 bytes on most processors, address
+space limits needs to be smaller. 256G is ok, but it will cause
+mjsunit/wasm/bulk-memory-spec/memory_copy.wast get a OOM error.
+
+Bug: v8:7747
+Change-Id: Ie7a96336ef4ab6340def813478a09bdf3f76894e
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1605524
+Auto-Submit: Yu Yin <xwafish@gmail.com>
+Commit-Queue: Bill Budge <bbudge@chromium.org>
+Reviewed-by: Bill Budge <bbudge@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#61417}
+---
+
+diff --git a/deps/v8/src/wasm/wasm-memory.cc b/deps/v8/src/wasm/wasm-memory.cc
+index cb65a8d..8bbf215 100644
+--- a/deps/v8/src/wasm/wasm-memory.cc
++++ b/deps/v8/src/wasm/wasm-memory.cc
+@@ -137,7 +137,7 @@
+ #if V8_TARGET_ARCH_MIPS64
+ // MIPS64 has a user space of 2^40 bytes on most processors,
+ // address space limits needs to be smaller.
+-constexpr size_t kAddressSpaceLimit = 0x4000000000L;  // 256 GiB
++constexpr size_t kAddressSpaceLimit = 0x8000000000L;  // 512 GiB
+ #elif V8_TARGET_ARCH_64_BIT
+ constexpr size_t kAddressSpaceLimit = 0x10100000000L;  // 1 TiB + 4 GiB
+ #else

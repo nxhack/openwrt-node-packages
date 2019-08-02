@@ -164,7 +164,7 @@ CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
-	--dest-os=linux \
+	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
