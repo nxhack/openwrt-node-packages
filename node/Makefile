@@ -8,22 +8,16 @@ PKG_NAME:=node
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.3.1
+PKG_VERSION:=v12.7.0
 PKG_RELEASE:=1
-PKG_HASH:=ba2b50acffe67068f44e06e5c6938f9a391086d7f8386aea829a199db02d0bfe
+PKG_HASH:=2d9aa598a46fee980d281aab14143a6dfdfd3c7b4c5b582538bb8a7be401ffd0
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.16.0
+PKG_VERSION:=v10.16.1
 PKG_RELEASE:=1
-PKG_HASH:=18e37f891d10ea7fbc8f6410c444c2b1d9cc3cbbb1d35aa9c41f761816956608
+PKG_HASH:=6268319c8dddfdaa7886ea3f253ac5c2d133a6c682c00786296227e03f322009
 PATCH_DIR:=./patches/v10.x
-else
-ifeq ($(CONFIG_NODEJS_6),y)
-PKG_VERSION:=v6.17.1
-PKG_RELEASE:=1
-PKG_HASH:=6f6dc9624656a008513b7608bfc105dd92ceea5d7b4516edeca7e6b19d2edd94
-PATCH_DIR:=./patches/v6.x
 else
 PKG_VERSION:=v8.16.0
 PKG_RELEASE:=1
@@ -31,22 +25,21 @@ PKG_HASH:=3515e8e01568a5dc4dff3d91a76ebc6724f5fa2fbb58b4b0c5da7b178a2f7340
 PATCH_DIR:=./patches/v8.x
 endif
 endif
-endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://nodejs.org/dist/$(PKG_VERSION)
 
-HOST_BUILD_DEPENDS:=python/host
-PKG_BUILD_DEPENDS:=python/host node/host
-PKG_INSTALL:=1
-PKG_USE_MIPS16:=0
-
-HOST_BUILD_PARALLEL:=1
-PKG_BUILD_PARALLEL:=1
-
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+
+HOST_BUILD_DEPENDS:=python/host
+HOST_BUILD_PARALLEL:=1
+
+PKG_BUILD_DEPENDS:=python/host NODEJS_12:node/host
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+PKG_USE_MIPS16:=0
 
 OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
 
@@ -59,11 +52,11 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=@!arc @!armeb \
+  DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb \
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
-           $(if $(filter reboot, $(OW_VER)),+libopenssl,+(!NODEJS_10&&!NODEJS_12):libopenssl) \
+           $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
-           +(NODEJS_10||NODEJS_12):libatomic
+           +!NODEJS_8:libatomic
 endef
 
 define Package/node/description
@@ -85,19 +78,6 @@ define Package/node-npm/description
  NPM is the package manager for Node.js
 endef
 
-#define Package/node-inspect
-#  SECTION:=lang
-#  CATEGORY:=Languages
-#  SUBMENU:=Node.js
-#  TITLE:=Node Inspect
-#  URL:=https://www.npmjs.com/
-#  DEPENDS:=+node
-#endef
-
-#define Package/node-inspect/description
-# node-inspect re-implementing node debug against the new V8 debugger protocol.
-#endef
-
 define Package/node/config
 	menu "Configuration"
 		depends on PACKAGE_node
@@ -107,9 +87,6 @@ define Package/node/config
 		default NODEJS_8
 		help
 		 Select node.js version.
-
-		config NODEJS_6
-			bool "6.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_8
 			bool "8.x Maintenance LTS"
@@ -131,18 +108,13 @@ define Package/node/config
 			bool "Disable"
 
 		config NODEJS_ICU_SMALL
+			depends on !BIG_ENDIAN
 			bool "small-icu"
 
 		config NODEJS_ICU_SYSTEM
+			depends on ARCH_64BIT&&!BIG_ENDIAN
 			bool "system-icu"
 	endchoice
-
-	config NODEJS_WITH_SNAPSHOT
-		depends on !(TARGET_x86_64 || NODEJS_ICU_NONE || (!ARCH_64BIT && NODEJS_ICU_SYSTEM))
-		bool "Build with snapshot"
-		help
-		 Enable advanced debugging
-		default y
 
 	endmenu
 endef
@@ -174,10 +146,12 @@ CONFIGURE_VARS:= \
 CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
-	$(if $(CONFIG_NODEJS_WITH_SNAPSHOT),,--without-snapshot) \
+	--cross-compiling \
+	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
+	$(if $(CONFIG_BIG_ENDIAN),--without-snapshot) \
 	--shared-zlib \
-	$(if $(filter reboot, $(OW_VER)),--shared-openssl, \
-		$(if $(CONFIG_NODEJS_10),,$(if $(CONFIG_NODEJS_12),,--shared-openssl))) \
+	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
+		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
@@ -190,30 +164,25 @@ CONFIGURE_ARGS:= \
 
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
-	--dest-os=linux \
-	--without-snapshot \
+	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
-MKTOOL=$(HOST_BUILD_DIR)/out/Release/mkcodecache
+ifeq ($(CONFIG_NODEJS_12),y)
+ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
+HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
+FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
 
 define Build/Prepare
-	$(if $(findstring arm,$(NODEJS_CPU)), $(if $(CONFIG_SOFT_FLOAT), \
-		echo "You can't running Node.js on ARM CPU without hardware FPU."; \
-		exit 1; \
-	))
-	$(if $(filter reboot, $(OW_VER)), $(if $(CONFIG_NODEJS_6), \
-		echo "Node.js v6.x no longer supported in the OpenWrt head."; \
-		exit 1; \
-	))
 	$(Build/Prepare/Default)
-ifeq ($(CONFIG_NODEJS_12),y)
-	$(SED) "s#<(mkcodecache_exec)#$(MKTOOL)#g" $(FILE_NODE_GYP)
-endif
+	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
+	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_NODE_GYP)
 endef
+endif
+endif
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
@@ -230,19 +199,9 @@ define Package/node-npm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
-ifneq ($(CONFIG_NODEJS_6),y)
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
-endif
 endef
-
-#define Package/node-inspect/install
-#	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
-#	$(INSTALL_DIR) $(1)/usr/bin
-#	$(LN) ../lib/node_modules/node-inspect/cli.js $(1)/usr/bin/node-inspect
-#endef
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node))
 $(eval $(call BuildPackage,node-npm))
-#$(eval $(call BuildPackage,node-inspect))

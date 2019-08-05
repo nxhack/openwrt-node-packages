@@ -1,0 +1,27 @@
+From 023905b97b5eec05688efe6ecb84630eb1ee3bf2 Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Mon, 06 May 2019 10:59:26 +0800
+Subject: [PATCH] [mips] Fix build error in debug mode.
+
+Change-Id: I98ebc42a7dc343abc471d04c606b6746f6cae18a
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1596047
+Reviewed-by: Bill Budge <bbudge@chromium.org>
+Commit-Queue: Yu Yin <xwafish@gmail.com>
+Cr-Commit-Position: refs/heads/master@{#61256}
+---
+
+diff --git a/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc b/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc
+index 03f4e51..3395845 100644
+--- a/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc
++++ b/deps/v8/src/compiler/backend/mips64/instruction-selector-mips64.cc
+@@ -201,8 +201,8 @@
+     DCHECK(m.IsWord64Sar());
+     if (m.left().IsLoad() && m.right().Is(32) &&
+         selector_->CanCover(m.node(), m.left().node())) {
+-      DCHECK_EQ(selector_->GetEffectiveLevel(node),
+-                selector_->GetEffectiveLevel(m.left().node()));
++      DCHECK_EQ(selector_->GetEffectLevel(node),
++                selector_->GetEffectLevel(m.left().node()));
+       MachineRepresentation rep =
+           LoadRepresentationOf(m.left().node()->op()).representation();
+       DCHECK_EQ(3, ElementSizeLog2Of(rep));
