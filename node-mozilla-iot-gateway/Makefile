@@ -82,9 +82,9 @@ define Package/node-mozilla-iot-gateway/install
 		$(1)/opt/mozilla-iot/gateway/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{*.py,*.ts} \
 		$(1)/opt/mozilla-iot/gateway/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{node_modules,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{node_modules,src} \
 		$(1)/opt/mozilla-iot/gateway/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{config,images,src} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{config,images} \
 		$(1)/opt/mozilla-iot/gateway/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{static,tools} \
 		$(1)/opt/mozilla-iot/gateway/
