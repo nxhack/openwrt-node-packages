@@ -84,7 +84,7 @@ define Package/node-mozilla-iot-gateway/install
 		$(1)/opt/mozilla-iot/gateway/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{node_modules,src} \
 		$(1)/opt/mozilla-iot/gateway/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{config,images} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{config,image} \
 		$(1)/opt/mozilla-iot/gateway/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{static,tools} \
 		$(1)/opt/mozilla-iot/gateway/
