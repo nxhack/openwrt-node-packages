@@ -1,0 +1,75 @@
+From c19c5a65bc87f55ce1a9093169b802f36446213d Mon Sep 17 00:00:00 2001
+From: "Dr. Matthias St. Pierre" <Matthias.St.Pierre@ncp-e.com>
+Date: Wed, 5 Jun 2019 11:09:46 +0200
+Subject: [PATCH] Revert the DEVRANDOM_WAIT feature
+
+The DEVRANDOM_WAIT feature added a select() call to wait for the
+`/dev/random` device to become readable before reading from the
+`/dev/urandom` device. It was introduced in commit 38023b87f037
+in order to mitigate the fact that the `/dev/urandom` device
+does not block until the initial seeding of the kernel CSPRNG
+has completed, contrary to the behaviour of the `getrandom()`
+system call.
+
+It turned out that this change had negative side effects on the
+performance which were not acceptable. After some discussion it
+was decided to revert this feature and leave it up to the OS
+resp. the platform maintainer to ensure a proper initialization
+during early boot time.
+
+Fixes #9078
+
+This partially reverts commit 38023b87f037.
+---
+ deps/openssl/openssl/crypto/rand/rand_unix.c | 23 -----------------------
+ deps/openssl/openssl/e_os.h                  |  3 ---
+ 2 files changed, 26 deletions(-)
+
+diff --git a/deps/openssl/openssl/crypto/rand/rand_unix.c b/deps/openssl/openssl/crypto/rand/rand_unix.c
+index 2b3e32dc962..3a6e00959c7 100644
+--- a/deps/openssl/openssl/crypto/rand/rand_unix.c
++++ b/deps/openssl/openssl/crypto/rand/rand_unix.c
+@@ -510,29 +510,6 @@ size_t rand_pool_acquire_entropy(RAND_POOL *pool)
+     bytes_needed = rand_pool_bytes_needed(pool, 1 /*entropy_factor*/);
+     {
+         size_t i;
+-#ifdef DEVRANDOM_WAIT
+-        static int wait_done = 0;
+-
+-        /*
+-         * On some implementations reading from /dev/urandom is possible
+-         * before it is initialized. Therefore we wait for /dev/random
+-         * to be readable to make sure /dev/urandom is initialized.
+-         */
+-        if (!wait_done && bytes_needed > 0) {
+-             int f = open(DEVRANDOM_WAIT, O_RDONLY);
+-
+-             if (f >= 0) {
+-                 fd_set fds;
+-
+-                 FD_ZERO(&fds);
+-                 FD_SET(f, &fds);
+-                 while (select(f+1, &fds, NULL, NULL, NULL) < 0
+-                        && errno == EINTR);
+-                 close(f);
+-             }
+-             wait_done = 1;
+-        }
+-#endif
+ 
+         for (i = 0; bytes_needed > 0 && i < OSSL_NELEM(random_device_paths); i++) {
+             ssize_t bytes = 0;
+diff --git a/deps/openssl/openssl/e_os.h b/deps/openssl/openssl/e_os.h
+index 1c552724381..95ec0d6976a 100644
+--- a/deps/openssl/openssl/e_os.h
++++ b/deps/openssl/openssl/e_os.h
+@@ -28,9 +28,6 @@
+  * default, we will try to read at least one of these files
+  */
+ #  define DEVRANDOM "/dev/urandom", "/dev/random", "/dev/hwrng", "/dev/srandom"
+-#  ifdef __linux
+-#   define DEVRANDOM_WAIT "/dev/random"
+-#  endif
+ # endif
+ # if !defined(OPENSSL_NO_EGD) && !defined(DEVRANDOM_EGD)
+ /*
