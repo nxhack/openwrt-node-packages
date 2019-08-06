@@ -1,0 +1,54 @@
+From e5feab6d26aee0e6a39cc6f02287955949c2f88f Mon Sep 17 00:00:00 2001
+From: Yu Yin <xwafish@gmail.com>
+Date: Mon, 06 May 2019 09:57:50 +0800
+Subject: [PATCH] [mips64][lifoff] Fix spill/fill values
+
+mips load/store instructions can only handle when the memory offset is in range
+[int16_min, int16_max], when beyond this range, we can use macro instructions which
+will adjust base and offset first.
+
+Change-Id: I84319b7fef9de8d0b8f507374654e38827503bdd
+Reviewed-on: https://chromium-review.googlesource.com/c/v8/v8/+/1596046
+Reviewed-by: Bill Budge <bbudge@chromium.org>
+Commit-Queue: Yu Yin <xwafish@gmail.com>
+Cr-Commit-Position: refs/heads/master@{#61255}
+---
+
+diff --git a/deps/v8/src/wasm/baseline/mips64/liftoff-assembler-mips64.h b/deps/v8/src/wasm/baseline/mips64/liftoff-assembler-mips64.h
+index 7bfa172..a8ba5b8 100644
+--- a/deps/v8/src/wasm/baseline/mips64/liftoff-assembler-mips64.h
++++ b/deps/v8/src/wasm/baseline/mips64/liftoff-assembler-mips64.h
+@@ -436,13 +436,13 @@
+   MemOperand dst = liftoff::GetStackSlot(index);
+   switch (type) {
+     case kWasmI32:
+-      sw(reg.gp(), dst);
++      Sw(reg.gp(), dst);
+       break;
+     case kWasmI64:
+-      sd(reg.gp(), dst);
++      Sd(reg.gp(), dst);
+       break;
+     case kWasmF32:
+-      swc1(reg.fp(), dst);
++      Swc1(reg.fp(), dst);
+       break;
+     case kWasmF64:
+       TurboAssembler::Sdc1(reg.fp(), dst);
+@@ -480,13 +480,13 @@
+   MemOperand src = liftoff::GetStackSlot(index);
+   switch (type) {
+     case kWasmI32:
+-      lw(reg.gp(), src);
++      Lw(reg.gp(), src);
+       break;
+     case kWasmI64:
+-      ld(reg.gp(), src);
++      Ld(reg.gp(), src);
+       break;
+     case kWasmF32:
+-      lwc1(reg.fp(), src);
++      Lwc1(reg.fp(), src);
+       break;
+     case kWasmF64:
+       TurboAssembler::Ldc1(reg.fp(), src);
