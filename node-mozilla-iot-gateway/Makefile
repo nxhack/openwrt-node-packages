@@ -76,13 +76,17 @@ endef
 
 define Package/node-mozilla-iot-gateway/install
 	$(INSTALL_DIR) $(1)/opt/mozilla-iot/gateway/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{package.json,LICENSE} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{*.json,LICENSE} \
 		$(1)/opt/mozilla-iot/gateway/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{*.md,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{*.md,*.js,*.sh} \
+		$(1)/opt/mozilla-iot/gateway/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{*.py,*.ts} \
 		$(1)/opt/mozilla-iot/gateway/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{node_modules,lib} \
 		$(1)/opt/mozilla-iot/gateway/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{data,docs,images,scripts,test} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{config,images,src} \
+		$(1)/opt/mozilla-iot/gateway/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/webthings-gateway/{static,tools} \
 		$(1)/opt/mozilla-iot/gateway/
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
