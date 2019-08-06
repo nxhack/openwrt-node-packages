@@ -97,7 +97,7 @@ define Package/node-mozilla-iot-gateway/install
 	npm_config_prefix=$(1)/opt/mozilla-iot/gateway \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install $(1)/opt/mozilla-iot/gateway
+	npm --prefix=$(1)/opt/mozilla-iot/gateway install $(1)/opt/mozilla-iot/gateway
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	$(INSTALL_DIR) $(1)/etc/init.d
