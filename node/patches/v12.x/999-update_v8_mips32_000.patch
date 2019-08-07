@@ -141,21 +141,6 @@ diff -urN a/deps/v8/src/mips/assembler-mips.h b/deps/v8/src/mips/assembler-mips.
                         rmode_ == RelocInfo::CODE_TARGET);
      return is_heap_object_request_;
    }
-@@ -318,14 +314,6 @@
-   // pair.
-   static constexpr int kInstructionsFor32BitConstant = 2;
- 
--  // Distance between the instruction referring to the address of the call
--  // target and the return address.
--#ifdef _MIPS_ARCH_MIPS32R6
--  static constexpr int kCallTargetAddressOffset = 2 * kInstrSize;
--#else
--  static constexpr int kCallTargetAddressOffset = 4 * kInstrSize;
--#endif
--
-   // Max offset for instructions with 16-bit offset field
-   static constexpr int kMaxBranchOffset = (1 << (18 - 1)) - 1;
- 
 diff -urN a/deps/v8/src/mips/disasm-mips.cc b/deps/v8/src/mips/disasm-mips.cc
 --- a/deps/v8/src/mips/disasm-mips.cc	2019-07-24 04:35:53.000000000 +0900
 +++ b/deps/v8/src/mips/disasm-mips.cc	2019-08-07 09:23:52.000000000 +0900
