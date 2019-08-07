@@ -1,6 +1,125 @@
+diff -urN a/deps/v8/src/builtins/mips/builtins-mips.cc b/deps/v8/src/builtins/mips/builtins-mips.cc
+--- a/deps/v8/src/builtins/mips/builtins-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/builtins/mips/builtins-mips.cc	2019-08-07 10:51:27.000000000 +0900
+@@ -874,7 +874,8 @@
+   Register optimized_code_entry = scratch1;
+ 
+   __ lw(optimized_code_entry,
+-        FieldMemOperand(feedback_vector, FeedbackVector::kOptimizedCodeOffset));
++        FieldMemOperand(feedback_vector,
++                        FeedbackVector::kOptimizedCodeWeakOrSmiOffset));
+ 
+   // Check if the code entry is a Smi. If yes, we interpret it as an
+   // optimisation marker. Otherwise, interpret it as a weak cell to a code
+diff -urN a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
+--- a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-08-07 10:50:09.000000000 +0900
+@@ -171,7 +171,9 @@
+       __ Push(ra);
+     }
+ 
+-    if (stub_mode_ == StubCallMode::kCallWasmRuntimeStub) {
++    if (mode_ == RecordWriteMode::kValueIsEphemeronKey) {
++      __ CallEphemeronKeyBarrier(object_, scratch1_, save_fp_mode);
++    } else if (stub_mode_ == StubCallMode::kCallWasmRuntimeStub) {
+       // A direct call to a wasm runtime stub defined in this module.
+       // Just encode the stub index. This will be patched when the code
+       // is added to the native module and copied into wasm code space.
+@@ -3103,7 +3105,6 @@
+       return;
+     default:
+       UNREACHABLE();
+-      break;
+   }
+ }
+ 
+diff -urN a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc b/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc
+--- a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-08-07 10:50:09.000000000 +0900
+@@ -315,7 +315,6 @@
+     case MachineRepresentation::kWord64:             // Fall through.
+     case MachineRepresentation::kNone:
+       UNREACHABLE();
+-      return;
+   }
+   if (node->opcode() == IrOpcode::kPoisonedLoad) {
+     CHECK_NE(poisoning_level_, PoisoningMitigationLevel::kDontPoison);
+@@ -1322,7 +1321,6 @@
+     case MachineRepresentation::kBit:  // Fall through.
+     case MachineRepresentation::kWord8:
+       UNREACHABLE();
+-      break;
+     case MachineRepresentation::kWord16:
+       opcode = load_rep.IsUnsigned() ? kMipsUlhu : kMipsUlh;
+       break;
+@@ -1347,7 +1345,6 @@
+     case MachineRepresentation::kWord64:             // Fall through.
+     case MachineRepresentation::kNone:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
+@@ -1383,7 +1380,6 @@
+     case MachineRepresentation::kBit:  // Fall through.
+     case MachineRepresentation::kWord8:
+       UNREACHABLE();
+-      break;
+     case MachineRepresentation::kWord16:
+       opcode = kMipsUsh;
+       break;
+@@ -1402,7 +1398,6 @@
+     case MachineRepresentation::kWord64:             // Fall through.
+     case MachineRepresentation::kNone:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
+@@ -1800,7 +1795,6 @@
+       break;
+     default:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
+@@ -1835,7 +1829,6 @@
+       break;
+     default:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
 diff -urN a/deps/v8/src/mips/assembler-mips.cc b/deps/v8/src/mips/assembler-mips.cc
 --- a/deps/v8/src/mips/assembler-mips.cc	2019-07-24 04:35:53.000000000 +0900
 +++ b/deps/v8/src/mips/assembler-mips.cc	2019-08-07 09:23:52.000000000 +0900
+@@ -213,21 +213,21 @@
+ // See assembler-mips-inl.h for inlined constructors.
+ 
+ Operand::Operand(Handle<HeapObject> handle)
+-    : rm_(no_reg), rmode_(RelocInfo::EMBEDDED_OBJECT) {
++    : rm_(no_reg), rmode_(RelocInfo::FULL_EMBEDDED_OBJECT) {
+   value_.immediate = static_cast<intptr_t>(handle.address());
+ }
+ 
+ Operand Operand::EmbeddedNumber(double value) {
+   int32_t smi;
+   if (DoubleToSmiInteger(value, &smi)) return Operand(Smi::FromInt(smi));
+-  Operand result(0, RelocInfo::EMBEDDED_OBJECT);
++  Operand result(0, RelocInfo::FULL_EMBEDDED_OBJECT);
+   result.is_heap_object_request_ = true;
+   result.value_.heap_object_request = HeapObjectRequest(value);
+   return result;
+ }
+ 
+ Operand Operand::EmbeddedStringConstant(const StringConstantBase* str) {
+-  Operand result(0, RelocInfo::EMBEDDED_OBJECT);
++  Operand result(0, RelocInfo::FULL_EMBEDDED_OBJECT);
+   result.is_heap_object_request_ = true;
+   result.value_.heap_object_request = HeapObjectRequest(str);
+   return result;
 @@ -3858,7 +3858,7 @@
      if (imm == kEndOfJumpChain) {
        return;
@@ -10,6 +129,96 @@ diff -urN a/deps/v8/src/mips/assembler-mips.cc b/deps/v8/src/mips/assembler-mips
      DCHECK_EQ(imm & 3, 0);
      PatchLuiOriImmediate(pc, imm, instr1, 0 * kInstrSize, instr2, ori_offset);
      return;
+diff -urN a/deps/v8/src/mips/assembler-mips.h b/deps/v8/src/mips/assembler-mips.h
+--- a/deps/v8/src/mips/assembler-mips.h	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/assembler-mips.h	2019-08-07 09:23:52.000000000 +0900
+@@ -98,7 +98,7 @@
+   bool IsHeapObjectRequest() const {
+     DCHECK_IMPLIES(is_heap_object_request_, IsImmediate());
+     DCHECK_IMPLIES(is_heap_object_request_,
+-                   rmode_ == RelocInfo::EMBEDDED_OBJECT ||
++                   rmode_ == RelocInfo::FULL_EMBEDDED_OBJECT ||
+                        rmode_ == RelocInfo::CODE_TARGET);
+     return is_heap_object_request_;
+   }
+@@ -262,10 +262,6 @@
+       Address pc, uint32_t target,
+       ICacheFlushMode icache_flush_mode = FLUSH_ICACHE_IF_NEEDED);
+ 
+-  // Return the code target address at a call site from the return address
+-  // of that call in the instruction stream.
+-  inline static Address target_address_from_return_address(Address pc);
+-
+   // This sets the branch destination (which gets loaded at the call address).
+   // This is for calls and branches within generated code.  The serializer
+   // has already deserialized the lui/ori instructions etc.
+@@ -318,14 +314,6 @@
+   // pair.
+   static constexpr int kInstructionsFor32BitConstant = 2;
+ 
+-  // Distance between the instruction referring to the address of the call
+-  // target and the return address.
+-#ifdef _MIPS_ARCH_MIPS32R6
+-  static constexpr int kCallTargetAddressOffset = 2 * kInstrSize;
+-#else
+-  static constexpr int kCallTargetAddressOffset = 4 * kInstrSize;
+-#endif
+-
+   // Max offset for instructions with 16-bit offset field
+   static constexpr int kMaxBranchOffset = (1 << (18 - 1)) - 1;
+ 
+diff -urN a/deps/v8/src/mips/assembler-mips-inl.h b/deps/v8/src/mips/assembler-mips-inl.h
+--- a/deps/v8/src/mips/assembler-mips-inl.h	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/assembler-mips-inl.h	2019-08-07 09:23:52.000000000 +0900
+@@ -117,10 +117,6 @@
+   return Assembler::kSpecialTargetSize;
+ }
+ 
+-Address Assembler::target_address_from_return_address(Address pc) {
+-  return pc - kCallTargetAddressOffset;
+-}
+-
+ void Assembler::deserialization_set_special_target_at(
+     Address instruction_payload, Code code, Address target) {
+   set_target_address_at(instruction_payload,
+@@ -171,13 +167,17 @@
+ }
+ 
+ HeapObject RelocInfo::target_object() {
+-  DCHECK(IsCodeTarget(rmode_) || IsEmbeddedObject(rmode_));
++  DCHECK(IsCodeTarget(rmode_) || IsFullEmbeddedObject(rmode_));
+   return HeapObject::cast(
+       Object(Assembler::target_address_at(pc_, constant_pool_)));
+ }
+ 
++HeapObject RelocInfo::target_object_no_host(Isolate* isolate) {
++  return target_object();
++}
++
+ Handle<HeapObject> RelocInfo::target_object_handle(Assembler* origin) {
+-  if (IsCodeTarget(rmode_) || IsEmbeddedObject(rmode_)) {
++  if (IsCodeTarget(rmode_) || IsFullEmbeddedObject(rmode_)) {
+     return Handle<HeapObject>(reinterpret_cast<Address*>(
+         Assembler::target_address_at(pc_, constant_pool_)));
+   }
+@@ -188,7 +188,7 @@
+ void RelocInfo::set_target_object(Heap* heap, HeapObject target,
+                                   WriteBarrierMode write_barrier_mode,
+                                   ICacheFlushMode icache_flush_mode) {
+-  DCHECK(IsCodeTarget(rmode_) || IsEmbeddedObject(rmode_));
++  DCHECK(IsCodeTarget(rmode_) || IsFullEmbeddedObject(rmode_));
+   Assembler::set_target_address_at(pc_, constant_pool_, target->ptr(),
+                                    icache_flush_mode);
+   if (write_barrier_mode == UPDATE_WRITE_BARRIER && !host().is_null()) {
+@@ -252,7 +252,7 @@
+ }
+ 
+ void RelocInfo::WipeOut() {
+-  DCHECK(IsEmbeddedObject(rmode_) || IsCodeTarget(rmode_) ||
++  DCHECK(IsFullEmbeddedObject(rmode_) || IsCodeTarget(rmode_) ||
+          IsRuntimeEntry(rmode_) || IsExternalReference(rmode_) ||
+          IsInternalReference(rmode_) || IsInternalReferenceEncoded(rmode_) ||
+          IsOffHeapTarget(rmode_));
 diff -urN a/deps/v8/src/mips/disasm-mips.cc b/deps/v8/src/mips/disasm-mips.cc
 --- a/deps/v8/src/mips/disasm-mips.cc	2019-07-24 04:35:53.000000000 +0900
 +++ b/deps/v8/src/mips/disasm-mips.cc	2019-08-07 09:23:52.000000000 +0900
@@ -158,6 +367,21 @@ diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips
    }
    if (!pc_modified_) {
      set_register(pc, reinterpret_cast<int32_t>(instr) + kInstrSize);
+diff -urN a/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc b/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc
+--- a/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc	2019-08-07 10:53:17.000000000 +0900
+@@ -899,8 +899,9 @@
+ 
+   CodeDesc code_desc;
+   masm_->GetCode(isolate(), &code_desc);
+-  Handle<Code> code = isolate()->factory()->NewCode(code_desc, Code::REGEXP,
+-                                                    masm_->CodeObject());
++  Handle<Code> code = Factory::CodeBuilder(isolate(), code_desc, Code::REGEXP)
++                          .set_self_reference(masm_->CodeObject())
++                          .Build();
+   LOG(masm_->isolate(),
+       RegExpCodeCreateEvent(AbstractCode::cast(*code), *source));
+   return Handle<HeapObject>::cast(code);
 diff -urN a/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h b/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h
 --- a/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h	2019-07-24 04:35:53.000000000 +0900
 +++ b/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h	2019-08-07 09:25:02.000000000 +0900
@@ -172,3 +396,25 @@ diff -urN a/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h b/deps/v8/sr
  void LiftoffAssembler::emit_i32_mul(Register dst, Register lhs, Register rhs) {
    TurboAssembler::Mul(dst, lhs, rhs);
  }
+@@ -644,6 +640,21 @@
+ 
+ #undef I32_BINOP
+ 
++#define I32_BINOP_I(name, instruction)                               \
++  void LiftoffAssembler::emit_i32_##name(Register dst, Register lhs, \
++                                         int32_t imm) {              \
++    instruction(dst, lhs, Operand(imm));                             \
++  }
++
++// clang-format off
++I32_BINOP_I(add, Addu)
++I32_BINOP_I(and, And)
++I32_BINOP_I(or, Or)
++I32_BINOP_I(xor, Xor)
++// clang-format on
++
++#undef I32_BINOP_I
++
+ bool LiftoffAssembler::emit_i32_clz(Register dst, Register src) {
+   TurboAssembler::Clz(dst, src);
+   return true;
