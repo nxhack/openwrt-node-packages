@@ -252,21 +252,6 @@ diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips
    }
    if (!pc_modified_) {
      set_register(pc, reinterpret_cast<int32_t>(instr) + kInstrSize);
-diff -urN a/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc b/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc
---- a/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/regexp/mips/regexp-macro-assembler-mips.cc	2019-08-07 10:53:17.000000000 +0900
-@@ -899,8 +899,9 @@
- 
-   CodeDesc code_desc;
-   masm_->GetCode(isolate(), &code_desc);
--  Handle<Code> code = isolate()->factory()->NewCode(code_desc, Code::REGEXP,
--                                                    masm_->CodeObject());
-+  Handle<Code> code = Factory::CodeBuilder(isolate(), code_desc, Code::REGEXP)
-+                          .set_self_reference(masm_->CodeObject())
-+                          .Build();
-   LOG(masm_->isolate(),
-       RegExpCodeCreateEvent(AbstractCode::cast(*code), *source));
-   return Handle<HeapObject>::cast(code);
 diff -urN a/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h b/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h
 --- a/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h	2019-07-24 04:35:53.000000000 +0900
 +++ b/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h	2019-08-07 09:25:02.000000000 +0900
