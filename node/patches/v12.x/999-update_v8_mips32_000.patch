@@ -239,17 +239,3 @@ diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips
    }
    if (!pc_modified_) {
      set_register(pc, reinterpret_cast<int32_t>(instr) + kInstrSize);
-diff -urN a/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h b/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h
---- a/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/wasm/baseline/mips/liftoff-assembler-mips.h	2019-08-07 09:25:02.000000000 +0900
-@@ -585,10 +585,6 @@
-   lw(reg, liftoff::GetHalfStackSlot(index, half));
- }
- 
--void LiftoffAssembler::emit_i32_add(Register dst, Register lhs, int32_t imm) {
--  Addu(dst, lhs, imm);
--}
--
- void LiftoffAssembler::emit_i32_mul(Register dst, Register lhs, Register rhs) {
-   TurboAssembler::Mul(dst, lhs, rhs);
- }
