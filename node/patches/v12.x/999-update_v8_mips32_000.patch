@@ -1,27 +1,6 @@
 diff -urN a/deps/v8/src/builtins/mips/builtins-mips.cc b/deps/v8/src/builtins/mips/builtins-mips.cc
 --- a/deps/v8/src/builtins/mips/builtins-mips.cc	2019-08-07 05:46:24.000000000 +0900
 +++ b/deps/v8/src/builtins/mips/builtins-mips.cc	2019-08-07 15:14:32.780657346 +0900
-@@ -30,17 +30,10 @@
- 
- #define __ ACCESS_MASM(masm)
- 
--void Builtins::Generate_Adaptor(MacroAssembler* masm, Address address,
--                                ExitFrameType exit_frame_type) {
-+void Builtins::Generate_Adaptor(MacroAssembler* masm, Address address) {
-   __ li(kJavaScriptCallExtraArg1Register, ExternalReference::Create(address));
--  if (exit_frame_type == BUILTIN_EXIT) {
--    __ Jump(BUILTIN_CODE(masm->isolate(), AdaptorWithBuiltinExitFrame),
--            RelocInfo::CODE_TARGET);
--  } else {
--    DCHECK(exit_frame_type == EXIT);
--    __ Jump(BUILTIN_CODE(masm->isolate(), AdaptorWithExitFrame),
--            RelocInfo::CODE_TARGET);
--  }
-+  __ Jump(BUILTIN_CODE(masm->isolate(), AdaptorWithBuiltinExitFrame),
-+          RelocInfo::CODE_TARGET);
- }
- 
- void Builtins::Generate_InternalArrayConstructor(MacroAssembler* masm) {
 @@ -1310,7 +1303,7 @@
    __ lw(t0, MemOperand(t0));
  
