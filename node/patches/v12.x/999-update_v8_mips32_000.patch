@@ -1,6 +1,66 @@
+diff -urN a/deps/v8/src/builtins/mips/builtins-mips.cc b/deps/v8/src/builtins/mips/builtins-mips.cc
+--- a/deps/v8/src/builtins/mips/builtins-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/builtins/mips/builtins-mips.cc	2019-08-07 15:14:32.780657346 +0900
+@@ -30,17 +30,10 @@
+ 
+ #define __ ACCESS_MASM(masm)
+ 
+-void Builtins::Generate_Adaptor(MacroAssembler* masm, Address address,
+-                                ExitFrameType exit_frame_type) {
++void Builtins::Generate_Adaptor(MacroAssembler* masm, Address address) {
+   __ li(kJavaScriptCallExtraArg1Register, ExternalReference::Create(address));
+-  if (exit_frame_type == BUILTIN_EXIT) {
+-    __ Jump(BUILTIN_CODE(masm->isolate(), AdaptorWithBuiltinExitFrame),
+-            RelocInfo::CODE_TARGET);
+-  } else {
+-    DCHECK(exit_frame_type == EXIT);
+-    __ Jump(BUILTIN_CODE(masm->isolate(), AdaptorWithExitFrame),
+-            RelocInfo::CODE_TARGET);
+-  }
++  __ Jump(BUILTIN_CODE(masm->isolate(), AdaptorWithBuiltinExitFrame),
++          RelocInfo::CODE_TARGET);
+ }
+ 
+ void Builtins::Generate_InternalArrayConstructor(MacroAssembler* masm) {
+@@ -1310,7 +1303,7 @@
+   __ lw(t0, MemOperand(t0));
+ 
+   __ bind(&trampoline_loaded);
+-  __ Addu(ra, t0, Operand(interpreter_entry_return_pc_offset->value()));
++  __ Addu(ra, t0, Operand(interpreter_entry_return_pc_offset.value()));
+ 
+   // Initialize the dispatch table register.
+   __ li(kInterpreterDispatchTableRegister,
+@@ -2853,26 +2846,8 @@
+   __ Addu(s2, s2, Operand(1));
+   __ sw(s2, MemOperand(s5, kLevelOffset));
+ 
+-  if (FLAG_log_timer_events) {
+-    FrameScope frame(masm, StackFrame::MANUAL);
+-    __ PushSafepointRegisters();
+-    __ PrepareCallCFunction(1, a0);
+-    __ li(a0, ExternalReference::isolate_address(isolate));
+-    __ CallCFunction(ExternalReference::log_enter_external_function(), 1);
+-    __ PopSafepointRegisters();
+-  }
+-
+   __ StoreReturnAddressAndCall(t9);
+ 
+-  if (FLAG_log_timer_events) {
+-    FrameScope frame(masm, StackFrame::MANUAL);
+-    __ PushSafepointRegisters();
+-    __ PrepareCallCFunction(1, a0);
+-    __ li(a0, ExternalReference::isolate_address(isolate));
+-    __ CallCFunction(ExternalReference::log_leave_external_function(), 1);
+-    __ PopSafepointRegisters();
+-  }
+-
+   Label promote_scheduled_exception;
+   Label delete_allocated_handles;
+   Label leave_exit_frame;
 diff -urN a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
---- a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-08-07 10:50:09.000000000 +0900
+--- a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-08-07 15:21:09.743401341 +0900
 @@ -171,7 +171,9 @@
        __ Push(ra);
      }
@@ -20,9 +80,19 @@ diff -urN a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc b/deps/v8/s
    }
  }
  
+@@ -3154,8 +3155,7 @@
+         __ Call(static_cast<Address>(trap_id), RelocInfo::WASM_STUB_CALL);
+         ReferenceMap* reference_map =
+             new (gen_->zone()) ReferenceMap(gen_->zone());
+-        gen_->RecordSafepoint(reference_map, Safepoint::kSimple,
+-                              Safepoint::kNoLazyDeopt);
++        gen_->RecordSafepoint(reference_map, Safepoint::kNoLazyDeopt);
+         if (FLAG_debug_code) {
+           __ stop(GetAbortReason(AbortReason::kUnexpectedReturnFromWasmTrap));
+         }
 diff -urN a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc b/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc
---- a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-08-07 10:50:09.000000000 +0900
+--- a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-08-07 15:06:35.434169245 +0900
 @@ -315,7 +315,6 @@
      case MachineRepresentation::kWord64:             // Fall through.
      case MachineRepresentation::kNone:
@@ -80,8 +150,8 @@ diff -urN a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc b/dep
  
    if (g.CanBeImmediate(index, opcode)) {
 diff -urN a/deps/v8/src/mips/assembler-mips.cc b/deps/v8/src/mips/assembler-mips.cc
---- a/deps/v8/src/mips/assembler-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/mips/assembler-mips.cc	2019-08-07 09:23:52.000000000 +0900
+--- a/deps/v8/src/mips/assembler-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/mips/assembler-mips.cc	2019-08-07 15:06:35.434169245 +0900
 @@ -3858,7 +3858,7 @@
      if (imm == kEndOfJumpChain) {
        return;
@@ -92,8 +162,8 @@ diff -urN a/deps/v8/src/mips/assembler-mips.cc b/deps/v8/src/mips/assembler-mips
      PatchLuiOriImmediate(pc, imm, instr1, 0 * kInstrSize, instr2, ori_offset);
      return;
 diff -urN a/deps/v8/src/mips/disasm-mips.cc b/deps/v8/src/mips/disasm-mips.cc
---- a/deps/v8/src/mips/disasm-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/mips/disasm-mips.cc	2019-08-07 09:23:52.000000000 +0900
+--- a/deps/v8/src/mips/disasm-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/mips/disasm-mips.cc	2019-08-07 15:06:35.434169245 +0900
 @@ -556,7 +556,6 @@
        break;
      default:
@@ -129,8 +199,8 @@ diff -urN a/deps/v8/src/mips/disasm-mips.cc b/deps/v8/src/mips/disasm-mips.cc
  }
  
 diff -urN a/deps/v8/src/mips/interface-descriptors-mips.cc b/deps/v8/src/mips/interface-descriptors-mips.cc
---- a/deps/v8/src/mips/interface-descriptors-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/mips/interface-descriptors-mips.cc	2019-08-07 09:23:52.000000000 +0900
+--- a/deps/v8/src/mips/interface-descriptors-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/mips/interface-descriptors-mips.cc	2019-08-07 15:06:35.434169245 +0900
 @@ -61,6 +61,18 @@
    data->InitializePlatformSpecific(kParameterCount, default_stub_registers);
  }
@@ -151,8 +221,8 @@ diff -urN a/deps/v8/src/mips/interface-descriptors-mips.cc b/deps/v8/src/mips/in
    return a1;
  }
 diff -urN a/deps/v8/src/mips/macro-assembler-mips.cc b/deps/v8/src/mips/macro-assembler-mips.cc
---- a/deps/v8/src/mips/macro-assembler-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/mips/macro-assembler-mips.cc	2019-08-07 09:23:52.000000000 +0900
+--- a/deps/v8/src/mips/macro-assembler-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/mips/macro-assembler-mips.cc	2019-08-07 15:06:35.434169245 +0900
 @@ -251,6 +251,32 @@
    MultiPop(regs);
  }
@@ -187,8 +257,8 @@ diff -urN a/deps/v8/src/mips/macro-assembler-mips.cc b/deps/v8/src/mips/macro-as
      Register object, Register address,
      RememberedSetAction remembered_set_action, SaveFPRegsMode fp_mode) {
 diff -urN a/deps/v8/src/mips/macro-assembler-mips.h b/deps/v8/src/mips/macro-assembler-mips.h
---- a/deps/v8/src/mips/macro-assembler-mips.h	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/mips/macro-assembler-mips.h	2019-08-07 09:23:52.000000000 +0900
+--- a/deps/v8/src/mips/macro-assembler-mips.h	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/mips/macro-assembler-mips.h	2019-08-07 15:06:35.438169232 +0900
 @@ -329,6 +329,8 @@
    void CallRecordWriteStub(Register object, Register address,
                             RememberedSetAction remembered_set_action,
@@ -199,8 +269,8 @@ diff -urN a/deps/v8/src/mips/macro-assembler-mips.h b/deps/v8/src/mips/macro-ass
    // Push multiple registers on the stack.
    // Registers are saved in numerical order, with higher numbered registers
 diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips.cc
---- a/deps/v8/src/mips/simulator-mips.cc	2019-07-24 04:35:53.000000000 +0900
-+++ b/deps/v8/src/mips/simulator-mips.cc	2019-08-07 09:23:52.000000000 +0900
+--- a/deps/v8/src/mips/simulator-mips.cc	2019-08-07 05:46:24.000000000 +0900
++++ b/deps/v8/src/mips/simulator-mips.cc	2019-08-07 15:14:40.932631542 +0900
 @@ -367,7 +367,7 @@
        v8::internal::EmbeddedVector<char, 256> buffer;
        dasm.InstructionDecode(buffer,
@@ -210,7 +280,32 @@ diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips
        last_pc = sim_->get_pc();
      }
      char* line = ReadLine("sim> ");
-@@ -594,7 +594,7 @@
+@@ -480,7 +480,7 @@
+             Object obj(value);
+             os << arg1 << ": \n";
+ #ifdef DEBUG
+-            obj->Print(os);
++            obj.Print(os);
+             os << "\n";
+ #else
+             os << Brief(obj) << "\n";
+@@ -536,12 +536,13 @@
+                  reinterpret_cast<intptr_t>(cur), *cur, *cur);
+           Object obj(*cur);
+           Heap* current_heap = sim_->isolate_->heap();
+-          if (obj.IsSmi() || current_heap->Contains(HeapObject::cast(obj))) {
++          if (obj.IsSmi() ||
++              IsValidHeapObject(current_heap, HeapObject::cast(obj))) {
+             PrintF(" (");
+             if (obj.IsSmi()) {
+               PrintF("smi %d", Smi::ToInt(obj));
+             } else {
+-              obj->ShortPrint();
++              obj.ShortPrint();
+             }
+             PrintF(")");
+           }
+@@ -594,7 +595,7 @@
          while (cur < end) {
            dasm.InstructionDecode(buffer, cur);
            PrintF("  0x%08" PRIxPTR "  %s\n", reinterpret_cast<intptr_t>(cur),
@@ -219,7 +314,7 @@ diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips
            cur += kInstrSize;
          }
        } else if (strcmp(cmd, "gdb") == 0) {
-@@ -714,7 +714,7 @@
+@@ -714,7 +715,7 @@
          while (cur < end) {
            dasm.InstructionDecode(buffer, cur);
            PrintF("  0x%08" PRIxPTR "  %s\n", reinterpret_cast<intptr_t>(cur),
@@ -228,7 +323,7 @@ diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips
            cur += kInstrSize;
          }
        } else if ((strcmp(cmd, "h") == 0) || (strcmp(cmd, "help") == 0)) {
-@@ -6998,8 +6998,8 @@
+@@ -6998,8 +6999,8 @@
    }
    if (::v8::internal::FLAG_trace_sim) {
      PrintF("  0x%08" PRIxPTR "  %-44s   %s\n",
