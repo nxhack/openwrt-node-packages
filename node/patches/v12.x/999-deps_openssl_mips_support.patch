@@ -23692,7 +23692,7 @@ diff -urN a/deps/openssl/config/opensslconf_asm.h b/deps/openssl/config/opensslc
 diff -urN a/deps/openssl/openssl_asm.gypi b/deps/openssl/openssl_asm.gypi
 --- a/deps/openssl/openssl_asm.gypi	2019-07-03 21:12:03.000000000 +0900
 +++ b/deps/openssl/openssl_asm.gypi	2019-07-05 09:22:31.785046217 +0900
-@@ -18,6 +18,10 @@
+@@ -16,6 +16,10 @@
        'includes': ['config/archs/linux-armv4/asm/openssl.gypi'],
      }, 'target_arch=="arm64" and OS=="linux"', {
        'includes': ['config/archs/linux-aarch64/asm/openssl.gypi'],
@@ -23706,7 +23706,7 @@ diff -urN a/deps/openssl/openssl_asm.gypi b/deps/openssl/openssl_asm.gypi
 diff -urN a/deps/openssl/openssl-cl_asm.gypi b/deps/openssl/openssl-cl_asm.gypi
 --- a/deps/openssl/openssl-cl_asm.gypi	2019-07-03 21:12:02.000000000 +0900
 +++ b/deps/openssl/openssl-cl_asm.gypi	2019-07-05 09:22:31.785046217 +0900
-@@ -18,6 +18,10 @@
+@@ -16,6 +16,10 @@
        'includes': ['config/archs/linux-armv4/asm/openssl-cl.gypi'],
      }, 'target_arch=="arm64" and OS=="linux"', {
        'includes': ['config/archs/linux-aarch64/asm/openssl-cl.gypi'],
