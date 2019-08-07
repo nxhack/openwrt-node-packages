@@ -1,0 +1,241 @@
+diff -urN a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc
+--- a/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/compiler/backend/mips/code-generator-mips.cc	2019-08-07 10:50:09.000000000 +0900
+@@ -171,7 +171,9 @@
+       __ Push(ra);
+     }
+ 
+-    if (stub_mode_ == StubCallMode::kCallWasmRuntimeStub) {
++    if (mode_ == RecordWriteMode::kValueIsEphemeronKey) {
++      __ CallEphemeronKeyBarrier(object_, scratch1_, save_fp_mode);
++    } else if (stub_mode_ == StubCallMode::kCallWasmRuntimeStub) {
+       // A direct call to a wasm runtime stub defined in this module.
+       // Just encode the stub index. This will be patched when the code
+       // is added to the native module and copied into wasm code space.
+@@ -3103,7 +3105,6 @@
+       return;
+     default:
+       UNREACHABLE();
+-      break;
+   }
+ }
+ 
+diff -urN a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc b/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc
+--- a/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/compiler/backend/mips/instruction-selector-mips.cc	2019-08-07 10:50:09.000000000 +0900
+@@ -315,7 +315,6 @@
+     case MachineRepresentation::kWord64:             // Fall through.
+     case MachineRepresentation::kNone:
+       UNREACHABLE();
+-      return;
+   }
+   if (node->opcode() == IrOpcode::kPoisonedLoad) {
+     CHECK_NE(poisoning_level_, PoisoningMitigationLevel::kDontPoison);
+@@ -1322,7 +1321,6 @@
+     case MachineRepresentation::kBit:  // Fall through.
+     case MachineRepresentation::kWord8:
+       UNREACHABLE();
+-      break;
+     case MachineRepresentation::kWord16:
+       opcode = load_rep.IsUnsigned() ? kMipsUlhu : kMipsUlh;
+       break;
+@@ -1347,7 +1345,6 @@
+     case MachineRepresentation::kWord64:             // Fall through.
+     case MachineRepresentation::kNone:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
+@@ -1383,7 +1380,6 @@
+     case MachineRepresentation::kBit:  // Fall through.
+     case MachineRepresentation::kWord8:
+       UNREACHABLE();
+-      break;
+     case MachineRepresentation::kWord16:
+       opcode = kMipsUsh;
+       break;
+@@ -1402,7 +1398,6 @@
+     case MachineRepresentation::kWord64:             // Fall through.
+     case MachineRepresentation::kNone:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
+@@ -1800,7 +1795,6 @@
+       break;
+     default:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
+@@ -1835,7 +1829,6 @@
+       break;
+     default:
+       UNREACHABLE();
+-      return;
+   }
+ 
+   if (g.CanBeImmediate(index, opcode)) {
+diff -urN a/deps/v8/src/mips/assembler-mips.cc b/deps/v8/src/mips/assembler-mips.cc
+--- a/deps/v8/src/mips/assembler-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/assembler-mips.cc	2019-08-07 09:23:52.000000000 +0900
+@@ -3858,7 +3858,7 @@
+     if (imm == kEndOfJumpChain) {
+       return;
+     }
+-    imm += pc_delta;
++    imm -= pc_delta;
+     DCHECK_EQ(imm & 3, 0);
+     PatchLuiOriImmediate(pc, imm, instr1, 0 * kInstrSize, instr2, ori_offset);
+     return;
+diff -urN a/deps/v8/src/mips/disasm-mips.cc b/deps/v8/src/mips/disasm-mips.cc
+--- a/deps/v8/src/mips/disasm-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/disasm-mips.cc	2019-08-07 09:23:52.000000000 +0900
+@@ -556,7 +556,6 @@
+       break;
+     default:
+       UNREACHABLE();
+-      break;
+   }
+   PrintChar(formatLetter);
+ }
+@@ -2052,7 +2051,6 @@
+     default:
+       printf("a 0x%x \n", instr->OpcodeFieldRaw());
+       UNREACHABLE();
+-      break;
+   }
+ }
+ 
+@@ -2740,7 +2738,7 @@
+ 
+ const char* NameConverter::NameOfAddress(byte* addr) const {
+   v8::internal::SNPrintF(tmp_buffer_, "%p", static_cast<void*>(addr));
+-  return tmp_buffer_.start();
++  return tmp_buffer_.begin();
+ }
+ 
+ 
+@@ -2796,7 +2794,7 @@
+     byte* prev_pc = pc;
+     pc += d.InstructionDecode(buffer, pc);
+     v8::internal::PrintF(f, "%p    %08x      %s\n", static_cast<void*>(prev_pc),
+-                         *reinterpret_cast<int32_t*>(prev_pc), buffer.start());
++                         *reinterpret_cast<int32_t*>(prev_pc), buffer.begin());
+   }
+ }
+ 
+diff -urN a/deps/v8/src/mips/interface-descriptors-mips.cc b/deps/v8/src/mips/interface-descriptors-mips.cc
+--- a/deps/v8/src/mips/interface-descriptors-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/interface-descriptors-mips.cc	2019-08-07 09:23:52.000000000 +0900
+@@ -61,6 +61,18 @@
+   data->InitializePlatformSpecific(kParameterCount, default_stub_registers);
+ }
+ 
++void EphemeronKeyBarrierDescriptor::InitializePlatformSpecific(
++    CallInterfaceDescriptorData* data) {
++  const Register default_stub_registers[] = {a0, a1, a2, a3, kReturnRegister0};
++
++  data->RestrictAllocatableRegisters(default_stub_registers,
++                                     arraysize(default_stub_registers));
++
++  CHECK_LE(static_cast<size_t>(kParameterCount),
++           arraysize(default_stub_registers));
++  data->InitializePlatformSpecific(kParameterCount, default_stub_registers);
++}
++
+ const Register FastNewFunctionContextDescriptor::ScopeInfoRegister() {
+   return a1;
+ }
+diff -urN a/deps/v8/src/mips/macro-assembler-mips.cc b/deps/v8/src/mips/macro-assembler-mips.cc
+--- a/deps/v8/src/mips/macro-assembler-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/macro-assembler-mips.cc	2019-08-07 09:23:52.000000000 +0900
+@@ -251,6 +251,32 @@
+   MultiPop(regs);
+ }
+ 
++void TurboAssembler::CallEphemeronKeyBarrier(Register object, Register address,
++                                             SaveFPRegsMode fp_mode) {
++  EphemeronKeyBarrierDescriptor descriptor;
++  RegList registers = descriptor.allocatable_registers();
++
++  SaveRegisters(registers);
++
++  Register object_parameter(
++      descriptor.GetRegisterParameter(EphemeronKeyBarrierDescriptor::kObject));
++  Register slot_parameter(descriptor.GetRegisterParameter(
++      EphemeronKeyBarrierDescriptor::kSlotAddress));
++  Register fp_mode_parameter(
++      descriptor.GetRegisterParameter(EphemeronKeyBarrierDescriptor::kFPMode));
++
++  Push(object);
++  Push(address);
++
++  Pop(slot_parameter);
++  Pop(object_parameter);
++
++  Move(fp_mode_parameter, Smi::FromEnum(fp_mode));
++  Call(isolate()->builtins()->builtin_handle(Builtins::kEphemeronKeyBarrier),
++       RelocInfo::CODE_TARGET);
++  RestoreRegisters(registers);
++}
++
+ void TurboAssembler::CallRecordWriteStub(
+     Register object, Register address,
+     RememberedSetAction remembered_set_action, SaveFPRegsMode fp_mode) {
+diff -urN a/deps/v8/src/mips/macro-assembler-mips.h b/deps/v8/src/mips/macro-assembler-mips.h
+--- a/deps/v8/src/mips/macro-assembler-mips.h	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/macro-assembler-mips.h	2019-08-07 09:23:52.000000000 +0900
+@@ -329,6 +329,8 @@
+   void CallRecordWriteStub(Register object, Register address,
+                            RememberedSetAction remembered_set_action,
+                            SaveFPRegsMode fp_mode, Address wasm_target);
++  void CallEphemeronKeyBarrier(Register object, Register address,
++                               SaveFPRegsMode fp_mode);
+ 
+   // Push multiple registers on the stack.
+   // Registers are saved in numerical order, with higher numbered registers
+diff -urN a/deps/v8/src/mips/simulator-mips.cc b/deps/v8/src/mips/simulator-mips.cc
+--- a/deps/v8/src/mips/simulator-mips.cc	2019-07-24 04:35:53.000000000 +0900
++++ b/deps/v8/src/mips/simulator-mips.cc	2019-08-07 09:23:52.000000000 +0900
+@@ -367,7 +367,7 @@
+       v8::internal::EmbeddedVector<char, 256> buffer;
+       dasm.InstructionDecode(buffer,
+                              reinterpret_cast<byte*>(sim_->get_pc()));
+-      PrintF("  0x%08x  %s\n", sim_->get_pc(), buffer.start());
++      PrintF("  0x%08x  %s\n", sim_->get_pc(), buffer.begin());
+       last_pc = sim_->get_pc();
+     }
+     char* line = ReadLine("sim> ");
+@@ -594,7 +594,7 @@
+         while (cur < end) {
+           dasm.InstructionDecode(buffer, cur);
+           PrintF("  0x%08" PRIxPTR "  %s\n", reinterpret_cast<intptr_t>(cur),
+-                 buffer.start());
++                 buffer.begin());
+           cur += kInstrSize;
+         }
+       } else if (strcmp(cmd, "gdb") == 0) {
+@@ -714,7 +714,7 @@
+         while (cur < end) {
+           dasm.InstructionDecode(buffer, cur);
+           PrintF("  0x%08" PRIxPTR "  %s\n", reinterpret_cast<intptr_t>(cur),
+-                 buffer.start());
++                 buffer.begin());
+           cur += kInstrSize;
+         }
+       } else if ((strcmp(cmd, "h") == 0) || (strcmp(cmd, "help") == 0)) {
+@@ -6998,8 +6998,8 @@
+   }
+   if (::v8::internal::FLAG_trace_sim) {
+     PrintF("  0x%08" PRIxPTR "  %-44s   %s\n",
+-           reinterpret_cast<intptr_t>(instr), buffer.start(),
+-           trace_buf_.start());
++           reinterpret_cast<intptr_t>(instr), buffer.begin(),
++           trace_buf_.begin());
+   }
+   if (!pc_modified_) {
+     set_register(pc, reinterpret_cast<int32_t>(instr) + kInstrSize);
