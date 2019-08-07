@@ -23700,9 +23700,9 @@ diff -urN a/deps/openssl/openssl_asm.gypi b/deps/openssl/openssl_asm.gypi
 +      'includes': ['config/archs/linux-mips/asm/openssl.gypi'],
 +    }, 'target_arch=="mipsel" and OS=="linux"', {
 +      'includes': ['config/archs/linux-mipsel/asm/openssl.gypi'],
+     }, 'target_arch=="ia32" and OS=="freebsd"', {
+       'includes': ['config/archs/BSD-x86/asm/openssl.gypi'],
      }, 'target_arch=="ia32" and OS=="linux"', {
-       'includes': ['config/archs/linux-elf/asm/openssl.gypi'],
-     }, 'target_arch=="ia32" and OS=="mac"', {
 diff -urN a/deps/openssl/openssl-cl_asm.gypi b/deps/openssl/openssl-cl_asm.gypi
 --- a/deps/openssl/openssl-cl_asm.gypi	2019-07-03 21:12:02.000000000 +0900
 +++ b/deps/openssl/openssl-cl_asm.gypi	2019-07-05 09:22:31.785046217 +0900
@@ -23714,9 +23714,9 @@ diff -urN a/deps/openssl/openssl-cl_asm.gypi b/deps/openssl/openssl-cl_asm.gypi
 +      'includes': ['config/archs/linux-mips/asm/openssl-cl.gypi'],
 +    }, 'target_arch=="mipsel" and OS=="linux"', {
 +      'includes': ['config/archs/linux-mipsel/asm/openssl-cl.gypi'],
+     }, 'target_arch=="ia32" and OS=="freebsd"', {
+       'includes': ['config/archs/BSD-x86/asm/openssl-cl.gypi'],
      }, 'target_arch=="ia32" and OS=="linux"', {
-       'includes': ['config/archs/linux-elf/asm/openssl-cl.gypi'],
-     }, 'target_arch=="ia32" and OS=="mac"', {
 diff -urN a/deps/openssl/openssl.gypi b/deps/openssl/openssl.gypi
 --- a/deps/openssl/openssl.gypi	2019-07-03 21:12:02.000000000 +0900
 +++ b/deps/openssl/openssl.gypi	2019-07-05 09:22:31.785046217 +0900
