@@ -9,7 +9,7 @@ PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
 PKG_VERSION:=v12.8.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=997b552376eab599892ba94eca5ed09bd59bdc6686d82fd15e4da552618824a4
 PATCH_DIR:=./patches/v12.x
 else
@@ -172,6 +172,11 @@ HOST_CONFIGURE_CMD:=python2 ./configure
 
 ifeq ($(CONFIG_NODEJS_12),y)
 ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
+
+HOST_CONFIGURE_VARS:= \
+	CC="$(HOSTCC) $(FORCE_32BIT)" \
+	CXX="$(HOSTCXX) $(FORCE_32BIT)"
+
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
 FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
