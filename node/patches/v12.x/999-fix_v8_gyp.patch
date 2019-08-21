@@ -8,7 +8,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1348,6 +1347,8 @@
+@@ -1346,6 +1347,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
