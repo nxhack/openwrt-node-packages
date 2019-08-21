@@ -25,3 +25,19 @@
        'dependencies': [
          'torque_base',
          # "build/win:default_exe_manifest",
+@@ -1406,6 +1410,7 @@
+     {
+       'target_name': 'torque-language-server',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz' ],
+       'conditions': [
+         ['want_separate_host_toolset', {
+           'toolsets': ['host'],
+@@ -1433,6 +1438,7 @@
+     {
+       'target_name': 'gen-regexp-special-case',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz' ],
+       'dependencies': [
+         'v8_libbase',
+         # "build/win:default_exe_manifest",
