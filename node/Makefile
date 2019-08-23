@@ -5,7 +5,6 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
-PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
 PKG_VERSION:=v12.9.0
@@ -32,6 +31,7 @@ PKG_SOURCE_URL:=https://nodejs.org/dist/$(PKG_VERSION)
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 HOST_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
 HOST_BUILD_PARALLEL:=1
