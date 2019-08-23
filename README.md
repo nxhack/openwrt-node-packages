@@ -33,13 +33,13 @@ If you are running nodejs with Atheros AR71xx, AR933x, you need to create the **
 
 ***(This means that you need to rebuild the firmware.)***
 
-On lede-17.01 branch, You can configure using menuconfig.
+On lede-17.01 branch, You can configure using kernel_menuconfig.
 ```
-make menuconfig
+make kernel_menuconfig
 ```
-> Global build settings  --->
+> Kernel type  --->
 >
->  [*] Compile the kernel with MIPS FPU Emulator
+> [*] MIPS FPU Emulator
 
 ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In this case, there is no solution.
 
