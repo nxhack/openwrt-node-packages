@@ -162,10 +162,7 @@ CONFIGURE_ARGS:= \
 	$(if $(findstring +vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3) \
 	--prefix=/usr
 
-HOST_CONFIGURE_VARS:= \
-	CC="$(HOSTCC) $(FORCE_32BIT)" \
-	CXX="$(HOSTCXX) $(FORCE_32BIT)"
-
+HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
 	--with-intl=none \
@@ -174,6 +171,11 @@ HOST_CONFIGURE_ARGS:= \
 HOST_CONFIGURE_CMD:=python2 ./configure
 
 ifeq ($(CONFIG_NODEJS_12),y)
+
+HOST_CONFIGURE_VARS:= \
+	CC="$(HOSTCC) $(FORCE_32BIT)" \
+	CXX="$(HOSTCXX) $(FORCE_32BIT)"
+
 ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
 
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
