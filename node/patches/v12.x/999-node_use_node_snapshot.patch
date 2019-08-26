@@ -11,7 +11,7 @@ diff --git a/configure.py b/configure.py
 index f1e09d9e98b9..ce01a14566e6 100755
 --- a/configure.py
 +++ b/configure.py
-@@ -969,7 +969,8 @@ def configure_node(o):
+@@ -972,7 +972,8 @@ def configure_node(o):
        cross_compiling and want_snapshots)
  
    if not options.without_node_snapshot:
