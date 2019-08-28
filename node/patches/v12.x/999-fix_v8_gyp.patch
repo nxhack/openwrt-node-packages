@@ -1,6 +1,6 @@
 --- a/tools/v8_gypfiles/v8.gyp	2019-06-27 19:12:20.000000000 +0900
 +++ b/tools/v8_gypfiles/v8.gyp	2019-07-01 14:40:48.292020880 +0900
-@@ -2857,6 +2857,7 @@
+@@ -1323,6 +1323,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -8,7 +8,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -2880,6 +2881,8 @@
+@@ -1346,6 +1347,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
@@ -17,11 +17,28 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -2910,6 +2913,7 @@
+@@ -1368,6 +1371,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
 +      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz' ],
        'dependencies': [
          'torque_base',
+         # "build/win:default_exe_manifest",
+@@ -1406,6 +1410,7 @@
+     {
+       'target_name': 'torque-language-server',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz' ],
+       'conditions': [
+         ['want_separate_host_toolset', {
+           'toolsets': ['host'],
+@@ -1433,6 +1438,8 @@
+     {
+       'target_name': 'gen-regexp-special-case',
+       'type': 'executable',
++      'libraries!':[ '-lcrypto', '-lssl', '-lz' ],
++      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/64.2/lib' ],
+       'dependencies': [
+         'v8_libbase',
          # "build/win:default_exe_manifest",

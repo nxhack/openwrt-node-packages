@@ -5,12 +5,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
-PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.8.1
+PKG_VERSION:=v12.9.1
 PKG_RELEASE:=1
-PKG_HASH:=3e63b2e7979b51d79b6f2f89d2869de85222be8edc549f08e10dc8d039de5b88
+PKG_HASH:=c245822a9d5204e821646508244c835e386e11c3eda4cb5261cde83517ff545e
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -32,6 +31,7 @@ PKG_SOURCE_URL:=https://nodejs.org/dist/$(PKG_VERSION)
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 HOST_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
 HOST_BUILD_PARALLEL:=1
@@ -171,11 +171,12 @@ HOST_CONFIGURE_ARGS:= \
 HOST_CONFIGURE_CMD:=python2 ./configure
 
 ifeq ($(CONFIG_NODEJS_12),y)
-ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
 
 HOST_CONFIGURE_VARS:= \
 	CC="$(HOSTCC) $(FORCE_32BIT)" \
 	CXX="$(HOSTCXX) $(FORCE_32BIT)"
+
+ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
 
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp

@@ -1,0 +1,23 @@
+From 9e7667bef39335f084bd43487076367fc95ce843 Mon Sep 17 00:00:00 2001
+From: Joyee Cheung <joyeec9h3@gmail.com>
+Date: Sat, 24 Aug 2019 22:52:15 +0800
+Subject: [PATCH] build: make --without-snapshot imply --without-node-snapshot
+
+---
+ configure.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/configure.py b/configure.py
+index f1e09d9e98b9..ce01a14566e6 100755
+--- a/configure.py
++++ b/configure.py
+@@ -972,7 +972,8 @@ def configure_node(o):
+       cross_compiling and want_snapshots)
+ 
+   if not options.without_node_snapshot:
+-    o['variables']['node_use_node_snapshot'] = b(not cross_compiling)
++    o['variables']['node_use_node_snapshot'] = b(
++        not cross_compiling and want_snapshots)
+   else:
+     o['variables']['node_use_node_snapshot'] = 'false'
+ 
