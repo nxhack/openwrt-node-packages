@@ -1,10 +1,9 @@
 --- a/configure.py
 +++ b/configure.py
-@@ -1176,6 +1176,7 @@
-   o['variables']['v8_promise_internal_field_count'] = 1 # Add internal field to promises for async hooks.
-   o['variables']['v8_use_siphash'] = 0 if options.without_siphash else 1
-   o['variables']['v8_use_snapshot'] = 0 if options.without_snapshot else 1
-+  o['variables']['v8_enable_embedded_builtins'] = 0 if options.without_snapshot else 1
-   o['variables']['v8_trace_maps'] = 1 if options.trace_maps else 0
-   o['variables']['node_use_v8_platform'] = b(not options.without_v8_platform)
-   o['variables']['node_use_bundled_v8'] = b(not options.without_bundled_v8)
+@@ -930,6 +930,7 @@
+   can_use_fpu_instructions = (options.mips_float_abi != 'soft')
+   o['variables']['v8_can_use_fpu_instructions'] = b(can_use_fpu_instructions)
+   o['variables']['v8_use_mips_abi_hardfloat'] = b(can_use_fpu_instructions)
++  o['variables']['v8_enable_embedded_builtins'] = 1 if options.without_snapshot else 0
+   o['variables']['mips_arch_variant'] = options.mips_arch_variant
+   o['variables']['mips_fpu_mode'] = options.mips_fpu_mode
