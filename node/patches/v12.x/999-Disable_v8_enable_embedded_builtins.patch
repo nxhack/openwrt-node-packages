@@ -13,7 +13,7 @@ diff -urN a/configure.py b/configure.py
      configure_arm(o)
    elif target_arch in ('mips', 'mipsel', 'mips64', 'mips64el'):
      configure_mips(o)
-+  elif target_arch in ('x86', 'x64'):
++  elif target_arch in ('ia32', 'x64'):
 +    o['variables']['v8_enable_embedded_builtins'] = 0 if options.cross_compiling else 1
  
    if flavor == 'aix':
