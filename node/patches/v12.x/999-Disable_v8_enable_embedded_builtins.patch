@@ -1,0 +1,20 @@
+diff -urN a/configure.py b/configure.py
+--- a/configure.py	2019-08-27 00:00:31.000000000 +0900
++++ b/configure.py	2019-09-04 11:23:36.477526845 +0900
+@@ -930,6 +930,7 @@
+   can_use_fpu_instructions = (options.mips_float_abi != 'soft')
+   o['variables']['v8_can_use_fpu_instructions'] = b(can_use_fpu_instructions)
+   o['variables']['v8_use_mips_abi_hardfloat'] = b(can_use_fpu_instructions)
++  o['variables']['v8_enable_embedded_builtins'] = options.without_snapshot
+   o['variables']['mips_arch_variant'] = options.mips_arch_variant
+   o['variables']['mips_fpu_mode'] = options.mips_fpu_mode
+ 
+@@ -980,6 +981,8 @@
+     configure_arm(o)
+   elif target_arch in ('mips', 'mipsel', 'mips64', 'mips64el'):
+     configure_mips(o)
++  elif target_arch in ('ia32', 'x64'):
++    o['variables']['v8_enable_embedded_builtins'] = 0 if options.cross_compiling else 1
+ 
+   if flavor == 'aix':
+     o['variables']['node_target_type'] = 'static_library'
