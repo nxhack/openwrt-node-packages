@@ -9,7 +9,7 @@ diff -urN a/configure.py b/configure.py
    o['variables']['mips_arch_variant'] = options.mips_arch_variant
    o['variables']['mips_fpu_mode'] = options.mips_fpu_mode
  
-@@ -980,6 +981,8 @@
+@@ -981,6 +982,8 @@
      configure_arm(o)
    elif target_arch in ('mips', 'mipsel', 'mips64', 'mips64el'):
      configure_mips(o)
