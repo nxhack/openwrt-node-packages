@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.9.1
+PKG_VERSION:=v12.10.0
 PKG_RELEASE:=1
-PKG_HASH:=c245822a9d5204e821646508244c835e386e11c3eda4cb5261cde83517ff545e
+PKG_HASH:=2515b87c60921f22514a58830e86e54831daa2453d0e82f2ed7ab02134ee30cd
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -52,7 +52,7 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb \
+  DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb @!powerpc \
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \

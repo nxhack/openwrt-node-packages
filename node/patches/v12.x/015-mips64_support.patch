@@ -19,7 +19,7 @@
    return rtn
  
  
-@@ -975,7 +978,7 @@
+@@ -976,7 +979,7 @@
  
    if target_arch == 'arm':
      configure_arm(o)
