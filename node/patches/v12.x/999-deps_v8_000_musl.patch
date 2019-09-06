@@ -19,6 +19,18 @@ diff -urN a/deps/v8/src/base/platform/condition-variable.cc b/deps/v8/src/base/p
    // On Free/Net/OpenBSD and Linux with glibc we can change the time
    // source for pthread_cond_timedwait() to use the monotonic clock.
    result = clock_gettime(CLOCK_MONOTONIC, &ts);
+diff -urN a/deps/v8/src/base/platform/platform-posix.cc b/deps/v8/src/base/platform/platform-posix.cc
+--- a/deps/v8/src/base/platform/platform-posix.cc	2019-09-05 00:36:23.000000000 +0900
++++ b/deps/v8/src/base/platform/platform-posix.cc	2019-09-06 12:46:01.400877976 +0900
+@@ -767,7 +767,7 @@
+ #if V8_OS_MACOSX
+     // Default on Mac OS X is 512kB -- bump up to 1MB
+     stack_size = 1 * 1024 * 1024;
+-#elif V8_OS_AIX
++#elif V8_OS_AIX || !defined(__GLIBC__)
+     // Default on AIX is 96kB -- bump up to 2MB
+     stack_size = 2 * 1024 * 1024;
+ #endif
 diff -urN a/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc b/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc
 --- a/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc	2019-09-05 00:36:23.000000000 +0900
 +++ b/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc	2019-09-06 11:12:22.012052100 +0900
