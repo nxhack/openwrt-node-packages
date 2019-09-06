@@ -37,7 +37,7 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
-+      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz' ],
++      'libraries!':[ '-lcrypto', '-lssl', '-lz' ],
 +      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/64.2/lib', '-licui18n', '-licuuc', '-licudata'],
        'dependencies': [
          'v8_libbase',
