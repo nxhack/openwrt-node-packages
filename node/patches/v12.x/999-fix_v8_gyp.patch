@@ -33,12 +33,13 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1433,6 +1438,8 @@
+@@ -1433,6 +1438,9 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
 +      'libraries!':[ '-lcrypto', '-lssl', '-lz' ],
 +      'libraries':[ '-Wl,-rpath ../../../../staging_dir/hostpkg/share/icu/64.2/lib' ],
++      'libraries':[ '-Wl,-rpath-link ../../../../staging_dir/hostpkg/share/icu/64.2/lib' ],
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
