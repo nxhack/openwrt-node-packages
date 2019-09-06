@@ -13,7 +13,7 @@
        'target_name': 'mksnapshot',
        'type': 'executable',
 +      'libraries!':[ '-lcrypto', '-lssl', '-lz' ],
-+      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/64.2/lib' ],
++      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/64.2/lib' ],
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
