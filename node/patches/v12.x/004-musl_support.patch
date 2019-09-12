@@ -1,6 +1,6 @@
 diff -urN a/deps/v8/src/base/platform/condition-variable.cc b/deps/v8/src/base/platform/condition-variable.cc
 --- a/deps/v8/src/base/platform/condition-variable.cc	2019-09-05 00:36:23.000000000 +0900
-+++ b/deps/v8/src/base/platform/condition-variable.cc	2019-09-06 11:10:23.936328361 +0900
++++ b/deps/v8/src/base/platform/condition-variable.cc	2019-09-12 15:10:01.063792083 +0900
 @@ -16,7 +16,7 @@
  
  ConditionVariable::ConditionVariable() {
@@ -21,7 +21,7 @@ diff -urN a/deps/v8/src/base/platform/condition-variable.cc b/deps/v8/src/base/p
    result = clock_gettime(CLOCK_MONOTONIC, &ts);
 diff -urN a/deps/v8/src/base/platform/platform-posix.cc b/deps/v8/src/base/platform/platform-posix.cc
 --- a/deps/v8/src/base/platform/platform-posix.cc	2019-09-05 00:36:23.000000000 +0900
-+++ b/deps/v8/src/base/platform/platform-posix.cc	2019-09-06 12:46:01.400877976 +0900
++++ b/deps/v8/src/base/platform/platform-posix.cc	2019-09-12 15:10:01.063792083 +0900
 @@ -767,7 +767,7 @@
  #if V8_OS_MACOSX
      // Default on Mac OS X is 512kB -- bump up to 1MB
@@ -31,9 +31,21 @@ diff -urN a/deps/v8/src/base/platform/platform-posix.cc b/deps/v8/src/base/platf
      // Default on AIX is 96kB -- bump up to 2MB
      stack_size = 2 * 1024 * 1024;
  #endif
+diff -urN a/deps/v8/src/codegen/external-reference-table.cc b/deps/v8/src/codegen/external-reference-table.cc
+--- a/deps/v8/src/codegen/external-reference-table.cc	2019-09-05 00:36:23.000000000 +0900
++++ b/deps/v8/src/codegen/external-reference-table.cc	2019-09-12 15:09:41.959828134 +0900
+@@ -9,7 +9,7 @@
+ #include "src/ic/stub-cache.h"
+ #include "src/logging/counters.h"
+ 
+-#if defined(DEBUG) && defined(V8_OS_LINUX) && !defined(V8_OS_ANDROID)
++#if defined(DEBUG) && defined(V8_OS_LINUX) && !defined(V8_OS_ANDROID) && defined(V8_LIBC_GLIBC)
+ #define SYMBOLIZE_FUNCTION
+ #include <execinfo.h>
+ #include <vector>
 diff -urN a/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc b/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc
 --- a/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc	2019-09-05 00:36:23.000000000 +0900
-+++ b/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc	2019-09-06 11:12:22.012052100 +0900
++++ b/deps/v8/src/compiler-dispatcher/optimizing-compile-dispatcher.cc	2019-09-12 15:10:01.063792083 +0900
 @@ -134,8 +134,10 @@
      // The function may have already been optimized by OSR.  Simply continue.
      // Use a mutex to make sure that functions marked for install
