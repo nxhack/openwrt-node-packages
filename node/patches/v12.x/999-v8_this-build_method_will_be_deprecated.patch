@@ -1,22 +1,33 @@
 diff -urN a/configure.py b/configure.py
 --- a/configure.py	2019-09-05 00:36:21.000000000 +0900
-+++ b/configure.py	2019-09-05 13:23:47.445919384 +0900
-@@ -930,6 +930,7 @@
-   can_use_fpu_instructions = (options.mips_float_abi != 'soft')
-   o['variables']['v8_can_use_fpu_instructions'] = b(can_use_fpu_instructions)
-   o['variables']['v8_use_mips_abi_hardfloat'] = b(can_use_fpu_instructions)
-+  o['variables']['v8_enable_embedded_builtins'] = 1 if options.without_snapshot else 0
-   o['variables']['mips_arch_variant'] = options.mips_arch_variant
-   o['variables']['mips_fpu_mode'] = options.mips_fpu_mode
++++ b/configure.py	2019-09-20 15:23:35.072580447 +0900
+@@ -1196,6 +1196,21 @@
+     options.build_v8_with_gn = FetchDeps(v8_path)
+   o['variables']['build_v8_with_gn'] = b(options.build_v8_with_gn)
  
-@@ -981,6 +982,10 @@
-     configure_arm(o)
-   elif target_arch in ('mips', 'mipsel', 'mips64', 'mips64el'):
-     configure_mips(o)
++def configure_v8_deprecated(o):
++  target_arch = options.dest_cpu
++  if target_arch == 'x86':
++    target_arch = 'ia32'
++  if target_arch == 'x86_64':
++    target_arch = 'x64'
++
++  if target_arch in ('mips', 'mips64'):
++    o['variables']['v8_use_snapshot'] = 0
++  elif target_arch in ('mipsel', 'mips64el'):
++    o['variables']['v8_enable_embedded_builtins'] = 0
 +  elif target_arch == 'x64':
 +    o['variables']['v8_enable_embedded_builtins'] = 0 if options.cross_compiling else 1
 +  elif target_arch == 'ia32':
 +    o['variables']['v8_enable_embedded_builtins'] = 0 if options.without_snapshot else 1
  
-   if flavor == 'aix':
-     o['variables']['node_target_type'] = 'static_library'
+ def configure_openssl(o):
+   variables = o['variables']
+@@ -1624,6 +1639,7 @@
+ output['variables']['node_shared_cares'] = \
+     output['variables'].pop('node_shared_libcares')
+ configure_v8(output)
++configure_v8_deprecated(output)
+ configure_openssl(output)
+ configure_intl(output)
+ configure_static(output)
