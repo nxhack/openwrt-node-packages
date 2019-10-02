@@ -20,7 +20,7 @@ diff -urN a/configure.py b/configure.py
 +    if options.with_intl in (None, 'none'):
 +      o['variables']['v8_enable_embedded_builtins'] = 0
 +  elif target_arch == 'ia32':
-+    o['variables']['v8_enable_embedded_builtins'] = 0 if options.without_snapshot else 1
++    o['variables']['v8_enable_embedded_builtins'] = 0
  
  def configure_openssl(o):
    variables = o['variables']
