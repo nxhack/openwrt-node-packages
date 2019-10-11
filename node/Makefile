@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.10.0
+PKG_VERSION:=v12.11.1
 PKG_RELEASE:=1
-PKG_HASH:=2515b87c60921f22514a58830e86e54831daa2453d0e82f2ed7ab02134ee30cd
+PKG_HASH:=e53fbc7985ab8a34fe895852f30baee3f9f590ff9c2569e1bce791f78eec24ee
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -18,9 +18,9 @@ PKG_RELEASE:=1
 PKG_HASH:=7bf1123d7415964775b8f81fe6ec6dd5c3c08abb42bb71dfe4409dbeeba26bbd
 PATCH_DIR:=./patches/v10.x
 else
-PKG_VERSION:=v8.16.1
+PKG_VERSION:=v8.16.2
 PKG_RELEASE:=1
-PKG_HASH:=d8c190acdf2d967faf49c22df883d31a8d4e249d67852dae3c2d8a0f756b0512
+PKG_HASH:=8c16b500ad74c1b1bde099996c287eeed5a4b2ab0efdf5d94d1d683cc2654ec3
 PATCH_DIR:=./patches/v8.x
 endif
 endif
@@ -135,7 +135,7 @@ endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
-	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/64.2/lib
+	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/65.1/lib
 
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
@@ -165,6 +165,7 @@ CONFIGURE_ARGS:= \
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
+	--without-snapshot \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
