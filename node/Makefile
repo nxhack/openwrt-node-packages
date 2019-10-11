@@ -5,12 +5,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
-PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.8.1
+PKG_VERSION:=v12.11.1
 PKG_RELEASE:=1
-PKG_HASH:=3e63b2e7979b51d79b6f2f89d2869de85222be8edc549f08e10dc8d039de5b88
+PKG_HASH:=e53fbc7985ab8a34fe895852f30baee3f9f590ff9c2569e1bce791f78eec24ee
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
@@ -19,9 +18,9 @@ PKG_RELEASE:=1
 PKG_HASH:=7bf1123d7415964775b8f81fe6ec6dd5c3c08abb42bb71dfe4409dbeeba26bbd
 PATCH_DIR:=./patches/v10.x
 else
-PKG_VERSION:=v8.16.1
+PKG_VERSION:=v8.16.2
 PKG_RELEASE:=1
-PKG_HASH:=d8c190acdf2d967faf49c22df883d31a8d4e249d67852dae3c2d8a0f756b0512
+PKG_HASH:=8c16b500ad74c1b1bde099996c287eeed5a4b2ab0efdf5d94d1d683cc2654ec3
 PATCH_DIR:=./patches/v8.x
 endif
 endif
@@ -32,6 +31,7 @@ PKG_SOURCE_URL:=https://nodejs.org/dist/$(PKG_VERSION)
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
 HOST_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
 HOST_BUILD_PARALLEL:=1
@@ -52,7 +52,7 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=@!arc @!armeb \
+  DEPENDS:=@!arc @!armeb @!powerpc \
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
@@ -135,7 +135,7 @@ endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
-	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/64.2/lib
+	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/65.1/lib
 
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
@@ -165,17 +165,19 @@ CONFIGURE_ARGS:= \
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
+	--without-snapshot \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 HOST_CONFIGURE_CMD:=python2 ./configure
 
 ifeq ($(CONFIG_NODEJS_12),y)
-ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
 
 HOST_CONFIGURE_VARS:= \
 	CC="$(HOSTCC) $(FORCE_32BIT)" \
 	CXX="$(HOSTCXX) $(FORCE_32BIT)"
+
+ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
 
 HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
 FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
