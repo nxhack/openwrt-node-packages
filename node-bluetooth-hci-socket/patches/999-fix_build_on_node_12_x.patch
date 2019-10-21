@@ -170,6 +170,41 @@ index 0b72dba..84d9efe 100644
    }
  }
 
+From 7b18e9ecdde0a48559e25a6bf101f1f18cc53cb3 Mon Sep 17 00:00:00 2001
+From: Aarni Koskela <akx@iki.fi>
+Date: Wed, 28 Aug 2019 13:32:54 +0300
+Subject: [PATCH 5/6] Test on Node 12 too
+
+---
+ .travis.yml  | 1 +
+ appveyor.yml | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/.travis.yml b/.travis.yml
+index a7c1ce9..486d98a 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -15,6 +15,7 @@ env:
+   - NODE_VERSION="6"
+   - NODE_VERSION="8"
+   - NODE_VERSION="10"
++  - NODE_VERSION="12"
+ 
+ before_install:
+   - sudo apt-get install build-essential libudev-dev -y
+diff --git a/appveyor.yml b/appveyor.yml
+index 5f2e9ce..4529889 100644
+--- a/appveyor.yml
++++ b/appveyor.yml
+@@ -11,6 +11,7 @@ environment:
+     - node_version: '6'
+     - node_version: '8'
+     - node_version: '10'
++    - node_version: '12'
+ 
+ install:
+   - ps: Install-Product node $env:node_version $env:platform
+
 From 762c7719b55872c32b1704bfe5458be6605418ac Mon Sep 17 00:00:00 2001
 From: Aarni Koskela <akx@iki.fi>
 Date: Wed, 28 Aug 2019 13:46:11 +0300
