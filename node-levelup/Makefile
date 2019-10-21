@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=levelup
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.0.1
+PKG_VERSION:=4.3.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=0ee7c4bf33db3fd9be6c4ec5f871732afce2ba6ba7a1c1c9f66ce74bd965b9db
+PKG_HASH:=a9cdbbf9c2df5898ee09b0cefaa8a1df44f2b086f077732dc318bb8fbc9b8144
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
