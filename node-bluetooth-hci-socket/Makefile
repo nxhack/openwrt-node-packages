@@ -14,7 +14,7 @@ PKG_SOURCE_URL:=https://github.com/abandonware/node-bluetooth-hci-socket.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=d1fc932dbc91369c4e71be6a0d468f6ca17b0ea5
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-#PKG_MIRROR_HASH:=f6bcb8563d4fb7c9204e88e88b49d97fdeaaaf8ffd3c68d68cfb1f3839b0eb13
+PKG_MIRROR_HASH:=ad73a6e001f4dcd39ee2ef6c4a6dd62633499dd10d95599caeb4c729ad2a0012
 
 #PKG_SOURCE_PROTO:=git
 #PKG_SOURCE_URL:=https://github.com/noble/node-bluetooth-hci-socket.git
@@ -74,15 +74,15 @@ endef
 define Package/node-bluetooth-hci-socket/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,README.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,index.js} \
+	$(CP) $(PKG_BUILD_DIR)/{binding.gyp,index.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{examples,src} \
+	$(CP) $(PKG_BUILD_DIR)/{examples,src} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bluetooth_hci_socket.node \
+	$(CP) $(PKG_BUILD_DIR)/build/Release/bluetooth_hci_socket.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 endef
 
