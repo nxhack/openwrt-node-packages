@@ -1,0 +1,193 @@
+From 58120d57b651a5eaeba47197004beef4c7981ce3 Mon Sep 17 00:00:00 2001
+From: Aarni Koskela <akx@iki.fi>
+Date: Wed, 28 Aug 2019 12:46:33 +0300
+Subject: [PATCH 1/6] Update usb dependency to version supporting Node 12
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 1088781..e904f35 100644
+--- a/package.json
++++ b/package.json
+@@ -31,7 +31,7 @@
+     "node-pre-gyp": "^0.12.0"
+   },
+   "optionalDependencies": {
+-    "usb": "^1.1.0"
++    "usb": "^1.6.0"
+   },
+   "devDependencies": {
+     "jshint": "^2.8.0"
+
+From 2a0c3ad9d7a1eb140af13e68ef77d7c526d10b6f Mon Sep 17 00:00:00 2001
+From: Aarni Koskela <akx@iki.fi>
+Date: Wed, 28 Aug 2019 12:50:33 +0300
+Subject: [PATCH 2/6] Remove deprecated preinstall for node-pre-gyp
+
+---
+ package.json | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index e904f35..081c851 100644
+--- a/package.json
++++ b/package.json
+@@ -37,7 +37,6 @@
+     "jshint": "^2.8.0"
+   },
+   "scripts": {
+-    "preinstall": "npm install node-pre-gyp",
+     "install": "node-pre-gyp install --fallback-to-build",
+     "test": "jshint lib/*.js"
+   },
+
+From 9b9e9753a6e676754a851369f723c1bbcf7783c6 Mon Sep 17 00:00:00 2001
+From: Aarni Koskela <akx@iki.fi>
+Date: Wed, 28 Aug 2019 13:30:51 +0300
+Subject: [PATCH 3/6] Fix things up for Node 12, nan 2.14.x
+
+---
+ package.json               |  4 ++--
+ src/BluetoothHciSocket.cpp | 29 ++++++++++-------------------
+ 2 files changed, 12 insertions(+), 21 deletions(-)
+
+diff --git a/package.json b/package.json
+index 081c851..0b72dba 100644
+--- a/package.json
++++ b/package.json
+@@ -27,8 +27,8 @@
+   ],
+   "dependencies": {
+     "debug": "^4.1.0",
+-    "nan": "^2.10.0",
+-    "node-pre-gyp": "^0.12.0"
++    "nan": "^2.14.0",
++    "node-pre-gyp": "^0.13.0"
+   },
+   "optionalDependencies": {
+     "usb": "^1.6.0"
+diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
+index 0cc7427..6c8df85 100644
+--- a/src/BluetoothHciSocket.cpp
++++ b/src/BluetoothHciSocket.cpp
+@@ -126,7 +126,7 @@ NAN_MODULE_INIT(BluetoothHciSocket::Init) {
+   Nan::SetPrototypeMethod(tmpl, "stop", Stop);
+   Nan::SetPrototypeMethod(tmpl, "write", Write);
+ 
+-  target->Set(Nan::New("BluetoothHciSocket").ToLocalChecked(), tmpl->GetFunction());
++  Nan::Set(target, Nan::New("BluetoothHciSocket").ToLocalChecked(), Nan::GetFunction(tmpl).ToLocalChecked());
+ }
+ 
+ BluetoothHciSocket::BluetoothHciSocket() :
+@@ -264,16 +264,7 @@ void BluetoothHciSocket::write_(char* data, int length) {
+ }
+ 
+ void BluetoothHciSocket::emitErrnoError() {
+-  Nan::HandleScope scope;
+-
+-  Local<Object> globalObj = Nan::GetCurrentContext()->Global();
+-  Local<Function> errorConstructor = Local<Function>::Cast(globalObj->Get(Nan::New("Error").ToLocalChecked()));
+-
+-  Local<Value> constructorArgs[1] = {
+-    Nan::New(strerror(errno)).ToLocalChecked()
+-  };
+-
+-  Local<Value> error = Nan::NewInstance(errorConstructor, 1, constructorArgs).ToLocalChecked();
++  v8::Local<v8::Value> error = Nan::ErrnoException(errno, NULL, strerror(errno));
+ 
+   Local<Value> argv[2] = {
+     Nan::New("error").ToLocalChecked(),
+@@ -393,7 +384,7 @@ NAN_METHOD(BluetoothHciSocket::BindRaw) {
+   if (info.Length() > 0) {
+     Local<Value> arg0 = info[0];
+     if (arg0->IsInt32() || arg0->IsUint32()) {
+-      devId = arg0->IntegerValue();
++      devId = Nan::To<int32_t>(arg0).FromJust();
+ 
+       pDevId = &devId;
+     }
+@@ -415,7 +406,7 @@ NAN_METHOD(BluetoothHciSocket::BindUser) {
+   if (info.Length() > 0) {
+     Local<Value> arg0 = info[0];
+     if (arg0->IsInt32() || arg0->IsUint32()) {
+-      devId = arg0->IntegerValue();
++      devId = Nan::To<int32_t>(arg0).FromJust();
+ 
+       pDevId = &devId;
+     }
+@@ -468,12 +459,12 @@ NAN_METHOD(BluetoothHciSocket::GetDeviceList) {
+       bool devUp = dr->dev_opt & (1 << HCI_UP);
+       if (dr != NULL) {
+         v8::Local<v8::Object> obj = Nan::New<v8::Object>();
+-        obj->Set(Nan::New("devId").ToLocalChecked(), Nan::New<Number>(devId));
+-        obj->Set(Nan::New("devUp").ToLocalChecked(), Nan::New<Boolean>(devUp));
+-        obj->Set(Nan::New("idVendor").ToLocalChecked(), Nan::Null());
+-        obj->Set(Nan::New("idProduct").ToLocalChecked(), Nan::Null());
+-        obj->Set(Nan::New("busNumber").ToLocalChecked(), Nan::Null());
+-        obj->Set(Nan::New("deviceAddress").ToLocalChecked(), Nan::Null());
++        Nan::Set(obj, Nan::New("devId").ToLocalChecked(), Nan::New<Number>(devId));
++        Nan::Set(obj, Nan::New("devUp").ToLocalChecked(), Nan::New<Boolean>(devUp));
++        Nan::Set(obj, Nan::New("idVendor").ToLocalChecked(), Nan::Null());
++        Nan::Set(obj, Nan::New("idProduct").ToLocalChecked(), Nan::Null());
++        Nan::Set(obj, Nan::New("busNumber").ToLocalChecked(), Nan::Null());
++        Nan::Set(obj, Nan::New("deviceAddress").ToLocalChecked(), Nan::Null());
+         Nan::Set(deviceList, di++, obj);
+       }
+     }
+
+From c66f086245405ac5ceb862cdea060a7b62c0715f Mon Sep 17 00:00:00 2001
+From: Aarni Koskela <akx@iki.fi>
+Date: Wed, 28 Aug 2019 13:31:12 +0300
+Subject: [PATCH 4/6] Fix jshint complaints about arrows; attempt importing
+ code as part of test
+
+---
+ package.json | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 0b72dba..84d9efe 100644
+--- a/package.json
++++ b/package.json
+@@ -38,7 +38,7 @@
+   },
+   "scripts": {
+     "install": "node-pre-gyp install --fallback-to-build",
+-    "test": "jshint lib/*.js"
++    "test": "jshint lib/*.js && node ."
+   },
+   "binary": {
+     "module_name": "binding",
+@@ -46,5 +46,8 @@
+     "host": "https://github.com/sandeepmistry/node-bluetooth-hci-socket/releases/download/",
+     "package_name": "{module_name}-{version}-{node_abi}-{platform}-{arch}.tar.gz",
+     "remote_path": "{version}"
++  },
++  "jshintConfig": {
++    "esversion": 6
+   }
+ }
+
+From 762c7719b55872c32b1704bfe5458be6605418ac Mon Sep 17 00:00:00 2001
+From: Aarni Koskela <akx@iki.fi>
+Date: Wed, 28 Aug 2019 13:46:11 +0300
+Subject: [PATCH 6/6] Bump version
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 84d9efe..2e4b73d 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "@abandonware/bluetooth-hci-socket",
+-  "version": "0.5.3-1",
++  "version": "0.5.3-2",
+   "description": "Bluetooth HCI socket binding for Node.js",
+   "main": "index.js",
+   "repository": {
