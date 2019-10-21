@@ -6,15 +6,22 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=bluetooth-hci-socket
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.5.2
-PKG_RELEASE:=1
+PKG_VERSION:=0.5.3
+PKG_RELEASE:=3
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/noble/node-bluetooth-hci-socket.git
+PKG_SOURCE_URL:=https://github.com/abandonware/node-bluetooth-hci-socket.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=916158269f7e48ddc73d2448d2634e91538c8991
+PKG_SOURCE_VERSION:=d1fc932dbc91369c4e71be6a0d468f6ca17b0ea5
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_MIRROR_HASH:=f6bcb8563d4fb7c9204e88e88b49d97fdeaaaf8ffd3c68d68cfb1f3839b0eb13
+#PKG_MIRROR_HASH:=f6bcb8563d4fb7c9204e88e88b49d97fdeaaaf8ffd3c68d68cfb1f3839b0eb13
+
+#PKG_SOURCE_PROTO:=git
+#PKG_SOURCE_URL:=https://github.com/noble/node-bluetooth-hci-socket.git
+#PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+#PKG_SOURCE_VERSION:=916158269f7e48ddc73d2448d2634e91538c8991
+#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+#PKG_MIRROR_HASH:=f6bcb8563d4fb7c9204e88e88b49d97fdeaaaf8ffd3c68d68cfb1f3839b0eb13
 
 #PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 #PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
