@@ -21,13 +21,13 @@ index 081c851..0b72dba 100644
 +    "nan": "^2.14.0",
 +    "node-pre-gyp": "^0.13.0"
    },
-   "optionalDependencies": {
-     "usb": "^1.6.0"
+   "optionalDependencies": {},
+   "devDependencies": {
 diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
 index 0cc7427..6c8df85 100644
 --- a/src/BluetoothHciSocket.cpp
 +++ b/src/BluetoothHciSocket.cpp
-@@ -126,7 +126,7 @@ NAN_MODULE_INIT(BluetoothHciSocket::Init) {
+@@ -129,7 +129,7 @@ NAN_MODULE_INIT(BluetoothHciSocket::Init) {
    Nan::SetPrototypeMethod(tmpl, "stop", Stop);
    Nan::SetPrototypeMethod(tmpl, "write", Write);
  
@@ -36,7 +36,7 @@ index 0cc7427..6c8df85 100644
  }
  
  BluetoothHciSocket::BluetoothHciSocket() :
-@@ -264,16 +264,7 @@ void BluetoothHciSocket::write_(char* data, int length) {
+@@ -267,16 +267,7 @@ void BluetoothHciSocket::write_(char* data, int length) {
  }
  
  void BluetoothHciSocket::emitErrnoError() {
@@ -54,7 +54,7 @@ index 0cc7427..6c8df85 100644
  
    Local<Value> argv[2] = {
      Nan::New("error").ToLocalChecked(),
-@@ -393,7 +384,7 @@ NAN_METHOD(BluetoothHciSocket::BindRaw) {
+@@ -396,7 +387,7 @@ NAN_METHOD(BluetoothHciSocket::BindRaw) {
    if (info.Length() > 0) {
      Local<Value> arg0 = info[0];
      if (arg0->IsInt32() || arg0->IsUint32()) {
@@ -63,7 +63,7 @@ index 0cc7427..6c8df85 100644
  
        pDevId = &devId;
      }
-@@ -415,7 +406,7 @@ NAN_METHOD(BluetoothHciSocket::BindUser) {
+@@ -418,7 +409,7 @@ NAN_METHOD(BluetoothHciSocket::BindUser) {
    if (info.Length() > 0) {
      Local<Value> arg0 = info[0];
      if (arg0->IsInt32() || arg0->IsUint32()) {
@@ -72,7 +72,7 @@ index 0cc7427..6c8df85 100644
  
        pDevId = &devId;
      }
-@@ -468,12 +459,12 @@ NAN_METHOD(BluetoothHciSocket::GetDeviceList) {
+@@ -471,12 +462,12 @@ NAN_METHOD(BluetoothHciSocket::GetDeviceList) {
        bool devUp = dr->dev_opt & (1 << HCI_UP);
        if (dr != NULL) {
          v8::Local<v8::Object> obj = Nan::New<v8::Object>();
