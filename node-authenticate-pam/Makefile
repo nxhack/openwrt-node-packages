@@ -42,10 +42,6 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/security
 TARGET_CPPFLAGS+=$(FPIC)
 
-define Build/Prepare
-	$(INSTALL_DIR) $(PKG_BUILD_DIR)
-endef
-
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -56,14 +52,24 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(DL_DIR)/$(PKG_SOURCE)
+	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
 define Package/node-authenticate-pam/install
-	$(INSTALL_DIR) $(1)/usr/lib/node
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,README.md} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,index.js} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{examples,src} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bluetooth_hci_socket.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 endef
 
 $(eval $(call BuildPackage,node-authenticate-pam))
