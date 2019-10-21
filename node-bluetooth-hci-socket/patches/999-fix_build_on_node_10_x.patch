@@ -2939,7 +2939,7 @@ diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
 index 469cda2..e05bb34 100644
 --- a/src/BluetoothHciSocket.cpp
 +++ b/src/BluetoothHciSocket.cpp
-@@ -273,7 +273,7 @@ void BluetoothHciSocket::emitErrnoError() {
+@@ -276,7 +276,7 @@ void BluetoothHciSocket::emitErrnoError() {
      Nan::New(strerror(errno)).ToLocalChecked()
    };
  
@@ -2948,7 +2948,7 @@ index 469cda2..e05bb34 100644
  
    Local<Value> argv[2] = {
      Nan::New("error").ToLocalChecked(),
-@@ -535,4 +535,4 @@ void BluetoothHciSocket::PollCallback(uv_poll_t* handle, int status, int events)
+@@ -538,4 +538,4 @@ void BluetoothHciSocket::PollCallback(uv_poll_t* handle, int status, int events)
    p->poll();
  }
  
