@@ -7,15 +7,15 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.11.1
+PKG_VERSION:=v12.13.0
 PKG_RELEASE:=1
-PKG_HASH:=e53fbc7985ab8a34fe895852f30baee3f9f590ff9c2569e1bce791f78eec24ee
+PKG_HASH:=a82b1541cf670318a0102c32e06f296662b5ccccae764c1f32be4a3cf038bef6
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.16.3
+PKG_VERSION:=v10.17.0
 PKG_RELEASE:=1
-PKG_HASH:=7bf1123d7415964775b8f81fe6ec6dd5c3c08abb42bb71dfe4409dbeeba26bbd
+PKG_HASH:=412667d76bd5273c07cb69c215998109fd5bb35c874654f93e6a0132d666c58e
 PATCH_DIR:=./patches/v10.x
 else
 PKG_VERSION:=v8.16.2
@@ -95,7 +95,7 @@ define Package/node/config
 			bool "10.x Active LTS"
 
 		config NODEJS_12
-			bool "12.x Current Release"
+			bool "12.x Active LTS"
 	endchoice
 
 	choice
