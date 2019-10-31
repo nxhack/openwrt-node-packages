@@ -148,8 +148,8 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
-	$(if $(CONFIG_BIG_ENDIAN),--without-snapshot) \
+	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot)) \
+	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
 	--shared-zlib \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
@@ -169,26 +169,8 @@ HOST_CONFIGURE_ARGS:= \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
+ifneq ($(CONFIG_NODEJS_12),y)
 HOST_CONFIGURE_CMD:=python2 ./configure
-
-ifeq ($(CONFIG_NODEJS_12),y)
-
-HOST_CONFIGURE_VARS:= \
-	CC="$(HOSTCC) $(FORCE_32BIT)" \
-	CXX="$(HOSTCXX) $(FORCE_32BIT)"
-
-ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
-
-HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
-FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
-FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
-
-define Build/Prepare
-	$(Build/Prepare/Default)
-	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
-	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_NODE_GYP)
-endef
-endif
 endif
 
 define Build/InstallDev
