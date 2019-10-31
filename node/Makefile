@@ -63,6 +63,7 @@ define Package/node/description
   Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses
   an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js'
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
+  *** Requires GCC Multilib on host system to build! ***
 endef
 
 define Package/node-npm
@@ -165,7 +166,6 @@ CONFIGURE_ARGS:= \
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
-	--without-snapshot \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
