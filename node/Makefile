@@ -56,7 +56,8 @@ define Package/node
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
-           +!NODEJS_8:libatomic
+           +NODEJS_12:libnghttp2 +NODEJS_12:libuv +NODEJS_12:libhttp-parser +NODEJS_12:libcares \
+           +NODEJS_10:libatomic
 endef
 
 define Package/node/description
@@ -126,10 +127,6 @@ ifeq ($(CONFIG_NODEJS_10),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
-ifeq ($(CONFIG_NODEJS_12),y)
-TARGET_LDFLAGS+=-latomic
-endif
-
 ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
 endif
@@ -151,6 +148,7 @@ CONFIGURE_ARGS:= \
 	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot)) \
 	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
 	--shared-zlib \
+	$(if $(CONFIG_NODEJS_12),--shared-nghttp2 --shared-libuv --shared-http-parser --shared-cares) \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
