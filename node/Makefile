@@ -57,7 +57,7 @@ define Package/node
            $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
            +NODEJS_12:libnghttp2 +NODEJS_12:libuv +NODEJS_12:libhttp-parser +NODEJS_12:libcares \
-           +NODEJS_10:libatomic
+           +!NODEJS_8:libatomic
 endef
 
 define Package/node/description
