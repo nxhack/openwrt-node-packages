@@ -64,7 +64,7 @@ define Package/node/description
   Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses
   an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js'
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
-  *** Requires GCC Multilib on host system to build! ***
+  *** Requires GCC/G++ Multilib on host system to build! ***
 endef
 
 define Package/node-npm
@@ -101,7 +101,7 @@ define Package/node/config
 	endchoice
 
 	choice
-		prompt "ICU Selection"
+		prompt "i18n features"
 		default NODEJS_ICU_NONE
 		help
 		 Select i18n features
@@ -114,7 +114,7 @@ define Package/node/config
 			bool "small-icu"
 
 		config NODEJS_ICU_SYSTEM
-			depends on ARCH_64BIT
+			depends on ARCH_64BIT&&!BIG_ENDIAN
 			bool "system-icu"
 	endchoice
 
