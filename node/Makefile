@@ -36,7 +36,7 @@ PKG_CPE_ID:=cpe:/a:nodejs:node.js
 HOST_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
 HOST_BUILD_PARALLEL:=1
 
-PKG_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host NODEJS_12:node/host
+PKG_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
@@ -56,6 +56,7 @@ define Package/node
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data \
+           +NODEJS_12:libnghttp2 +NODEJS_12:libuv +NODEJS_12:libhttp-parser +NODEJS_12:libcares \
            +!NODEJS_8:libatomic
 endef
 
@@ -63,7 +64,7 @@ define Package/node/description
   Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses
   an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js'
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
-  *** Requires GCC Multilib on host system to build! ***
+  *** Requires GCC/G++ Multilib on host system to build! ***
 endef
 
 define Package/node-npm
@@ -100,7 +101,7 @@ define Package/node/config
 	endchoice
 
 	choice
-		prompt "ICU Selection"
+		prompt "i18n features"
 		default NODEJS_ICU_NONE
 		help
 		 Select i18n features
@@ -126,10 +127,6 @@ ifeq ($(CONFIG_NODEJS_10),y)
 TARGET_LDFLAGS+=-latomic
 endif
 
-ifeq ($(CONFIG_NODEJS_12),y)
-TARGET_LDFLAGS+=-latomic
-endif
-
 ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
 endif
@@ -148,9 +145,10 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot) \
-	$(if $(CONFIG_BIG_ENDIAN),--without-snapshot) \
+	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot)) \
+	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
 	--shared-zlib \
+	$(if $(CONFIG_NODEJS_12),--shared-nghttp2 --shared-libuv --shared-http-parser --shared-cares) \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
@@ -169,26 +167,8 @@ HOST_CONFIGURE_ARGS:= \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
+ifneq ($(CONFIG_NODEJS_12),y)
 HOST_CONFIGURE_CMD:=python2 ./configure
-
-ifeq ($(CONFIG_NODEJS_12),y)
-
-HOST_CONFIGURE_VARS:= \
-	CC="$(HOSTCC) $(FORCE_32BIT)" \
-	CXX="$(HOSTCXX) $(FORCE_32BIT)"
-
-ifeq ($(CONFIG_NODEJS_ICU_NONE),y)
-
-HOST_EXE=$(HOST_BUILD_DIR)/out/Release/
-FILE_V8_GYP:=$(PKG_BUILD_DIR)/tools/v8_gypfiles/v8.gyp
-FILE_NODE_GYP:=$(PKG_BUILD_DIR)/node.gyp
-
-define Build/Prepare
-	$(Build/Prepare/Default)
-	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_V8_GYP)
-	$(SED) "s#<(PRODUCT_DIR)/<(EXECUTABLE_PREFIX)#$(HOST_EXE)#g" $(FILE_NODE_GYP)
-endef
-endif
 endif
 
 define Build/InstallDev
