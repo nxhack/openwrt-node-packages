@@ -148,8 +148,8 @@ CONFIGURE_ARGS:= \
 	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot)) \
 	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
 	--shared-zlib \
-	$(if $(CONFIG_NODEJS_12),--shared-nghttp2 --shared-http-parser --shared-cares) \
-	$(if $(CONFIG_NODEJS_12),$(if $(filter reboot, $(OW_VER)),--shared-libuv)) \
+	$(if $(CONFIG_NODEJS_12),--shared-nghttp2 --shared-cares) \
+	$(if $(CONFIG_NODEJS_12),$(if $(filter reboot, $(OW_VER)),--shared-libuv --shared-http-parser)) \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
