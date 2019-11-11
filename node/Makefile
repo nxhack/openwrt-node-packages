@@ -56,7 +56,7 @@ define Package/node
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
            $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
            $(if $(filter reboot v19.07%, $(OW_VER)),+NODEJS_ICU_SYSTEM:icu-full-data) \
-           +NODEJS_12:libnghttp2 +NODEJS_12:libuv +NODEJS_12:libhttp-parser +NODEJS_12:libcares \
+           $(if $(filter reboot v19.07%, $(OW_VER)),+NODEJS_12:libnghttp2 +NODEJS_12:libuv +NODEJS_12:libhttp-parser +NODEJS_12:libcares) \
            +!NODEJS_8:libatomic +NODEJS_ICU_SYSTEM:icu
 endef
 
