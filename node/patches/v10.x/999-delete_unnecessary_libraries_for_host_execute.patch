@@ -34,45 +34,20 @@
          '<@(icu_src_genccode)',
 --- a/deps/v8/gypfiles/v8.gyp	2019-06-27 19:12:20.000000000 +0900
 +++ b/deps/v8/gypfiles/v8.gyp	2019-07-01 14:40:48.292020880 +0900
-@@ -1251,6 +1251,7 @@
-     {
-       'target_name': 'bytecode_builtins_list_generator',
+@@ -2447,6 +2447,7 @@
+       'target_name': 'torque',
        'type': 'executable',
+       'toolsets': ['host'],
 +      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-       'conditions': [
-         ['want_separate_host_toolset', {
-           'toolsets': ['host'],
-@@ -1274,6 +1275,8 @@
+       'dependencies': ['v8_libbase'],
+       'cflags_cc!': ['-fno-exceptions', '-fno-rtti'],
+       'xcode_settings': {
+@@ -2904,6 +2905,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
 +      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
 +      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/65.1/lib' ],
        'dependencies': [
-         'v8_base_without_compiler',
-         'v8_compiler_for_mksnapshot',
-@@ -1296,6 +1299,7 @@
-     {
-       'target_name': 'torque',
-       'type': 'executable',
-+      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-       'dependencies': [
-         'torque_base',
-         # "build/win:default_exe_manifest",
-@@ -1334,6 +1338,7 @@
-     {
-       'target_name': 'torque-language-server',
-       'type': 'executable',
-+      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-       'conditions': [
-         ['want_separate_host_toolset', {
-           'toolsets': ['host'],
-@@ -1361,6 +1366,8 @@
-     {
-       'target_name': 'gen-regexp-special-case',
-       'type': 'executable',
-+      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-+      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/65.1/lib' ],
-       'dependencies': [
-         'v8_libbase',
-         # "build/win:default_exe_manifest",
+         'v8_base',
+         'v8_init',
