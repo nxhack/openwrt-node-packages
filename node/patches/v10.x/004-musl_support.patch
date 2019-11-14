@@ -35,8 +35,8 @@ diff -urN a/deps/v8/src/external-reference-table.cc b/deps/v8/src/external-refer
 --- a/deps/v8/src/external-reference-table.cc	2019-09-05 00:36:23.000000000 +0900
 +++ b/deps/v8/src/external-reference-table.cc	2019-09-12 15:09:41.959828134 +0900
 @@ -9,7 +9,7 @@
+ #include "src/external-reference.h"
  #include "src/ic/stub-cache.h"
- #include "src/logging/counters.h"
  
 -#if defined(DEBUG) && defined(V8_OS_LINUX) && !defined(V8_OS_ANDROID)
 +#if defined(DEBUG) && defined(V8_OS_LINUX) && !defined(V8_OS_ANDROID) && defined(V8_LIBC_GLIBC)
