@@ -74,12 +74,9 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_8
+		default NODEJS_12
 		help
 		 Select node.js version.
-
-		config NODEJS_8
-			bool "8.x Maintenance LTS"
 
 		config NODEJS_10
 			bool "10.x Active LTS"
