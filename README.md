@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06
+OpenWrt/LEDE Node.js Packages : for trunk / openwrt-19.07
 
 Note: The test target is only ar71xx. It will probably work with MT7688(mipsel) and Raspberry Pi(arm, aarch64).
 
@@ -32,6 +32,10 @@ If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://gith
 
 If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com/nxhack/openwrt-node-packages/tree/lede-17.01)
 
+
+mips(be) will no longer be supported because nosnapshot build is deprecated.
+
+Openssl 1.0.x becomes EoL, openwrt-18.06 will not be supported.
 
 ## Illegal instruction issue
 
@@ -67,8 +71,6 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
  [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
 
  Note: ICU currently supports only ***LITTLE ENDIAN***.
-
- Note: v12.x v8 snapshot currently not work.
 
 ## homebridge on mips with kernel FPU emulation
 In many cases, it does not work because key generation is slow.
