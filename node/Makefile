@@ -108,6 +108,10 @@ endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 
+ifeq ($(CONFIG_NODEJS_10),y)
+TARGET_LDFLAGS+=-latomic
+endif
+
 ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
 endif
