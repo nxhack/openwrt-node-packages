@@ -13,7 +13,7 @@ diff -urN a/configure.py b/configure.py
 +    target_arch = 'x64'
 +
 +  if target_arch in ('mips', 'mips64'):
-+    o['variables']['v8_use_snapshot'] = 'true'
++    o['variables']['v8_use_snapshot'] = 'false'
 +  elif target_arch in ('mipsel', 'mips64el'):
 +    o['variables']['v8_enable_embedded_builtins'] = 1
 +  elif target_arch == 'x64':
