@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=fuse-bindings
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.11.2
+PKG_NPM_NAME:=node-fuse-bindings
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=2.12.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=ec44021023cb26f526da140ff7626a9a672e949ecf48f055c5291119f1c46390
+PKG_HASH:=044ede17e4fd55fa7e2261a04902a1257e9ed6ccb9aad2184c217ddb4993dc28
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -28,7 +28,7 @@ define Package/node-fuse-bindings
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Fully maintained fuse bindings for Node.js
-  URL:=https://www.npmjs.org/package/fuse-bindings
+  URL:=https://www.npmjs.org/package/node-fuse-bindings
   DEPENDS:=+node +libfuse
 endef
 
