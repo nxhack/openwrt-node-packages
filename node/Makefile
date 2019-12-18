@@ -6,23 +6,16 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
-ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.13.0
-PKG_RELEASE:=1
-PKG_HASH:=a82b1541cf670318a0102c32e06f296662b5ccccae764c1f32be4a3cf038bef6
-PATCH_DIR:=./patches/v12.x
-else
 ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.17.0
+PKG_VERSION:=v10.18.0
 PKG_RELEASE:=1
-PKG_HASH:=412667d76bd5273c07cb69c215998109fd5bb35c874654f93e6a0132d666c58e
+PKG_HASH:=0b2662ab849713dea708d3f74fe5e63fe2d0e869d1dc06b9e9f178ed1c66fede
 PATCH_DIR:=./patches/v10.x
 else
-PKG_VERSION:=v8.16.2
+PKG_VERSION:=v12.14.0
 PKG_RELEASE:=1
-PKG_HASH:=8c16b500ad74c1b1bde099996c287eeed5a4b2ab0efdf5d94d1d683cc2654ec3
-PATCH_DIR:=./patches/v8.x
-endif
+PKG_HASH:=088a217ba2af641b8cc15be29f6e2956b8a33e6badb85596bbc2cdea9df9be71
+PATCH_DIR:=./patches/v12.x
 endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
@@ -33,15 +26,13 @@ PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
-HOST_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
+HOST_BUILD_DEPENDS:=python3/host
 HOST_BUILD_PARALLEL:=1
 
-PKG_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
+PKG_BUILD_DEPENDS:=python3/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
-
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
@@ -53,11 +44,8 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb @!powerpc \
-           +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
-           $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
-           $(if $(filter reboot v19.07%, $(OW_VER)),+NODEJS_ICU_SYSTEM:icu-full-data) \
-           $(if $(filter reboot v19.07%, $(OW_VER)),+NODEJS_12:libnghttp2 +NODEJS_12:libuv +NODEJS_12:libhttp-parser +NODEJS_12:libcares) \
-           +!NODEJS_8:libatomic +NODEJS_ICU_SYSTEM:icu
+	   +libstdcpp +libopenssl +zlib +libnghttp2 +libuv +libhttp-parser \
+	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
 define Package/node/description
@@ -77,7 +65,7 @@ define Package/node-npm
 endef
 
 define Package/node-npm/description
- NPM is the package manager for Node.js
+	NPM is the package manager for NodeJS
 endef
 
 define Package/node/config
@@ -86,12 +74,9 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_8
+		default NODEJS_12
 		help
 		 Select node.js version.
-
-		config NODEJS_8
-			bool "8.x Maintenance LTS"
 
 		config NODEJS_10
 			bool "10.x Active LTS"
@@ -145,13 +130,12 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot)) \
-	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
 	--shared-zlib \
-	$(if $(CONFIG_NODEJS_12),$(if $(filter reboot, $(OW_VER)) \
-		,--shared-nghttp2 --shared-libuv --shared-http-parser --shared-cares)) \
-	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
-		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
+	--shared-openssl \
+	--shared-nghttp2 \
+	--shared-libuv \
+	--shared-http-parser \
+	--shared-cares \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
@@ -167,10 +151,6 @@ HOST_CONFIGURE_ARGS:= \
 	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
-
-ifneq ($(CONFIG_NODEJS_12),y)
-HOST_CONFIGURE_CMD:=python2 ./configure
-endif
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
