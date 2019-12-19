@@ -40,7 +40,7 @@ If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxh
 mips(be) will no longer be supported because nosnapshot build is deprecated.
 
 Openssl 1.0.x becomes EoL, openwrt-18.06 will not be supported.
-Python2 becomes EoL, node v8.x not be supported.
+Python2 becomes EoL, node v8.x will not be supported.
 
 ## Illegal instruction issue
 
