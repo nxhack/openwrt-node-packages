@@ -4,7 +4,8 @@
 
 OpenWrt/LEDE Node.js Packages : for trunk / openwrt-19.07
 
-Note: The test target is only ar71xx. It will probably work with MT7688(mipsel) and Raspberry Pi(arm, aarch64).
+Note: support arch is aarch64, arm, mipsel, mips64el, i386, x86_64
+      (mipseb and mips64eb is not supported)
 
 ## License
 
@@ -39,6 +40,7 @@ If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxh
 mips(be) will no longer be supported because nosnapshot build is deprecated.
 
 Openssl 1.0.x becomes EoL, openwrt-18.06 will not be supported.
+Python2 becomes EoL, node v8.x will not be supported.
 
 ## Illegal instruction issue
 
@@ -136,7 +138,7 @@ node-bleacon			(bignum,bluetooth-hci-socket)
 node-bluetooth-hci-socket	(usb)
 node-bufferutil
 node-cylon-firmata		(firmata)
-node-ejdb
+node-ejdb2_node
 node-enocean-utils		(serialport)
 node-epoll
 node-expat
