@@ -27,7 +27,7 @@ diff -urN a/configure.py b/configure.py
  
  def configure_openssl(o):
    variables = o['variables']
-@@ -1635,6 +1651,7 @@
+@@ -1632,6 +1651,7 @@
  configure_intl(output)
  configure_static(output)
  configure_inspector(output)
