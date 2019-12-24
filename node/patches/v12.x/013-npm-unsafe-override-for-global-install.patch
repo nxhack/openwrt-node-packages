@@ -12,7 +12,7 @@ diff --git a/deps/npm/lib/config/defaults.js b/deps/npm/lib/config/defaults.js
 index f023d85724..49a9b9936c 100644
 --- a/deps/npm/lib/config/defaults.js
 +++ b/deps/npm/lib/config/defaults.js
-@@ -241,7 +241,7 @@
+@@ -243,7 +243,7 @@
                         process.getgid && process.setgid) ||
                       process.getuid() !== 0,
      'update-notifier': true,
