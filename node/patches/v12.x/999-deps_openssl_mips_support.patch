@@ -23720,7 +23720,7 @@ diff -urN a/deps/openssl/openssl-cl_asm.gypi b/deps/openssl/openssl-cl_asm.gypi
 diff -urN a/deps/openssl/openssl.gypi b/deps/openssl/openssl.gypi
 --- a/deps/openssl/openssl.gypi	2019-10-12 04:53:30.000000000 +0900
 +++ b/deps/openssl/openssl.gypi	2019-10-15 14:50:32.984808397 +0900
-@@ -1149,6 +1149,18 @@
+@@ -1151,6 +1151,18 @@
        'SHA256_ASM',
        'SHA512_ASM',
      ],
