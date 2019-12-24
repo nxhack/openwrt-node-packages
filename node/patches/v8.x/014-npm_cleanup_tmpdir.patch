@@ -3,7 +3,7 @@ npm  github issue: '/tmp files not cleaned up for shrinkwrapped packages'
 	    author: @andiby
 --- a/deps/npm/lib/npm.js
 +++ b/deps/npm/lib/npm.js
-@@ -445,6 +445,25 @@
+@@ -451,6 +451,25 @@
        enumerable: true
      })
  
