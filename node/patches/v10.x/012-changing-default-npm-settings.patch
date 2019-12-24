@@ -2,7 +2,7 @@ diff --git a/deps/npm/lib/config/defaults.js b/deps/npm/lib/config/defaults.js
 index da019ac4d6..8b81e28940 100644
 --- a/deps/npm/lib/config/defaults.js
 +++ b/deps/npm/lib/config/defaults.js
-@@ -172,7 +172,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
+@@ -175,7 +175,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
      'legacy-bundling': false,
      link: false,
      'local-address': undefined,
@@ -11,7 +11,7 @@ index da019ac4d6..8b81e28940 100644
      logstream: process.stderr,
      'logs-max': 10,
      long: false,
-@@ -227,7 +227,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
+@@ -231,7 +231,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
      'sign-git-tag': false,
      'sso-poll-frequency': 500,
      'sso-type': 'oauth',
