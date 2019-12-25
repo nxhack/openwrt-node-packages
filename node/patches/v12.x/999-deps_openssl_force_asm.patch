@@ -1,6 +1,7 @@
---- a/deps/openssl/openssl.gyp
-+++ b/deps/openssl/openssl.gyp
-@@ -21,14 +21,7 @@
+diff -urN a/deps/openssl/openssl.gyp b/deps/openssl/openssl.gyp
+--- a/deps/openssl/openssl.gyp	2019-12-17 16:05:03.000000000 +0900
++++ b/deps/openssl/openssl.gyp	2019-12-25 16:01:56.013921595 +0900
+@@ -21,14 +21,8 @@
          }, 'target_arch=="arm64" and OS=="win"', {
            # VC-WIN64-ARM inherits from VC-noCE-common that has no asms.
            'includes': ['./openssl_no_asm.gypi'],
@@ -9,9 +10,10 @@
 -           # Require AVX512IFMA supported. See
 -           # https://www.openssl.org/docs/man1.1.1/man3/OPENSSL_ia32cap.html
 -           # Currently crypto/poly1305/asm/poly1305-x86_64.pl requires AVX512IFMA.
-           'includes': ['./openssl_asm.gypi'],
--        }, {
+-          'includes': ['./openssl_asm.gypi'],
+         }, {
 -          'includes': ['./openssl_asm_avx2.gypi'],
++          'includes': ['./openssl_asm.gypi'],
          }],
        ],
        'direct_dependent_settings': {
