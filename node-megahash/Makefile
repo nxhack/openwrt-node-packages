@@ -4,18 +4,18 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=hashtable
+PKG_NPM_NAME:=megahash
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.0.2
-PKG_RELEASE:=11
+PKG_VERSION:=1.0.3
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9857aa40f95db820ec2880ce3ad31f805f108ad8695c61430896237b2131655d
+PKG_HASH:=184a2bfc6232399c3d3a103adfae4209f65f248d0d67b2b5d9e5c57e2ac03df3
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE_FILES:=LICENSE.md
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
@@ -23,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-hashtable
+define Package/node-megahash
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Native HashTable and ES6 compatible Map for Node.js
-  URL:=https://www.npmjs.org/package/hashtable
+  TITLE:=A super-fast C++ hash table with Node.js wrapper.
+  URL:=https://www.npmjs.org/package/megahash
   DEPENDS:=+node
 endef
 
-define Package/node-hashtable/description
- Native HashTable and ES6 compatible Map for Node.js
+define Package/node-megahash/description
+ MegaHash is a super-fast C++ hash table with a Node.js wrapper, capable of storing over 1 billion keys, has read/write speeds above 500,000 keys per second (depending on CPU speed and total keys in hash), and relatively low memory overhead. This module is designed primarily as a replacement for ES6 Maps, which seem to crash Node.js after about 15 million keys.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -60,17 +60,17 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-hashtable/install
+define Package/node-megahash/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,README.md} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,index.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,*js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,test} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/hashtable.node \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/megahash.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 endef
 
-$(eval $(call BuildPackage,node-hashtable))
+$(eval $(call BuildPackage,node-megahash))
