@@ -155,6 +155,7 @@ node-ideino-linino-lib		(epoll)
 node-johnny-five		(serialport)
 node-level			(leveldown)
 node-leveldown
+node-megahash
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
 node-mknod
 node-muzzley-client		(ws[legacy])
