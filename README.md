@@ -145,14 +145,12 @@ node-expat
 node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
-node-hap-nodejs			(curve25519-n, ed25519-hap)
 node-hashtable			[mark @BROKEN: use node-megahash]
 node-hid
 node-hid-stream			(node-hid)
-node-homebridge			(hap-nodejs)
 node-i2c-bus
 node-ideino-linino-lib		(epoll)
-node-johnny-five		(serialport)
+node-johnny-five		(firmata, serialport)
 node-level			(leveldown)
 node-leveldown
 node-megahash
