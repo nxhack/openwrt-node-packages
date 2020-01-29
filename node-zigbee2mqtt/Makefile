@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zigbee2mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.6.0
+PKG_VERSION:=1.9.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/Koenkk/zigbee2mqtt/tar.gz/$(PKG_VERSION)?
-PKG_HASH:=17ae95212a2cc4d3b06f566e8b2ea35f83d11ae8ff677687e0de899fdbf0534f
+PKG_HASH:=64e53398053d966abf713a5954194b39f1b44fdb729ddc5f2cbe23c6e2aafd11
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NPM_NAME)-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
