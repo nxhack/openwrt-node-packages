@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ws
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=7.1.1
+PKG_VERSION:=7.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9fb5eeffefac35b85a0a73cc450b9ae240771853883c9a3bd71422d024266b39
+PKG_HASH:=9580deb95b62c2914e7fa7a9d2cd017d4eb55c51bfe19734586b73d66fe28ee2
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -32,7 +32,7 @@ define Package/node-ws
   CATEGORY:=Languages
   TITLE:=WebSocket library
   URL:=https://www.npmjs.org/package/ws
-  DEPENDS:=+node
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-ws/description
