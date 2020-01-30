@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=openzwave-shared
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.5.8
+PKG_VERSION:=1.5.12
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=e7c34c88838edb9aab76aeb796ee6eed6fbdf2bb3dbecf0a5d887e597564cc54
+PKG_HASH:=ca93270e31739f6a7757e1c35fe1341dc4078143ee0d8c2c2c465f86bea6c6dd
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC
