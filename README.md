@@ -145,19 +145,17 @@ node-expat
 node-ffi			(ffi, ref)
 node-firmata			(serialport)
 node-fuse-bindings
-node-hap-nodejs			(curve25519-n, ed25519-hap)
-node-hashtable
+node-hashtable			[mark @BROKEN: use node-megahash]
 node-hid
 node-hid-stream			(node-hid)
-node-homebridge			(hap-nodejs)
 node-i2c-bus
 node-ideino-linino-lib		(epoll)
-node-johnny-five		(serialport)
+node-johnny-five		(firmata, serialport)
 node-level			(leveldown)
 node-leveldown
 node-megahash
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
-node-mknod
+node-mknod			[mark @BROKEN]
 node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
 node-nitrogen			(ws[legacy])
