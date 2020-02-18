@@ -21,7 +21,7 @@ diff -urN a/configure.py b/configure.py
 +      o['variables']['v8_enable_embedded_builtins'] = 0
 +  elif target_arch == 'ia32':
 +    if options.with_intl in (None, 'none'):
-+      o['variables']['v8_enable_embedded_builtins'] = 1
++      o['variables']['v8_use_snapshot'] = 'false'
 +    else:
 +      o['variables']['v8_enable_embedded_builtins'] = 0
  
