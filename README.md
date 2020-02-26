@@ -4,8 +4,8 @@
 
 OpenWrt/LEDE Node.js Packages : for trunk / openwrt-19.07
 
-Note: support arch is aarch64, arm, mipsel, mips64el, x86_64
-      (mipseb & mips64eb & i386 is not supported)
+Note: support arches are aarch64, arm, mipsel, mips64el, x86_64
+      (mipseb & mips64eb & i386 are not supported)
 
 ## License
 
