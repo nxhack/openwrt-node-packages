@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-enocean-utils
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=0.4.2
+PKG_VERSION:=0.5.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=cecd6e2443551cc7fdd58ed0b7b323baf59f9ca6677b63ca855d3e1c0a3a711f
+PKG_HASH:=cab409f747f5afc96fbb400965ef6401a45ab5392e90eeb220d9943fd02de476
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
