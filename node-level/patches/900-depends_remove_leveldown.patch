@@ -7,4 +7,4 @@
 -    "leveldown": "^5.4.0"
    },
    "devDependencies": {
-   "airtap": "^3.0.0",
+     "airtap": "^3.0.0",
