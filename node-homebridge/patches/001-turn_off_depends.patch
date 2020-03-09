@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -27,7 +27,6 @@
+@@ -34,7 +34,6 @@
    "dependencies": {
      "chalk": "^1.1.1",
      "commander": "2.8.1",
