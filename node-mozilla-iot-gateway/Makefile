@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=mozilla-iot-gateway
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.10.0
+PKG_VERSION:=0.11.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/mozilla-iot/gateway/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=1346efa975cc25d32c30a40620597e6af5c027e8b5dc975218cbf8a004ba5d57
+PKG_HASH:=328a40d278b122c77311d148f9ac9659e565c7a8331c3e53f126b4629cf49f1c
 
 PKG_MAINTAINER:=Marko Ratkaj <marko.ratkaj@sartura.hr>
 PKG_LICENSE:=MPL-2.0
