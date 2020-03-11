@@ -35,6 +35,7 @@ endef
 
 define Package/node-homebridge/description
  Homebridge is a lightweight Node.js server you can run on your home network that emulates the iOS HomeKit API
+ *** You need to install avahi-nodbus-daemon or avahi-dbus-daemon or umdns or mdnsd package. ***
 endef
 
 TAR_OPTIONS+= --strip-components 1
