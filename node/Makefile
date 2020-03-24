@@ -54,11 +54,11 @@ define Package/node/description
   an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js'
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 
- *** The following preparations must be made on the host side. ***
-     1. gcc 6.3 or higher is required.
-     2. To build a 32-bit target, gcc-multilib, g++-multilib are required.
-     3. Requires libatomic package. (If necessary, install the 32-bit library at the same time.)
-    ex) sudo apt-get install gcc-multilib g++-multilib
+  *** The following preparations must be made on the host side. ***
+      1. gcc 6.3 or higher is required.
+      2. To build a 32-bit target, gcc-multilib, g++-multilib are required.
+      3. Requires libatomic package. (If necessary, install the 32-bit library at the same time.)
+     ex) sudo apt-get install gcc-multilib g++-multilib
 endef
 
 define Package/node-npm
