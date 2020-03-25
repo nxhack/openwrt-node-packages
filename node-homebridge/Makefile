@@ -29,7 +29,7 @@ define Package/node-homebridge
   CATEGORY:=Languages
   TITLE:=Node.js HomeKit Server
   URL:=https://www.npmjs.org/package/homebridge
-  DEPENDS:=+node +node-npm +node-hap-nodejs
+  DEPENDS:=+node +node-npm
   USERID:=homebridge:homebridge
 endef
 
