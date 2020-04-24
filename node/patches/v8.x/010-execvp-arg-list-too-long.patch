@@ -2,7 +2,7 @@ diff --git a/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py b/de
 index 64b9dd267b..1ddd95b86b 100644
 --- a/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
 +++ b/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
-@@ -149,6 +149,30 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
+@@ -151,6 +151,30 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  quiet_cmd_link = LINK($(TOOLSET)) $@
  cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
  
@@ -33,7 +33,7 @@ index 64b9dd267b..1ddd95b86b 100644
  # We support two kinds of shared objects (.so):
  # 1) shared_library, which is just bundling together many dependent libraries
  # into a link line.
-@@ -193,6 +217,30 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET)) crs $@ $(filter %.o,$^)
+@@ -195,6 +219,30 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET)) crs $@ $(filter %.o,$^)
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
@@ -64,7 +64,7 @@ index 64b9dd267b..1ddd95b86b 100644
  # Due to circular dependencies between libraries :(, we wrap the
  # special "figure out circular dependencies" flags around the entire
  # input list during linking.
-@@ -1611,11 +1659,17 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)/%%%s FORCE_DO_CMD
+@@ -1612,11 +1660,17 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)/%%%s FORCE_DO_CMD
              "Spaces in alink input filenames not supported (%s)"  % link_dep)
        if (self.flavor not in ('mac', 'openbsd', 'netbsd', 'win') and not
            self.is_standalone_static_library):
