@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_8),y)
-PKG_VERSION:=v8.16.0
+PKG_VERSION:=v8.15.1
 PKG_RELEASE:=1
-PKG_MD5SUM:=3c340a1599aa60bd920dc7e153bc1e4a
+PKG_MD5SUM:=8c1db510258220877e5bed48f1ea0c27
 PATCH_DIR:=./patches/v8.x
 else
 ifeq ($(CONFIG_NODEJS_4),y)
@@ -85,7 +85,7 @@ define Package/node/config
 			bool "4.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_6
-			bool "6.x End-of-life : NO LONGER SUPPORTED"
+			bool "6.x Maintenance LTS"
 
 		config NODEJS_8
 			bool "8.x Maintenance LTS"
