@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-red
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -46,6 +46,10 @@ define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
 endef
 
+define Package/node-red/config
+/etc/config/node-red
+endef
+
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -67,6 +71,10 @@ define Package/node-red/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/node-red/red.js $(1)/usr/bin/node-red
 	$(LN) ../lib/node/node-red/bin/node-red-pi $(1)/usr/bin/node-red-pi
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_BIN) ./files/node-red.conf $(1)/etc/config/node-red
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/node-red.init $(1)/etc/init.d/node-red
 endef
 
 $(eval $(call BuildPackage,node-red))
