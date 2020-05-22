@@ -46,7 +46,7 @@ define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
 endef
 
-define Package/node-red/config
+define Package/node-red/conffiles
 /etc/config/node-red
 endef
 
