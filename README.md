@@ -42,6 +42,11 @@ mips(be) will no longer be supported because nosnapshot build is deprecated.
 Openssl 1.0.x becomes EoL, openwrt-18.06 will not be supported.
 Python2 becomes EoL, node v8.x will not be supported.
 
+On the host side, the following preparations are required.
+* GCC 6.3 or higher is required.
+* To build a 32-bit target, gcc-multilib, g++-multilib are required.
+* The libatomic package is required. (Install the 32-bit library at the same time, if necessary).
+
 ## Illegal instruction issue
 
 ***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU or kernel FPU emulation.***
