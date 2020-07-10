@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for trunk / openwrt-19.07
+OpenWrt/LEDE Node.js Packages : for trunk / OpenWrt-19.07
 
 Note: support arches are aarch64, arm, mipsel, mips64el, x86_64
       (mipseb & mips64eb & i386 are not supported)
@@ -37,9 +37,9 @@ If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com
 If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-18.06)
 
 
-mips(be) will no longer be supported because nosnapshot build is deprecated.
+MIPS(be) will no longer be supported because 'nosnapshot' build is deprecated.
 
-Openssl 1.0.x becomes EoL, openwrt-18.06 will not be supported.
+OpenSSL 1.0.x becomes EoL, OpenWrt-18.06 will not be supported.
 Python2 becomes EoL, node v8.x will not be supported.
 
 On the host side, the following preparations are required.
@@ -83,7 +83,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
  Note: ICU currently supports only ***LITTLE ENDIAN***.
 
 ## homebridge on mips with kernel FPU emulation
-In many cases, it does not work because key generation is slow.
+In many cases, it does not work because the key generation is slow.
 
 In the case of such devices, this may be useful.
 
@@ -91,7 +91,7 @@ In the case of such devices, this may be useful.
 
 However, you have to program the accessories yourself.
 
-Here are some tips for cross compiling with OpenWrt.
+Here are some tips for cross-compiling with OpenWrt.
 
 [https://github.com/nxhack/openwrt-custom-packages/tree/master/PHK](https://github.com/nxhack/openwrt-custom-packages/tree/master/PHK)
 
