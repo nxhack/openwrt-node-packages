@@ -30,7 +30,7 @@ define Package/node-ffi
   CATEGORY:=Languages
   TITLE:=Node.js Foreign Function Interface
   URL:=https://www.npmjs.com/package/ffi
-  DEPENDS:=+node +libffi @!aarch64
+  DEPENDS:=+node +libffi
 endef
 
 define Package/node-ffi/description
