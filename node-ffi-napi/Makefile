@@ -20,7 +20,6 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
-PKG_LIBFFI_VERSION:=3.3.2
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -59,6 +58,8 @@ define Build/Compile
 	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
+	rm -rf $(PKG_BUILD_DIR)/prebuilds
+	rm -rf $(PKG_BUILD_DIR)/node_modules/ref-napi/prebuilds
 endef
 
 define Package/node-ffi-napi/install
