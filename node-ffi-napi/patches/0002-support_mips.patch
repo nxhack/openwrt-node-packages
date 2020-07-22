@@ -1,6 +1,6 @@
 --- a/src/ffi.cc
 +++ b/src/ffi.cc
-@@ -67,6 +67,14 @@
+@@ -73,6 +73,14 @@
  #ifdef __arm__
    SET_ENUM_VALUE(FFI_SYSV);
    SET_ENUM_VALUE(FFI_VFP);
