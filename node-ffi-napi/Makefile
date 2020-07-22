@@ -30,7 +30,7 @@ define Package/node-ffi-napi
   CATEGORY:=Languages
   TITLE:=Node.js Foreign Function Interface for N-API
   URL:=https://www.npmjs.com/package/ffi-napi
-  DEPENDS:=+node +libffi @!aarch64
+  DEPENDS:=+node +libffi
 endef
 
 define Package/node-ffi-napi/description
