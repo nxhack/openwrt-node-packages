@@ -1,7 +1,7 @@
 diff -urN a/configure.py b/configure.py
 --- a/configure.py	2019-09-05 00:36:21.000000000 +0900
 +++ b/configure.py	2019-09-27 11:49:55.445800884 +0900
-@@ -1192,6 +1192,15 @@
+@@ -1198,6 +1198,15 @@
      options.build_v8_with_gn = FetchDeps(v8_path)
    o['variables']['build_v8_with_gn'] = b(options.build_v8_with_gn)
  
@@ -17,7 +17,7 @@ diff -urN a/configure.py b/configure.py
  
  def configure_openssl(o):
    variables = o['variables']
-@@ -1613,6 +1632,7 @@
+@@ -1619,6 +1628,7 @@
  configure_intl(output)
  configure_static(output)
  configure_inspector(output)
