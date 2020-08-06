@@ -1,10 +1,9 @@
 --- a/package.json
 +++ b/package.json
-@@ -17,7 +17,6 @@
+@@ -16,6 +16,5 @@
    "dependencies": {
      "level-js": "^5.0.0",
      "level-packager": "^5.1.0",
--    "leveldown": "^5.4.0",
-     "opencollective-postinstall": "^2.0.0"
+-    "leveldown": "^5.4.0"
    },
    "devDependencies": {
