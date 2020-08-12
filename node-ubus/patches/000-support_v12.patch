@@ -1,3 +1,14 @@
+--- a/package.json
++++ b/package.json
+@@ -11,7 +11,7 @@
+   "licence": "MIT",
+   "dependencies": {
+     "bindings": "~1.2.1",
+-    "nan": "^2.0.0"
++    "nan": "^2.14.0"
+   },
+   "scripts": {
+     "test": "node test.js"
 --- a/ubus.cc
 +++ b/ubus.cc
 @@ -40,7 +40,7 @@
