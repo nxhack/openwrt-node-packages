@@ -1,4 +1,3 @@
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -30,7 +29,7 @@ define Package/node-ubus
   CATEGORY:=Languages
   TITLE:=OpenWrt Ubus interface for Node-js
   URL:=https://www.npmjs.com/package/node-ubus
-  DEPENDS:=+node +libubus +libjson-c +libubox
+  DEPENDS:=+node +libubus +libjson-c +libblobmsg-json +libubox
 endef
 
 define Package/node-ubus/description

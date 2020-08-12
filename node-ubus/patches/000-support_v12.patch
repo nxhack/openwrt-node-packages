@@ -1,0 +1,43 @@
+--- a/ubus.cc
++++ b/ubus.cc
+@@ -40,7 +40,7 @@
+     }
+ 
+     void
+-    UBus::Initialize(Handle<Object> target) {
++    UBus::Initialize(Local<Object> target) {
+         Local<FunctionTemplate> t = Nan::New<FunctionTemplate>(New);
+ 
+         Local<String> symbol = Nan::New("UBus").ToLocalChecked();
+@@ -66,7 +66,7 @@
+ 		}
+ 
+ 		//return Nan::ThrowSyntaxError("Usage: Connect(type) passed");
+-		String::Utf8Value type(info[0]->ToString());
++		Nan::Utf8String type(Nan::To<v8::String>(info[0]).ToLocalChecked());
+ 		if (!ubus->Connect(*type) )
+     		return Nan::ThrowSyntaxError("Connect to UBUS failed");
+     }
+@@ -79,8 +79,8 @@
+ 			return Nan::ThrowSyntaxError("Usage: Send(type, json_string)");
+ 		}
+ 
+-		String::Utf8Value type(info[0]->ToString());
+-		String::Utf8Value json_string(info[1]->ToString());
++		Nan::Utf8String type(Nan::To<v8::String>(info[0]).ToLocalChecked());
++		Nan::Utf8String json_string(Nan::To<v8::String>(info[1]).ToLocalChecked());
+ 
+ 		if (!ubus->Send(*type, *json_string))
+     		return Nan::ThrowSyntaxError("Connect to UBUS failed");
+--- a/ubus.hpp
++++ b/ubus.hpp
+@@ -22,7 +22,7 @@
+ class UBus : public Nan::ObjectWrap {
+ 	public:
+ 		UBus();
+-		static void Initialize(v8::Handle<v8::Object> target);
++		static void Initialize(v8::Local<v8::Object> target);
+ 	private:
+ 		struct ubus_context *ctx_;
+ 		struct ubus_event_handler_extended listener_;
+
