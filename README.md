@@ -184,6 +184,7 @@ node-socket.io-legacy		(ws[legacy])
 node-spi-device
 node-sqlite3
 node-statvfs
+node-ubus
 node-usb
 node-utf-8-validate
 node-websocket
