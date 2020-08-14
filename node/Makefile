@@ -85,7 +85,7 @@ define Package/node/config
 		 Select node.js version.
 
 		config NODEJS_10
-			bool "10.x Active LTS"
+			bool "10.x Maintenance LTS"
 
 		config NODEJS_12
 			bool "12.x Active LTS"
