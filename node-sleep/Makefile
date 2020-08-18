@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=sleep
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.1.0
+PKG_VERSION:=6.3.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=c00013976184a6fbe6ba7fb1bf30b8c4ff9715c1ab8e7152cb083bedda6284ee
+PKG_HASH:=50ca6bcadf4bc20658cb03c2fe703a96e8db81fe8e1d766b3d1966cac40d85eb
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
