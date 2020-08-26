@@ -27,7 +27,7 @@ define Package/node-homebridge-cmd4
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Exec Plugin for Homebridge supporting all accessorys and characteristics
+  TITLE:=Exec Plugin for Homebridge supporting all
   URL:=https://www.npmjs.com/package/homebridge-cmd4
   DEPENDS:=+node +node-homebridge
 endef
