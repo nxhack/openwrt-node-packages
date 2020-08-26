@@ -4,18 +4,18 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=deasync-promise
+PKG_NPM_NAME:=deasync
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.1
+PKG_VERSION:=0.1.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=3410f386df657f4411efba80054b6b6bf2eb84276fefec34ee3f3e3687489c58
+PKG_HASH:=827c2b31f266602c0abd6cf009cd1c8a0ece743c121fc8b75c76a2eef1dc4147
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=ISC
-PKG_LICENSE_FILES:=
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
@@ -23,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-deasync-promise
+define Package/node-deasync
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Transform async functions into sync
-  URL:=https://www.npmjs.com/package/deasync-promise
-  DEPENDS:=+node +node-deasync
+  TITLE:=DeAsync turns async function into sync
+  URL:=https://www.npmjs.com/package/deasync
+  DEPENDS:=+node
 endef
 
-define Package/node-deasync-promise/description
- Transforms async functions into sync with promise API
+define Package/node-deasync/description
+ DeAsync turns async function into sync, implemented with a blocking mechanism by calling Node.js event loop at JavaScript layer. The core of deasync is writen in C++.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -60,12 +60,14 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-deasync-promise/install
+define Package/node-deasync/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/package.json \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.md,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{README.md,*.js} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,spec} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-deasync-promise))
+$(eval $(call BuildPackage,node-deasync))
