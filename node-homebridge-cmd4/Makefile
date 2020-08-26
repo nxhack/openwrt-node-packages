@@ -29,7 +29,7 @@ define Package/node-homebridge-cmd4
   CATEGORY:=Languages
   TITLE:=Exec Plugin for Homebridge supporting all
   URL:=https://www.npmjs.com/package/homebridge-cmd4
-  DEPENDS:=+node +node-homebridge
+  DEPENDS:=+node +node-homebridge +node-node-deasync-promise
 endef
 
 define Package/node-homebridge-cmd4/description
@@ -55,7 +55,7 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --build-from-source -g $(PKG_BUILD_DIR)
+	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
