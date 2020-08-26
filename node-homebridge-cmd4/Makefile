@@ -29,7 +29,7 @@ define Package/node-homebridge-cmd4
   CATEGORY:=Languages
   TITLE:=Exec Plugin for Homebridge supporting all
   URL:=https://www.npmjs.com/package/homebridge-cmd4
-  DEPENDS:=+node +node-homebridge +node-node-deasync-promise
+  DEPENDS:=+node +node-homebridge +node-deasync-promise
 endef
 
 define Package/node-homebridge-cmd4/description
