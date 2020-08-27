@@ -143,6 +143,7 @@ node-bleacon			(bignum,bluetooth-hci-socket)
 node-bluetooth-hci-socket	(usb)
 node-bufferutil
 node-cylon-firmata		(firmata)
+node-deasync
 node-ejdb2_node
 node-enocean-utils		(serialport)
 node-epoll
