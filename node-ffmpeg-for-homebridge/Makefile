@@ -4,36 +4,35 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=homebridge-camera-ffmpeg
+PKG_NPM_NAME:=ffmpeg-for-homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.1
+PKG_VERSION:=0.0.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8901acba1d089eba75b364fce0ac655986f9849ecee191c65754fb104c425c2c
+PKG_HASH:=9be6f320f923bcc10457eb0076eeab68baa23e9be851e8c14a017b961ec636fa
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=ISC Apache-2.0 License
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE:=none
+PKG_LICENSE_FILES:=
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-homebridge-camera-ffmpeg
+define Package/node-ffmpeg-for-homebridge
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Homebridge Camera FFmpeg
-  URL:=https://www.npmjs.com/package/homebridge-camera-ffmpeg
-  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge
+  TITLE:=ffmpeg for homebridge
+  URL:=https://www.npmjs.com/package/ffmpeg-for-homebridge
+  DEPENDS:=+node +ffmpeg
 endef
 
-define Package/node-homebridge-camera-ffmpeg/description
- Homebridge Plugin Providing FFmpeg-based Camera Support
+define Package/node-ffmpeg-for-homebridge/description
+ Static ffmpeg binaries for Homebridge with support for audio (libfdk-aac) and hardware decoding (h264_omx).
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -46,6 +45,7 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	rm -rf $(PKG_BUILD_DIR)/install.js
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -60,14 +60,12 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-homebridge-camera-ffmpeg/install
+define Package/node-ffmpeg-for-homebridge/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/package.json \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.md,config.schema.json} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,dist} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{README.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 endef
 
-$(eval $(call BuildPackage,node-homebridge-camera-ffmpeg))
+$(eval $(call BuildPackage,node-ffmpeg-for-homebridge))
