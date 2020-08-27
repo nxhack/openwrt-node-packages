@@ -46,6 +46,7 @@ TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/install.js
+	touch $(PKG_BUILD_DIR)/install.js
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
