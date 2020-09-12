@@ -27,16 +27,3 @@ Forwarded: https://github.com/nodejs/node/issues/33816
    debug('connect: find host', host);
    debug('connect: dns options', dnsopts);
    self._host = host;
---- a/test/sequential/sequential.status
-+++ b/test/sequential/sequential.status
-@@ -17,6 +17,10 @@
- # https://github.com/nodejs/node/issues/24403
- test-cli-syntax: PASS,FLAKY
- 
-+# does not work on IPv6 only host
-+test-tls-psk-client: PASS,FLAKY
-+test-tls-securepair-client: PASS,FLAKY
-+
- [$system==win32]
- # https://github.com/nodejs/node/issues/22327
- test-http2-large-file: PASS, FLAKY
