@@ -1,6 +1,6 @@
 --- a/binding.gyp
 +++ b/binding.gyp
-@@ -68,5 +68,34 @@
+@@ -68,5 +68,33 @@
                  },
                ],
                [
@@ -24,7 +24,6 @@
 +                  }
 +                }
 +              ],
-+              [
 +              [
 +                'target_arch=="mips64el"', {
 +                  'variables': {
