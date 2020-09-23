@@ -1,12 +1,19 @@
 --- a/binding.gyp
 +++ b/binding.gyp
-@@ -68,6 +68,20 @@
+@@ -68,5 +68,34 @@
                  },
                ],
                [
 +                'target_arch=="mips"', {
 +                  'variables': {
 +                    'openssl_config_path': '<(nodedir)/deps/openssl/config/mips'
++                  }
++                }
++              ],
++              [
++                'target_arch=="mips64"', {
++                  'variables': {
++                    'openssl_config_path': '<(nodedir)/deps/openssl/config/mips64'
 +                  }
 +                }
 +              ],
@@ -18,6 +25,13 @@
 +                }
 +              ],
 +              [
++              [
++                'target_arch=="mips64el"', {
++                  'variables': {
++                    'openssl_config_path': '<(nodedir)/deps/openssl/config/mips64el'
++                  }
++                }
++              ],
++              [
                  'target_arch=="ppc64"', {
                    'variables': {
-                     'openssl_config_path': '<(nodedir)/deps/openssl/config/powerpc64'
