@@ -188,7 +188,7 @@ node-statvfs
 node-ubus
 node-usb
 node-utf-8-validate
-node-websocket
+node-websocket			(bufferutil, utf-8-validate)
 node-zigbee2mqtt		(@serialport/bindings)
 ```
 Other modules can be installed by 'npm install'.
