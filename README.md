@@ -148,7 +148,7 @@ node-ejdb2_node
 node-enocean-utils		(serialport)
 node-epoll
 node-expat
-node-ffi			(ffi, ref)
+node-ffi-napi			(ffi-napi, ref-napi)
 node-firmata			(serialport)
 node-fuse-bindings
 node-hashtable			[mark @BROKEN: use node-megahash]
