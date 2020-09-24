@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=openzwave-shared
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.6.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-openzwave-shared
   CATEGORY:=Languages
   TITLE:=Node.JS bindings for OpenZWave
   URL:=https://www.npmjs.org/package/openzwave-shared
-  DEPENDS:=+node libopenzwave
+  DEPENDS:=+node +libopenzwave
 endef
 
 define Package/node-openzwave-shared/description
