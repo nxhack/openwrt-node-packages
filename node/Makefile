@@ -8,12 +8,12 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.22.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=f47f4725dcae137b26f8e2a7d0ab2c2c7f1f47e4f96834e6a9242f157132255f
 PATCH_DIR:=./patches/v10.x
 else
 PKG_VERSION:=v12.18.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=25f03cb18e53b6d0959d0c219e701a85eb4693f526bdda7c72bc6199b364f609
 PATCH_DIR:=./patches/v12.x
 endif
@@ -124,7 +124,10 @@ endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
+	NO_LOAD=cctest.target.mk \
 	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/current/lib
+
+HOST_MAKE_VARS+=NO_LOAD=cctest.target.mk
 
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
@@ -140,7 +143,6 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--shared-nghttp2 \
 	--shared-libuv \
-	--shared-http-parser \
 	--shared-cares \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
