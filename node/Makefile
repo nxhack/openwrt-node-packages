@@ -8,18 +8,18 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.22.1
-PKG_RELEASE:=3
+PKG_RELEASE:=2
 PKG_HASH:=f47f4725dcae137b26f8e2a7d0ab2c2c7f1f47e4f96834e6a9242f157132255f
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
 PKG_VERSION:=v14.13.0
-PKG_RELEASE:=2
+PKG_RELEASE:=1
 PKG_HASH:=e0b9bed440b41005f840c8ab1747ec079d3aa12fc227f62ec27395489ced06e4
 PATCH_DIR:=./patches/v14.x
 else
 PKG_VERSION:=v12.18.4
-PKG_RELEASE:=3
+PKG_RELEASE:=2
 PKG_HASH:=25f03cb18e53b6d0959d0c219e701a85eb4693f526bdda7c72bc6199b364f609
 PATCH_DIR:=./patches/v12.x
 endif
@@ -150,8 +150,6 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	--without-dtrace \
-	--without-etw \
 	--shared-zlib \
 	--shared-openssl \
 	--shared-nghttp2 \
@@ -169,8 +167,6 @@ CONFIGURE_ARGS:= \
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
-	--without-dtrace \
-	--without-etw \
 	--with-intl=none \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
