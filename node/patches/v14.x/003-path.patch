@@ -1,0 +1,12 @@
+--- a/lib/internal/modules/cjs/loader.js
++++ b/lib/internal/modules/cjs/loader.js
+@@ -1201,7 +1201,8 @@
+     path.resolve(process.execPath, '..') :
+     path.resolve(process.execPath, '..', '..');
+ 
+-  let paths = [path.resolve(prefixDir, 'lib', 'node')];
++  let paths = [path.resolve(prefixDir, 'lib', 'node'),
++               path.resolve(prefixDir, 'lib', 'node_modules')];
+ 
+   if (homeDir) {
+     paths.unshift(path.resolve(homeDir, '.node_libraries'));
