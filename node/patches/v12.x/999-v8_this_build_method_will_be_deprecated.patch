@@ -1,7 +1,7 @@
 diff -urN a/configure.py b/configure.py
 --- a/configure.py	2019-09-05 00:36:21.000000000 +0900
 +++ b/configure.py	2019-09-27 11:49:55.445800884 +0900
-@@ -1276,6 +1276,15 @@
+@@ -1288,6 +1288,15 @@
      options.build_v8_with_gn = FetchDeps(v8_path)
    o['variables']['build_v8_with_gn'] = b(options.build_v8_with_gn)
  
@@ -17,11 +17,11 @@ diff -urN a/configure.py b/configure.py
  
  def configure_openssl(o):
    variables = o['variables']
-@@ -1713,6 +1732,7 @@
+@@ -1715,6 +1734,7 @@
  configure_intl(output)
  configure_static(output)
  configure_inspector(output)
 +configure_v8_deprecated(output)
  
- # variables should be a root level element,
- # move everything else to target_defaults
+ # Forward OSS-Fuzz settings
+ output['variables']['ossfuzz'] = b(options.ossfuzz)
