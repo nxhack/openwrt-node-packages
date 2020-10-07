@@ -1,15 +1,3 @@
-diff -urN a/deps/v8/src/base/cpu.cc b/deps/v8/src/base/cpu.cc
---- a/deps/v8/src/base/cpu.cc	2020-09-30 01:58:13.000000000 +0900
-+++ b/deps/v8/src/base/cpu.cc	2020-10-06 09:04:33.341499270 +0900
-@@ -16,7 +16,7 @@
- #if V8_OS_QNX
- #include <sys/syspage.h>  // cpuinfo
- #endif
--#if V8_OS_LINUX && V8_HOST_ARCH_PPC
-+#if V8_OS_LINUX && (V8_HOST_ARCH_PPC || V8_HOST_ARCH_ARM)
- #include <elf.h>
- #endif
- #if V8_OS_AIX
 diff -urN a/deps/v8/src/base/platform/condition-variable.cc b/deps/v8/src/base/platform/condition-variable.cc
 --- a/deps/v8/src/base/platform/condition-variable.cc	2020-09-30 01:58:13.000000000 +0900
 +++ b/deps/v8/src/base/platform/condition-variable.cc	2020-10-06 09:04:33.341499270 +0900
