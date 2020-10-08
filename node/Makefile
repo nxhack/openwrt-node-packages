@@ -13,14 +13,14 @@ PKG_HASH:=f47f4725dcae137b26f8e2a7d0ab2c2c7f1f47e4f96834e6a9242f157132255f
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.13.0
+PKG_VERSION:=v14.13.1
 PKG_RELEASE:=1
-PKG_HASH:=e0b9bed440b41005f840c8ab1747ec079d3aa12fc227f62ec27395489ced06e4
+PKG_HASH:=6061bd1e218c1e1f0a9fbc1643f501e8971d546a37028a26a1ee8ea93f6c15f6
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v12.18.4
-PKG_RELEASE:=2
-PKG_HASH:=25f03cb18e53b6d0959d0c219e701a85eb4693f526bdda7c72bc6199b364f609
+PKG_VERSION:=v12.19.0
+PKG_RELEASE:=1
+PKG_HASH:=3b671c45c493f96d7e018c15110cdbafa4478e5e5cfc9e6eec83cea9e6b551e1
 PATCH_DIR:=./patches/v12.x
 endif
 endif
@@ -135,7 +135,7 @@ endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
-	NO_LOAD='cctest.target.mk embedtest.target.mk' \
+	NO_LOAD='cctest.target.mk embedtest.target.mk node_mksnapshot.target.mk' \
 	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/current/lib
 
 HOST_MAKE_VARS+=NO_LOAD='cctest.target.mk embedtest.target.mk'
