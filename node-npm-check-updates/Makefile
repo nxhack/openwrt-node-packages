@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=npm-check-updates
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=9.0.2
+PKG_VERSION:=9.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=93fb87a47285433514fb40ed05e3d05a4f36e295597d2ac029d5845a4bbaa5be
+PKG_HASH:=f211b51eb37749c41b02c72c7e8e04c79627347a11336ef974f68250ea72311e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -65,8 +65,8 @@ define Package/node-npm-check-updates/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/npm-check-updates/bin/npm-check-updates $(1)/usr/bin/npm-check-updates
-	$(LN) ../lib/node/npm-check-updates/bin/ncu $(1)/usr/bin/ncu
+	$(LN) ../lib/node_modules/npm-check-updates/bin/cli.js $(1)/usr/bin/npm-check-updates
+	$(LN) ../lib/node_modules/npm-check-updates/bin/cli.js $(1)/usr/bin/ncu
 endef
 
 $(eval $(call BuildPackage,node-npm-check-updates))
