@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=npm-check-updates
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=9.1.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-npm-check-updates
   CATEGORY:=Languages
   TITLE:=Upgrade your NPM/Bower dependencies
   URL:=https://www.npmjs.com/package/npm-check-updates/
-  DEPENDS:=+node
+  DEPENDS:=+node +git
 endef
 
 define Package/node-npm-check-updates/description
