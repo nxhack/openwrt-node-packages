@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=pm2
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.2.3
+PKG_VERSION:=4.5.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9403e78ed381351bebca4b49399561e6d48eba1105404914e334f0af9400dfd7
+PKG_HASH:=68e0d526f8a80b4b3ea381a05563ec5531ded03f71707d24578032dbc006da3b
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=AGPL-3.0
@@ -66,7 +66,6 @@ define Package/node-pm2/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/pm2/bin/pm2 $(1)/usr/bin/pm2
-	$(LN) ../lib/node/pm2/bin/pm2-daemon $(1)/usr/bin/pm2-daemon
 	$(LN) ../lib/node/pm2/bin/pm2-dev $(1)/usr/bin/pm2-dev
 	$(LN) ../lib/node/pm2/bin/pm2-docker $(1)/usr/bin/pm2-docker
 	$(LN) ../lib/node/pm2/bin/pm2-runtime $(1)/usr/bin/pm2-runtime
