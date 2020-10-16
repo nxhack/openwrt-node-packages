@@ -1,8 +1,8 @@
 --- a/package.json
 +++ b/package.json
-@@ -33,12 +33,8 @@
+@@ -35,12 +35,8 @@
    },
-   "homepage": "https://github.com/monteslu/node-red-contrib-gpio",
+   "homepage": "https://github.com/hreichert/node-red-contrib-gpio",
    "dependencies": {
 -    "firmata": "^2.0.0",
 -    "johnny-five": "^1.3.1",
