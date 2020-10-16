@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ejdb2_node
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.40
+PKG_VERSION:=1.0.41
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=7eaf39fd0ffd3c5dad8eacdb8b3e8219c859511d33328d9c0e1f1b7b5e377a9f
+PKG_HASH:=70bb87298d6dbdec0ac7c8a2fbc00c106f9008e5d4cf67a841716da5e72d63b8
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
