@@ -1,16 +1,15 @@
 --- a/package.json
 +++ b/package.json
-@@ -33,13 +33,9 @@
+@@ -33,12 +33,8 @@
    },
    "homepage": "https://github.com/monteslu/node-red-contrib-gpio",
    "dependencies": {
--    "firmata": "^0.19.1",
--    "johnny-five": "^0.13.0",
-     "lodash": "^4.17.5",
+-    "firmata": "^2.0.0",
+-    "johnny-five": "^1.3.1",
+     "lodash": "^4.17.15",
 -    "mqtt": "^2.15.2",
      "mqtt-serial": "^0.6.0",
-     "node-led": "^0.3.1",
--    "serialport": "^6.0.5",
+-    "serialport": "^8.0.5",
      "socket.io-serial": "^0.4.0",
      "udp-serial": "^0.2.0"
    },
