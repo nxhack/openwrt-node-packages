@@ -78,7 +78,7 @@ endef
 
 define Package/node-homebridge/postinst
 #!/bin/sh
-[ -z "$${IPKG_INSTROOT}" ] ln -s /usr/lib/node/homebridge /usr/lib/node_modules/ || true
+[ -z "$${IPKG_INSTROOT}" ] || ln -s /usr/lib/node/homebridge /usr/lib/node_modules/ || true
 endef
 
 define Package/node-homebridge/postrm
