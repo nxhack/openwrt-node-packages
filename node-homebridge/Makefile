@@ -74,7 +74,7 @@ define Package/node-homebridge/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../lib/node/homebridge $(1)/usr/lib/node_modules/homebridge
+	$(LN) ../node/homebridge $(1)/usr/lib/node_modules/homebridge
 endef
 
 define Package/node-homebridge/postrm
