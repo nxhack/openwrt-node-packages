@@ -63,6 +63,7 @@ endef
 
 define Package/node-homebridge/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
@@ -73,6 +74,16 @@ define Package/node-homebridge/install
 	$(LN) ../lib/node/homebridge/bin/homebridge $(1)/usr/bin/homebridge
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
+endef
+
+define Package/node-homebridge/postinst
+#!/bin/sh
+[ -z "$${IPKG_INSTROOT}" ] ln -s /usr/lib/node/homebridge /usr/lib/node_modules/ || true
+endef
+
+define Package/node-homebridge/postrm
+#!/bin/sh
+[ -L /usr/lib/node_modules/homebridge ] || rm /usr/lib/node_modules/homebridge || true
 endef
 
 $(eval $(call BuildPackage,node-homebridge))
