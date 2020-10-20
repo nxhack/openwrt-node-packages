@@ -74,12 +74,13 @@ define Package/node-alljoyn/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/node-alljoyn.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/alljoyn $(1)/usr/lib/node_modules/alljoyn
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-alljoyn/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/alljoyn || true
+rm -rf /usr/lib/node/alljoyn || true
 endef
 
 $(eval $(call BuildPackage,node-alljoyn))

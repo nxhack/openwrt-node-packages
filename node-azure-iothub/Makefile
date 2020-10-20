@@ -65,12 +65,13 @@ define Package/node-azure-iothub/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/azure-iothub $(1)/usr/lib/node_modules/azure-iothub
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-azure-iothub/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/azure-iothub || true
+rm -rf /usr/lib/node/azure-iothub || true
 endef
 
 $(eval $(call BuildPackage,node-azure-iothub))

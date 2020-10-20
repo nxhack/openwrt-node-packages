@@ -73,12 +73,13 @@ define Package/node-bleacon/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{estimote,estimote-sticker} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/bleacon $(1)/usr/lib/node_modules/bleacon
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-bleacon/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/bleacon || true
+rm -rf /usr/lib/node/bleacon || true
 endef
 
 $(eval $(call BuildPackage,node-bleacon))

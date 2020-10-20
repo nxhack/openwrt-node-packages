@@ -75,12 +75,13 @@ define Package/node-ejdb2_node/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/linux-x64/ejdb2_node.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/ejdb2_node $(1)/usr/lib/node_modules/ejdb2_node
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-ejdb2_node/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/ejdb2_node || true
+rm -rf /usr/lib/node/ejdb2_node || true
 endef
 
 $(eval $(call BuildPackage,node-ejdb2_node))

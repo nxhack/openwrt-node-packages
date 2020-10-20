@@ -73,12 +73,13 @@ define Package/node-arduino-firmata/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) ./files/* $(1)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/arduino-firmata $(1)/usr/lib/node_modules/arduino-firmata
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-arduino-firmata/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/arduino-firmata || true
+rm -rf /usr/lib/node/arduino-firmata || true
 endef
 
 $(eval $(call BuildPackage,node-arduino-firmata))

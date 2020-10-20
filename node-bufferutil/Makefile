@@ -72,12 +72,13 @@ define Package/node-bufferutil/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bufferutil.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/bufferutil $(1)/usr/lib/node_modules/bufferutil
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-bufferutil/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/bufferutil || true
+rm -rf /usr/lib/node/bufferutil || true
 endef
 
 $(eval $(call BuildPackage,node-bufferutil))

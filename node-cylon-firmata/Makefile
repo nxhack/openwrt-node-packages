@@ -72,12 +72,13 @@ define Package/node-cylon-firmata/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,spec} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/cylon-firmata $(1)/usr/lib/node_modules/cylon-firmata
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-cylon-firmata/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/cylon-firmata || true
+rm -rf /usr/lib/node/cylon-firmata || true
 endef
 
 $(eval $(call BuildPackage,node-cylon-firmata))

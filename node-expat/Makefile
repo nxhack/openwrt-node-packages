@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-expat
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=2.3.18
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -69,6 +69,14 @@ define Package/node-expat/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/node_expat.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-expat/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-expat || true
+rm -rf /usr/lib/node/node-expat || true
 endef
 
 $(eval $(call BuildPackage,node-expat))

@@ -78,12 +78,13 @@ define Package/node-bluetooth-hci-socket/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bluetooth_hci_socket.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/bluetooth-hci-socket $(1)/usr/lib/node_modules/bluetooth-hci-socket
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-bluetooth-hci-socket/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/bluetooth-hci-socket || true
+rm -rf /usr/lib/node/bluetooth-hci-socket || true
 endef
 
 $(eval $(call BuildPackage,node-bluetooth-hci-socket))

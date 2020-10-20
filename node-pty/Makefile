@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-pty
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=0.9.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -71,6 +71,14 @@ define Package/node-pty/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/pty.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-pty/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-pty || true
+rm -rf /usr/lib/node/node-pty || true
 endef
 
 $(eval $(call BuildPackage,node-pty))

@@ -73,12 +73,13 @@ define Package/node-deasync/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/obj.target/deasync.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/deasync $(1)/usr/lib/node_modules/deasync
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-deasync/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/deasync || true
+rm -rf /usr/lib/node/deasync || true
 endef
 
 $(eval $(call BuildPackage,node-deasync))

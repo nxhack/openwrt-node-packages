@@ -188,6 +188,11 @@ define Package/node-npm/install
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
 endef
 
+define Package/node-npm/postrm
+#!/bin/sh
+rm -rf /usr/lib/node_modules/npm || true
+endef
+
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node))
 $(eval $(call BuildPackage,node-npm))

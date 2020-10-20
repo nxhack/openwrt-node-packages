@@ -65,12 +65,13 @@ define Package/node-azure-iot-device-http/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/azure-iot-device-http $(1)/usr/lib/node_modules/azure-iot-device-http
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-azure-iot-device-http/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/azure-iot-device-http || true
+rm -rf /usr/lib/node/azure-iot-device-http || true
 endef
 
 $(eval $(call BuildPackage,node-azure-iot-device-http))

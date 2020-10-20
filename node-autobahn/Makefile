@@ -65,12 +65,13 @@ define Package/node-autobahn/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/autobahn $(1)/usr/lib/node_modules/autobahn
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-autobahn/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/autobahn || true
+rm /usr/lib/node/autobahn || true
 endef
 
 $(eval $(call BuildPackage,node-autobahn))

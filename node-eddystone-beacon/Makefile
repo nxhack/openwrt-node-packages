@@ -65,12 +65,13 @@ define Package/node-eddystone-beacon/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/eddystone-beacon $(1)/usr/lib/node_modules/eddystone-beacon
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-eddystone-beacon/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/eddystone-beacon || true
+rm -rf /usr/lib/node/eddystone-beacon || true
 endef
 
 $(eval $(call BuildPackage,node-eddystone-beacon))

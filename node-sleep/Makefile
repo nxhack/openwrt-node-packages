@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=sleep
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=6.3.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -64,6 +64,14 @@ endef
 define Package/node-sleep/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-sleep/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/sleep || true
+rm -rf /usr/lib/node/sleep || true
 endef
 
 $(eval $(call BuildPackage,node-sleep))

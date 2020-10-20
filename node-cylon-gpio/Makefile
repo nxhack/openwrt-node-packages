@@ -72,12 +72,13 @@ define Package/node-cylon-gpio/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,spec,utilities} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/cylon-gpio $(1)/usr/lib/node_modules/cylon-gpio
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-cylon-gpio/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/cylon-gpio || true
+rm -rf /usr/lib/node/cylon-gpio || true
 endef
 
 $(eval $(call BuildPackage,node-cylon-gpio))

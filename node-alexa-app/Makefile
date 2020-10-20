@@ -65,12 +65,13 @@ define Package/node-alexa-app/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/alexa-app $(1)/usr/lib/node_modules/alexa-app
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-alexa-app/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/alexa-app || true
+rm -rf /usr/lib/node/alexa-app || true
 endef
 
 $(eval $(call BuildPackage,node-alexa-app))

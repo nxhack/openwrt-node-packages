@@ -72,12 +72,13 @@ define Package/node-cylon/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/lib \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/cylon $(1)/usr/lib/node_modules/cylon
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-cylon/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/cylon || true
+rm -rf /usr/lib/node/cylon || true
 endef
 
 $(eval $(call BuildPackage,node-cylon))

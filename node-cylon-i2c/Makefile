@@ -72,12 +72,13 @@ define Package/node-cylon-i2c/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,spec} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/cylon-i2c $(1)/usr/lib/node_modules/cylon-i2c
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-cylon-i2c/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/cylon-i2c || true
+rm -rf /usr/lib/node/cylon-i2c || true
 endef
 
 $(eval $(call BuildPackage,node-cylon-i2c))

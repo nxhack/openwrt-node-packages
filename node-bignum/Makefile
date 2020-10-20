@@ -72,12 +72,13 @@ define Package/node-bignum/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bignum.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/bignum $(1)/usr/lib/node_modules/bignum
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-bignum/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/bignum || true
+rm -rf /usr/lib/node/bignum || true
 endef
 
 $(eval $(call BuildPackage,node-bignum))

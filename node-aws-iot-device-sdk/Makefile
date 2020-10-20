@@ -65,12 +65,13 @@ define Package/node-aws-iot-device-sdk/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/aws-iot-device-sdk $(1)/usr/lib/node_modules/aws-iot-device-sdk
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-aws-iot-device-sdk/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/aws-iot-device-sdk || true
+rm -rf /usr/lib/node/aws-iot-device-sdk || true
 endef
 
 $(eval $(call BuildPackage,node-aws-iot-device-sdk))

@@ -74,14 +74,15 @@ define Package/node-cpx/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/cpx/bin/index.js $(1)/usr/bin/cpx
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/index.js $(1)/usr/bin/cpx
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/cpx $(1)/usr/lib/node_modules/cpx
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-cpx/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/cpx || true
+rm -rf /usr/lib/node/cpx || true
 endef
 
 define Host/Compile
@@ -104,7 +105,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,lib} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/cpx/bin/index.js $(1)/bin/cpx
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/index.js $(1)/bin/cpx
 endef
 
 $(eval $(call HostBuild))

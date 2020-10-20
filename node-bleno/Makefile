@@ -68,12 +68,13 @@ define Package/node-bleno/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/bleno $(1)/usr/lib/node_modules/bleno
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-bleno/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/bleno || true
+rm -rf /usr/lib/node/$bleno || true
 endef
 
 $(eval $(call BuildPackage,node-bleno))
