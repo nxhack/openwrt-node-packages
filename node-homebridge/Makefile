@@ -79,8 +79,8 @@ endef
 
 define Package/node-homebridge/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/homebridge || true
-rm -rf /usr/lib/node/homebridge || true
+rm /usr/lib/node_modules/$(PKG_NPM_NAME) || true
+rm -rf /usr/lib/node/$(PKG_NPM_NAME) || true
 endef
 
 $(eval $(call BuildPackage,node-homebridge))

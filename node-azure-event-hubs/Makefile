@@ -66,12 +66,14 @@ define Package/node-azure-event-hubs/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/@azure
-	$(LN) ../node/@azure/event-hubs $(1)/usr/lib/node_modules/@azure/event-hubs
+	$(LN) ../../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
+		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 endef
 
 define Package/node-azure-event-hubs/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/@azure/event-hubs || rmdir /usr/lib/node_modules/@azure || true
+rm -rf /usr/lib/node/@azure/event-hubs || rmdir /usr/lib/node/@azure || true
 endef
 
 $(eval $(call BuildPackage,node-azure-event-hubs))

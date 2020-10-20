@@ -72,8 +72,8 @@ endef
 
 define Package/node-enocean-utils/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/enocean-utils || true
-rm -rf /usr/lib/node/enocean-utils || true
+rm /usr/lib/node_modules/node-enocean-utils || true
+rm -rf /usr/lib/node/node-enocean-utils || true
 endef
 
 $(eval $(call BuildPackage,node-enocean-utils))
