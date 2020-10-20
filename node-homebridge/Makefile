@@ -77,9 +77,9 @@ define Package/node-homebridge/install
 	$(LN) ../node/homebridge $(1)/usr/lib/node_modules/homebridge
 endef
 
-define Package/node-homebridge/postrm
-#!/bin/sh
-[ ! -d /usr/lib/node_modules/homebridge ] || rm /usr/lib/node_modules/homebridge || true
-endef
+#define Package/node-homebridge/postrm
+##!/bin/sh
+#rm /usr/lib/node_modules/homebridge || true
+#endef
 
 $(eval $(call BuildPackage,node-homebridge))

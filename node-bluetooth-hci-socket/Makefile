@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=bluetooth-hci-socket
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.5.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/noble/node-bluetooth-hci-socket.git
@@ -77,6 +77,13 @@ define Package/node-bluetooth-hci-socket/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bluetooth_hci_socket.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/bluetooth-hci-socket $(1)/usr/lib/node_modules/bluetooth-hci-socket
+endef
+
+define Package/node-bluetooth-hci-socket/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/bluetooth-hci-socket || true
 endef
 
 $(eval $(call BuildPackage,node-bluetooth-hci-socket))

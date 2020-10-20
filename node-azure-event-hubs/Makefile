@@ -8,7 +8,7 @@ PKG_NPM_SCOPE:=azure
 PKG_NPM_NAME:=event-hubs
 PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
 PKG_VERSION:=5.0.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
@@ -65,6 +65,13 @@ endef
 define Package/node-azure-event-hubs/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules/@azure
+	$(LN) ../node/@azure/event-hubs $(1)/usr/lib/node_modules/@azure/event-hubs
+endef
+
+define Package/node-azure-event-hubs/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/@azure/event-hubs || rmdir /usr/lib/node_modules/@azure || true
 endef
 
 $(eval $(call BuildPackage,node-azure-event-hubs))

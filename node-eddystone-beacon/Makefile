@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=eddystone-beacon
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.7
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -64,6 +64,13 @@ endef
 define Package/node-eddystone-beacon/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/eddystone-beacon $(1)/usr/lib/node_modules/eddystone-beacon
+endef
+
+define Package/node-eddystone-beacon/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/eddystone-beacon || true
 endef
 
 $(eval $(call BuildPackage,node-eddystone-beacon))

@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=bleno
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.5.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -67,6 +67,13 @@ endef
 define Package/node-bleno/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/bleno $(1)/usr/lib/node_modules/bleno
+endef
+
+define Package/node-bleno/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/bleno || true
 endef
 
 $(eval $(call BuildPackage,node-bleno))

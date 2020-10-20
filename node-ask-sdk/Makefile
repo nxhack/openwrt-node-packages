@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ask-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.7.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -64,6 +64,13 @@ endef
 define Package/node-ask-sdk/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/ask-sdk $(1)/usr/lib/node_modules/ask-sdk
+endef
+
+define Package/node-ask-sdk/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/ask-sdk || true
 endef
 
 $(eval $(call BuildPackage,node-ask-sdk))

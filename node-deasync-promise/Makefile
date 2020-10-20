@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=deasync-promise
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -66,6 +66,13 @@ define Package/node-deasync-promise/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/deasync-promise $(1)/usr/lib/node_modules/deasync-promise
+endef
+
+define Package/node-deasync-promise/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/deasync-promise || true
 endef
 
 $(eval $(call BuildPackage,node-deasync-promise))

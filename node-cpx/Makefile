@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=cpx
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.5.0
-PKG_RELEASE:=10
+PKG_RELEASE:=11
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -75,6 +75,13 @@ define Package/node-cpx/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/cpx/bin/index.js $(1)/usr/bin/cpx
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/cpx $(1)/usr/lib/node_modules/cpx
+endef
+
+define Package/node-cpx/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/cpx || true
 endef
 
 define Host/Compile

@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=browserify
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=17.0.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -77,6 +77,13 @@ define Package/node-browserify/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/browserify/bin/cmd.js $(1)/usr/bin/browserify
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/browserify $(1)/usr/lib/node_modules/browserify
+endef
+
+define Package/node-browserify/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/browserify || true
 endef
 
 define Host/Compile

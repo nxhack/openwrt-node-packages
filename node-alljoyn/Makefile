@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=alljoyn
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.1
-PKG_RELEASE:=23
+PKG_RELEASE:=24
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/octoblu/alljoyn/tar.gz/v$(PKG_VERSION)?
@@ -73,6 +73,13 @@ define Package/node-alljoyn/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/node-alljoyn.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/alljoyn $(1)/usr/lib/node_modules/alljoyn
+endef
+
+define Package/node-alljoyn/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/alljoyn || true
 endef
 
 $(eval $(call BuildPackage,node-alljoyn))

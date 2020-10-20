@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=azure-iot-device-http
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.11.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -64,6 +64,13 @@ endef
 define Package/node-azure-iot-device-http/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/azure-iot-device-http $(1)/usr/lib/node_modules/azure-iot-device-http
+endef
+
+define Package/node-azure-iot-device-http/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/azure-iot-device-http || true
 endef
 
 $(eval $(call BuildPackage,node-azure-iot-device-http))
