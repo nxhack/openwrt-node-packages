@@ -74,12 +74,13 @@ define Package/node-homebridge/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/homebridge $(1)/usr/lib/node_modules/homebridge
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-#define Package/node-homebridge/postrm
-##!/bin/sh
-#rm /usr/lib/node_modules/homebridge || true
-#endef
+define Package/node-homebridge/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/homebridge || true
+rm -rf /usr/lib/node/homebridge || true
+endef
 
 $(eval $(call BuildPackage,node-homebridge))

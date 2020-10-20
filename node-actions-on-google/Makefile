@@ -65,12 +65,13 @@ define Package/node-actions-on-google/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/actions-on-google $(1)/usr/lib/node_modules/actions-on-google
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-actions-on-google/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/actions-on-google || true
+rm -rf /usr/lib/node/actions-on-google || true
 endef
 
 $(eval $(call BuildPackage,node-actions-on-google))

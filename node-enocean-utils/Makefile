@@ -67,12 +67,13 @@ define Package/node-enocean-utils/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/enocean-utils $(1)/usr/lib/node_modules/enocean-utils
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
 define Package/node-enocean-utils/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/enocean-utils || true
+rm -rf /usr/lib/node/enocean-utils || true
 endef
 
 $(eval $(call BuildPackage,node-enocean-utils))
