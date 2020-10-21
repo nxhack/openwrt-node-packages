@@ -72,8 +72,8 @@ endef
 
 define Package/node-azure-event-hubs/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/@azure/azure-event-hubs || rmdir /usr/lib/node_modules/@azure || true
-rm -rf /usr/lib/node/@azure/azure-event-hubs || rmdir /usr/lib/node/@azure || true
+rm /usr/lib/node_modules/@azure/event-hubs || rmdir /usr/lib/node_modules/@azure || true
+rm -rf /usr/lib/node/@azure/event-hubs || rmdir /usr/lib/node/@azure || true
 endef
 
 $(eval $(call BuildPackage,node-azure-event-hubs))

@@ -71,7 +71,7 @@ endef
 define Package/node-autobahn/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/autobahn || true
-rm /usr/lib/node/autobahn || true
+rm -rf /usr/lib/node/autobahn || true
 endef
 
 $(eval $(call BuildPackage,node-autobahn))
