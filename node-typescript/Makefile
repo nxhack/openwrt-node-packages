@@ -74,6 +74,14 @@ define Package/node-typescript/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/tsc $(1)/usr/bin/tsc
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/tsserver $(1)/usr/bin/tsserver
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-typescript/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/typescript || true
+rm -rf /usr/lib/node/typescript || true
 endef
 
 define Host/Compile
@@ -96,14 +104,6 @@ define Host/Install
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/tsc $(1)/bin/tsc
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/tsserver $(1)/bin/tsserver
-	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
-endef
-
-define Package/node-typescript/postrm
-#!/bin/sh
-rm /usr/lib/node_modules/typescript || true
-rm -rf /usr/lib/node/typescript || true
 endef
 
 $(eval $(call HostBuild))
