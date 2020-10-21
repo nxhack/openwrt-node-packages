@@ -77,8 +77,10 @@ endef
 
 define Package/node-serialport-bindings/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/@serialport/bindings || rmdir /usr/lib/node_modules/@serialport || true
-rm -rf /usr/lib/node/@serialport/bindings || rmdir /usr/lib/node/@serialport || true
+rm /usr/lib/node_modules/@serialport/bindings || true
+rm -rf /usr/lib/node/@serialport/bindings || true
+rmdir /usr/lib/node_modules/@serialport || true
+rmdir /usr/lib/node/@serialport || true
 endef
 
 $(eval $(call BuildPackage,node-serialport-bindings))

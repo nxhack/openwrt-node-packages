@@ -74,7 +74,7 @@ endef
 define Package/node-bleno/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/bleno || true
-rm -rf /usr/lib/node/$bleno || true
+rm -rf /usr/lib/node/bleno || true
 endef
 
 $(eval $(call BuildPackage,node-bleno))
