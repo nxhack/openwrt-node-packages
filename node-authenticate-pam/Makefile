@@ -71,6 +71,14 @@ define Package/node-authenticate-pam/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/authenticate_pam.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-authenticate-pam/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/authenticate-pam || true
+rm -rf /usr/lib/node/authenticate-pam || true
 endef
 
 $(eval $(call BuildPackage,node-authenticate-pam))

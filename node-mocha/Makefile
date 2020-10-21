@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=mocha
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=8.1.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -76,8 +76,16 @@ define Package/node-mocha/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/mocha/bin/mocha $(1)/usr/bin/mocha
-	$(LN) ../lib/node/mocha/bin/_mocha $(1)/usr/bin/_mocha
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/mocha $(1)/usr/bin/mocha
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/_mocha $(1)/usr/bin/_mocha
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-mocha/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/mocha || true
+rm -rf /usr/lib/node/mocha || true
 endef
 
 define Host/Compile
@@ -102,8 +110,8 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,lib} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/mocha/bin/mocha $(1)/bin/mocha
-	$(LN) ../lib/node_modules/mocha/bin/_mocha $(1)/bin/_mocha
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/mocha $(1)/bin/mocha
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/_mocha $(1)/bin/_mocha
 endef
 
 $(eval $(call HostBuild))

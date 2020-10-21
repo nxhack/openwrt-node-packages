@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=pm2
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.5.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -65,10 +65,18 @@ define Package/node-pm2/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/pm2/bin/pm2 $(1)/usr/bin/pm2
-	$(LN) ../lib/node/pm2/bin/pm2-dev $(1)/usr/bin/pm2-dev
-	$(LN) ../lib/node/pm2/bin/pm2-docker $(1)/usr/bin/pm2-docker
-	$(LN) ../lib/node/pm2/bin/pm2-runtime $(1)/usr/bin/pm2-runtime
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pm2 $(1)/usr/bin/pm2
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pm2-dev $(1)/usr/bin/pm2-dev
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pm2-docker $(1)/usr/bin/pm2-docker
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pm2-runtime $(1)/usr/bin/pm2-runtime
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-pm2/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/pm2 || true
+rm -rf /usr/lib/node/pm2 || true
 endef
 
 $(eval $(call BuildPackage,node-pm2))

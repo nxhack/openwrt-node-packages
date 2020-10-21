@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=uglify-js
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=3.11.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -74,7 +74,15 @@ define Package/node-uglify-js/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,lib,tools} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/uglify-js/bin/uglifyjs $(1)/usr/bin/uglifyjs
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/uglifyjs $(1)/usr/bin/uglifyjs
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-uglify-js/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/uglify-js || true
+rm -rf /usr/lib/node/uglify-js || true
 endef
 
 define Host/Compile
@@ -97,7 +105,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,lib,tools} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/uglify-js/bin/uglifyjs $(1)/bin/uglifyjs
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/uglifyjs $(1)/bin/uglifyjs
 endef
 
 $(eval $(call HostBuild))

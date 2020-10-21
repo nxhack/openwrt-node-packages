@@ -78,6 +78,14 @@ define Package/node-ffi-napi/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/ffi_bindings.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-ffi-napi/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/ffi-napi || true
+rm -rf /usr/lib/node/ffi-napi || true
 endef
 
 $(eval $(call BuildPackage,node-ffi-napi))

@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=browserify
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=17.0.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -76,7 +76,15 @@ define Package/node-browserify/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,example,test} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/browserify/bin/cmd.js $(1)/usr/bin/browserify
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/cmd.js $(1)/usr/bin/browserify
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-browserify/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/browserify || true
+rm -rf /usr/lib/node/browserify || true
 endef
 
 define Host/Compile
@@ -101,7 +109,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,example,test} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/browserify/bin/cmd.js $(1)/bin/browserify
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/cmd.js $(1)/bin/browserify
 endef
 
 $(eval $(call HostBuild))
