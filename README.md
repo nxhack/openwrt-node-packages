@@ -154,6 +154,7 @@ node-fuse-bindings
 node-hashtable			[mark @BROKEN: use node-megahash]
 node-hid
 node-hid-stream			(node-hid)
+node-homebridge-config-ui-x	(node-pty-prebuilt-multiarch)
 node-i2c-bus
 node-ideino-linino-lib		(epoll)
 node-johnny-five		(firmata, serialport)
