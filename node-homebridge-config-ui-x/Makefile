@@ -34,6 +34,9 @@ endef
 define Package/node-homebridge-config-ui-x/description
  Homebridge Config UI X is a web based management tool for Homebridge that allows you to manage all aspects of your Homebridge setup.
 
+    hb-service install --user homebridge -U /usr/share/homebridge
+    /etc/init.d/homebridge restart
+
  *** hb-serviceThe hb-service command is not compatible with the openwrt environment. ***
  *** Edit config.json instead of using the hb-service command. ***
 
