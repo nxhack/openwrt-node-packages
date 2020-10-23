@@ -36,9 +36,21 @@ define Package/node-homebridge-config-ui-x/description
 
  *** hb-serviceThe hb-service command is not compatible with the openwrt environment. ***
  *** Edit config.json instead of using the hb-service command. ***
-      See: https://github.com/oznu/homebridge-config-ui-x#configuration
 
- *** 'Homebridge Logs' Widget is also currently not supported. ***
+      See: https://github.com/oznu/homebridge-config-ui-x#configuration
+           https://github.com/oznu/homebridge-config-ui-x#logs-from-custom-command
+
+        "platforms": [
+            {
+              "platform": "config",
+              "name": "Config",
+              "port": 8581,
+              "log": {
+                "method": "custom",
+                "command": "logread -f -e homebridge"
+              }
+            }
+        ]
 endef
 
 TAR_OPTIONS+= --strip-components 1
