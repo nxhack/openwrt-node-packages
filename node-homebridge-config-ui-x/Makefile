@@ -48,6 +48,7 @@ define Package/node-homebridge-config-ui-x/description
               "platform": "config",
               "name": "Config",
               "port": 8581,
+              "restart": "/etc/init.d/homebridge restart",
               "log": {
                 "method": "custom",
                 "command": "logread -f -e homebridge"
