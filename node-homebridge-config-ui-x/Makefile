@@ -28,7 +28,7 @@ define Package/node-homebridge-config-ui-x
   CATEGORY:=Languages
   TITLE:=Homebridge Config UI X
   URL:=https://www.npmjs.org/package/homebridge-config-ui-x
-  DEPENDS:=+node +node-homebridge
+  DEPENDS:=+node +node-homebridge +sudo
 endef
 
 define Package/node-homebridge-config-ui-x/description
@@ -48,10 +48,10 @@ define Package/node-homebridge-config-ui-x/description
               "platform": "config",
               "name": "Config",
               "port": 8581,
-              "restart": "/etc/init.d/homebridge restart",
+              "restart": "sudo /etc/init.d/homebridge restart",
               "log": {
                 "method": "custom",
-                "command": "logread -f -e homebridge"
+                "command": "sudo logread -f -l 300 -e homebridge"
               }
             }
         ]
