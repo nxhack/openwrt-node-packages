@@ -24,7 +24,3 @@
              await this.hbService.printPostInstallInstructions();
          }
          catch (e) {
-@@ -397,4 +397,4 @@
-     }
- }
- exports.LinuxInstaller = LinuxInstaller;
