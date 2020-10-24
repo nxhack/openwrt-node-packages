@@ -1,26 +1,12 @@
---- a/dist/bin/platforms/linux.js
-+++ b/dist/bin/platforms/linux.js
-@@ -26,17 +26,17 @@
-     async install() {
-         this.checkForRoot();
-         await this.checkUser();
--        this.setupSudo();
-+        // this.setupSudo();
-         await this.hbService.portCheck();
-         await this.hbService.storagePathCheck();
-         await this.hbService.configCheck();
-         try {
--            await this.createSystemdEnvFile();
--            await this.createSystemdService();
-+            // await this.createSystemdEnvFile();
-+            // await this.createSystemdService();
-             await this.createRunPartsPath();
--            await this.reloadSystemd();
--            await this.enableService();
--            await this.start();
-+            // await this.reloadSystemd();
-+            // await this.enableService();
-+            // await this.start();
-             await this.hbService.printPostInstallInstructions();
-         }
-         catch (e) {
+diff -urN a/dist/bin/hb-service.js b/dist/bin/hb-service.js
+--- a/dist/bin/hb-service.js    1985-10-26 17:15:00.000000000 +0900
++++ b/dist/bin/hb-service.js    2020-10-24 10:04:22.275531618 +0900
+@@ -16,7 +16,7 @@
+ const axios_1 = require("axios");
+ const tail_1 = require("tail");
+ const win32_1 = require("./platforms/win32");
+-const linux_1 = require("./platforms/linux");
++const linux_1 = require("./platforms/openwrt");
+ const darwin_1 = require("./platforms/darwin");
+ class HomebridgeServiceHelper {
+     constructor() {
