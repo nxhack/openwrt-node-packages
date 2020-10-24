@@ -35,10 +35,6 @@ class LinuxInstaller {
         this.checkForRoot();
         await this.stop();
         await this.disableService();
-        catch (e) {
-            console.error(e.toString());
-            this.hbService.logger(`ERROR: Failed Operation`, 'fail');
-        }
     }
     async start() {
         this.checkForRoot();
@@ -152,7 +148,7 @@ class LinuxInstaller {
     }
     setupSudo() {
         try {
-            const sudoersEntry = `${this.hbService.asUser}    ALL=(ALL) NOPASSWD:SETENV: /sbin/halt, /sbin/reboot, /sbin/poweroff, /sbin/logread, /usr/bin/npm`;
+            const sudoersEntry = `${this.hbService.asUser}    ALL=(ALL) NOPASSWD:SETENV: /etc/init.d/homebridge, /sbin/halt, /sbin/reboot, /sbin/poweroff, /sbin/logread, /usr/bin/npm`;
             const sudoers = fs.readFileSync('/etc/sudoers', 'utf-8');
             if (sudoers.includes(sudoersEntry)) {
                 return;
