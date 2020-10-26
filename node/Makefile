@@ -133,10 +133,10 @@ endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
-	NO_LOAD='cctest.target.mk node_mksnapshot.target.mk' \
+	NO_LOAD='cctest.target.mk embedtest.target.mk node_mksnapshot.target.mk' \
 	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/61.2/lib
 
-HOST_MAKE_VARS+=NO_LOAD='cctest.target.mk'
+HOST_MAKE_VARS+=NO_LOAD='cctest.target.mk embedtest.target.mk'
 
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
@@ -148,8 +148,6 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot)) \
-	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
 	--shared-zlib \
 	$(if $(CONFIG_NODEJS_12),$(if $(filter reboot, $(OW_VER)) \
 		,--shared-nghttp2 --shared-libuv --shared-cares)) \
