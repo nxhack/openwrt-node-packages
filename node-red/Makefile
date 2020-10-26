@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.2
+PKG_VERSION:=1.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=68fe0568bbe88df77cfaa48c17af01c122ed2a654cda86ee3f1748011ae41b8d
+PKG_HASH:=f28e5456b279479699d9b5962d59c3f10c96fe4b5136c56f949152bef57f63b1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -46,6 +46,10 @@ define Build/Prepare
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
 endef
 
+define Package/node-red/conffiles
+/etc/config/node-red
+endef
+
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -65,8 +69,20 @@ define Package/node-red/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/node-red/red.js $(1)/usr/bin/node-red
-	$(LN) ../lib/node/node-red/bin/node-red-pi $(1)/usr/bin/node-red-pi
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/red.js $(1)/usr/bin/node-red
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/node-red-pi $(1)/usr/bin/node-red-pi
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_BIN) ./files/node-red.conf $(1)/etc/config/node-red
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/node-red.init $(1)/etc/init.d/node-red
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-red/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-red || true
+rm -rf /usr/lib/node/node-red || true
 endef
 
 $(eval $(call BuildPackage,node-red))
