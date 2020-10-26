@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-modbus
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=4.1.3
+PKG_VERSION:=5.13.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a65fd278e34c0483a397272a4b456d8b82a2c23a9144edc17752ed5b2c6603b2
+PKG_HASH:=71328733701f296da6a94ca6c5e03766025b1e2d60046eddfdf98d6b20f732cb
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
@@ -70,6 +70,14 @@ define Package/node-red-contrib-modbus/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{examples,modbus} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-red-contrib-modbus/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-red-contrib-modbus || true
+rm -rf /usr/lib/node/node-red-contrib-modbus || true
 endef
 
 $(eval $(call BuildPackage,node-red-contrib-modbus))

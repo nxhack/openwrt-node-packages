@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=johnny-five
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.3.1
+PKG_VERSION:=2.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=ab80e3971d31a43f737f9a29731751092a9fd72a14e514880ae74b3e1242a834
+PKG_HASH:=a003c8ce11a4d57217c612bece8235b8d9a981de93bedcf83a3878d728d4d9cc
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -29,7 +29,7 @@ define Package/node-johnny-five
   CATEGORY:=Languages
   TITLE:=JavaScript Robotics and Hardware Programming Framework
   URL:=https://www.npmjs.org/package/johnny-five
-  DEPENDS:=+node +node-firmata
+  DEPENDS:=+node +node-firmata +node-serialport
 endef
 
 define Package/node-johnny-five/description
@@ -66,6 +66,14 @@ define Package/node-johnny-five/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-johnny-five/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/johnny-five || true
+rm -rf /usr/lib/node/johnny-five || true
 endef
 
 $(eval $(call BuildPackage,node-johnny-five))

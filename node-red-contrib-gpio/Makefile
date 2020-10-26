@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-gpio
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=0.14.0
-PKG_RELEASE:=4
+PKG_VERSION:=0.51.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d3a4d007638bc3f55e9fbd8bd01a35469e9e9f43f8e0ff116fa3915e2be9e1e7
+PKG_HASH:=2b4183a792f3e395724d0dfa6960b30eea98f3f52b0a07ac5eef56dd737bb6f1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -68,6 +68,14 @@ define Package/node-red-contrib-gpio/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,icons} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-red-contrib-gpio/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-red-contrib-gpio || true
+rm -rf /usr/lib/node/node-red-contrib-gpio || true
 endef
 
 $(eval $(call BuildPackage,node-red-contrib-gpio))

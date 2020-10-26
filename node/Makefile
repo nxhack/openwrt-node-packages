@@ -7,15 +7,15 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_12),y)
-PKG_VERSION:=v12.14.0
+PKG_VERSION:=v12.19.0
 PKG_RELEASE:=1
-PKG_HASH:=088a217ba2af641b8cc15be29f6e2956b8a33e6badb85596bbc2cdea9df9be71
+PKG_HASH:=3b671c45c493f96d7e018c15110cdbafa4478e5e5cfc9e6eec83cea9e6b551e1
 PATCH_DIR:=./patches/v12.x
 else
 ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.18.0
+PKG_VERSION:=v10.22.1
 PKG_RELEASE:=1
-PKG_HASH:=0b2662ab849713dea708d3f74fe5e63fe2d0e869d1dc06b9e9f178ed1c66fede
+PKG_HASH:=f47f4725dcae137b26f8e2a7d0ab2c2c7f1f47e4f96834e6a9242f157132255f
 PATCH_DIR:=./patches/v10.x
 else
 PKG_VERSION:=v8.17.0
@@ -86,15 +86,15 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_8
+		default NODEJS_10
 		help
 		 Select node.js version.
 
 		config NODEJS_8
-			bool "8.x Maintenance LTS"
+			bool "8.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_10
-			bool "10.x Active LTS"
+			bool "10.x Maintenance LTS"
 
 		config NODEJS_12
 			bool "12.x Active LTS"
@@ -133,7 +133,10 @@ endif
 
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
+	NO_LOAD='cctest.target.mk embedtest.target.mk node_mksnapshot.target.mk' \
 	LD_LIBRARY_PATH=$(STAGING_DIR_HOSTPKG)/share/icu/61.2/lib
+
+HOST_MAKE_VARS+=NO_LOAD='cctest.target.mk embedtest.target.mk'
 
 CONFIGURE_VARS:= \
 	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
@@ -149,7 +152,7 @@ CONFIGURE_ARGS:= \
 	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
 	--shared-zlib \
 	$(if $(CONFIG_NODEJS_12),$(if $(filter reboot, $(OW_VER)) \
-		,--shared-nghttp2 --shared-libuv --shared-http-parser --shared-cares)) \
+		,--shared-nghttp2 --shared-libuv --shared-cares)) \
 	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
 		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
