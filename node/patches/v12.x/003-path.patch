@@ -1,11 +1,11 @@
 --- a/lib/internal/modules/cjs/loader.js
 +++ b/lib/internal/modules/cjs/loader.js
-@@ -1109,7 +1109,8 @@
-   } else {
-     prefixDir = path.resolve(process.execPath, '..', '..');
-   }
--  var paths = [path.resolve(prefixDir, 'lib', 'node')];
-+  var paths = [path.resolve(prefixDir, 'lib', 'node'),
+@@ -1117,7 +1117,8 @@
+     path.resolve(process.execPath, '..') :
+     path.resolve(process.execPath, '..', '..');
+ 
+-  let paths = [path.resolve(prefixDir, 'lib', 'node')];
++  let paths = [path.resolve(prefixDir, 'lib', 'node'),
 +               path.resolve(prefixDir, 'lib', 'node_modules')];
  
    if (homeDir) {
