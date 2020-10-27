@@ -32,6 +32,11 @@ If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://gith
 
 If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com/nxhack/openwrt-node-packages/tree/lede-17.01)
 
+## 18.06 random number issue
+
+There is no urngd package in 18.06.
+
+I recommend you to install haveged package. (Not the right random number, though)
 
 ## Illegal instruction issue
 
