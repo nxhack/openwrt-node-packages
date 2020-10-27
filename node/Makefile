@@ -149,7 +149,7 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
+	$(if $(CONFIG_BIG_ENDIAN),--without-snapshot) \
 	--shared-zlib \
 	$(if $(CONFIG_NODEJS_8),--shared-openssl) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
