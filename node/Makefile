@@ -53,7 +53,7 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb @!powerpc \
            +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib +NODEJS_8:libopenssl \
-           +!NODEJS_8:libatomic +NODEJS_ICU_SYSTEM:icu +haveged
+           +!NODEJS_8:libatomic +NODEJS_ICU_SYSTEM:icu
 endef
 
 define Package/node/description
