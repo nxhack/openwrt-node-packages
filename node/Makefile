@@ -13,9 +13,9 @@ PKG_HASH:=f47f4725dcae137b26f8e2a7d0ab2c2c7f1f47e4f96834e6a9242f157132255f
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.14.0
+PKG_VERSION:=v14.15.0
 PKG_RELEASE:=1
-PKG_HASH:=04e935f4bd6b1e91c4a491e18d4d7a797009c3760b950cdefb193c4c079df0e6
+PKG_HASH:=3736d8622e7b16913fa20ca3d696e3caa7fdaec30ccc1054d080d98c5c01fb3b
 PATCH_DIR:=./patches/v14.x
 else
 PKG_VERSION:=v12.19.0
@@ -99,7 +99,7 @@ define Package/node/config
 
 		config NODEJS_14
 			depends on !(mips||mips64)
-			bool "14.x Current"
+			bool "14.x Active LTS"
 	endchoice
 
 	choice
