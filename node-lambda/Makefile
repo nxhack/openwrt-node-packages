@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-lambda
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=0.14.0
-PKG_RELEASE:=1
+PKG_VERSION:=0.17.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6a30bd28299b16916b40766daadc2395078361348b1d76e8f696f2d1ccae398b
+PKG_HASH:=2c7ed892d803784b08ad9b94156e33c6464bd3dc35f76a000725cc214df4dcb5
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
@@ -65,7 +65,15 @@ define Package/node-lambda/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/node-lambda/bin/node-lambda $(1)/usr/bin/node-lambda
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/node-lambda $(1)/usr/bin/node-lambda
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-lambda/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-lambda || true
+rm -rf /usr/lib/node/node-lambda || true
 endef
 
 $(eval $(call BuildPackage,node-lambda))

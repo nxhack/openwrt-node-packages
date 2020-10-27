@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=yarn
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.21.1
-PKG_RELEASE:=1
+PKG_VERSION:=1.22.10
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d1d9f4a0f16f5ed484e814afeb98f39b82d4728c6c8beaafb5abc99c02db6674
+PKG_HASH:=05a22fff30d7d8e8005bed277bf20d55111ba2bed65a6b91a0fcd1307b71fd8d
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
@@ -74,8 +74,16 @@ define Package/node-yarn/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarn
-	$(LN) ../lib/node/yarn/bin/yarn.js $(1)/usr/bin/yarnpkg
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/yarn.js $(1)/usr/bin/yarn
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/yarn.js $(1)/usr/bin/yarnpkg
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-yarn/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/yarn || true
+rm -rf /usr/lib/node/yarn || true
 endef
 
 define Host/Compile
@@ -98,8 +106,8 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,lib} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/bin/yarn
-	$(LN) ../lib/node_modules/yarn/bin/yarn.js $(1)/bin/yarnpkg
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/yarn.js $(1)/bin/yarn
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/yarn.js $(1)/bin/yarnpkg
 endef
 
 $(eval $(call HostBuild))

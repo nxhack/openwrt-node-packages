@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=mdns
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.5.1
-PKG_RELEASE:=1
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,8 +29,7 @@ define Package/node-mdns
   CATEGORY:=Languages
   TITLE:=multicast DNS service discovery
   URL:=https://www.npmjs.org/package/mdns
-  # lede-17.01: need select 'y' libavahi-compat-libdnssd for InstallDev libdns_sd.so
-  DEPENDS:=+node libavahi-compat-libdnssd
+  DEPENDS:=+node +libavahi-compat-libdnssd
 endef
 
 define Package/node-mdns/description
@@ -65,6 +64,14 @@ endef
 define Package/node-mdns/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-mdns/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/mdns || true
+rm -rf /usr/lib/node/mdns || true
 endef
 
 $(eval $(call BuildPackage,node-mdns))

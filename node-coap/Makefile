@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=coap
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.23.1
-PKG_RELEASE:=1
+PKG_VERSION:=0.24.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=2c1b0426edeffae2b4fd7b3f52a2db1fd744656e06f19ff22e9b015ba2ab158f
+PKG_HASH:=8dae17750421e5bd13af33c34757695771d3f6ecaa62c0154bbf70a4aa1a2dac
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,6 +64,14 @@ endef
 define Package/node-coap/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-coap/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/coap || true
+rm -rf /usr/lib/node/coap || true
 endef
 
 $(eval $(call BuildPackage,node-coap))

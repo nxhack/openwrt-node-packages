@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=utf-8-validate
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=5.0.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -71,6 +71,14 @@ define Package/node-utf-8-validate/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/validation.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-utf-8-validate/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/utf-8-validate || true
+rm -rf /usr/lib/node/utf-8-validate || true
 endef
 
 $(eval $(call BuildPackage,node-utf-8-validate))

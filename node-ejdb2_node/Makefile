@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ejdb2_node
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.16
-PKG_RELEASE:=1
+PKG_VERSION:=1.0.41
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=20c157a94d565c3f8ee57f8d46c0d757f05a79f36b5e86f99fa326c1fcb07634
+PKG_HASH:=70bb87298d6dbdec0ac7c8a2fbc00c106f9008e5d4cf67a841716da5e72d63b8
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -74,6 +74,14 @@ define Package/node-ejdb2_node/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/linux-x64/ejdb2_node.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-ejdb2_node/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/ejdb2_node || true
+rm -rf /usr/lib/node/ejdb2_node || true
 endef
 
 $(eval $(call BuildPackage,node-ejdb2_node))

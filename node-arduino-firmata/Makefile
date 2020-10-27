@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=arduino-firmata
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.3.4
-PKG_RELEASE:=31
+PKG_RELEASE:=32
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -72,6 +72,14 @@ define Package/node-arduino-firmata/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) ./files/* $(1)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-arduino-firmata/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/arduino-firmata || true
+rm -rf /usr/lib/node/arduino-firmata || true
 endef
 
 $(eval $(call BuildPackage,node-arduino-firmata))

@@ -131,25 +131,26 @@ node-bleacon			(bignum,bluetooth-hci-socket)
 node-bluetooth-hci-socket	(usb)
 node-bufferutil
 node-cylon-firmata		(firmata)
-node-ejdb
+node-deasync
+node-ejdb2_node
 node-enocean-utils		(serialport)
 node-epoll
 node-expat
-node-ffi			(ffi, ref)
+node-ffi-napi			(ffi-napi, ref-napi)
 node-firmata			(serialport)
 node-fuse-bindings
-node-hap-nodejs			(curve25519-n, ed25519-hap)
-node-hashtable
+node-hashtable			[mark @BROKEN: use node-megahash]
 node-hid
 node-hid-stream			(node-hid)
-node-homebridge			(hap-nodejs)
+node-homebridge-config-ui-x	(node-pty-prebuilt-multiarch)
 node-i2c-bus
 node-ideino-linino-lib		(epoll)
-node-johnny-five		(serialport)
+node-johnny-five		(firmata, serialport)
 node-level			(leveldown)
 node-leveldown
+node-megahash
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
-node-mknod
+node-mknod			[mark @BROKEN]
 node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
 node-nitrogen			(ws[legacy])
@@ -173,9 +174,10 @@ node-socket.io-legacy		(ws[legacy])
 node-spi-device
 node-sqlite3
 node-statvfs
+node-ubus
 node-usb
 node-utf-8-validate
-node-websocket
+node-websocket			(bufferutil, utf-8-validate)
 node-zigbee2mqtt		(@serialport/bindings)
 ```
 Other modules can be installed by 'npm install'.

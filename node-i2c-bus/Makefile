@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=i2c-bus
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.1.0
-PKG_RELEASE:=1
+PKG_VERSION:=5.2.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=7392f73a2f5f57d9493c2f2f8a53361465eb8f8a46bc2df0e068b26a30756686
+PKG_HASH:=e9ab3b5112e5622d711ea9ae00897ea0ab1a36dd0309185ec3aefbf8c1460f55
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,6 +64,14 @@ endef
 define Package/node-i2c-bus/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-i2c-bus/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/i2c-bus || true
+rm -rf /usr/lib/node/i2c-bus || true
 endef
 
 $(eval $(call BuildPackage,node-i2c-bus))

@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=tty.js
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.15
-PKG_RELEASE:=16
+PKG_RELEASE:=17
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -65,7 +65,15 @@ define Package/node-tty.js/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/tty.js/bin/tty.js $(1)/usr/bin/tty.js
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/tty.js $(1)/usr/bin/tty.js
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-tty.js/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/tty.js || true
+rm -rf /usr/lib/node/tty.js || true
 endef
 
 $(eval $(call BuildPackage,node-tty.js))

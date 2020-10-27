@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=leveldown
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.3.0
-PKG_RELEASE:=1
+PKG_VERSION:=5.6.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8439366302205edc8e8c2b02dad1b3b318003e59537ab1f5edc4a8c5a81eb632
+PKG_HASH:=0c9eefd44ddc1179e1f33e5308494e51f01bfd4f890677556b166b9369460d60
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -70,6 +70,14 @@ define Package/node-leveldown/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/leveldown.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-leveldown/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/leveldown || true
+rm -rf /usr/lib/node/leveldown || true
 endef
 
 $(eval $(call BuildPackage,node-leveldown))

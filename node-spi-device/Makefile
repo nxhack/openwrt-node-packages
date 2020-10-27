@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=spi-device
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.0
-PKG_RELEASE:=1
+PKG_VERSION:=3.1.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=1e3bcf4f9561fcd2681bf24692c92eb12570633d760c24321451208a48faaf1e
+PKG_HASH:=9225cdaea54fc51b56e110a12b047cef78fc77f30f3205773ea7de3643699f95
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,6 +64,14 @@ endef
 define Package/node-spi-device/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-spi-device/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/spi-device || true
+rm -rf /usr/lib/node/spi-device || true
 endef
 
 $(eval $(call BuildPackage,node-spi-device))

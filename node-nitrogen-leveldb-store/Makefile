@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=nitrogen-leveldb-store
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.0
-PKG_RELEASE:=23
+PKG_RELEASE:=24
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -66,6 +66,14 @@ define Package/node-nitrogen-leveldb-store/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,test} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-nitrogen-leveldb-store/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/nitrogen-leveldb-store || true
+rm -rf /usr/lib/node/nitrogen-leveldb-store || true
 endef
 
 $(eval $(call BuildPackage,node-nitrogen-leveldb-store))

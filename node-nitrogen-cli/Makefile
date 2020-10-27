@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=nitrogen-cli
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=0.2.17
-PKG_RELEASE:=22
+PKG_RELEASE:=23
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -65,7 +65,15 @@ define Package/node-nitrogen-cli/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/nitrogen-cli/n2 $(1)/usr/bin/n2
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/n2 $(1)/usr/bin/n2
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-nitrogen-cli/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/nitrogen-cli || true
+rm -rf /usr/lib/node/nitrogen-cli || true
 endef
 
 $(eval $(call BuildPackage,node-nitrogen-cli))
