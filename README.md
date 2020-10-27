@@ -14,7 +14,7 @@ See [LICENSE](LICENSE) file.
 
 Add the following line to feeds.conf or feeds.conf.default.
 ```
-src-git node https://github.com/nxhack/openwrt-node-packages.git
+src-git node https://github.com/nxhack/openwrt-node-packages.git;lede-17.01
 ```
 
 Run
