@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=usb
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.6.0
-PKG_RELEASE:=1
+PKG_VERSION:=1.6.3
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d7d6978bf8a274d7bb4317d879284d41492763698d69be6f0108456637cc7f07
+PKG_HASH:=54b957557f87ecf2470884b15e7191fa3b78a13863ee555b489717c2f6c92c26
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,6 +64,14 @@ endef
 define Package/node-usb/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-usb/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/usb || true
+rm -rf /usr/lib/node/usb || true
 endef
 
 $(eval $(call BuildPackage,node-usb))

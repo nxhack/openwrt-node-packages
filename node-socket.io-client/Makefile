@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=socket.io-client
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.2.0
-PKG_RELEASE:=1
+PKG_VERSION:=2.3.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=40252328381e131361152b5b2c16372cedd5256957fd6a7cb423bb6d2dc59b00
+PKG_HASH:=eae26bf3a109921425120f83723523aa319316ffae6e84184ab813be4d1e31f6
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -67,6 +67,14 @@ endef
 define Package/node-socket.io-client/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-socket.io-client/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/socket.io-client || true
+rm -rf /usr/lib/node/socket.io-client || true
 endef
 
 $(eval $(call BuildPackage,node-socket.io-client))

@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ask-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.7.0
+PKG_VERSION:=2.10.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d21896313555489dc1b000e5df627f7189486a784c2a4603eeffbfe0c9f0eecb
+PKG_HASH:=ea8ddc5cd5ffa718bdd09a2c87a02788b50e88b70a5f4290212ceff587f879a9
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -64,6 +64,14 @@ endef
 define Package/node-ask-sdk/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-ask-sdk/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/ask-sdk || true
+rm -rf /usr/lib/node/ask-sdk || true
 endef
 
 $(eval $(call BuildPackage,node-ask-sdk))

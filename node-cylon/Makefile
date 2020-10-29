@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=cylon
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.3.0
-PKG_RELEASE:=24
+PKG_RELEASE:=25
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -71,6 +71,14 @@ define Package/node-cylon/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/lib \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-cylon/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/cylon || true
+rm -rf /usr/lib/node/cylon || true
 endef
 
 $(eval $(call BuildPackage,node-cylon))

@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=websocket
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.30
+PKG_VERSION:=1.0.32
 PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=265a142321db7cbf676f566fe0c0117133cafae04283c6d21a4ae6a27941c9ef
+PKG_HASH:=13a18129dd87c1fe09605d208b200fc6b7f409107b4c34902452127d40029f48
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -29,7 +29,7 @@ define Package/node-websocket
   CATEGORY:=Languages
   TITLE:=WebSocket Client & Server Implementation for Node
   URL:=https://www.npmjs.org/package/websocket
-  DEPENDS:=+node
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-websocket/description
@@ -68,11 +68,14 @@ define Package/node-websocket/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,vendor} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bufferutil.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/validation.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-websocket/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/websocket || true
+rm -rf /usr/lib/node/websocket || true
 endef
 
 $(eval $(call BuildPackage,node-websocket))

@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=levelup
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.3.2
-PKG_RELEASE:=1
+PKG_VERSION:=4.4.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a9cdbbf9c2df5898ee09b0cefaa8a1df44f2b086f077732dc318bb8fbc9b8144
+PKG_HASH:=c74e4f6aa40b5a1796225751528a4809b372aee2c37178dcaa934546a5180ddd
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,6 +64,14 @@ endef
 define Package/node-levelup/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-levelup/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/levelup || true
+rm -rf /usr/lib/node/levelup || true
 endef
 
 $(eval $(call BuildPackage,node-levelup))

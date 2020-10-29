@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=epoll
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.0
-PKG_RELEASE:=1
+PKG_VERSION:=4.0.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8ffaf1d8439024cc0a3e92ba2eceb5c7d0044d94f50af6c2fb7e741a62c2308c
+PKG_HASH:=146e5d2fb49324203e3af195c9f40baa2e4bb943c9ff81c0ca993e09910bffa3
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,6 +64,15 @@ endef
 define Package/node-epoll/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
+
+define Package/node-epoll/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/epoll || true
+rm -rf /usr/lib/node/epoll || true
+endef
+
 
 $(eval $(call BuildPackage,node-epoll))

@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=jsonfile
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.0.0
-PKG_RELEASE:=1
+PKG_VERSION:=6.0.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=0486b94e7a083119b38b7dbdc379e4d8a2ea1dfc0bda1cdcbe9fe55bef67339f
+PKG_HASH:=c04d98338f4acd435fdf19865693faabfb2867998a93b445a88436e9be518a31
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,6 +64,14 @@ endef
 define Package/node-jsonfile/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-jsonfile/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/jsonfile || true
+rm -rf /usr/lib/node/jsonfile || true
 endef
 
 $(eval $(call BuildPackage,node-jsonfile))

@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-enocean-utils
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=0.4.0
-PKG_RELEASE:=1
+PKG_VERSION:=0.5.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=4a627c5907956a437167dc124bd40be92fb23e067beb91a529f2641b4aee0712
+PKG_HASH:=cab409f747f5afc96fbb400965ef6401a45ab5392e90eeb220d9943fd02de476
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -66,6 +66,14 @@ define Package/node-enocean-utils/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-enocean-utils/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-enocean-utils || true
+rm -rf /usr/lib/node/node-enocean-utils || true
 endef
 
 $(eval $(call BuildPackage,node-enocean-utils))

@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=forever
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.0
-PKG_RELEASE:=1
+PKG_VERSION:=3.0.2
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=5849445709ed997096cadcb7f31d282156fe730549533767d24d47ee22b44e94
+PKG_HASH:=2537576c27cd510afc6720676c5dd5b10ff7e15c300c3a4c30f40ad4ea9c2e48
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -65,7 +65,15 @@ define Package/node-forever/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/forever/bin/forever $(1)/usr/bin/forever
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/forever $(1)/usr/bin/forever
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-forever/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/forever || true
+rm -rf /usr/lib/node/forever || true
 endef
 
 $(eval $(call BuildPackage,node-forever))

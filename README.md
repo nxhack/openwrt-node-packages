@@ -4,7 +4,7 @@
 
 OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06
 
-Note: The test target is only ar71xx. It will probably work with MT7688(mipsel) and Raspberry Pi(arm, aarch64).
+Note: Only arm, mips, mipsel and x86_64 are tested.
 
 ## License
 
@@ -14,7 +14,7 @@ See [LICENSE](LICENSE) file.
 
 Add the following line to feeds.conf or feeds.conf.default.
 ```
-src-git node https://github.com/nxhack/openwrt-node-packages.git
+src-git node https://github.com/nxhack/openwrt-node-packages.git;openwrt-18.06
 ```
 
 Run
@@ -23,6 +23,7 @@ Run
 rm ./package/feeds/packages/node
 rm ./package/feeds/packages/node-*
 ./scripts/feeds install -a -p node
+make defconfig
 ```
 
 ## Note
@@ -32,6 +33,11 @@ If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://gith
 
 If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com/nxhack/openwrt-node-packages/tree/lede-17.01)
 
+## 18.06 random number issue
+
+There is no urngd package in 18.06.
+
+I recommend you to install haveged package. (Not the right random number, though)
 
 ## Illegal instruction issue
 
@@ -131,25 +137,26 @@ node-bleacon			(bignum,bluetooth-hci-socket)
 node-bluetooth-hci-socket	(usb)
 node-bufferutil
 node-cylon-firmata		(firmata)
-node-ejdb
+node-deasync
+node-ejdb2_node
 node-enocean-utils		(serialport)
 node-epoll
 node-expat
-node-ffi			(ffi, ref)
+node-ffi-napi			(ffi-napi, ref-napi)
 node-firmata			(serialport)
 node-fuse-bindings
-node-hap-nodejs			(curve25519-n, ed25519-hap)
-node-hashtable
+node-hashtable			[mark @BROKEN: use node-megahash]
 node-hid
 node-hid-stream			(node-hid)
-node-homebridge			(hap-nodejs)
+node-homebridge-config-ui-x	(node-pty-prebuilt-multiarch)
 node-i2c-bus
 node-ideino-linino-lib		(epoll)
-node-johnny-five		(serialport)
+node-johnny-five		(firmata, serialport)
 node-level			(leveldown)
 node-leveldown
+node-megahash
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
-node-mknod
+node-mknod			[mark @BROKEN]
 node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
 node-nitrogen			(ws[legacy])
@@ -173,9 +180,10 @@ node-socket.io-legacy		(ws[legacy])
 node-spi-device
 node-sqlite3
 node-statvfs
+node-ubus
 node-usb
 node-utf-8-validate
-node-websocket
+node-websocket			(bufferutil, utf-8-validate)
 node-zigbee2mqtt		(@serialport/bindings)
 ```
 Other modules can be installed by 'npm install'.

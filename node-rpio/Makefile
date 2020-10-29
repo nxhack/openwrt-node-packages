@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=rpio
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.3.0
-PKG_RELEASE:=1
+PKG_VERSION:=2.2.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=12bd6005f2dc3346f017482c1cbb5324d7f93bbb794660e19d936d5457ed0c2e
+PKG_HASH:=63fed24c858406c412d104a5542c2ebcc107b0dadfa806cda99fff8d8e327703
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC AND GPL-2.0
@@ -64,6 +64,14 @@ endef
 define Package/node-rpio/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-rpio/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/rpio || true
+rm -rf /usr/lib/node/rpio || true
 endef
 
 $(eval $(call BuildPackage,node-rpio))

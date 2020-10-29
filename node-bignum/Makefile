@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=bignum
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.13.0
-PKG_RELEASE:=2
+PKG_VERSION:=0.13.1
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=1125a3b9849c647caa6f604cdb51fd192dea1bf0b06e3f3cd014e47842109a7f
+PKG_HASH:=276200eb97ab41a80cdfac0e90979c61c2ba6a3a052a312228b3e2f8c6563f3d
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -71,6 +71,14 @@ define Package/node-bignum/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/bignum.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-bignum/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/bignum || true
+rm -rf /usr/lib/node/bignum || true
 endef
 
 $(eval $(call BuildPackage,node-bignum))

@@ -40,8 +40,7 @@ PKG_BUILD_DEPENDS:=!NODEJS_12:python/host NODEJS_12:python3/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_USE_MIPS16:=0
-
-OW_VER:=$(shell git --git-dir=$(TOPDIR)/.git describe --abbrev=0 --always --tag)
+PKG_ASLR_PIE:=0
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
@@ -53,10 +52,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb @!powerpc \
-           +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib \
-           $(if $(filter reboot v19.07%, $(OW_VER)),+libopenssl,+NODEJS_8:libopenssl) \
-           $(if $(filter reboot v19.07%, $(OW_VER)),+NODEJS_ICU_SYSTEM:icu-full-data) \
-           $(if $(filter reboot v19.07%, $(OW_VER)),+NODEJS_12:libnghttp2 +NODEJS_12:libuv +NODEJS_12:libhttp-parser +NODEJS_12:libcares) \
+           +libstdcpp +USE_UCLIBC:libpthread +USE_UCLIBC:librt +zlib +NODEJS_8:libopenssl \
            +!NODEJS_8:libatomic +NODEJS_ICU_SYSTEM:icu
 endef
 
@@ -64,7 +60,12 @@ define Package/node/description
   Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses
   an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js'
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
-  *** Requires GCC/G++ Multilib on host system to build! ***
+
+  *** The following preparations must be made on the host side. ***
+      1. gcc 6.3 or higher is required.
+      2. To build a 32-bit target, gcc-multilib, g++-multilib are required.
+      3. Requires libatomic package. (If necessary, install the 32-bit library at the same time.)
+     ex) sudo apt-get install gcc-multilib g++-multilib
 endef
 
 define Package/node-npm
@@ -148,13 +149,9 @@ CONFIGURE_ARGS:= \
 	--dest-cpu=$(NODEJS_CPU) \
 	--dest-os=linux \
 	--cross-compiling \
-	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_NODEJS_ICU_NONE),--without-snapshot)) \
-	$(if $(CONFIG_NODEJS_12),,$(if $(CONFIG_BIG_ENDIAN),--without-snapshot)) \
+	$(if $(CONFIG_BIG_ENDIAN),--without-snapshot) \
 	--shared-zlib \
-	$(if $(CONFIG_NODEJS_12),$(if $(filter reboot, $(OW_VER)) \
-		,--shared-nghttp2 --shared-libuv --shared-cares)) \
-	$(if $(filter reboot v19.07%, $(OW_VER)),--shared-openssl, \
-		$(if $(CONFIG_NODEJS_8),--shared-openssl)) \
+	$(if $(CONFIG_NODEJS_8),--shared-openssl) \
 	$(if $(CONFIG_NODEJS_ICU_SMALL),, \
 		--with-intl=$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
@@ -191,6 +188,11 @@ define Package/node-npm/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node_modules/npm/bin/npm-cli.js $(1)/usr/bin/npm
 	$(LN) ../lib/node_modules/npm/bin/npx-cli.js $(1)/usr/bin/npx
+endef
+
+define Package/node-npm/postrm
+#!/bin/sh
+rm -rf /usr/lib/node_modules/npm || true
 endef
 
 $(eval $(call HostBuild))

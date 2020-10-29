@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ws
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=7.1.1
-PKG_RELEASE:=1
+PKG_VERSION:=7.3.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9fb5eeffefac35b85a0a73cc450b9ae240771853883c9a3bd71422d024266b39
+PKG_HASH:=38dc3ad768670a0dd2bb6c7a014b5ad44956458db8f9d6df23be2b266261334b
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -32,7 +32,7 @@ define Package/node-ws
   CATEGORY:=Languages
   TITLE:=WebSocket library
   URL:=https://www.npmjs.org/package/ws
-  DEPENDS:=+node
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-ws/description
@@ -67,6 +67,14 @@ endef
 define Package/node-ws/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-ws/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/ws || true
+rm -rf /usr/lib/node/ws || true
 endef
 
 $(eval $(call BuildPackage,node-ws))

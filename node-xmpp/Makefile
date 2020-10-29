@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=xmpp
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.1.0
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/xmppjs/xmpp.js.git
@@ -87,21 +87,53 @@ endef
 define Package/node-xmpp/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp/* $(1)/usr/lib/node/node-xmpp/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/node-xmpp $(1)/usr/lib/node_modules/node-xmpp
+endef
+
+define Package/node-xmpp/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-xmpp || true
+rm -rf /usr/lib/node/node-xmpp || true
 endef
 
 define Package/node-xmpp-client/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp-client
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-client/* $(1)/usr/lib/node/node-xmpp-client/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/node-xmpp-client $(1)/usr/lib/node_modules/node-xmpp-client
+endef
+
+define Package/node-xmpp-client/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-xmpp-client || true
+rm -rf /usr/lib/node/node-xmpp-client || true
 endef
 
 define Package/node-xmpp-component/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp-component
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-component/* $(1)/usr/lib/node/node-xmpp-component/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/node-xmpp-component $(1)/usr/lib/node_modules/node-xmpp-component
+endef
+
+define Package/node-xmpp-component/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-xmpp-component || true
+rm -rf /usr/lib/node/node-xmpp-component || true
 endef
 
 define Package/node-xmpp-server/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/node-xmpp-server
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/node-xmpp-server/* $(1)/usr/lib/node/node-xmpp-server/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/node-xmpp-server $(1)/usr/lib/node_modules/node-xmpp-server
+endef
+
+define Package/node-xmpp-server/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/node-xmpp-server || true
+rm -rf /usr/lib/node/node-xmpp-server || true
 endef
 
 $(eval $(call BuildPackage,node-xmpp))

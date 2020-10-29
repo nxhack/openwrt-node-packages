@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=rpi-gpio
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.1.5
-PKG_RELEASE:=1
+PKG_VERSION:=2.1.7
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=c90d5ea03724ce041faf015ac7c4ae18478968c9e766038b0258b5ecac7cd27a
+PKG_HASH:=d298087055e8c1817a7009d885ea3b58cfbf450eafa43b533350b8c29b31c655
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -68,6 +68,14 @@ define Package/node-rpi-gpio/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.txt,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-rpi-gpio/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/rpi-gpio || true
+rm -rf /usr/lib/node/rpi-gpio || true
 endef
 
 $(eval $(call BuildPackage,node-rpi-gpio))

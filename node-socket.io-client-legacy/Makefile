@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=socket.io-client
 PKG_NAME:=node-$(PKG_NPM_NAME)-legacy
 PKG_VERSION:=0.9.17
-PKG_RELEASE:=26
+PKG_RELEASE:=27
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -67,6 +67,14 @@ endef
 define Package/node-socket.io-client-legacy/install
 	$(INSTALL_DIR) $(1)/usr/lib/node
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-socket.io-client-legacy/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/socket.io-client-legacy || true
+rm -rf /usr/lib/node/socket.io-client-legacy || true
 endef
 
 $(eval $(call BuildPackage,node-socket.io-client-legacy))

@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=exorcist
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.1
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -76,7 +76,15 @@ define Package/node-exorcist/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{example,test} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/exorcist/bin/exorcist.js $(1)/usr/bin/exorcist
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/exorcist.js $(1)/usr/bin/exorcist
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-exorcist/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/exorcist || true
+rm -rf /usr/lib/node/exorcist || true
 endef
 
 define Host/Compile
@@ -101,7 +109,7 @@ define Host/Install
 	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{example,test} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/exorcist/bin/exorcist.js $(1)/bin/exorcist
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/exorcist.js $(1)/bin/exorcist
 endef
 
 $(eval $(call HostBuild))

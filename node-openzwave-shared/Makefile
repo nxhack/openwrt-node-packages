@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=openzwave-shared
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.5.8
-PKG_RELEASE:=1
+PKG_VERSION:=1.7.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=e7c34c88838edb9aab76aeb796ee6eed6fbdf2bb3dbecf0a5d887e597564cc54
+PKG_HASH:=88f2966f527d3e15cdc09e2b4147594f98b299b8ff80aeea7c24869ddbbb26b7
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC
@@ -29,7 +29,7 @@ define Package/node-openzwave-shared
   CATEGORY:=Languages
   TITLE:=Node.JS bindings for OpenZWave
   URL:=https://www.npmjs.org/package/openzwave-shared
-  DEPENDS:=+node libopenzwave
+  DEPENDS:=+node +libopenzwave
 endef
 
 define Package/node-openzwave-shared/description
@@ -73,6 +73,14 @@ define Package/node-openzwave-shared/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/openzwave_shared.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+endef
+
+define Package/node-openzwave-shared/postrm
+#!/bin/sh
+rm /usr/lib/node_modules/openzwave-shared || true
+rm -rf /usr/lib/node/openzwave-shared || true
 endef
 
 $(eval $(call BuildPackage,node-openzwave-shared))
