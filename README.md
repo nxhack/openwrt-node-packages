@@ -4,8 +4,8 @@
 
 OpenWrt/LEDE Node.js Packages : for Head (Development branch)
 
-Note: support arches are aarch64, arm, mipsel, mips64el, x86_64
-      (mipseb & mips64eb & i386 are not supported)
+Note: support arches are aarch64, arm, x86_64
+      (mipseb & mips64eb & mipsel & mips64el & i386 are not supported)
 
 ## License
 
@@ -40,7 +40,7 @@ If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxh
 If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07)
 
 
-MIPS(be) will no longer be supported because 'nosnapshot' build is deprecated.
+*** MIPS no longer be supported ***
 
 OpenSSL 1.0.x becomes EoL, OpenWrt-18.06 will not be supported.
 Python2 becomes EoL, node v8.x will not be supported.
@@ -52,23 +52,10 @@ On the host side, the following preparations are required.
 
 ## Illegal instruction issue
 
-***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU or kernel FPU emulation.***
+***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU.***
 
-If you are running nodejs with Atheros AR71xx, AR933x, you need to create the ***kernel*** using the MIPS_FPU_EMULATOR option.
-
-***(This means that you need to rebuild the firmware.)***
-
-You can configure using menuconfig.
-```
-make menuconfig
-```
-> Global build settings  --->
->
-> Kernel build options  --->
->
->  [*] Compile the kernel with MIPS FPU Emulator
-
-ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In this case, there is no solution.
+If you are running nodejs with Atheros AR71xx, AR933x.
+ARM cores without vfp or neon (such as ***bcm53xx***) will not work either.
 
 ## Enable Inspector
 
@@ -84,19 +71,6 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
  [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
 
  Note: ICU currently supports only ***LITTLE ENDIAN***.
-
-## homebridge on mips with kernel FPU emulation
-In many cases, it does not work because the key generation is slow.
-
-In the case of such devices, this may be useful.
-
-[https://github.com/etwmc/Personal-HomeKit-HAP](https://github.com/etwmc/Personal-HomeKit-HAP)
-
-However, you have to program the accessories yourself.
-
-Here are some tips for cross-compiling with OpenWrt.
-
-[https://github.com/nxhack/openwrt-custom-packages/tree/master/PHK](https://github.com/nxhack/openwrt-custom-packages/tree/master/PHK)
 
 ## Note about mDNS and homebridge
 ***If you use node-homebridge(node-hap-nodejs), please install mDNS package (umdns / avahi-dbus-daemon / mdnsresponder).***
