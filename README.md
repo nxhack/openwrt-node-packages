@@ -32,17 +32,13 @@ make defconfig
 ## Note
 OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) , LEDE(17.01) , 18.06 are not supported.
 
-If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/for-15.05)
+If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/for-15.05) (***End of life***)
 
-If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com/nxhack/openwrt-node-packages/tree/lede-17.01)
+If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com/nxhack/openwrt-node-packages/tree/lede-17.01) (***End of life***)
 
+If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-18.06) (***MIPS support***)
 
-If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-18.06)
-
-If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07)
-
-
-***MIPS no longer be supported***
+If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07) (***MIPS support***)
 
 OpenSSL 1.0.x becomes EoL, OpenWrt-18.06 will not be supported.
 Python2 becomes EoL, node v8.x will not be supported.
