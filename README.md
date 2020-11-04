@@ -7,6 +7,8 @@ OpenWrt/LEDE Node.js Packages : for Head (Development branch)
 Note: support arches are aarch64, arm, x86_64
       (mipseb & mips64eb & mipsel & mips64el & i386 are not supported)
 
+***MIPS no longer be supported***
+
 ## License
 
 See [LICENSE](LICENSE) file.
@@ -40,7 +42,7 @@ If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxh
 If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07)
 
 
-*** MIPS no longer be supported ***
+***MIPS no longer be supported***
 
 OpenSSL 1.0.x becomes EoL, OpenWrt-18.06 will not be supported.
 Python2 becomes EoL, node v8.x will not be supported.
