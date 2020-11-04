@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for Head branch (Development branch)
+OpenWrt/LEDE Node.js Packages : for Head (Development branch)
 
 Note: support arches are aarch64, arm, mipsel, mips64el, x86_64
       (mipseb & mips64eb & i386 are not supported)
