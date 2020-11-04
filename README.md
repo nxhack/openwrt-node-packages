@@ -51,7 +51,7 @@ On the host side, the following preparations are required.
 
 ***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU.***
 
-If you are running nodejs on the Atheros AR71xx or AR933x, it will not work because there is no hardware FPU.
+If you are running nodejs on the Atheros AR71xx/AR933x, MediaTek MT76x8, it will not work because there is no hardware FPU.
 ARM cores without vfp or neon (such as ***bcm53xx***) will not work either.
 
 ## Enable Inspector
