@@ -6,7 +6,7 @@ OpenWrt/LEDE Node.js Packages : for Head (Development branch)
 
 Note: support arches are aarch64, arm, x86_64
 
-      ***MIPS no longer be supported***
+***MIPS no longer be supported***
 
 ## License
 
@@ -29,7 +29,7 @@ make defconfig
 ```
 
 ## Note
-OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05) , LEDE(17.01) , 18.06 are not supported.
+OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05), LEDE(17.01), 18.06, 19.07 are not supported.
 
 If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/for-15.05) (***End of life***)
 
