@@ -5,9 +5,8 @@
 OpenWrt/LEDE Node.js Packages : for Head (Development branch)
 
 Note: support arches are aarch64, arm, x86_64
-      (mipseb & mips64eb & mipsel & mips64el & i386 are not supported)
 
-***MIPS no longer be supported***
+      ***MIPS no longer be supported***
 
 ## License
 
@@ -52,7 +51,7 @@ On the host side, the following preparations are required.
 
 ***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU.***
 
-If you are running nodejs with Atheros AR71xx, AR933x.
+If you are running nodejs on the Atheros AR71xx or AR933x, it will not work because there is no hardware FPU.
 ARM cores without vfp or neon (such as ***bcm53xx***) will not work either.
 
 ## Enable Inspector
