@@ -6,7 +6,7 @@ OpenWrt/LEDE Node.js Packages : for Head (Development branch)
 
 Note: support arches are aarch64, arm, x86_64
 
-***MIPS no longer be supported***
+***MIPS without hardware FPU no longer be supported***
 
 ## License
 
@@ -60,7 +60,6 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either.
 | :---: | --- | :---: |
 | 32bit | Disable | NO |
 | 32bit | small-icu | YES |
-| 32bit | system-icu | NO |
 | 64bit | Disable | NO |
 | 64bit | small-icu | YES |
 | 64bit | system-icu | YES |
