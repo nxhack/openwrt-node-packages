@@ -4,18 +4,18 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=mocha
+PKG_NPM_NAME:=javascript-obfuscator
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=8.2.1
+PKG_VERSION:=2.8.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9b87fa7f51249e36901722eb41e15da65a83113788189cb57fa48ccd3030b6c7
+PKG_HASH:=c232e3cc784fca960b15cd1d6675159736993c9355006d8e18ef8816e0d47964
 
-PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_MAINTAINER:=Zbynek Kocur <zbynek.kocur@fel.cvut.cz>
+PKG_LICENSE:=BSD-2-Clause
+PKG_LICENSE_FILES:=LICENSE.BSD
 
 HOST_BUILD_DEPENDS:=node/host
 HOST_BUILD_PARALLEL:=1
@@ -27,17 +27,17 @@ PKG_USE_MIPS16:=0
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-mocha
+define Package/node-javascript-obfuscator
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=simple, flexible, fun test framework
-  URL:=https://www.npmjs.org/package/mocha
+  TITLE:=JavaScript obfuscator
+  URL:=https://www.npmjs.org/package/javascript-obfuscator
   DEPENDS:=+node
 endef
 
-define Package/node-mocha/description
- Mocha is a simple, flexible, fun JavaScript test framework for node.js and the browser
+define Package/node-javascript-obfuscator/description
+ JavaScript obfuscator is a powerful free obfuscator for JavaScript with a wide number of features which provides protection for your source code.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -65,27 +65,24 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-mocha/install
+define Package/node-javascript-obfuscator/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE.BSD} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.css,*.md,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/README.md \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/mocha $(1)/usr/bin/mocha
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/_mocha $(1)/usr/bin/_mocha
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/javascript-obfuscator $(1)/usr/bin/javascript-obfuscator
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-mocha/postrm
+define Package/node-javascript-obfuscator/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/mocha || true
-rm -rf /usr/lib/node/mocha || true
+rm /usr/lib/node_modules/javascript-obfuscator || true
+rm -rf /usr/lib/node/javascript-obfuscator || true
 endef
 
 define Host/Compile
@@ -94,25 +91,22 @@ define Host/Compile
 	npm_config_prefix=$(HOST_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(HOSTTMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(HOSTTMPNPM) \
-	npm install -g $(HOST_BUILD_DIR)
+	npm install -g --no-optional $(HOST_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(HOSTTMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(HOSTTMPNPM)
 endef
 
 define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
+	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE.BSD} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.css,*.md,*.js} \
+	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/README.md \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin} \
-		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{assets,lib} \
+	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin,dist} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/mocha $(1)/bin/mocha
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/_mocha $(1)/bin/_mocha
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/javascript-obfuscator $(1)/bin/javascript-obfuscator
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,node-mocha))
+$(eval $(call BuildPackage,node-javascript-obfuscator))
