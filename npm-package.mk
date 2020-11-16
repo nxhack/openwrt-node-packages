@@ -3,9 +3,9 @@
 #
 
 
-NODEJS_CPU ?=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
-TMPNPM ?=$(shell mktemp -u XXXXXXXXXX)
-PKG_SOURCE ?=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
+TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 
 define Build/Prepare/Node
 	$(INSTALL_DIR) $(PKG_BUILD_DIR)
