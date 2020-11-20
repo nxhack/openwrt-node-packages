@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-config-ui-x
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.32.0
+PKG_VERSION:=4.33.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=34264206e7d1bea55937efc5aed98d087b0ca2835fc4efda20296761705f09f8
+PKG_HASH:=873b72cef60d2ea9bf3dcbdd0a32ac156c47e3106e26e1974ddae1caf80bce8d
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_USE_MIPS16:=0
