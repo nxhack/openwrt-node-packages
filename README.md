@@ -127,7 +127,7 @@ OpenWrt custom packages available: https://github.com/nxhack/openwrt-custom-pack
 Specify v8-options.
 
 ```
---max_old_space_size=20 --initial_old_space_size=4 --max_semi_space_size=2 --max_executable_size=5 --optimize_for_size
+--max_old_space_size=80
 ```
 
 Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
