@@ -2,9 +2,9 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for trunk / openwrt-18.06
+OpenWrt/LEDE Node.js Packages : OpenWrt-18.06
 
-Note: Only arm, mips, mipsel and x86_64 are tested.
+Note: support arches are aarch64, arm, i386, mips, mips64, mipsel, mips64el, x86_64
 
 ## License
 
@@ -65,7 +65,6 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either. In t
 | :---: | --- | :---: |
 | 32bit | Disable | NO |
 | 32bit | small-icu | YES |
-| 32bit | system-icu | NO |
 | 64bit | Disable | NO |
 | 64bit | small-icu | YES |
 | 64bit | system-icu | YES |
