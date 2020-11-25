@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_SCOPE:=node-wot
 PKG_NPM_NAME:=binding-modbus
-PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
+PKG_NAME:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
 PKG_VERSION:=0.7.3
 PKG_RELEASE:=1
 
