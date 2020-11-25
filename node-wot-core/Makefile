@@ -30,7 +30,7 @@ define Package/node-wot-core
   CATEGORY:=Languages
   TITLE:=Core of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/core
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-td-tools
 endef
 
 define Package/node-wot-core/description

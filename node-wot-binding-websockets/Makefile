@@ -30,7 +30,7 @@ define Package/node-wot-binding-websockets
   CATEGORY:=Languages
   TITLE:=Websockets Protocol Binding of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-websockets
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools +node-wot-binding-http
 endef
 
 define Package/node-wot-binding-websockets/description

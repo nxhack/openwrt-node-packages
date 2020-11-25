@@ -30,7 +30,7 @@ define Package/node-wot-binding-mqtt
   CATEGORY:=Languages
   TITLE:=MQTT binding for node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-mqtt
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools
 endef
 
 define Package/node-wot-binding-mqtt/description

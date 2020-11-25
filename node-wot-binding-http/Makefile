@@ -30,7 +30,7 @@ define Package/node-wot-binding-http
   CATEGORY:=Languages
   TITLE:=HTTP Protocol Binding of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-http
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools
 endef
 
 define Package/node-wot-binding-http/description

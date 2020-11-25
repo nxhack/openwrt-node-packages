@@ -30,7 +30,7 @@ define Package/node-wot-binding-oracle
   CATEGORY:=Languages
   TITLE:=Oracle IoT Cloud Service Protocol Binding
   URL:=https://www.npmjs.com/package/@node-wot/binding-oracle
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core
 endef
 
 define Package/node-wot-binding-oracle/description

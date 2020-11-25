@@ -30,7 +30,7 @@ define Package/node-wot-binding-modbus
   CATEGORY:=Languages
   TITLE:=Modbus Client Protocol Binding
   URL:=https://www.npmjs.com/package/@node-wot/binding-modbus
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools
 endef
 
 define Package/node-wot-binding-modbus/description

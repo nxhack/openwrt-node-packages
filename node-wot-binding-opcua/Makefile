@@ -30,7 +30,7 @@ define Package/node-wot-binding-opcua
   CATEGORY:=Languages
   TITLE:=OPC UA Client Protocol Binding
   URL:=https://www.npmjs.com/package/@node-wot/binding-opcua
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core
 endef
 
 define Package/node-wot-binding-opcua/description

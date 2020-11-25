@@ -30,7 +30,8 @@ define Package/node-wot-cli
   CATEGORY:=Languages
   TITLE:=Command-line interface of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/cli
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core +node-wot-binding-coap +node-wot-binding-file \
+           +node-wot-binding-http +node-wot-binding-websockets +node-wot-binding-mqtt
 endef
 
 define Package/node-wot-cli/description

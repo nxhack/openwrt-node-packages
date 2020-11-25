@@ -30,7 +30,7 @@ define Package/node-wot-binding-file
   CATEGORY:=Languages
   TITLE:=File Binding of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-file
-  DEPENDS:=+node
+  DEPENDS:=+node +node-wot-core
 endef
 
 define Package/node-wot-binding-file/description
