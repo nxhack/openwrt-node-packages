@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -27,8 +27,6 @@
+     "typescript-standard": "0.3.36"
+   },
+   "dependencies": {
+-    "@node-wot/td-tools": "0.7.3",
+-    "@node-wot/core": "0.7.3",
+     "rxjs": "5.5.11",
+     "mqtt": "4.1.0"
+   },
