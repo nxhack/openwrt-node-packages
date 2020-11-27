@@ -29,7 +29,7 @@ define Package/node-eddystone-beacon
   CATEGORY:=Languages
   TITLE:=Create an Eddystone Beacon using Node.js
   URL:=https://www.npmjs.org/package/eddystone-beacon
-  DEPENDS:=+node +bluez-libs +libudev
+  DEPENDS:=+node +bluez-libs +libudev-fbsd
 endef
 
 define Package/node-eddystone-beacon/description
