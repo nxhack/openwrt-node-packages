@@ -4,17 +4,17 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=hashtable
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.0.2
-PKG_RELEASE:=13
+PKG_NPM_NAME:=node-red-node-discovery
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.0.22
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9857aa40f95db820ec2880ce3ad31f805f108ad8695c61430896237b2131655d
+PKG_HASH:=c5ca391934417243e340a694420335a0be6d5d345253da6e501a71d3c73d01bf
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
+PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DEPENDS:=node/host
@@ -23,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-hashtable
+define Package/node-red-node-discovery
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Native HashTable and ES6 compatible Map for Node.js
-  URL:=https://www.npmjs.org/package/hashtable
-  DEPENDS:=+node @BROKEN
+  TITLE:=A Node-RED node to discover nearby services
+  URL:=https://github.com/thingweb/node-red-node-discovery
+  DEPENDS:=+node +node-red +node-mdns
 endef
 
-define Package/node-hashtable/description
- Native HashTable and ES6 compatible Map for Node.js
+define Package/node-red-node-discovery/description
+ A Node-RED node that uses Bonjour / Avahi to discover local network services such as iTunes libraries, printers, etc.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -60,27 +60,22 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-hashtable/install
+define Package/node-red-node-discovery/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,README.md} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/LICENSE \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.md,*.js,*.html} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,index.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/icons \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,test} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/native.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-hashtable/postrm
+define Package/node-red-node-discovery/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/hashtable || true
-rm -rf /usr/lib/node/hashtable || true
+rm /usr/lib/node_modules/node-red-node-discovery || true
+rm -rf /usr/lib/node/node-red-node-discovery || true
 endef
 
-$(eval $(call BuildPackage,node-hashtable))
+$(eval $(call BuildPackage,node-red-node-discovery))
