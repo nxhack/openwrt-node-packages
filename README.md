@@ -107,7 +107,6 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 
 ## Modules that use pre-compiled binary (native module)
 ```
-node-alljoyn			[mark @BROKEN]
 node-arduino-firmata		(serialport)
 node-authenticate-pam
 node-bignum
@@ -124,7 +123,6 @@ node-expat
 node-ffi-napi			(ffi-napi, ref-napi)
 node-firmata			(serialport)
 node-fuse-bindings
-node-hashtable			[mark @BROKEN: use node-megahash]
 node-hid
 node-hid-stream			(node-hid)
 node-homebridge-config-ui-x	(node-pty-prebuilt-multiarch)
@@ -135,7 +133,6 @@ node-level			(leveldown)
 node-leveldown
 node-megahash
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
-node-mknod			[mark @BROKEN]
 node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
 node-nitrogen			(ws[legacy])
@@ -154,8 +151,6 @@ node-rpio
 node-serialport			(@serialport/bindings)
 node-serialport-bindings	(@serialport/bindings)
 node-sleep
-node-socket.io-client-legacy	(ws[legacy])
-node-socket.io-legacy		(ws[legacy])
 node-spi-device
 node-sqlite3
 node-statvfs
