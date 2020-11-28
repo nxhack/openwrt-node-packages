@@ -1,6 +1,6 @@
 --- a/src/ffi.cc
 +++ b/src/ffi.cc
-@@ -92,10 +92,11 @@
+@@ -84,10 +84,11 @@
    SET_ENUM_VALUE(FFI_WIN64);
  #elif defined __aarch64__
    SET_ENUM_VALUE(FFI_SYSV);
