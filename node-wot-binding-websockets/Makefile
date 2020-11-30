@@ -8,7 +8,7 @@ PKG_NPM_SCOPE:=node-wot
 PKG_NPM_NAME:=binding-websockets
 PKG_NAME:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
 PKG_VERSION:=0.7.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
@@ -30,7 +30,7 @@ define Package/node-wot-binding-websockets
   CATEGORY:=Languages
   TITLE:=Websockets Protocol Binding of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-websockets
-  DEPENDS:=+node +node-wot-core +node-wot-td-tools +node-wot-binding-http
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools +node-wot-binding-http +node-ws
 endef
 
 define Package/node-wot-binding-websockets/description
