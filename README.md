@@ -90,7 +90,7 @@ Also, you have to enable: dbus and avahi-daemon services to start automatically,
 (2)
 avahi on home network
 
-Please read this document. '[Why avahi and bonjour don't work on your home network](https://github.com/culler/querierd/blob/master/README)'
+Please read this document. '[Why avahi and bonjour don't work on your home network](https://github.com/culler/querierd/blob/master/README.rst)'
 
 ***IGMP-querier*** will solve your problem.
 
