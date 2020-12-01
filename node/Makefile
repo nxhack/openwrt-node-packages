@@ -95,7 +95,7 @@ define Package/node/config
 			bool "10.x Maintenance LTS"
 
 		config NODEJS_12
-			bool "12.x Active LTS"
+			bool "12.x Maintenance LTS"
 
 		config NODEJS_14
 			depends on !(mips||mips64)
