@@ -28,7 +28,7 @@ define Package/node-red-contrib-homekit
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=nodes to simulate Apple HomeKit devices
-  URL:=https://nodered.org/
+  URL:=https://flows.nodered.org/node/node-red-contrib-homekit
   DEPENDS:=+node +node-red +node-hap-nodejs
 endef
 

@@ -28,7 +28,7 @@ define Package/node-red-dashboard
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A set of dashboard nodes for Node-RED
-  URL:=https://github.com/thingweb/node-red-dashboard
+  URL:=https://flows.nodered.org/node/node-red-dashboard
   DEPENDS:=+node +node-red
 endef
 

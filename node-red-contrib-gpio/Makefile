@@ -28,7 +28,7 @@ define Package/node-red-contrib-gpio
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=nodes for using johnny-five and IO plugins
-  URL:=https://nodered.org/
+  URL:=https://flows.nodered.org/node/node-red-contrib-gpio
   DEPENDS:=+node +node-red +node-johnny-five +node-mqtt
 endef
 

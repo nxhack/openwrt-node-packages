@@ -28,7 +28,7 @@ define Package/node-red-node-discovery
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A Node-RED node to discover nearby services
-  URL:=https://github.com/thingweb/node-red-node-discovery
+  URL:=https://flows.nodered.org/node/node-red-node-discovery
   DEPENDS:=+node +node-red +node-mdns
 endef
 
