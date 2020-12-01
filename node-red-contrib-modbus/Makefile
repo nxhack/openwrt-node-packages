@@ -29,7 +29,7 @@ define Package/node-red-contrib-modbus
   CATEGORY:=Languages
   TITLE:=Node-RED contribution package for Modbus
   URL:=https://flows.nodered.org/node/node-red-contrib-modbus
-  DEPENDS:=+node +node-red +node-modbus-serial
+  DEPENDS:=+node +node-red +node-modbus-serial +node-serialport-list
 endef
 
 define Package/node-red-contrib-modbus/description

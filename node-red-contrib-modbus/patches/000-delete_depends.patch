@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -8,13 +8,11 @@
+@@ -8,14 +8,11 @@
      "debug": "~4.1.1",
      "jsmodbus": "~4.0.3",
      "line-by-line": "~0.1.6",
@@ -11,6 +11,7 @@
    },
    "optionalDependencies": {
 -    "serialport": "~9.0.0",
-     "@serialport/list": "~9.0.0"
+-    "@serialport/list": "~9.0.0"
    },
    "keywords": [
+     "node-red",
