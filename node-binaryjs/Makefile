@@ -48,7 +48,6 @@ TARGET_CPPFLAGS+=$(FPIC)
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_loglevel=verbose \
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_target_arch=$(NODEJS_CPU) \
 	npm_config_build_from_source=true \
@@ -56,7 +55,7 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(PKG_BUILD_DIR)
+	npm --ws:verbose install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
