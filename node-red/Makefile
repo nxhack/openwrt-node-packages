@@ -29,7 +29,7 @@ define Package/node-red
   CATEGORY:=Languages
   TITLE:=A visual tool for wiring the Internet of Things
   URL:=https://nodered.org/
-  DEPENDS:=+node +node-npm
+  DEPENDS:=+node +node-npm +node-red-admin
 endef
 
 define Package/node-red/description
@@ -75,8 +75,6 @@ define Package/node-red/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/red.js $(1)/usr/bin/node-red
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/node-red-pi $(1)/usr/bin/node-red-pi
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/node_modules/node-red-admin/node-red-admin.js \
-		$(1)/usr/bin/node-red-admin
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_BIN) ./files/node-red.conf $(1)/etc/config/node-red
 	$(INSTALL_DIR) $(1)/etc/init.d

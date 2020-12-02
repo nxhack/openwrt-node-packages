@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -46,7 +46,6 @@
+         "semver": "6.3.0"
+     },
+     "optionalDependencies": {
+-        "bcrypt": "3.0.6"
+     },
+     "engines": {
+         "node": ">=8"
