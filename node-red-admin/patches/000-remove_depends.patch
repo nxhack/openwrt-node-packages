@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -44,7 +44,6 @@
+         "sinon": "1.17.7"
+     },
+     "optionalDependencies": {
+-        "bcrypt": "3.0.8"
+     },
+     "bin": {
+         "node-red-admin": "node-red-admin.js"
