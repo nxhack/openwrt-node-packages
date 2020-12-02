@@ -29,7 +29,7 @@ define Package/node-bleacon
   CATEGORY:=Languages
   TITLE:=Library for creating/discovering/configuring iBeacons
   URL:=https://www.npmjs.org/package/bleacon
-  DEPENDS:=+node +node-bignum +node-bleno
+  DEPENDS:=+node +node-bignum +node-bleno +node-noble
 endef
 
 define Package/node-bleacon/description
