@@ -1,6 +1,15 @@
 --- a/package.json
 +++ b/package.json
-@@ -46,7 +46,6 @@
+--- package.json.orig	2020-12-02 17:28:29.399351119 +0900
++++ package.json	2020-12-02 17:31:50.961786426 +0900
+@@ -39,14 +39,12 @@
+         "bcryptjs": "2.4.3",
+         "express": "4.17.1",
+         "fs-extra": "8.1.0",
+-        "node-red-admin": "^0.2.6",
+         "node-red-node-rbe": "^0.2.9",
+         "node-red-node-tail": "^0.1.0",
+         "nopt": "5.0.0",
          "semver": "6.3.0"
      },
      "optionalDependencies": {
