@@ -110,7 +110,7 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 node-arduino-firmata		(serialport)
 node-authenticate-pam
 node-bignum
-node-binaryjs			(streamws)
+node-binaryjs			(streamws:BROKEN)
 node-bleacon			(bignum,bluetooth-hci-socket)
 node-bluetooth-hci-socket	(usb)
 node-bufferutil
