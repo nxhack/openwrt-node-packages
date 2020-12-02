@@ -48,6 +48,7 @@ TARGET_CPPFLAGS+=$(FPIC)
 define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
+	npm_config_loglevel=verbose \
 	npm_config_arch=$(NODEJS_CPU) \
 	npm_config_target_arch=$(NODEJS_CPU) \
 	npm_config_build_from_source=true \
