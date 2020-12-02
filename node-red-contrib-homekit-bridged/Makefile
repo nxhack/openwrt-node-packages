@@ -27,7 +27,7 @@ define Package/node-red-contrib-homekit-bridged
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node-RED nodes to simulate Apple HomeKit devices
+  TITLE:=Simulate Apple HomeKit devices
   URL:=https://flows.nodered.org/node/node-red-contrib-homekit-bridged
   DEPENDS:=+node +node-red +node-hap-nodejs
 endef
