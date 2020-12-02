@@ -29,7 +29,7 @@ define Package/node-binaryjs
   CATEGORY:=Languages
   TITLE:=Binary realtime streaming made easy
   URL:=https://www.npmjs.org/package/binaryjs
-  DEPENDS:=+node
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-binaryjs/description
