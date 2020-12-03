@@ -29,7 +29,7 @@ define Package/node-red
   CATEGORY:=Languages
   TITLE:=A visual tool for wiring the Internet of Things
   URL:=https://nodered.org/
-  DEPENDS:=+node +node-npm +node-red-admin
+  DEPENDS:=+node +node-npm +node-bcrypt
 endef
 
 define Package/node-red/description
