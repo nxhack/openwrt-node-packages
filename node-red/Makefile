@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-red
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=1.2.6
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -75,6 +75,8 @@ define Package/node-red/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/red.js $(1)/usr/bin/node-red
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/node-red-pi $(1)/usr/bin/node-red-pi
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/node_modules/node-red-admin/node-red-admin.js \
+		$(1)/usr/bin/node-red-admin
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_BIN) ./files/node-red.conf $(1)/etc/config/node-red
 	$(INSTALL_DIR) $(1)/etc/init.d
