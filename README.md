@@ -28,6 +28,9 @@ rm ./package/feeds/packages/node-*
 make defconfig
 ```
 
+## Request to add a package is welcome
+***If you want a new module (native module) that requires a precompiled binary, please open the issue.***
+
 ## Note
 OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05), LEDE(17.01), 18.06, 19.07 are not supported.
 
@@ -161,8 +164,6 @@ node-websocket			(bufferutil, utf-8-validate)
 node-zigbee2mqtt		(@serialport/bindings)
 ```
 Other modules can be installed by 'npm install'.
-
-***If you want a new module (native module) that requires a precompiled binary, please open the issue.***
 
 ## Package Guidelines
 
