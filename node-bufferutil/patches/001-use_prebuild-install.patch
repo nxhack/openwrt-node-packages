@@ -13,8 +13,8 @@
    },
    "homepage": "https://github.com/websockets/bufferutil",
    "dependencies": {
--    "node-gyp-build": "~3.7.0"
-+    "prebuild-install": "^2.1.0"
+-    "node-gyp-build": "^4.2.0"
++    "prebuild-install": "^6.0.0"
    },
    "devDependencies": {
-     "mocha": "~5.2.0",
+     "mocha": "^8.0.1",
