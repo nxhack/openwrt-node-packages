@@ -1,6 +1,6 @@
 --- a/package.json	2016-07-08 16:53:41.543933319 +0200
 +++ b/package.json	2016-07-08 16:54:04.528335842 +0200
-@@ -5,13 +5,13 @@
+@@ -5,13 +5,12 @@
  "main" : "./index.js",
  "dependencies": {
  	"socket.io": "*",
@@ -14,7 +14,6 @@
 +	"winston": "*",
 +	"underscore": "*",
 +	"clone" : "*",
-+	"epoll": "*",
 +	"string": "*",
 +	"args-js": "*",
 +	"async": "*",
