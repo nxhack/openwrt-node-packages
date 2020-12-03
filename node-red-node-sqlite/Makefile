@@ -28,7 +28,7 @@ define Package/node-red-node-sqlite
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=A sqlite node for Node-RED
-  URL:=https://github.com/thingweb/node-red-node-sqlite
+  URL:=https://flows.nodered.org/node/node-red-node-sqlite
   DEPENDS:=+node +node-red +node-sqlite3
 endef
 

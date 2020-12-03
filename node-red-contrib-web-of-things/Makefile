@@ -28,7 +28,7 @@ define Package/node-red-contrib-web-of-things
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Web of Things node for node-RED
-  URL:=https://github.com/thingweb/node-red-contrib-web-of-things
+  URL:=https://flows.nodered.org/node/node-red-contrib-web-of-things
   DEPENDS:=+node +node-red +node-wot-core +node-wot-binding-http +node-wot-binding-coap \
            +node-wot-binding-mqtt +node-wot-binding-opcua +node-wot-binding-modbus
 endef

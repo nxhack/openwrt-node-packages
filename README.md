@@ -28,6 +28,9 @@ rm ./package/feeds/packages/node-*
 make defconfig
 ```
 
+## Request to add a package is welcome
+If you want a new module (native module) that requires a precompiled binary, ***please open the issue.***
+
 ## Note
 OpenWrt Attitude Adjustment(12.09), Barrier Breaker(14.07), Chaos Calmer(15.05), LEDE(17.01), 18.06, 19.07 are not supported.
 
@@ -107,49 +110,29 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 
 ## Modules that use pre-compiled binary (native module)
 ```
-node-arduino-firmata		(serialport)
 node-authenticate-pam
+node-bcryp
 node-bignum
-node-binaryjs			(streamws)
-node-bleacon			(bignum,bluetooth-hci-socket)
-node-bluetooth-hci-socket	(usb)
+node-bluetooth-hci-socket
 node-bufferutil
-node-cylon-firmata		(firmata)
 node-deasync
 node-ejdb2_node
-node-enocean-utils		(serialport)
 node-epoll
 node-expat
 node-ffi-napi			(ffi-napi, ref-napi)
-node-firmata			(serialport)
 node-fuse-bindings
 node-hid
-node-hid-stream			(node-hid)
 node-homebridge-config-ui-x	(node-pty-prebuilt-multiarch)
 node-i2c-bus
-node-ideino-linino-lib		(epoll)
-node-johnny-five		(firmata, serialport)
-node-level			(leveldown)
 node-leveldown
 node-megahash
 node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
-node-muzzley-client		(ws[legacy])
 node-net-ping			(raw-socket)
-node-nitrogen			(ws[legacy])
-node-nitrogen-cli		(ws[legacy])
-node-onoff			(epoll)
+node-openzwave-shared
 node-pi-spi
 node-pty
-node-red			(bcrypt)
-node-red-contrib-gpio		(johnny-five)
-node-red-contrib-homekit	(hap-nodejs)
-node-red-contrib-modbus		(@serialport/bindings)
-node-red-node-arduino		(firmata)
-node-reverse-wstunnel
-node-rpi-gpio			(epoll)
 node-rpio
-node-serialport			(@serialport/bindings)
-node-serialport-bindings	(@serialport/bindings)
+node-serialport-bindings
 node-sleep
 node-spi-device
 node-sqlite3
@@ -157,12 +140,9 @@ node-statvfs
 node-ubus
 node-usb
 node-utf-8-validate
-node-websocket			(bufferutil, utf-8-validate)
-node-zigbee2mqtt		(@serialport/bindings)
+node-zigbee2mqtt		(@serialport/bindings,unix-dgram)
 ```
 Other modules can be installed by 'npm install'.
-
-***If you want a new module (native module) that requires a precompiled binary, please open the issue.***
 
 ## Package Guidelines
 
