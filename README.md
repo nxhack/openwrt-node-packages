@@ -126,7 +126,7 @@ node-homebridge-config-ui-x	(node-pty-prebuilt-multiarch)
 node-i2c-bus
 node-leveldown
 node-megahash
-node-mdns			[need select 'y'[*] libavahi-compat-libdnssd for InstallDev libdns_sd.so]
+node-mdns
 node-net-ping			(raw-socket)
 node-openzwave-shared
 node-pi-spi
