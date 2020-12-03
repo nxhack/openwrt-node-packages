@@ -1,7 +1,7 @@
 --- a/package.json
 +++ b/package.json
 @@ -35,8 +35,7 @@
-     "fakegato-history": ">=0.5.6",
+     "fakegato-history": ">=0.6.1",
      "github-version-checker": ">=2.2.0",
      "latest-version": "^5.1.0",
 -    "moment": "*",
