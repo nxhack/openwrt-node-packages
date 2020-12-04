@@ -29,7 +29,7 @@ define Package/node-homebridge-camera-ffmpeg
   CATEGORY:=Languages
   TITLE:=Homebridge Camera FFmpeg
   URL:=https://www.npmjs.com/package/homebridge-camera-ffmpeg
-  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge node-mqtt
+  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge +node-mqtt
 endef
 
 define Package/node-homebridge-camera-ffmpeg/description
