@@ -51,6 +51,7 @@ TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
 	git init $(PKG_BUILD_DIR)
+	GYP_DEFINES='driver="hidraw"' \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
