@@ -44,7 +44,7 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
 TARGET_CPPFLAGS+=$(FPIC)
-TARGET_LDFLAGS+=-L$(STAGING_DIR)/usr/lib -lusb
+TARGET_LDFLAGS+=-lusb-1.0
 
 define Build/Compile
 	GYP_DEFINES='use_system_libusb=1' \
