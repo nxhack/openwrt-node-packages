@@ -22,7 +22,6 @@ PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/nls.mk
 
 define Package/node-usb
   SUBMENU:=Node.js
@@ -30,7 +29,7 @@ define Package/node-usb
   CATEGORY:=Languages
   TITLE:=Library to access USB devices
   URL:=https://www.npmjs.com/package/usb
-  DEPENDS:=+node +libusb-1.0 $(ICONV_DEPENDS)
+  DEPENDS:=+node +libusb-1.0
 endef
 
 define Package/node-usb/description
@@ -45,7 +44,6 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
 TARGET_CPPFLAGS+=$(FPIC)
-TARGET_LDFLAGS+=$(if $(ICONV_FULL),-liconv)
 
 define Build/Compile
 	GYP_DEFINES='use_system_libusb=1' \
