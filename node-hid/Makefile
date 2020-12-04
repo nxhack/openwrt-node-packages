@@ -48,10 +48,10 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
 TARGET_CPPFLAGS+=$(FPIC)
+TARGET_LDFLAGS+=-l:libiconv.a
 
 define Build/Compile
 	git init $(PKG_BUILD_DIR)
-	GYP_DEFINES='node_hid_no_pkg_config=1' \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
