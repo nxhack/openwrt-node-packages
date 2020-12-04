@@ -29,7 +29,7 @@ define Package/node-mqtt
   CATEGORY:=Languages
   TITLE:=A library for the MQTT protocol
   URL:=https://www.npmjs.org/package/mqtt
-  DEPENDS:=+node
+  DEPENDS:=+node +node-ws
 endef
 
 define Package/node-mqtt/description
