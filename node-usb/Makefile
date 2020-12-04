@@ -29,7 +29,7 @@ define Package/node-usb
   CATEGORY:=Languages
   TITLE:=Library to access USB devices
   URL:=https://www.npmjs.com/package/usb
-  DEPENDS:=+node +libudev
+  DEPENDS:=+node +libusb-1.0
 endef
 
 define Package/node-usb/description
@@ -42,10 +42,12 @@ TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
-TARGET_CFLAGS+=$(FPIC)
+TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
 TARGET_CPPFLAGS+=$(FPIC)
+TARGET_LDFLAGS+=-lusb-1.0
 
 define Build/Compile
+	GYP_DEFINES='use_system_libusb=1' \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
