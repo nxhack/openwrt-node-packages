@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=homebridge-camera-ffmpeg
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=3.0.3
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-homebridge-camera-ffmpeg
   CATEGORY:=Languages
   TITLE:=Homebridge Camera FFmpeg
   URL:=https://www.npmjs.com/package/homebridge-camera-ffmpeg
-  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge
+  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge node-mqtt
 endef
 
 define Package/node-homebridge-camera-ffmpeg/description
