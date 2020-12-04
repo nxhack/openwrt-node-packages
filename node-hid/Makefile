@@ -25,7 +25,6 @@ PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/nls.mk
 
 define Package/node-hid
   SUBMENU:=Node.js
@@ -33,7 +32,7 @@ define Package/node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +libusb-1.0 $(ICONV_DEPENDS) +libudev
+  DEPENDS:=+node +libusb-1.0 +libudev +libiconv
 endef
 
 define Package/node-hid/description
@@ -48,6 +47,7 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
 TARGET_CPPFLAGS+=$(FPIC)
+TARGET_LDFLAGS+=-liconv
 
 define Build/Compile
 	git init $(PKG_BUILD_DIR)
