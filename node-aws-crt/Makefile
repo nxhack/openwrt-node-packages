@@ -20,7 +20,6 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
-PKG_ASLR_PIE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -30,7 +29,7 @@ define Package/node-aws-crt
   CATEGORY:=Languages
   TITLE:=NodeJS bindings for the AWS Common Runtime
   URL:=https://www.npmjs.com/package/aws-crt
-  DEPENDS:=+node @!mipsel
+  DEPENDS:=+node @!aarch64 @!mipsel
 endef
 
 define Package/node-aws-crt/description
