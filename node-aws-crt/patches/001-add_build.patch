@@ -1,0 +1,10 @@
+--- a/package.json
++++ a/package.json
+@@ -20,6 +20,7 @@
+     "test:browser:ci": "npm run install:puppeteer && npm run test:browser",
+     "install:puppeteer": "npm install --save-dev jest-puppeteer puppeteer @types/puppeteer",
+     "prepare": "node ./scripts/tsc.js && node ./scripts/build.js",
++    "build": "node ./scripts/build.js",
+     "install": "node ./scripts/install.js"
+   },
+   "devDependencies": {
