@@ -1,0 +1,25 @@
+diff -urN a/crt/s2n/CMakeLists.txt b/crt/s2n/CMakeLists.txt
+--- a/crt/s2n/CMakeLists.txt	1985-10-26 17:15:00.000000000 +0900
++++ b/crt/s2n/CMakeLists.txt	2020-12-05 11:29:59.000000000 +0900
+@@ -216,9 +216,6 @@
+ target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
+ 
+ target_compile_definitions(${PROJECT_NAME} PRIVATE -D_POSIX_C_SOURCE=200809L)
+-if(CMAKE_BUILD_TYPE MATCHES Release)
+-    target_compile_definitions(${PROJECT_NAME} PRIVATE -D_FORTIFY_SOURCE=2)
+-endif()
+ 
+ if(NO_STACK_PROTECTOR)
+     target_compile_options(${PROJECT_NAME} PRIVATE -Wstack-protector -fstack-protector-all)
+diff -urN a/crt/s2n/s2n.mk b/crt/s2n/s2n.mk
+--- a/crt/s2n/s2n.mk	1985-10-26 17:15:00.000000000 +0900
++++ b/crt/s2n/s2n.mk	2020-12-05 11:30:14.000000000 +0900
+@@ -46,7 +46,7 @@
+                  -Wshadow  -Wcast-align -Wwrite-strings -fPIC -Wno-missing-braces\
+                  -D_POSIX_C_SOURCE=200809L -O2 -I$(LIBCRYPTO_ROOT)/include/ \
+                  -I$(S2N_ROOT)/api/ -I$(S2N_ROOT) -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security \
+-                 -D_FORTIFY_SOURCE=2 -fgnu89-inline -fvisibility=hidden -DS2N_EXPORTS
++                 -fgnu89-inline -fvisibility=hidden -DS2N_EXPORTS
+ 
+ COVERAGE_CFLAGS = -fprofile-arcs -ftest-coverage
+ COVERAGE_LDFLAGS = --coverage
