@@ -1,6 +1,5 @@
-diff -urN a/crt/s2n/CMakeLists.txt b/crt/s2n/CMakeLists.txt
 --- a/crt/s2n/CMakeLists.txt	1985-10-26 17:15:00.000000000 +0900
-+++ b/crt/s2n/CMakeLists.txt	2020-12-05 12:21:36.000000000 +0900
++++ b/crt/s2n/CMakeLists.txt	2020-12-05 12:42:21.000000000 +0900
 @@ -193,7 +193,7 @@
  
  set(CMAKE_C_FLAGS_DEBUGOPT "")
@@ -10,34 +9,15 @@ diff -urN a/crt/s2n/CMakeLists.txt b/crt/s2n/CMakeLists.txt
          -Wuninitialized -Wshadow -Wcast-qual -Wcast-align -Wwrite-strings -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security
          -Wno-missing-braces -fvisibility=hidden -DS2N_EXPORTS)
  
-@@ -213,12 +213,7 @@
-     target_compile_options(${PROJECT_NAME} PUBLIC -DS2N_HAVE_EXECINFO)
- endif()
- 
--target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
--
- target_compile_definitions(${PROJECT_NAME} PRIVATE -D_POSIX_C_SOURCE=200809L)
--if(CMAKE_BUILD_TYPE MATCHES Release)
--    target_compile_definitions(${PROJECT_NAME} PRIVATE -D_FORTIFY_SOURCE=2)
--endif()
- 
- if(NO_STACK_PROTECTOR)
-     target_compile_options(${PROJECT_NAME} PRIVATE -Wstack-protector -fstack-protector-all)
 diff -urN a/crt/s2n/s2n.mk b/crt/s2n/s2n.mk
 --- a/crt/s2n/s2n.mk	1985-10-26 17:15:00.000000000 +0900
-+++ b/crt/s2n/s2n.mk	2020-12-05 12:21:45.000000000 +0900
-@@ -42,11 +42,11 @@
++++ b/crt/s2n/s2n.mk	2020-12-05 12:42:49.000000000 +0900
+@@ -42,7 +42,7 @@
  	DEFAULT_CFLAGS = -std=c99 -Wcast-qual
  endif
  
 -DEFAULT_CFLAGS += -pedantic -Wall -Werror -Wimplicit -Wunused -Wcomment -Wchar-subscripts -Wuninitialized \
--                 -Wshadow  -Wcast-align -Wwrite-strings -fPIC -Wno-missing-braces\
 +DEFAULT_CFLAGS += -pedantic -Wall -Wimplicit -Wunused -Wcomment -Wchar-subscripts -Wuninitialized \
-+                 -Wshadow  -Wcast-align -Wwrite-strings -Wno-missing-braces\
+                  -Wshadow  -Wcast-align -Wwrite-strings -fPIC -Wno-missing-braces\
                   -D_POSIX_C_SOURCE=200809L -O2 -I$(LIBCRYPTO_ROOT)/include/ \
                   -I$(S2N_ROOT)/api/ -I$(S2N_ROOT) -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security \
--                 -D_FORTIFY_SOURCE=2 -fgnu89-inline -fvisibility=hidden -DS2N_EXPORTS
-+                 -fgnu89-inline -fvisibility=hidden -DS2N_EXPORTS
- 
- COVERAGE_CFLAGS = -fprofile-arcs -ftest-coverage
- COVERAGE_LDFLAGS = --coverage
