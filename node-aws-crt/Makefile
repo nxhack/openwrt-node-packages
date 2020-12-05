@@ -55,8 +55,8 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm --prefix $(PKG_BUILD_DIR) --save-dev run build
 	npm install -g $(PKG_BUILD_DIR)
+	npm --prefix $(PKG_BUILD_DIR) run build
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
