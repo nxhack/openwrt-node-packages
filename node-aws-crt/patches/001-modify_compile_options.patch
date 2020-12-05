@@ -37,3 +37,14 @@ diff -urN a/crt/s2n/s2n.mk b/crt/s2n/s2n.mk
  
  COVERAGE_CFLAGS = -fprofile-arcs -ftest-coverage
  COVERAGE_LDFLAGS = --coverage
+diff -urN a/scripts/build.js b/scripts/build.js
+--- a/scripts/build.js	1985-10-26 17:15:00.000000000 +0900
++++ b/scripts/build.js	2020-12-05 21:03:09.000000000 +0900
+@@ -11,6 +11,7 @@
+     CMAKE_JS_PLATFORM: os.platform,
+     CMAKE_JS_ARCH: os.arch,
+     BUILD_TESTING: 'OFF',
++    BUILD_SHARED_LIBS: 'ON',
+ }
+ 
+ // Convert any -D arguments to this script to cmake -D arguments
