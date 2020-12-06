@@ -50,7 +50,7 @@ ifeq ($(CONFIG_USE_MUSL),y)
     CINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include/fortify
 endif
 CINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include
-CINC_PATH:=$(call join-with,;,$(CINC_PATH_LIST))
+CINC_PATH:=$(subst $(space),;,$(CINC_PATH_LIST))
 
 define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/dist
