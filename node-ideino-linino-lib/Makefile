@@ -32,7 +32,7 @@ define Package/node-ideino-linino-lib
   CATEGORY:=Languages
   TITLE:=library for ideino-linino
   URL:=https://github.com/ideino/ideino-linino-lib
-  DEPENDS:=+node +node-epoll
+  DEPENDS:=+node +node-socket.io +node-epoll
 endef
 
 define Package/node-ideino-linino-lib/description
