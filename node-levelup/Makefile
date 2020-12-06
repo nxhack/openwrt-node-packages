@@ -29,7 +29,7 @@ define Package/node-levelup
   CATEGORY:=Languages
   TITLE:=Fast & simple storage - a Node.js-style LevelDB wrapper
   URL:=https://www.npmjs.org/package/levelup
-  DEPENDS:=+node
+  DEPENDS:=+node +node-leveldown
 endef
 
 define Package/node-levelup/description
