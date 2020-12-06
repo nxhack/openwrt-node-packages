@@ -95,8 +95,6 @@ define Package/node-aws-crt/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/aws-crt || true
 rm -rf /usr/lib/node/aws-crt || true
-rm /usr/lib/libs2n* || true
-rm /usr/lib/libaws-c-* || true
 endef
 
 $(eval $(call BuildPackage,node-aws-crt))
