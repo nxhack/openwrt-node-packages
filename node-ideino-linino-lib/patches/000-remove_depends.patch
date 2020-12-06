@@ -1,6 +1,7 @@
---- a/package.json	2016-07-08 16:53:41.543933319 +0200
-+++ b/package.json	2016-07-08 16:54:04.528335842 +0200
-@@ -5,13 +5,12 @@
+--- a/package.json
++++ b/package.json
+@@ -4,14 +4,12 @@
+ "version" : "0.1.1",
  "main" : "./index.js",
  "dependencies": {
 -	"socket.io": "*",
@@ -11,12 +12,12 @@
 -	"string": "1.9.0",
 -	"args-js": "0.10.4",
 -	"async": "0.9.0",
-+	"winston": "*",
-+	"underscore": "*",
-+	"clone" : "*",
-+	"string": "*",
-+	"args-js": "*",
-+	"async": "*",
++	"winston": "^0.7.3",
++	"underscore": "^1.6.0",
++	"clone" : "^0.1.17",
++	"string": "^1.9.0",
++	"args-js": "^0.10.4",
++	"async": "^0.9.0",
  	"shelljs": "*",
  	"es6-shim": ">=0.20.1"
  	}
