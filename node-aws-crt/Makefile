@@ -82,6 +82,9 @@ define Package/node-aws-crt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/{lib,Release} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(LN) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/lib/libs2n* $(1)/usr/lib/
+	$(LN) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/libaws-c-* $(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
