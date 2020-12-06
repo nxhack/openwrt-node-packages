@@ -45,12 +45,12 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
-CINC_PATH_LIST=$(STAGING_DIR)/usr/include
+CMINC_PATH_LIST=$(STAGING_DIR)/usr/include
 ifeq ($(CONFIG_USE_MUSL),y)
-    CINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include/fortify
+    CMINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include/fortify
 endif
-CINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include
-CINC_PATH:=$(subst $(space),;,$(CINC_PATH_LIST))
+CMINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include
+CMINC_PATH:=$(subst $(space),:,$(CMINC_PATH_LIST))
 
 define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/dist
@@ -64,9 +64,8 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	CMAKE_SHARED_LDFLAGS="-Wl,-Bsymbolic-functions" \
-	CMAKE_INCLUDE_PATH="$(CINC_PATH)" \
-	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib;$(TOOLCHAIN_DIR)/lib" \
+	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
+	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
 	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
