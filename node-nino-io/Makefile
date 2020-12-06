@@ -29,7 +29,7 @@ define Package/node-nino-io
   CATEGORY:=Languages
   TITLE:=Linino One and Arduino Yun IO Plugin for Johnny-Five
   URL:=https://www.npmjs.org/package/nino-io
-  DEPENDS:=+node +node-ideino-linino-lib +node-i2c-bus
+  DEPENDS:=+node +node-ideino-linino-lib +node-i2c-bus +node-johnny-five
 endef
 
 define Package/node-nino-io/description
