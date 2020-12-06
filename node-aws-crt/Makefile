@@ -50,7 +50,7 @@ ifeq ($(CONFIG_USE_MUSL),y)
     CINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include/fortify
 endif
 CINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include
-CINC_PATH:=$(call join-with,:,$(CINC_PATH_LIST))
+CINC_PATH:=$(call join-with,;,$(CINC_PATH_LIST))
 
 define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/dist
@@ -66,7 +66,7 @@ define Build/Compile
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	CMAKE_SHARED_LDFLAGS="-Wl,-Bsymbolic-functions" \
 	CMAKE_INCLUDE_PATH="$(CINC_PATH)" \
-	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
+	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib;$(TOOLCHAIN_DIR)/lib" \
 	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
