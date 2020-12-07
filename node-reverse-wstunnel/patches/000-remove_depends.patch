@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -22,7 +22,6 @@
+     "node": "~0.10.21"
+   },
+   "dependencies": {
+-    "websocket": "1.0.8",
+     "lawg": "1.0.3",
+     "phuture": "1.0.2",
+     "node-uuid": "1.4.1",

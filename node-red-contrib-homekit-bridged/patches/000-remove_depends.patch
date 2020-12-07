@@ -1,0 +1,12 @@
+--- a/package.json
++++ b/package.json
+@@ -44,8 +44,7 @@
+   },
+   "homepage": "https://github.com/NRCHKB/node-red-contrib-homekit-bridged#readme",
+   "dependencies": {
+-    "debug": "^4.1.1",
+-    "hap-nodejs": "^0.7.8"
++    "debug": "^4.1.1"
+   },
+   "devDependencies": {
+     "@types/debug": "^4.1.5",

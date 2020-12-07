@@ -28,7 +28,7 @@ define Package/node-red-node-arduino
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=node to talk to an Arduino running firmata
-  URL:=https://nodered.org/
+  URL:=https://flows.nodered.org/node/node-red-node-arduino
   DEPENDS:=+node +node-red +node-firmata
 endef
 

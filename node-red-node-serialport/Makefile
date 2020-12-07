@@ -28,7 +28,7 @@ define Package/node-red-node-serialport
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Node-RED nodes to talk to serial ports
-  URL:=https://github.com/thingweb/node-red-node-serialport
+  URL:=https://flows.nodered.org/node/node-red-node-serialport
   DEPENDS:=+node +node-red +node-serialport
 endef
 
