@@ -4,17 +4,20 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=logfmt
+PKG_NPM_NAME:=ideino-linino-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.3.2
-PKG_RELEASE:=2
+PKG_VERSION:=0.1.2
+PKG_RELEASE:=24
 
-PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=2d9c1071d35359e5f83647ec938d1c03fa4d752ce179b95b3decf4f437f6c2f9
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/ideino/ideino-linino-lib.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=7f65c03d2dafe1d861fda6096c2ab7d031b7b31d
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_MIRROR_HASH:=e936630bec42c3621664dc876699f6392dbb22dd3dd163a08191991bb37a7872
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
+PKG_LICENSE:=
 PKG_LICENSE_FILES:=
 
 PKG_BUILD_DEPENDS:=node/host
@@ -23,22 +26,18 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-logfmt
+define Package/node-ideino-linino-lib
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=key=value logger and parser
-  URL:=https://www.npmjs.org/package/logfmt
-  DEPENDS:=+node
+  TITLE:=library for ideino-linino
+  URL:=https://github.com/ideino/ideino-linino-lib
+  DEPENDS:=+node +node-socket.io +node-epoll
 endef
 
-define Package/node-logfmt/description
- "logfmt" is the name for a key value logging convention we've adopted at Heroku,
- This library is for both converting lines in logfmt format to objects and for logging objects to a stream in logfmt format
+define Package/node-ideino-linino-lib/description
+ library for ideino-linino
 endef
-
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
@@ -47,6 +46,7 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	rm -rf $(PKG_BUILD_DIR)/node_modules
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -61,24 +61,24 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-logfmt/install
+define Package/node-ideino-linino-lib/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,HISTORY.md,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{board.js,config.json,dashboard.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,examples,test} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{htmlboard.js,index.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/logfmt $(1)/usr/bin/logfmt
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib,utils} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-logfmt/postrm
+define Package/node-ideino-linino-lib/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/logfmt || true
-rm -rf /usr/lib/node/logfmt || true
+rm /usr/lib/node_modules/ideino-linino-lib || true
+rm -rf /usr/lib/node/ideino-linino-lib || true
 endef
 
-$(eval $(call BuildPackage,node-logfmt))
+$(eval $(call BuildPackage,node-ideino-linino-lib))

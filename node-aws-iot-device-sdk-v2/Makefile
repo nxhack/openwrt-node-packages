@@ -1,23 +1,20 @@
-#
-# Copyright (C) 2014 Arduino LLC
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=socket.io
+PKG_NPM_NAME:=aws-iot-device-sdk-v2
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.3
-PKG_RELEASE:=2
+PKG_VERSION:=1.3.3
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=da9a8e7df2a11ec76e5244f4eafba8a174bd700784a6cd3ecc6fafac189d8cd9
+PKG_HASH:=d8314db172a70f67b482da3cd2ebbdab3320ba28f164d6091171565cdb6d6d08
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT
+PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DEPENDS:=node/host
@@ -26,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-socket.io
+define Package/node-aws-iot-device-sdk-v2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Realtime application framework
-  URL:=https://www.npmjs.org/package/socket.io
-  DEPENDS:=+node
+  TITLE:=AWS IoT Device SDK for JavaScript v2
+  URL:=https://www.npmjs.com/package/aws-iot-device-sdk-v2
+  DEPENDS:=+node +node-aws-crt
 endef
 
-define Package/node-socket.io/description
- Real-time apps made cross-browser & easy with a WebSocket-like API
+define Package/node-aws-iot-device-sdk-v2/description
+ This SDK is built on the AWS Common Runtime, a collection of libraries (aws-c-common, aws-c-io, aws-c-mqtt, aws-c-http, aws-c-cal ...) written in C to be cross-platform, high-performance, secure, and reliable. The libraries are bound to JS by the awscrt package.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -63,22 +60,22 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-socket.io/install
+define Package/node-aws-iot-device-sdk-v2/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,*.mjs} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,NOTICE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,client-dist,dist} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{lib,docs} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-socket.io/postrm
+define Package/node-aws-iot-device-sdk-v2/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/socket.io || true
-rm -rf /usr/lib/node/socket.io || true
+rm /usr/lib/node_modules/aws-iot-device-sdk-v2 || true
+rm -rf /usr/lib/node/aws-iot-device-sdk-v2 || true
 endef
 
-$(eval $(call BuildPackage,node-socket.io))
+$(eval $(call BuildPackage,node-aws-iot-device-sdk-v2))
