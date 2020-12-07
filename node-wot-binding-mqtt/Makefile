@@ -8,7 +8,7 @@ PKG_NPM_SCOPE:=node-wot
 PKG_NPM_NAME:=binding-mqtt
 PKG_NAME:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
 PKG_VERSION:=0.7.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
@@ -30,7 +30,7 @@ define Package/node-wot-binding-mqtt
   CATEGORY:=Languages
   TITLE:=MQTT binding for node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-mqtt
-  DEPENDS:=+node +node-wot-core +node-wot-td-tools
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools +node-mqtt
 endef
 
 define Package/node-wot-binding-mqtt/description
@@ -56,7 +56,7 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g --build-from-source $(PKG_BUILD_DIR)
+	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef

@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-hid
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.3.2
+PKG_VERSION:=2.0.0-0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=dce3ff3380d2ad66078ba77498e49693582437ba94bb84229f146e893fa4ed9a
+PKG_HASH:=f1815e9a82eebc32ab171c50a7ed30e8bd418c64ac3589f02330be75b8253b87
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT or X11
@@ -33,7 +33,7 @@ define Package/node-hid
   CATEGORY:=Languages
   TITLE:=Access USB HID devices from node.js
   URL:=https://www.npmjs.com/package/node-hid
-  DEPENDS:=+node +hidapi +libusb-1.0 +libudev-fbsd $(ICONV_DEPENDS)
+  DEPENDS:=+node $(ICONV_DEPENDS) +libusb-1.0 +libudev-fbsd
 endef
 
 define Package/node-hid/description
@@ -48,10 +48,10 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
 TARGET_CPPFLAGS+=$(FPIC)
-TARGET_LDFLAGS+=$(if $(ICONV_FULL),-liconv)
 
 define Build/Compile
 	git init $(PKG_BUILD_DIR)
+	GYP_DEFINES='driver="hidraw"' \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -68,9 +68,7 @@ endef
 
 define Package/node-hid/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{binding.gyp,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,src} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
