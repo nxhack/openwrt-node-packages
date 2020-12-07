@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=npm-check-updates
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=10.2.2
-PKG_RELEASE:=2
+PKG_VERSION:=10.2.3
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=784af03b666ddca7bf9c3a2fe66a10978d42cdd10c0309ebbce4a8f56e61630f
+PKG_HASH:=292fe90be890ee7a7e9aa6702d4cf65dc56d0b11ce3beac3774366bad4437af7
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=Apache-2.0
