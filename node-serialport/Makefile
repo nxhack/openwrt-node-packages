@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=serialport
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=9.0.2
+PKG_VERSION:=9.0.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=5f4cef3ec85accc8ad3d2ba75654fca4270e4a00d01729c4c4bcb895a3fdb5d6
+PKG_HASH:=d46d55a68dfbe9e7cfff46978d91cf3d00dcaf561b473f053a057b338a66be12
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
