@@ -1,6 +1,6 @@
 --- a/lib/internal/modules/cjs/loader.js
 +++ b/lib/internal/modules/cjs/loader.js
-@@ -863,7 +863,8 @@
+@@ -863,7 +863,8 @@ Module._initPaths = function() {
    } else {
      prefixDir = path.resolve(process.execPath, '..', '..');
    }
