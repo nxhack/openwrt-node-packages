@@ -8,11 +8,9 @@ Subject: [PATCH] npm: overriding unsafe-perm setting to install packages
  deps/npm/lib/config/defaults.js | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/deps/npm/lib/config/defaults.js b/deps/npm/lib/config/defaults.js
-index f023d85724..49a9b9936c 100644
 --- a/deps/npm/lib/config/defaults.js
 +++ b/deps/npm/lib/config/defaults.js
-@@ -243,7 +243,7 @@
+@@ -243,7 +243,7 @@ Object.defineProperty(exports, 'defaults
                         process.getgid && process.setgid) ||
                       process.getuid() !== 0,
      'update-notifier': true,
@@ -21,6 +19,3 @@ index f023d85724..49a9b9936c 100644
      user: (process.platform === 'win32' || os.type() === 'OS400') ? 0 : 'nobody',
      userconfig: path.resolve(home, '.npmrc'),
      umask: process.umask ? process.umask() : umask.fromString('022'),
--- 
-2.14.2
-
