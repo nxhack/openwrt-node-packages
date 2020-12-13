@@ -32,8 +32,8 @@
        'dependencies': [ 'icutools' ],
        'sources': [
          '<@(icu_src_genccode)',
---- a/deps/v8/gypfiles/v8.gyp	2019-06-27 19:12:20.000000000 +0900
-+++ b/deps/v8/gypfiles/v8.gyp	2019-07-01 14:40:48.292020880 +0900
+--- a/deps/v8/gypfiles/v8.gyp
++++ b/deps/v8/gypfiles/v8.gyp
 @@ -2447,6 +2447,7 @@
        'target_name': 'torque',
        'type': 'executable',

@@ -9,15 +9,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-hid
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=2.0.0-0
+PKG_VERSION:=2.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=f1815e9a82eebc32ab171c50a7ed30e8bd418c64ac3589f02330be75b8253b87
+PKG_HASH:=6c1f05935215feed4e8d2f4aecf31abbad8fa783d252b0bd6041ed2f2e96e9ba
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=MIT or X11
+PKG_LICENSE:=MIT OR X11
 PKG_LICENSE_FILES:=
 
 PKG_BUILD_DEPENDS:=node/host
@@ -50,7 +50,6 @@ TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
-	git init $(PKG_BUILD_DIR)
 	GYP_DEFINES='driver="hidraw"' \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \

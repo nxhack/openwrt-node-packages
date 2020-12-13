@@ -8,8 +8,6 @@ Signed-off-by: Martin Bark <martin@barkynet.com>
  deps/v8/src/base/debug/stack_trace_posix.cc | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/deps/v8/src/base/debug/stack_trace_posix.cc b/deps/v8/src/base/debug/stack_trace_posix.cc
-index 87c0a73..d2c182a 100644
 --- a/deps/v8/src/base/debug/stack_trace_posix.cc
 +++ b/deps/v8/src/base/debug/stack_trace_posix.cc
 @@ -25,7 +25,7 @@
@@ -21,6 +19,3 @@ index 87c0a73..d2c182a 100644
  #define HAVE_EXECINFO_H 1
  #endif
  
--- 
-2.7.4
-
