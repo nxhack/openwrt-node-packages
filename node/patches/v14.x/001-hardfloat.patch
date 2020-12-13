@@ -1,5 +1,3 @@
-diff --git a/deps/v8/src/base/cpu.cc b/deps/v8/src/base/cpu.cc
-index 4f58720..1f3071e 100644
 --- a/deps/v8/src/base/cpu.cc
 +++ b/deps/v8/src/base/cpu.cc
 @@ -146,6 +146,7 @@ int __detect_fp64_mode(void) {
