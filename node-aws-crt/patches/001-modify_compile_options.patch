@@ -1,7 +1,6 @@
-diff -urN a/crt/s2n/CMakeLists.txt b/crt/s2n/CMakeLists.txt
---- a/crt/s2n/CMakeLists.txt	1985-10-26 17:15:00.000000000 +0900
-+++ b/crt/s2n/CMakeLists.txt	2020-12-05 13:00:56.000000000 +0900
-@@ -193,7 +193,7 @@
+--- a/crt/s2n/CMakeLists.txt
++++ b/crt/s2n/CMakeLists.txt
+@@ -193,7 +193,7 @@ set_target_properties(${PROJECT_NAME} PR
  
  set(CMAKE_C_FLAGS_DEBUGOPT "")
  
@@ -10,7 +9,7 @@ diff -urN a/crt/s2n/CMakeLists.txt b/crt/s2n/CMakeLists.txt
          -Wuninitialized -Wshadow -Wcast-qual -Wcast-align -Wwrite-strings -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security
          -Wno-missing-braces -fvisibility=hidden -DS2N_EXPORTS)
  
-@@ -216,9 +216,6 @@
+@@ -216,9 +216,6 @@ endif()
  target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
  
  target_compile_definitions(${PROJECT_NAME} PRIVATE -D_POSIX_C_SOURCE=200809L)
@@ -20,10 +19,9 @@ diff -urN a/crt/s2n/CMakeLists.txt b/crt/s2n/CMakeLists.txt
  
  if(NO_STACK_PROTECTOR)
      target_compile_options(${PROJECT_NAME} PRIVATE -Wstack-protector -fstack-protector-all)
-diff -urN a/crt/s2n/s2n.mk b/crt/s2n/s2n.mk
---- a/crt/s2n/s2n.mk	1985-10-26 17:15:00.000000000 +0900
-+++ b/crt/s2n/s2n.mk	2020-12-05 13:01:10.000000000 +0900
-@@ -42,11 +42,11 @@
+--- a/crt/s2n/s2n.mk
++++ b/crt/s2n/s2n.mk
+@@ -42,11 +42,11 @@ else
  	DEFAULT_CFLAGS = -std=c99 -Wcast-qual
  endif
  
@@ -37,10 +35,9 @@ diff -urN a/crt/s2n/s2n.mk b/crt/s2n/s2n.mk
  
  COVERAGE_CFLAGS = -fprofile-arcs -ftest-coverage
  COVERAGE_LDFLAGS = --coverage
-diff -urN a/scripts/build.js b/scripts/build.js
---- a/scripts/build.js	1985-10-26 17:15:00.000000000 +0900
-+++ b/scripts/build.js	2020-12-05 21:03:09.000000000 +0900
-@@ -11,6 +11,7 @@
+--- a/scripts/build.js
++++ b/scripts/build.js
+@@ -11,6 +11,7 @@ let options = {
      CMAKE_JS_PLATFORM: os.platform,
      CMAKE_JS_ARCH: os.arch,
      BUILD_TESTING: 'OFF',

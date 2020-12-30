@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=uglify-js
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.12.2
+PKG_VERSION:=3.12.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=1c6e28ae27e2a9d204efa63318ff07cc6b2b068e2b4b90115b7f98d89a6d0b9f
+PKG_HASH:=4f06ddbfa095d46883fd2aef67ef51f6957f4afba9df0ca0d611fdad956107f5
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
