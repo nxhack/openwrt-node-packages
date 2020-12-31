@@ -52,7 +52,7 @@
  
      else()
 -        list(APPEND AWS_C_FLAGS -Wall -Werror -Wstrict-prototypes -fno-omit-frame-pointer)
-+        list(APPEND AWS_C_FLAGS -Wall -Wstrict-prototypes -fno-omit-frame-pointer)
++        list(APPEND AWS_C_FLAGS -Wall -Wno-implicit-function-declaration -Wstrict-prototypes -fno-omit-frame-pointer)
  
          if(NOT SET_PROPERTIES_NO_WEXTRA)
              list(APPEND AWS_C_FLAGS -Wextra)
