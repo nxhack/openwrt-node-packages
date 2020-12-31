@@ -45,3 +45,23 @@
  }
  
  // Convert any -D arguments to this script to cmake -D arguments
+--- ./crt/aws-c-common/cmake/AwsCFlags.cmake
++++ ./crt/aws-c-common/cmake/AwsCFlags.cmake
+@@ -51,7 +51,7 @@
+         list(APPEND AWS_C_FLAGS "${_FLAGS}")
+ 
+     else()
+-        list(APPEND AWS_C_FLAGS -Wall -Werror -Wstrict-prototypes -fno-omit-frame-pointer)
++        list(APPEND AWS_C_FLAGS -Wall -Wstrict-prototypes -fno-omit-frame-pointer)
+ 
+         if(NOT SET_PROPERTIES_NO_WEXTRA)
+             list(APPEND AWS_C_FLAGS -Wextra)
+@@ -99,7 +99,7 @@
+             # some platforms implement htonl family of functions via GNU statement expressions (https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html)
+             # which generates -Wgnu-statement-expression warning.
+             set(old_flags "${CMAKE_REQUIRED_FLAGS}")
+-            set(CMAKE_REQUIRED_FLAGS "-Wgnu -Werror")
++            set(CMAKE_REQUIRED_FLAGS "-Wgnu")
+             check_c_source_compiles("
+             #include <netinet/in.h>
+ 
