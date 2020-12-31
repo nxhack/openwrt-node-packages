@@ -29,7 +29,7 @@ define Package/node-aws-crt
   CATEGORY:=Languages
   TITLE:=NodeJS bindings for the AWS Common Runtime
   URL:=https://www.npmjs.com/package/aws-crt
-  DEPENDS:=+node @(i386||x86_64||aarch64||arm) +libpthread
+  DEPENDS:=+node @(i386||x86_64||aarch64||arm)
 endef
 
 define Package/node-aws-crt/description
@@ -44,7 +44,6 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC) -D_GNU_SOURCE $(if $(CONFIG_USE_MUSL),-Dpthread_attr_setaffinity_np=pthread_setaffinity_np)
 TARGET_CPPFLAGS+=$(FPIC)
-TARGET_LDFLAGS+=-lpthread
 
 CMINC_PATH_LIST=$(STAGING_DIR)/usr/include
 ifeq ($(CONFIG_USE_MUSL),y)
