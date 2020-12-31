@@ -44,7 +44,7 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
-TARGET_LDFLAGS+=-pthread
+TARGET_LDFLAGS+=-lpthread
 
 CMINC_PATH_LIST=$(STAGING_DIR)/usr/include
 ifeq ($(CONFIG_USE_MUSL),y)
