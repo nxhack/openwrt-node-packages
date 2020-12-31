@@ -42,7 +42,7 @@ TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
-TARGET_CFLAGS+=--std=gnu99 -D_GNU_SOURCE $(if $(CONFIG_USE_MUSL),-Dpthread_attr_setaffinity_np=pthread_setaffinity_np) $(FPIC)
+TARGET_CFLAGS+=$(FPIC) $(if $(CONFIG_USE_MUSL),-Dpthread_attr_setaffinity_np=pthread_setaffinity_np)
 TARGET_CPPFLAGS+=$(FPIC)
 
 CMINC_PATH_LIST=$(STAGING_DIR)/usr/include
