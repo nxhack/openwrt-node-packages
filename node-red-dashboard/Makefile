@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-dashboard
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=2.26.1
+PKG_VERSION:=2.26.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=eb9123b26faeb507f1f0e6ef92fb6c84ab64b5023f6c503d4c796b2e0f74e1f5
+PKG_HASH:=1be44f6adea1731674ff5142b6dd6f4f264065a182fb15ef0eee982c1d40e77d
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
