@@ -7,20 +7,20 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.23.2
+PKG_VERSION:=v10.23.3
 PKG_RELEASE:=1
-PKG_HASH:=05a5e00e5e4342840f73ea40176416161ce9eeab6a4e936fc57bffd24dd1dbc7
+PKG_HASH:=515bd7f2a1c3653c4f45eb0823479e812a24050da467dfd90b679ef09701ea8f
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.15.4
+PKG_VERSION:=v14.15.5
 PKG_RELEASE:=1
-PKG_HASH:=adb7ecf66c74b52a14a08cc22bb0f9aedc157cac1ac93240f7f455e8c8edec9c
+PKG_HASH:=e19b1d40e958fe30c224f5a67af4ee4081e7f9d6fb586fb4bbc8d94aab39655b
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v12.20.1
+PKG_VERSION:=v12.20.2
 PKG_RELEASE:=1
-PKG_HASH:=e00eee325d705b2bfa9929b7d061eb2315402d7e8548945eac9870bf84321853
+PKG_HASH:=961ad600f0706c396390ebc7767fb01d5e3792a5022dc2e7774796756eec6d3c
 PATCH_DIR:=./patches/v12.x
 endif
 endif
@@ -166,7 +166,7 @@ CONFIGURE_ARGS:= \
 HOST_CONFIGURE_VARS:=
 HOST_CONFIGURE_ARGS:= \
 	--dest-os=$(if $(findstring Darwin,$(HOST_OS)),mac,linux) \
-	--with-intl=none \
+	--with-intl=small-icu \
 	--prefix=$(STAGING_DIR_HOSTPKG)
 
 define Build/InstallDev
