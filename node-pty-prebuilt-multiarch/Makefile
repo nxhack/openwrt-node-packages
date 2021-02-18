@@ -46,6 +46,7 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	rm -rf $(PKG_BUILD_DIR)/prebuilds
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -55,10 +56,9 @@ define Build/Compile
 	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g --build-from-source $(PKG_BUILD_DIR)
+	npm install -g $(PKG_BUILD_DIR)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
-	rm -rf $(PKG_BUILD_DIR)/prebuilds
 endef
 
 define Package/node-pty-prebuilt-multiarch/install
