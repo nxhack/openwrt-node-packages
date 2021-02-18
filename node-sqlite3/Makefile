@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=sqlite3
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.0.1
+PKG_VERSION:=5.0.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=b0a7000d548d1893c4101b7f988d5924fdd07b90acbfd1bd4e4ca3374448ee57
+PKG_HASH:=c2d364341eff7c6ae1c57ad62cfea3bb3e2cd7a3ae1eddbdde701e9ed52f2f39
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
