@@ -1,23 +1,20 @@
-#
-# Copyright (C) 2014 Arduino LLC
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=sqlite3
-PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.0.2
+PKG_NPM_NAME:=node-pty-prebuilt-multiarch
+PKG_NAME:=$(PKG_NPM_NAME)
+PKG_VERSION:=0.10.1-pre.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=c2d364341eff7c6ae1c57ad62cfea3bb3e2cd7a3ae1eddbdde701e9ed52f2f39
+PKG_HASH:=a7e19e474941a74a9297b2d07d8096e09df7391fe8192c2a54b70575058f8782
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DEPENDS:=node/host
@@ -26,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-sqlite3
+define Package/node-pty-prebuilt-multiarch
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Asynchronous, non-blocking SQLite3 bindings
-  URL:=https://www.npmjs.org/package/sqlite3
+  TITLE:=Fork pseudoterminals in Node.JS
+  URL:=https://www.npmjs.com/package/node-pty-prebuilt-multiarch
   DEPENDS:=+node
 endef
 
-define Package/node-sqlite3/description
- Node.js package to access serial ports for reading and writing OR Welcome your robotic JavaScript overlords. Better yet, program them!
+define Package/node-pty-prebuilt-multiarch/description
+ This project is a parallel fork of node-pty providing prebuilt packages for certain Node.js and Electron versions.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -49,6 +46,7 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	rm -rf $(PKG_BUILD_DIR)/prebuilds
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_arch=$(NODEJS_CPU) \
@@ -63,20 +61,23 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
-define Package/node-sqlite3/install
+define Package/node-pty-prebuilt-multiarch/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md,*.js} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,LICENSE,lib} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/build/Release/pty.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-sqlite3/postrm
+define Package/node-pty-prebuilt-multiarch/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/sqlite3 || true
-rm -rf /usr/lib/node/sqlite3 || true
+rm /usr/lib/node_modules/node-pty-prebuilt-multiarch || true
+rm -rf /usr/lib/node/node-pty-prebuilt-multiarch || true
 endef
 
-$(eval $(call BuildPackage,node-sqlite3))
+$(eval $(call BuildPackage,node-pty-prebuilt-multiarch))

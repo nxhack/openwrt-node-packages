@@ -146,7 +146,7 @@ node-expat
 node-ffi-napi			(ffi-napi, ref-napi)
 node-fuse-bindings
 node-hid
-node-homebridge-config-ui-x	(node-pty-prebuilt-multiarch)
+node-pty-prebuilt-multiarch
 node-i2c-bus
 node-leveldown
 node-megahash

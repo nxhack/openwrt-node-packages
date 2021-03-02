@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-cmd4
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.15
+PKG_VERSION:=3.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=21428c3e9aeebeb3b7f610ef3cb506285d7e98137e9a823316f42487ddd04cad
+PKG_HASH:=5d789985c55fa8e2bbeb6417507067f232c4c638402cc6f3689031d454743a16
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -29,7 +29,7 @@ define Package/node-homebridge-cmd4
   CATEGORY:=Languages
   TITLE:=Exec Plugin for Homebridge supporting all
   URL:=https://www.npmjs.com/package/homebridge-cmd4
-  DEPENDS:=+node +node-homebridge +node-system-sleep
+  DEPENDS:=+node +node-homebridge
 endef
 
 define Package/node-homebridge-cmd4/description
