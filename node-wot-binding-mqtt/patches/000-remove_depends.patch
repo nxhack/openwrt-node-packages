@@ -4,8 +4,8 @@
      "typescript-standard": "0.3.36"
    },
    "dependencies": {
--    "@node-wot/td-tools": "0.7.4",
--    "@node-wot/core": "0.7.4",
+-    "@node-wot/td-tools": "0.7.5",
+-    "@node-wot/core": "0.7.5",
 -    "rxjs": "5.5.11",
 -    "mqtt": "4.1.0"
 +    "rxjs": "5.5.11"
