@@ -4,12 +4,12 @@
      "ts-node": "^8.6.2"
    },
    "dependencies": {
--    "@node-wot/core": "0.7.4",
--    "@node-wot/binding-coap": "0.7.4",
--    "@node-wot/binding-file": "0.7.4",
--    "@node-wot/binding-http": "0.7.4",
--    "@node-wot/binding-websockets": "0.7.4",
--    "@node-wot/binding-mqtt": "0.7.4",
+-    "@node-wot/core": "0.7.5",
+-    "@node-wot/binding-coap": "0.7.5",
+-    "@node-wot/binding-file": "0.7.5",
+-    "@node-wot/binding-http": "0.7.5",
+-    "@node-wot/binding-websockets": "0.7.5",
+-    "@node-wot/binding-mqtt": "0.7.5",
      "dotenv": "^8.2.0"
    },
    "scripts": {
