@@ -37,11 +37,12 @@
  COVERAGE_LDFLAGS = --coverage
 --- a/scripts/build.js
 +++ b/scripts/build.js
-@@ -11,6 +11,7 @@ let options = {
+@@ -11,6 +11,8 @@ let options = {
      CMAKE_JS_PLATFORM: os.platform,
      CMAKE_JS_ARCH: os.arch,
      BUILD_TESTING: 'OFF',
 +    BUILD_SHARED_LIBS: 'ON',
++    CMAKE_CROSSCOMPILING: 'TRUE',
  }
  
  // Convert any -D arguments to this script to cmake -D arguments
