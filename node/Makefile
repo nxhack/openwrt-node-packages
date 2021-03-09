@@ -8,18 +8,18 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.24.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=158273af66f891b2fca90aec7336c42f7574f467affad02c14e80ca163cb3acc
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
 PKG_VERSION:=v14.16.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=4e7648a617f79b459d583f7dbdd31fbbac5b846d41598f3b54331a5b6115dfa6
 PATCH_DIR:=./patches/v14.x
 else
 PKG_VERSION:=v12.21.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=052f37ace6f569b513b5a1154b2a45d3c4d8b07d7d7c807b79f1566db61e979d
 PATCH_DIR:=./patches/v12.x
 endif
@@ -103,7 +103,7 @@ define Package/node/config
 
 	choice
 		prompt "i18n features"
-		default NODEJS_ICU_NONE
+		default NODEJS_ICU_SMALL
 		help
 		 Select i18n features
 
