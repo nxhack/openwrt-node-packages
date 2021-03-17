@@ -1,7 +1,7 @@
 --- a/package.json
 +++ b/package.json
 @@ -68,8 +68,6 @@
-     "typescript": "^4.2.2"
+     "typescript": "^4.2.3"
    },
    "dependencies": {
 -    "ffmpeg-for-homebridge": "^0.0.9",
