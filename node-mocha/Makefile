@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=mocha
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=8.3.0
+PKG_VERSION:=8.3.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=5a52816350ab8c6a7cb39df4e0fb31af9255ab71dfcdd80480edd2c87a08d787
+PKG_HASH:=e535bb18444cd1cfa3a43dc1bfb774da8cd1bd72ad56a014f9aa6ecc1ab91a1e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
