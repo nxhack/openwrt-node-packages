@@ -30,7 +30,8 @@ define Package/node-red-contrib-web-of-things
   TITLE:=Web of Things node for node-RED
   URL:=https://flows.nodered.org/node/node-red-contrib-web-of-things
   DEPENDS:=+node +node-red +node-wot-core +node-wot-binding-http +node-wot-binding-coap \
-           +node-wot-binding-mqtt +node-wot-binding-opcua +node-wot-binding-modbus
+           +node-wot-binding-mqtt +node-wot-binding-opcua +node-wot-binding-modbus \
+           +node-wot-binding-websockets
 endef
 
 define Package/node-red-contrib-web-of-things/description
