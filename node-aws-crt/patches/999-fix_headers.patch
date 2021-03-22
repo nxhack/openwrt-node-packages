@@ -42,3 +42,15 @@ index a5d0d8a..69550a4 100644
  
  #include <openssl/evp.h>
  #include <openssl/hmac.h>
+diff --git a/crt/aws-c-cal/source/unix/openssl_platform_init.c b/crt/aws-c-cal/source/unix/openssl_platform_init.c
+--- a/crt/aws-c-cal/source/unix/openssl_platform_init.c
++++ b/crt/aws-c-cal/source/unix/openssl_platform_init.c
+@@ -7,7 +7,7 @@
+ 
+ #include <dlfcn.h>
+ 
+-#include <aws/cal/private/opensslcrypto_common.h>
++#include <opensslcrypto_common.h>
+ 
+ #if defined(AWS_LIBCRYPTO_LOG_RESOLVE)
+ #    define FLOGF(...)                                                                                                 \
