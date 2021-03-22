@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-web-of-things
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.2.1
+PKG_VERSION:=1.2.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=de7d82f3827229d0e03ffcf8c852b3ae4558d38a7730fb9c3d51aedf8ea97bbc
+PKG_HASH:=f04b370160c4f9fbd30f8ec88295bcd6a8d0bac717caddc653c3ac65e0783bb9
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -30,7 +30,8 @@ define Package/node-red-contrib-web-of-things
   TITLE:=Web of Things node for node-RED
   URL:=https://flows.nodered.org/node/node-red-contrib-web-of-things
   DEPENDS:=+node +node-red +node-wot-core +node-wot-binding-http +node-wot-binding-coap \
-           +node-wot-binding-mqtt +node-wot-binding-opcua +node-wot-binding-modbus
+           +node-wot-binding-mqtt +node-wot-binding-opcua +node-wot-binding-modbus \
+           +node-wot-binding-websockets
 endef
 
 define Package/node-red-contrib-web-of-things/description

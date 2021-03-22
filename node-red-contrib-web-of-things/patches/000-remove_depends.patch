@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -23,13 +23,5 @@
+@@ -24,14 +24,5 @@
        "wot-action": "src/wot-action.js",
        "wot-event": "src/wot-event.js"
      }
@@ -8,6 +8,7 @@
 -  "dependencies": {
 -    "@node-wot/core": "0.7.3",
 -    "@node-wot/binding-http": "0.7.3",
+-    "@node-wot/binding-websockets": "0.7.3",
 -    "@node-wot/binding-coap": "0.7.3",
 -    "@node-wot/binding-mqtt": "0.7.3",
 -    "@node-wot/binding-opcua": "0.7.3",
