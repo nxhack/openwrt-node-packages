@@ -37,13 +37,12 @@
  COVERAGE_LDFLAGS = --coverage
 --- a/scripts/build.js
 +++ b/scripts/build.js
-@@ -11,7 +11,10 @@ let options = {
+@@ -11,7 +11,9 @@ let options = {
      CMAKE_JS_PLATFORM: os.platform,
      CMAKE_JS_ARCH: os.arch,
      BUILD_TESTING: 'OFF',
 +    BUILD_SHARED_LIBS: 'ON',
 +    CMAKE_CROSSCOMPILING: 'TRUE',
-+    BUILD_LIBSSL: 'OFF',
      CMAKE_INSTALL_PREFIX: 'crt/install',
      CMAKE_PREFIX_PATH: 'crt/install',
  }
