@@ -37,12 +37,13 @@
  COVERAGE_LDFLAGS = --coverage
 --- a/scripts/build.js
 +++ b/scripts/build.js
-@@ -11,7 +11,9 @@ let options = {
+@@ -11,7 +11,10 @@ let options = {
      CMAKE_JS_PLATFORM: os.platform,
      CMAKE_JS_ARCH: os.arch,
      BUILD_TESTING: 'OFF',
 +    BUILD_SHARED_LIBS: 'ON',
 +    CMAKE_CROSSCOMPILING: 'TRUE',
++    BUILD_LIBSSL: 'OFF',
      CMAKE_INSTALL_PREFIX: 'crt/install',
      CMAKE_PREFIX_PATH: 'crt/install',
  }
@@ -74,7 +75,7 @@
    # Note clang-cl is odd and sets both CLANG and MSVC. We base our configuration
    # primarily on our normal Clang one.
 -  set(C_CXX_FLAGS "-Werror -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
-+  set(C_CXX_FLAGS "-Wno-dev -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
++  set(C_CXX_FLAGS "-Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
    if(MSVC)
      # clang-cl sets different default warnings than clang. It also treats -Wall
      # as -Weverything, to match MSVC. Instead -W3 is the alias for -Wall.
