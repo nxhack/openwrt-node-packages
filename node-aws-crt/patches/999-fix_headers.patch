@@ -50,7 +50,7 @@ diff --git a/crt/aws-c-cal/source/unix/openssl_platform_init.c b/crt/aws-c-cal/s
  #include <dlfcn.h>
  
 -#include <aws/cal/private/opensslcrypto_common.h>
-+#include <opensslcrypto_common.h>
++#include "opensslcrypto_common.h"
  
  #if defined(AWS_LIBCRYPTO_LOG_RESOLVE)
  #    define FLOGF(...)                                                                                                 \
