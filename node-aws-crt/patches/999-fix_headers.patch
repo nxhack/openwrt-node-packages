@@ -1,0 +1,44 @@
+From 15f5c37cc69a5f6423f452294780b909b80e6084 Mon Sep 17 00:00:00 2001
+From: "Jonathan M. Henson" <henso@amazon.com>
+Date: Wed, 14 Oct 2020 12:48:08 -0700
+Subject: [PATCH] Moved platform specific header file to source.
+
+---
+ {include/aws/cal/private => source/unix}/opensslcrypto_common.h | 0
+ source/unix/opensslcrypto_hash.c                                | 2 +-
+ source/unix/opensslcrypto_hmac.c                                | 2 +-
+ 3 files changed, 2 insertions(+), 2 deletions(-)
+ rename {include/aws/cal/private => source/unix}/opensslcrypto_common.h (100%)
+
+diff --git a/crt/aws-c-cal/include/aws/cal/private/opensslcrypto_common.h b/crt/aws-c-cal/source/unix/opensslcrypto_common.h
+similarity index 100%
+rename from include/aws/cal/private/opensslcrypto_common.h
+rename to source/unix/opensslcrypto_common.h
+diff --git a/crt/aws-c-cal/source/unix/opensslcrypto_hash.c b/crt/aws-c-cal/source/unix/opensslcrypto_hash.c
+index 263772a..1a5ee7a 100644
+--- a/crt/aws-c-cal/source/unix/opensslcrypto_hash.c
++++ b/crt/aws-c-cal/source/unix/opensslcrypto_hash.c
+@@ -2,8 +2,8 @@
+  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: Apache-2.0.
+  */
++#include "opensslcrypto_common.h"
+ #include <aws/cal/hash.h>
+-#include <aws/cal/private/opensslcrypto_common.h>
+ 
+ #include <openssl/evp.h>
+ #include <openssl/sha.h>
+diff --git a/crt/aws-c-cal/source/unix/opensslcrypto_hmac.c b/crt/aws-c-cal/source/unix/opensslcrypto_hmac.c
+index a5d0d8a..69550a4 100644
+--- a/crt/aws-c-cal/source/unix/opensslcrypto_hmac.c
++++ b/crt/aws-c-cal/source/unix/opensslcrypto_hmac.c
+@@ -2,8 +2,8 @@
+  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  * SPDX-License-Identifier: Apache-2.0.
+  */
++#include "opensslcrypto_common.h"
+ #include <aws/cal/hmac.h>
+-#include <aws/cal/private/opensslcrypto_common.h>
+ 
+ #include <openssl/evp.h>
+ #include <openssl/hmac.h>

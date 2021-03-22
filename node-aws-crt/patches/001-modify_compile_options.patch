@@ -1,6 +1,6 @@
 --- a/crt/s2n/CMakeLists.txt
 +++ b/crt/s2n/CMakeLists.txt
-@@ -193,7 +193,7 @@ set_target_properties(${PROJECT_NAME} PR
+@@ -192,7 +192,7 @@ set_target_properties(${PROJECT_NAME} PR
  
  set(CMAKE_C_FLAGS_DEBUGOPT "")
  
@@ -9,7 +9,7 @@
          -Wuninitialized -Wshadow -Wcast-qual -Wcast-align -Wwrite-strings -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security
          -Wno-missing-braces -fvisibility=hidden -DS2N_EXPORTS)
  
-@@ -216,9 +216,6 @@ endif()
+@@ -221,9 +221,6 @@ endif()
  target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
  
  target_compile_definitions(${PROJECT_NAME} PRIVATE -D_POSIX_C_SOURCE=200809L)
@@ -37,15 +37,16 @@
  COVERAGE_LDFLAGS = --coverage
 --- a/scripts/build.js
 +++ b/scripts/build.js
-@@ -11,6 +11,8 @@ let options = {
+@@ -11,7 +11,9 @@ let options = {
      CMAKE_JS_PLATFORM: os.platform,
      CMAKE_JS_ARCH: os.arch,
      BUILD_TESTING: 'OFF',
 +    BUILD_SHARED_LIBS: 'ON',
 +    CMAKE_CROSSCOMPILING: 'TRUE',
+     CMAKE_INSTALL_PREFIX: 'crt/install',
+     CMAKE_PREFIX_PATH: 'crt/install',
  }
  
- // Convert any -D arguments to this script to cmake -D arguments
 --- ./crt/aws-c-common/cmake/AwsCFlags.cmake
 +++ ./crt/aws-c-common/cmake/AwsCFlags.cmake
 @@ -53,7 +53,7 @@
@@ -66,3 +67,14 @@
              check_c_source_compiles("
              #include <netinet/in.h>
  
+--- a/crt/aws-lc/CMakeLists.txt
++++ b/crt/aws-lc/CMakeLists.txt
+@@ -154,7 +154,7 @@
+ if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
+   # Note clang-cl is odd and sets both CLANG and MSVC. We base our configuration
+   # primarily on our normal Clang one.
+-  set(C_CXX_FLAGS "-Werror -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
++  set(C_CXX_FLAGS "-Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
+   if(MSVC)
+     # clang-cl sets different default warnings than clang. It also treats -Wall
+     # as -Weverything, to match MSVC. Instead -W3 is the alias for -Wall.

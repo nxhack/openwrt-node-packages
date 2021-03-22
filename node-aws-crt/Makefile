@@ -6,22 +6,23 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=aws-crt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.5.2
+PKG_VERSION:=1.5.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d8eeb11dc1d223c67b74b23af9d3e13cb3252ed3972a65d5b505655a4afa3529
+PKG_HASH:=195bdd56192f213c0f23d588a703ac0986e6639ee97ccf4570c319718b115995
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node/host golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/node-aws-crt
   SUBMENU:=Node.js
@@ -29,7 +30,7 @@ define Package/node-aws-crt
   CATEGORY:=Languages
   TITLE:=NodeJS bindings for the AWS Common Runtime
   URL:=https://www.npmjs.com/package/aws-crt
-  DEPENDS:=+node @(i386||x86_64||aarch64||arm)
+  DEPENDS:=+node @(i386||x86_64||aarch64||arm) $(GO_ARCH_DEPENDS)
 endef
 
 define Package/node-aws-crt/description
