@@ -70,10 +70,10 @@
  
 --- a/crt/aws-lc/CMakeLists.txt
 +++ b/crt/aws-lc/CMakeLists.txt
-@@ -165,7 +165,7 @@
+@@ -154,7 +154,7 @@
+ if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
    # Note clang-cl is odd and sets both CLANG and MSVC. We base our configuration
    # primarily on our normal Clang one.
-   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 -  set(C_CXX_FLAGS "-Werror -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
 +  set(C_CXX_FLAGS "-Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
    if(MSVC)
