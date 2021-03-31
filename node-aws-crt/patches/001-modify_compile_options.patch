@@ -41,7 +41,7 @@
      CMAKE_JS_PLATFORM: os.platform,
      CMAKE_JS_ARCH: os.arch,
      BUILD_TESTING: 'OFF',
-+    BUILD_LIBSSL: 'OFF',
++    BUILD_LIBSSL: 'ON',
 +    BUILD_SHARED_LIBS: 'ON',
 +    CMAKE_CROSSCOMPILING: 'TRUE',
      CMAKE_INSTALL_PREFIX: 'crt/install',
