@@ -1,12 +1,12 @@
 --- a/package.json
 +++ b/package.json
-@@ -15,8 +15,7 @@
+@@ -23,8 +23,7 @@
    "browser": "browser.js",
    "dependencies": {
-     "level-js": "^5.0.0",
--    "level-packager": "^5.1.0",
--    "leveldown": "^5.4.0"
-+    "level-packager": "^5.1.0"
+     "level-js": "^6.0.0",
+-    "level-packager": "^6.0.0",
+-    "leveldown": "^6.0.0"
++    "level-packager": "^6.0.0"
    },
    "devDependencies": {
-     "airtap": "^3.0.0",
+     "airtap": "^4.0.1",

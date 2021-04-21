@@ -14,7 +14,7 @@ PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
 PKG_VERSION:=v14.16.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=e44adbbed6756c2c1a01258383e9f00df30c147b36e438f6369b5ef1069abac3
 PATCH_DIR:=./patches/v14.x
 else
