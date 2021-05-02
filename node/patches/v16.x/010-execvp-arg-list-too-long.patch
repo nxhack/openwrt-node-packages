@@ -1,8 +1,8 @@
 --- a/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
 +++ b/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
-@@ -151,6 +151,30 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOL
+@@ -155,6 +155,30 @@
  quiet_cmd_link = LINK($(TOOLSET)) $@
- cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
+ cmd_link = $(LINK.$(TOOLSET)) -o $@ $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
  
 +define xargs
 +$(1) $(wordlist 1,1000,$(2))
@@ -31,7 +31,7 @@
  # We support two kinds of shared objects (.so):
  # 1) shared_library, which is just bundling together many dependent libraries
  # into a link line.
-@@ -195,6 +219,30 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
+@@ -199,6 +223,30 @@
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
@@ -62,28 +62,56 @@
  # Due to circular dependencies between libraries :(, we wrap the
  # special "figure out circular dependencies" flags around the entire
  # input list during linking.
-@@ -1612,11 +1660,17 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)
-             "Spaces in alink input filenames not supported (%s)"  % link_dep)
-       if (self.flavor not in ('mac', 'openbsd', 'netbsd', 'win') and not
-           self.is_standalone_static_library):
--        self.WriteDoCmd([self.output_binary], link_deps, 'alink_thin',
--                        part_of_all, postbuilds=postbuilds)
-+        if self.flavor in ('linux', 'android'):
-+          self.WriteMakeRule([self.output_binary], link_deps, actions = ['$(call create_thin_archive,$@,$^)'])
-+        else:
-+          self.WriteDoCmd([self.output_binary], link_deps, 'alink_thin',
-+                          part_of_all, postbuilds=postbuilds)
-       else:
--        self.WriteDoCmd([self.output_binary], link_deps, 'alink', part_of_all,
--                        postbuilds=postbuilds)
-+        if self.flavor in ('linux', 'android'):
-+          self.WriteMakeRule([self.output_binary], link_deps, actions = ['$(call create_archive,$@,$^)'])
-+        else:
-+          self.WriteDoCmd([self.output_binary], link_deps, 'alink', part_of_all,
-+                          postbuilds=postbuilds)
-     elif self.type == 'shared_library':
-       self.WriteLn('%s: LD_INPUTS := %s' % (
-             QuoteSpaces(self.output_binary),
+@@ -1766,21 +1814,35 @@
+                 self.flavor not in ("mac", "openbsd", "netbsd", "win")
+                 and not self.is_standalone_static_library
+             ):
+-                self.WriteDoCmd(
+-                    [self.output_binary],
+-                    link_deps,
+-                    "alink_thin",
+-                    part_of_all,
+-                    postbuilds=postbuilds,
+-                )
++                if self.flavor in ('linux', 'android'):
++                    self.WriteMakeRule(
++                        [self.output_binary],
++                        link_deps,
++                        actions = ['$(call create_thin_archive,$@,$^)']
++                    )
++                else:
++                    self.WriteDoCmd(
++                        [self.output_binary],
++                        link_deps,
++                        "alink_thin",
++                        part_of_all,
++                        postbuilds=postbuilds,
++                    )
+             else:
+-                self.WriteDoCmd(
+-                    [self.output_binary],
+-                    link_deps,
+-                    "alink",
+-                    part_of_all,
+-                    postbuilds=postbuilds,
+-                )
++                if self.flavor in ('linux', 'android'):
++                    self.WriteMakeRule(
++                        [self.output_binary],
++                        link_deps,
++                        actions = ['$(call create_archive,$@,$^)']
++                    )
++                else:
++                    self.WriteDoCmd(
++                        [self.output_binary],
++                        link_deps,
++                        "alink",
++                        part_of_all,
++                        postbuilds=postbuilds,
++                    )
+         elif self.type == "shared_library":
+             self.WriteLn(
+                 "%s: LD_INPUTS := %s"
 --- a/tools/gyp/pylib/gyp/generator/make.py
 +++ b/tools/gyp/pylib/gyp/generator/make.py
 @@ -155,6 +155,30 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOL
