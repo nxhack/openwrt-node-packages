@@ -1,12 +1,12 @@
 --- a/lib/internal/modules/cjs/loader.js
 +++ b/lib/internal/modules/cjs/loader.js
-@@ -1179,7 +1179,8 @@ Module._initPaths = function() {
+@@ -1218,7 +1218,8 @@
      path.resolve(process.execPath, '..') :
      path.resolve(process.execPath, '..', '..');
  
--  let paths = [path.resolve(prefixDir, 'lib', 'node')];
-+  let paths = [path.resolve(prefixDir, 'lib', 'node'),
-+               path.resolve(prefixDir, 'lib', 'node_modules')];
+-  const paths = [path.resolve(prefixDir, 'lib', 'node')];
++  const paths = [path.resolve(prefixDir, 'lib', 'node'),
++                 path.resolve(prefixDir, 'lib', 'node_modules')];
  
    if (homeDir) {
-     paths.unshift(path.resolve(homeDir, '.node_libraries'));
+     ArrayPrototypeUnshift(paths, path.resolve(homeDir, '.node_libraries'));
