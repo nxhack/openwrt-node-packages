@@ -85,10 +85,10 @@ define Package/node/config
 			bool "4.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_6
-			bool "6.x Maintenance LTS"
+			bool "6.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_8
-			bool "8.x Maintenance LTS"
+			bool "8.x End-of-life : NO LONGER SUPPORTED"
 	endchoice
 
 	endmenu
