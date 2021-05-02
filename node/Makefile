@@ -95,7 +95,7 @@ define Package/node/config
 			bool "8.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_10
-			bool "10.x Maintenance LTS"
+			bool "10.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_12
 			bool "12.x Maintenance LTS"
