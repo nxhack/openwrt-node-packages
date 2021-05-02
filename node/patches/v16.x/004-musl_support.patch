@@ -20,7 +20,7 @@
    result = clock_gettime(CLOCK_MONOTONIC, &ts);
 --- a/deps/v8/src/base/platform/platform-posix.cc
 +++ b/deps/v8/src/base/platform/platform-posix.cc
-@@ -823,7 +823,7 @@ bool Thread::Start() {
+@@ -868,7 +868,7 @@ bool Thread::Start() {
  #if V8_OS_MACOSX
      // Default on Mac OS X is 512kB -- bump up to 1MB
      stack_size = 1 * 1024 * 1024;
@@ -39,4 +39,4 @@
 +#if defined(DEBUG) && defined(V8_OS_LINUX) && !defined(V8_OS_ANDROID) && defined(V8_LIBC_GLIBC)
  #define SYMBOLIZE_FUNCTION
  #include <execinfo.h>
- #include <vector>
+ 
