@@ -1,6 +1,6 @@
 --- a/tools/icu/icu-generic.gyp
 +++ b/tools/icu/icu-generic.gyp
-@@ -518,6 +518,7 @@
+@@ -419,6 +419,7 @@
        'target_name': 'genrb',
        'type': 'executable',
        'toolsets': [ 'host' ],
@@ -8,7 +8,7 @@
        'dependencies': [ 'icutools' ],
        'sources': [
          '<@(icu_src_genrb)'
-@@ -534,6 +535,7 @@
+@@ -435,6 +436,7 @@
        'target_name': 'iculslocs',
        'toolsets': [ 'host' ],
        'type': 'executable',
@@ -16,7 +16,7 @@
        'dependencies': [ 'icutools' ],
        'sources': [
          'iculslocs.cc',
-@@ -546,6 +548,7 @@
+@@ -447,6 +449,7 @@
        'target_name': 'icupkg',
        'toolsets': [ 'host' ],
        'type': 'executable',
@@ -24,7 +24,7 @@
        'dependencies': [ 'icutools' ],
        'sources': [
          '<@(icu_src_icupkg)',
-@@ -557,6 +560,7 @@
+@@ -458,6 +461,7 @@
        'target_name': 'genccode',
        'toolsets': [ 'host' ],
        'type': 'executable',
@@ -32,22 +32,47 @@
        'dependencies': [ 'icutools' ],
        'sources': [
          '<@(icu_src_genccode)',
---- a/deps/v8/gypfiles/v8.gyp
-+++ b/deps/v8/gypfiles/v8.gyp
-@@ -2447,6 +2447,7 @@
-       'target_name': 'torque',
+--- a/tools/v8_gypfiles/v8.gyp
++++ b/tools/v8_gypfiles/v8.gyp
+@@ -1198,6 +1198,7 @@
+     {
+       'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
-       'toolsets': ['host'],
 +      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-       'dependencies': ['v8_libbase'],
-       'cflags_cc!': ['-fno-exceptions', '-fno-rtti'],
-       'xcode_settings': {
-@@ -2904,6 +2905,8 @@
+       'conditions': [
+         ['want_separate_host_toolset', {
+           'toolsets': ['host'],
+@@ -1222,6 +1223,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
 +      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
 +      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/current/lib' ],
        'dependencies': [
-         'v8_base',
-         'v8_init',
+         'v8_base_without_compiler',
+         'v8_compiler_for_mksnapshot',
+@@ -1243,6 +1246,7 @@
+     {
+       'target_name': 'torque',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
+       'dependencies': [
+         'torque_base',
+         # "build/win:default_exe_manifest",
+@@ -1281,6 +1285,7 @@
+     {
+       'target_name': 'torque-language-server',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
+       'conditions': [
+         ['want_separate_host_toolset', {
+           'toolsets': ['host'],
+@@ -1308,6 +1313,8 @@
+     {
+       'target_name': 'gen-regexp-special-case',
+       'type': 'executable',
++      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
++      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/current/lib' ],
+       'dependencies': [
+         'v8_libbase',
+         # "build/win:default_exe_manifest",

@@ -6,11 +6,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
-ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.24.1
+ifeq ($(CONFIG_NODEJS_16),y)
+PKG_VERSION:=v16.0.0
 PKG_RELEASE:=1
-PKG_HASH:=d72fc2c244603b4668da94081dc4d6067d467fdfa026e06a274012f16600480c
-PATCH_DIR:=./patches/v10.x
+PKG_HASH:=47cb90111e8c3dc42dc538464789415354f0d933587fc89fff71f9bd816aaa02
+PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
 PKG_VERSION:=v14.16.1
@@ -91,14 +91,14 @@ define Package/node/config
 		help
 		 Select node.js version.
 
-		config NODEJS_10
-			bool "10.x Maintenance LTS"
-
 		config NODEJS_12
 			bool "12.x Maintenance LTS"
 
 		config NODEJS_14
 			bool "14.x Active LTS"
+
+		config NODEJS_16
+			bool "16.x Current"
 	endchoice
 
 	choice
@@ -122,10 +122,6 @@ define Package/node/config
 endef
 
 NODEJS_CPU:=$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH))))
-
-ifeq ($(CONFIG_NODEJS_10),y)
-TARGET_LDFLAGS+=-latomic
-endif
 
 ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
