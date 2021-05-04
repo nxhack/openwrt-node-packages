@@ -1,3 +1,18 @@
+--- a/deps/zlib/zlib.gyp
++++ b/deps/zlib/zlib.gyp
+@@ -43,10 +43,12 @@
+             'zutil.c',
+             'zutil.h',
+           ],
++          'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+           'include_dirs': [
+             '.',
+           ],
+           'direct_dependent_settings': {
++            'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+             'include_dirs': [
+               '.',
+             ],
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
 @@ -52,6 +52,7 @@
