@@ -46,7 +46,7 @@ OpenSSL 1.0.x becomes EoL, OpenWrt-18.06 will not be supported.
 Python2 becomes EoL, node v8.x will not be supported.
 
 On the host side, the following preparations are required.
-* GCC 6.3 or higher is required.
+* [Unix prerequisites](https://github.com/nodejs/node/blob/master/BUILDING.md#unix-prerequisites)
 * To build a 32-bit target, gcc-multilib, g++-multilib are required.
 * The libatomic package is required. (Install the 32-bit library at the same time, if necessary).
 
