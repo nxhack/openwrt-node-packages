@@ -87,7 +87,7 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_12
+		default NODEJS_14
 		help
 		 Select node.js version.
 
