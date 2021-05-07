@@ -173,6 +173,10 @@ define Package/node/install
 endef
 
 define Package/node-npm/install
+ifeq ($(CONFIG_NODEJS_16),y)
+	chmod +x $(PKG_INSTALL_DIR)/usr/lib/node_modules/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
+	chmod +x $(PKG_INSTALL_DIR)/usr/lib/node_modules/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp.cmd
+endif
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
