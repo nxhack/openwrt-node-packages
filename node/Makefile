@@ -133,7 +133,7 @@ define Build/Prepare
 	chmod +x $(PKG_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
 	chmod +x $(PKG_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp.cmd
 endef
-define Host/Prepare/Default
+define Host/Prepare
 	$(call Host/Prepare/Default)
 	chmod +x $(HOST_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
 	chmod +x $(HOST_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp.cmd
