@@ -127,6 +127,19 @@ ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
 endif
 
+ifeq ($(CONFIG_NODEJS_16),y)
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	chmod +x $(PKG_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
+	chmod +x $(PKG_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp.cmd
+endef
+define Host/Prepare/Default
+	$(call Host/Prepare/Default)
+	chmod +x $(HOST_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
+	chmod +x $(HOST_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp.cmd
+endef
+endif
+
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
 	NO_LOAD='cctest.target.mk embedtest.target.mk node_mksnapshot.target.mk' \
@@ -173,10 +186,6 @@ define Package/node/install
 endef
 
 define Package/node-npm/install
-ifeq ($(CONFIG_NODEJS_16),y)
-	chmod +x $(PKG_INSTALL_DIR)/usr/lib/node_modules/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
-	chmod +x $(PKG_INSTALL_DIR)/usr/lib/node_modules/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp.cmd
-endif
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/* $(1)/usr/lib/node_modules/
 	$(INSTALL_DIR) $(1)/usr/bin
