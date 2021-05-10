@@ -1,15 +1,15 @@
 --- a/crt/s2n/CMakeLists.txt
 +++ b/crt/s2n/CMakeLists.txt
-@@ -192,7 +192,7 @@ set_target_properties(${PROJECT_NAME} PR
+@@ -196,7 +196,7 @@ set_target_properties(${PROJECT_NAME} PR
  
  set(CMAKE_C_FLAGS_DEBUGOPT "")
  
 -target_compile_options(${PROJECT_NAME} PRIVATE -pedantic -std=gnu99 -Wall -Werror -Wimplicit -Wunused -Wcomment -Wchar-subscripts
 +target_compile_options(${PROJECT_NAME} PRIVATE -pedantic -std=gnu99 -Wall -Wimplicit -Wunused -Wcomment -Wchar-subscripts
          -Wuninitialized -Wshadow -Wcast-qual -Wcast-align -Wwrite-strings -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security
-         -Wno-missing-braces -fvisibility=hidden -DS2N_EXPORTS)
- 
-@@ -221,9 +221,6 @@ endif()
+         -Wno-missing-braces -Wa,--noexecstack
+ )
+@@ -236,9 +236,6 @@ endif()
  target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
  
  target_compile_definitions(${PROJECT_NAME} PRIVATE -D_POSIX_C_SOURCE=200809L)
@@ -37,7 +37,7 @@
  COVERAGE_LDFLAGS = --coverage
 --- a/scripts/build.js
 +++ b/scripts/build.js
-@@ -11,7 +11,10 @@ let options = {
+@@ -11,6 +11,9 @@ let options = {
      CMAKE_JS_PLATFORM: os.platform,
      CMAKE_JS_ARCH: os.arch,
      BUILD_TESTING: 'OFF',
@@ -47,10 +47,9 @@
      CMAKE_INSTALL_PREFIX: 'crt/install',
      CMAKE_PREFIX_PATH: 'crt/install',
  }
- 
---- ./crt/aws-c-common/cmake/AwsCFlags.cmake
-+++ ./crt/aws-c-common/cmake/AwsCFlags.cmake
-@@ -53,7 +53,7 @@
+--- a/crt/aws-c-common/cmake/AwsCFlags.cmake
++++ b/crt/aws-c-common/cmake/AwsCFlags.cmake
+@@ -53,7 +53,7 @@ function(aws_set_common_properties targe
          list(APPEND AWS_C_FLAGS "${_FLAGS}")
  
      else()
@@ -59,7 +58,7 @@
  
          if(NOT SET_PROPERTIES_NO_WEXTRA)
              list(APPEND AWS_C_FLAGS -Wextra)
-@@ -101,7 +101,7 @@
+@@ -101,7 +101,7 @@ function(aws_set_common_properties targe
              # some platforms implement htonl family of functions via GNU statement expressions (https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html)
              # which generates -Wgnu-statement-expression warning.
              set(old_flags "${CMAKE_REQUIRED_FLAGS}")
@@ -70,7 +69,7 @@
  
 --- a/crt/aws-lc/CMakeLists.txt
 +++ b/crt/aws-lc/CMakeLists.txt
-@@ -165,7 +165,7 @@
+@@ -165,7 +165,7 @@ if(GCC OR CLANG)
    # Note clang-cl is odd and sets both CLANG and MSVC. We base our configuration
    # primarily on our normal Clang one.
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
