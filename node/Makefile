@@ -8,18 +8,18 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_10),y)
 PKG_VERSION:=v10.24.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=d72fc2c244603b4668da94081dc4d6067d467fdfa026e06a274012f16600480c
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.16.1
-PKG_RELEASE:=2
-PKG_HASH:=e44adbbed6756c2c1a01258383e9f00df30c147b36e438f6369b5ef1069abac3
+PKG_VERSION:=v14.17.0
+PKG_RELEASE:=1
+PKG_HASH:=56e05bff9331039317db417f772e635e0cd1c55f733f7b1b079d71ab5842c9ed
 PATCH_DIR:=./patches/v14.x
 else
 PKG_VERSION:=v12.22.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_HASH:=dd650df7773a6ed3e390320ba51ef33cba6499f0e9397709ea3d1debdcbcb989
 PATCH_DIR:=./patches/v12.x
 endif
@@ -53,7 +53,7 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@(HAS_FPU||KERNEL_MIPS_FPU_EMULATOR) @!arc @!armeb @!powerpc \
 	   +libstdcpp +libopenssl +zlib +libnghttp2 \
-	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
+	   +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
 define Package/node/description
@@ -153,7 +153,6 @@ CONFIGURE_ARGS:= \
 	--shared-zlib \
 	--shared-openssl \
 	--shared-nghttp2 \
-	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring mips,$(NODEJS_CPU)), \
 		$(if $(CONFIG_SOFT_FLOAT),--with-mips-float-abi=soft)) \
