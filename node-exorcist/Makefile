@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=exorcist
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.0.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -51,29 +51,26 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(NODEJS_CPU) \
-	npm_config_target_arch=$(NODEJS_CPU) \
-	npm_config_build_from_source=true \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(PKG_BUILD_DIR)
+	npm install --only=prod --ignore-scripts
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 endef
 
 define Package/node-exorcist/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,bin} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{example,test} \
+	$(CP) $(PKG_BUILD_DIR)/{example,test} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/exorcist.js $(1)/usr/bin/exorcist
@@ -88,25 +85,25 @@ rm -rf /usr/lib/node/exorcist || true
 endef
 
 define Host/Compile
+	cd $(HOST_BUILD_DIR); \
 	$(HOST_MAKE_VARS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_prefix=$(HOST_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(HOSTTMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(HOSTTMPNPM) \
-	npm install -g $(HOST_BUILD_DIR)
+	npm install --only=prod
 	rm -rf $(TMP_DIR)/npm-tmp-$(HOSTTMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(HOSTTMPNPM)
 endef
 
 define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,LICENSE} \
+	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{*.md,*.js} \
+	$(CP) $(HOST_BUILD_DIR)/{*.md,*.js} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,bin} \
+	$(CP) $(HOST_BUILD_DIR)/{node_modules,bin} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{example,test} \
+	$(CP) $(HOST_BUILD_DIR)/{example,test} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/exorcist.js $(1)/bin/exorcist
