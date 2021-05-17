@@ -127,17 +127,6 @@ ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
 endif
 
-ifeq ($(CONFIG_NODEJS_16),y)
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	chmod +x $(PKG_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
-endef
-define Host/Prepare
-	$(call Host/Prepare/Default)
-	chmod +x $(HOST_BUILD_DIR)/deps/npm/node_modules/npm-lifecycle/node-gyp-bin/node-gyp
-endef
-endif
-
 MAKE_VARS+= \
 	DESTCPU=$(NODEJS_CPU) \
 	NO_LOAD='cctest.target.mk embedtest.target.mk node_mksnapshot.target.mk' \
