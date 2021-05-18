@@ -57,6 +57,8 @@ define Build/Compile
 	npm install --only=prod --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
+	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 	rm -rf $(PKG_BUILD_DIR)/node_modules/ref-napi/prebuilds
 endef
 
