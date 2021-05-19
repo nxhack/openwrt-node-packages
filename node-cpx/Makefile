@@ -76,6 +76,7 @@ define Package/node-cpx/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/index.js $(1)/usr/bin/cpx
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/index.js
 endef
 
 define Package/node-cpx/postrm
@@ -107,6 +108,7 @@ define Host/Install
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/index.js $(1)/bin/cpx
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/index.js
 endef
 
 $(eval $(call HostBuild))

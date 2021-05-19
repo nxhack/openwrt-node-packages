@@ -73,6 +73,9 @@ define Package/node-mqtt/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/sub.js $(1)/usr/bin/mqtt_sub
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/mqtt.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/pub.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/sub.js
 endef
 
 define Package/node-mqtt/postrm
