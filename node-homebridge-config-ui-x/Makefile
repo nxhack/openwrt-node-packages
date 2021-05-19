@@ -96,6 +96,8 @@ define Package/node-homebridge-config-ui-x/install
 	$(CP) ./files/openwrt.js $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/platforms/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/hb-service.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/standalone.js
 endef
 
 define Package/node-homebridge-config-ui-x/postrm

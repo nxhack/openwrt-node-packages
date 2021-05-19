@@ -71,6 +71,7 @@ define Package/node-forever/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/forever $(1)/usr/bin/forever
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/forever
 endef
 
 define Package/node-forever/postrm
