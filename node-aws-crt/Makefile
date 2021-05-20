@@ -63,7 +63,7 @@ define Build/Compile
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
-	npm install --production --ignore-scripts --legacy-peer-deps
+	npm install --global-style --production --no-package-lock --ignore-scripts --legacy-peer-deps
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \

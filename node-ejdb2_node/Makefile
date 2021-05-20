@@ -62,7 +62,7 @@ define Build/Compile
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
-	npm install --production
+	npm install --global-style --production --no-package-lock
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
