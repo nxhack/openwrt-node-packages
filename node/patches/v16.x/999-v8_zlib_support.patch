@@ -23,15 +23,15 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -167,6 +168,7 @@
-           '<(SHARED_INTERMEDIATE_DIR)/torque-generated/factory.cc',
-           '<(SHARED_INTERMEDIATE_DIR)/torque-generated/objects-printer.cc',
+@@ -170,6 +171,7 @@
+           '<@(torque_outputs_cc)',
+           '<@(torque_outputs_inc)',
          ],
 +        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -188,6 +190,7 @@
+@@ -191,6 +193,7 @@
          'sources': [
            '<(generate_bytecode_builtins_list_output)',
          ],
@@ -39,7 +39,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -238,9 +241,11 @@
+@@ -241,9 +244,11 @@
        'dependencies': [
          'torque_generated_initializers',
        ],
@@ -51,7 +51,7 @@
        ],
        'sources': [
          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_initializers.*?sources = ")',
-@@ -589,6 +594,7 @@
+@@ -592,6 +597,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -59,7 +59,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1174,6 +1180,7 @@
+@@ -1177,6 +1183,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -67,7 +67,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1503,6 +1510,7 @@
+@@ -1506,6 +1513,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -75,7 +75,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1692,15 +1700,19 @@
+@@ -1695,15 +1703,19 @@
          }],
        ],
        'direct_dependent_settings': {
