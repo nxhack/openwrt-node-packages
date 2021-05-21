@@ -1,0 +1,28 @@
+From 845561e0cddd74bf620a414577d8d5e3fea66bf5 Mon Sep 17 00:00:00 2001
+From: Hyeon Kim <simnalamburt@gmail.com>
+Date: Thu, 8 Apr 2021 20:16:42 +0900
+Subject: [PATCH] Add missing 'duplexify' dependency
+
+'duplexify' is used by MQTT.js but not present in package.json
+
+References:
+  https://github.com/mqttjs/MQTT.js/blob/37b12cb9/lib/connect/ali.js#L4
+  https://github.com/mqttjs/MQTT.js/blob/37b12cb9/lib/connect/wx.js#L4
+  https://github.com/mqttjs/MQTT.js/blob/37b12cb9/lib/connect/ws.js#L5
+  https://github.com/mqttjs/MQTT.js/issues/1215
+---
+ package.json | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/package.json b/package.json
+index 081a2a75..671561ed 100644
+--- a/package.json
++++ b/package.json
+@@ -65,6 +65,7 @@
+     "commist": "^1.0.0",
+     "concat-stream": "^2.0.0",
+     "debug": "^4.1.1",
++    "duplexify": "^4.1.1",
+     "help-me": "^1.0.1",
+     "inherits": "^2.0.3",
+     "minimist": "^1.2.5",
