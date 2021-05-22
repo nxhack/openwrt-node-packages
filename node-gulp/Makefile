@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=browserify
+PKG_NPM_NAME:=gulp
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=17.0.0
-PKG_RELEASE:=3
+PKG_VERSION:=4.0.2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=eb5ad5e74bf7e35a1d96e035a0d0ac9d9061cca396415b562c9400a50c0abbea
+PKG_HASH:=d97d4e06b45c3f7f91f6c8d834e0e4949b4319afe4dbfffc3c31b3c5409b86c7
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -27,17 +27,17 @@ PKG_USE_MIPS16:=0
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-browserify
+define Package/node-gulp
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=browser-side require() the node way
-  URL:=https://www.npmjs.org/package/browserify
+  TITLE:=The streaming build system.
+  URL:=https://gulpjs.com/
   DEPENDS:=+node
 endef
 
-define Package/node-browserify/description
- browserify will recursively analyze all the require() calls in your app in order to build a bundle you can serve up to the browser in a single <script> tag
+define Package/node-gulp/description
+ A toolkit to automate & enhance your workflow. Leverage gulp and the flexibility of JavaScript to automate slow, repetitive workflows and compose them into efficient build pipelines.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -64,26 +64,22 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-browserify/install
+define Package/node-gulp/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.js,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.yml,*.markdown,*.md,*.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib,bin} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{assets,example,test} \
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,node_modules,bin} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/cmd.js $(1)/usr/bin/browserify
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/gulp.js $(1)/usr/bin/gulp
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-browserify/postrm
+define Package/node-gulp/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/browserify || true
-rm -rf /usr/lib/node/browserify || true
+rm /usr/lib/node_modules/gulp || true
+rm -rf /usr/lib/node/gulp || true
 endef
 
 define Host/Compile
@@ -101,17 +97,13 @@ endef
 
 define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
-	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE} \
+	$(CP) $(HOST_BUILD_DIR)/{package.json,*.js,*.md} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{*.yml,*.markdown,*.md,*.js} \
-		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{node_modules,lib,bin} \
-		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{assets,example,test} \
+	$(CP) $(HOST_BUILD_DIR)/{LICENSE,node_modules,bin} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/cmd.js $(1)/bin/browserify
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/gulp.js $(1)/bin/gulp
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,node-browserify))
+$(eval $(call BuildPackage,node-gulp))
