@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=lwm2m-node-lib
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.3.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -46,29 +46,28 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(NODEJS_CPU) \
-	npm_config_target_arch=$(NODEJS_CPU) \
-	npm_config_build_from_source=true \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(PKG_BUILD_DIR)
+	npm install --production --global-style --no-save --omit=dev --no-package-lock
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
+	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
 define Package/node-lwm2m-node-lib/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{CHANGES_NEXT_RELEASE,*.txt} \
+	$(CP) $(PKG_BUILD_DIR)/{CHANGES_NEXT_RELEASE,*.txt} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{bin,docs,test} \
+	$(CP) $(PKG_BUILD_DIR)/{bin,docs,test} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/iotagent-lwm2m-client.js $(1)/usr/bin/iotagent-lwm2m-client

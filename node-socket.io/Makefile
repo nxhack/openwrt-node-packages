@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=socket.io
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.1.1
+PKG_VERSION:=4.1.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=0b613eda604508c61ee3c9d525704305ab61fc397fae5c6b90af20fda3605264
+PKG_HASH:=740ea78bf44d2f5589618a61168cc94a1b58acc7e0d2443f27fa8aa7dfb62681
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -49,27 +49,26 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(NODEJS_CPU) \
-	npm_config_target_arch=$(NODEJS_CPU) \
-	npm_config_build_from_source=true \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(PKG_BUILD_DIR)
+	npm install --production --global-style --no-save --omit=dev --no-package-lock
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
+	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
 define Package/node-socket.io/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,*.mjs} \
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,*.mjs} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{node_modules,client-dist,dist} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,client-dist,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)

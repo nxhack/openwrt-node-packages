@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-homekit-bridged
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.3.4
+PKG_VERSION:=1.3.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=700c69c26aa405e8b21eb8fdb7c6d71403d2de8aed84c5ba8b531ce8c8c6da16
+PKG_HASH:=64ad3fb955651bb081cc80bd74e67f2acf15f351209008e1c0be818dcdbc33e2
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -46,27 +46,26 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
-	npm_config_arch=$(NODEJS_CPU) \
-	npm_config_target_arch=$(NODEJS_CPU) \
-	npm_config_build_from_source=true \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	npm_config_prefix=$(PKG_INSTALL_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install -g $(PKG_BUILD_DIR)
+	npm install --production --global-style --no-save --omit=dev --no-package-lock
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
+	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
 define Package/node-red-contrib-homekit-bridged/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{LICENSE,node_modules} \
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,node_modules} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/$(PKG_NPM_NAME)/{build,examples} \
+	$(CP) $(PKG_BUILD_DIR)/{build,examples} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
