@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=homebridge-cmd4
+PKG_NPM_NAME:=argon2
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.8.1
+PKG_VERSION:=0.27.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=b345b15498781daac10a4c4d94e5d4fa09d88c5fe64dd94370752383e9d5bf1e
+PKG_HASH:=c18fccf3f78a8a28192221f6807371b98332cd3ded109ea443a0610e9c0fdf61
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -23,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-homebridge-cmd4
+define Package/node-argon2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Exec Plugin for Homebridge supporting all
-  URL:=https://www.npmjs.com/package/homebridge-cmd4
-  DEPENDS:=+node +node-homebridge
+  TITLE:=An Argon2 library for Node
+  URL:=https://www.npmjs.com/package/argon2
+  DEPENDS:=+node
 endef
 
-define Package/node-homebridge-cmd4/description
- Cmd4 is a plugin for Homebridge that lets you see what Homebridge and Homekit are all about, without actually owning a single accessory! For the more advanced user, Cmd4 brings CLI support for all device types (Accessories) and characteristics.
+define Package/node-argon2/description
+ Bindings to the reference Argon2 implementation.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -52,29 +52,27 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-homebridge-cmd4/install
+define Package/node-argon2/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{README.md,*.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,Extras,utils,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,node_modules,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-homebridge-cmd4/postrm
+define Package/node-argon2/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/homebridge-cmd4 || true
-rm -rf /usr/lib/node/homebridge-cmd4 || true
+rm /usr/lib/node_modules/argon2 || true
+rm -rf /usr/lib/node/argon2 || true
 endef
 
-$(eval $(call BuildPackage,node-homebridge-cmd4))
+$(eval $(call BuildPackage,node-argon2))
