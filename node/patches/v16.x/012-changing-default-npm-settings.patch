@@ -1,6 +1,6 @@
 --- a/deps/npm/lib/utils/config/definitions.js
 +++ b/deps/npm/lib/utils/config/definitions.js
-@@ -1105,7 +1105,7 @@ define('local-address', {
+@@ -1110,7 +1110,7 @@ define('local-address', {
  })
  
  define('loglevel', {
@@ -9,7 +9,7 @@
    type: [
      'silent',
      'error',
-@@ -1810,7 +1810,7 @@ define('strict-peer-deps', {
+@@ -1827,7 +1827,7 @@ define('strict-peer-deps', {
  })
  
  define('strict-ssl', {
