@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=azure-iot-device-amqp
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.13.3
-PKG_RELEASE:=3
+PKG_VERSION:=1.13.4
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6a748fb2d75b3f57ec022ba2d9c06377f2d0a2b3421d36d405f9dc40eaae328a
+PKG_HASH:=8056efa37cd07fafeaf6abc9b27fc971518c7cc956daff98e859b18f9c18fe3d
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
