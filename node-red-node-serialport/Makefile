@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-node-serialport
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=0.14.0
-PKG_RELEASE:=2
+PKG_VERSION:=0.14.1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9c899739b2f6fc28a1db1a71042e25324b39daaa7d51e47c80d12adea57852ca
+PKG_HASH:=e0aafead9369489e050affcb1cf7c66c905fc8a9467ee081d9080d5e75da7195
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
