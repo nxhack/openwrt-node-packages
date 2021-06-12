@@ -112,6 +112,7 @@ Or use [swap](https://openwrt.org/docs/guide-user/storage/fstab?s[]=swap).
 ```
 node-authenticate-pam
 node-aws-crt
+node-azure-iothub		(@azure/identity)
 node-bcryp
 node-bignum
 node-bluetooth-hci-socket
