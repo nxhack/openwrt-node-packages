@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -73,7 +73,6 @@
+@@ -74,7 +74,6 @@
      "readable-stream": "^3.6.0",
      "reinterval": "^1.1.0",
      "split2": "^3.1.0",
