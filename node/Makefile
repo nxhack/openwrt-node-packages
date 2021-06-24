@@ -176,7 +176,7 @@ define Package/node-npm/install
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/npm
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE} \
 		$(1)/usr/lib/node_modules/npm/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{AUTHORS,*.md} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/README.md \
 		$(1)/usr/lib/node_modules/npm/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{node_modules,bin,lib} \
 		$(1)/usr/lib/node_modules/npm/
