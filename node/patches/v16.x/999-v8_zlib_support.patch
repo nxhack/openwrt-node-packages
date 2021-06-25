@@ -15,7 +15,7 @@
              ],
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -52,6 +52,7 @@
+@@ -60,6 +60,7 @@
        ],
        'hard_dependency': 1,
        'direct_dependent_settings': {
@@ -23,7 +23,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -170,6 +171,7 @@
+@@ -195,6 +196,7 @@
            '<@(torque_outputs_cc)',
            '<@(torque_outputs_inc)',
          ],
@@ -31,7 +31,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -191,6 +193,7 @@
+@@ -216,6 +218,7 @@
          'sources': [
            '<(generate_bytecode_builtins_list_output)',
          ],
@@ -39,9 +39,9 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -241,9 +244,11 @@
-       'dependencies': [
-         'torque_generated_initializers',
+@@ -266,9 +269,11 @@
+         'v8_base_without_compiler',
+         'v8_shared_internal_headers',
        ],
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
        'include_dirs': [
@@ -51,7 +51,7 @@
        ],
        'sources': [
          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_initializers.*?sources = ")',
-@@ -592,6 +597,7 @@
+@@ -778,6 +783,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -59,7 +59,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1177,6 +1183,7 @@
+@@ -1339,6 +1345,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -67,7 +67,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1506,6 +1513,7 @@
+@@ -1696,6 +1703,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -75,7 +75,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1695,15 +1703,19 @@
+@@ -1885,15 +1893,19 @@
          }],
        ],
        'direct_dependent_settings': {

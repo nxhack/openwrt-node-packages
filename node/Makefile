@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_16),y)
-PKG_VERSION:=v16.3.0
+PKG_VERSION:=v16.4.0
 PKG_RELEASE:=1
-PKG_HASH:=7aab47b82c19702c73b2834a623c3932732a15185fddea14b9ddc710936fac5f
+PKG_HASH:=f91e212e0b64d5fa745b15da4b8ac504acf72fb9216bfa77d3f66ca0e178c81d
 PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
@@ -176,7 +176,7 @@ define Package/node-npm/install
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/npm
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE} \
 		$(1)/usr/lib/node_modules/npm/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{AUTHORS,*.md} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/README.md \
 		$(1)/usr/lib/node_modules/npm/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{node_modules,bin,lib} \
 		$(1)/usr/lib/node_modules/npm/
