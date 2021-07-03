@@ -13,14 +13,14 @@ PKG_HASH:=d72fc2c244603b4668da94081dc4d6067d467fdfa026e06a274012f16600480c
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.17.1
+PKG_VERSION:=v14.17.2
 PKG_RELEASE:=1
-PKG_HASH:=ddf1d2d56ddf35ecd98c5ea5ddcd690b245899f289559b4330c921255f5a247f
+PKG_HASH:=4f5fb2b87e2255da3b200ed73ab076002e4b088df0027ec85e25541a6830583e
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v12.22.1
-PKG_RELEASE:=3
-PKG_HASH:=dd650df7773a6ed3e390320ba51ef33cba6499f0e9397709ea3d1debdcbcb989
+PKG_VERSION:=v12.22.2
+PKG_RELEASE:=1
+PKG_HASH:=7fd805571df106f086f4c45e131efed98bfd62628d9dec96bd62f8c11b0c48dc
 PATCH_DIR:=./patches/v12.x
 endif
 endif
@@ -178,9 +178,7 @@ endef
 
 define Package/node-npm/install
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/npm
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE} \
-		$(1)/usr/lib/node_modules/npm/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{AUTHORS,*.md} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node_modules/npm/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{node_modules,bin,lib} \
 		$(1)/usr/lib/node_modules/npm/
