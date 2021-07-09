@@ -1,12 +1,12 @@
 --- a/package.json
 +++ b/package.json
-@@ -104,65 +104,5 @@
+@@ -120,66 +120,5 @@
      "uuid": "^8.3.0"
    },
    "devDependencies": {
 -    "@azure/dev-tool": "^1.0.0",
 -    "@azure/eslint-plugin-azure-sdk": "^3.0.0",
--    "@azure/identity": "^1.1.0",
+-    "@azure/identity": "2.0.0-beta.4",
 -    "@azure/test-utils-perfstress": "^1.0.0",
 -    "@microsoft/api-extractor": "7.7.11",
 -    "@rollup/plugin-commonjs": "11.0.2",
@@ -22,13 +22,14 @@
 -    "@types/debug": "^4.1.4",
 -    "@types/long": "^4.0.0",
 -    "@types/mocha": "^7.0.2",
--    "@types/node": "^8.0.0",
+-    "@types/node": "^12.0.0",
 -    "@types/sinon": "^9.0.4",
 -    "@types/uuid": "^8.0.0",
 -    "@types/ws": "^7.2.4",
 -    "assert": "^1.4.1",
 -    "chai": "^4.2.0",
 -    "chai-as-promised": "^7.1.1",
+-    "chai-exclude": "^2.0.2",
 -    "chai-string": "^1.5.0",
 -    "cross-env": "^7.0.2",
 -    "debug": "^4.1.1",
