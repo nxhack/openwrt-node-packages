@@ -1,6 +1,6 @@
 --- a/deps/npm/lib/utils/config/definitions.js
 +++ b/deps/npm/lib/utils/config/definitions.js
-@@ -1134,7 +1134,7 @@ define('local-address', {
+@@ -1134,7 +1134,7 @@ define('location', {
  })
  
  define('loglevel', {
