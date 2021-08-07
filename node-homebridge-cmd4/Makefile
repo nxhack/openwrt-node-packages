@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-cmd4
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.0.1
+PKG_VERSION:=4.2.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=89ce038c5bef5735d97904bb8ba52bcbec3f6f0b6587cfa4a197f186bc4771d6
+PKG_HASH:=708a61fd7e52f4b8163adc1febeb1cdec1a3768bfed390e847d6fe3a9991b0c9
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
