@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zigbee2mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.20.0
+PKG_VERSION:=1.21.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9fb02db03e73b346427b6e47b0e3a4789730379efbc997e64008025a5c7aa81b
+PKG_HASH:=1fb4453ced11106a7b8bc51830a8cab3729b95bd1cb6103b979c038db73253cf
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=GPL-3.0
@@ -73,7 +73,7 @@ define Package/node-zigbee2mqtt/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js} \
 		$(1)/opt/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{data,scripts} \
 		$(1)/opt/$(PKG_NPM_NAME)/
