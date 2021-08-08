@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-web-of-things
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.2.3
+PKG_VERSION:=1.2.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=70cab794abb871559cc91af0286df2ee999b377f5d70bcc64fc7eebb249ca56f
+PKG_HASH:=42e7c54bc65bf66a67e63eb30734b45034c615bf62fecf5d0da96e1ae42d2fb3
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
