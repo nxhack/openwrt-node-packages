@@ -53,7 +53,7 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64||mipsel) \
 	   +libstdcpp +libopenssl +zlib +libnghttp2 +libuv \
-	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
+	   +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
 define Package/node/description
@@ -148,7 +148,6 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--shared-nghttp2 \
 	--shared-libuv \
-	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring +neon,$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +vfp",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfp) \
