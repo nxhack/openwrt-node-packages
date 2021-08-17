@@ -13,14 +13,14 @@ PKG_HASH:=d72fc2c244603b4668da94081dc4d6067d467fdfa026e06a274012f16600480c
 PATCH_DIR:=./patches/v10.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.17.4
+PKG_VERSION:=v14.17.5
 PKG_RELEASE:=1
-PKG_HASH:=ae7bf4e784f8c8027ffa1e3757f37d2bd5925d0c48988c4d7f07e4515853cf2c
+PKG_HASH:=42b1a7ff87580c6058063e943d7d53efa8c236145e6e9c8264ee425b40911fa8
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v12.22.4
+PKG_VERSION:=v12.22.5
 PKG_RELEASE:=1
-PKG_HASH:=44cd4eab131e5282fc923e9e720d983a0b44c12e4aa4f6c3598dc97ae1e4cd4c
+PKG_HASH:=f927ff6c2ac5a7234596031b18ba03febbcadd2650d375f1a3fd02426687fd14
 PATCH_DIR:=./patches/v12.x
 endif
 endif
@@ -53,7 +53,7 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64||mipsel) \
 	   +libstdcpp +libopenssl +zlib +libnghttp2 +libuv \
-	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
+	   +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
 define Package/node/description
@@ -152,7 +152,6 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--shared-nghttp2 \
 	--shared-libuv \
-	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring +neon,$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +vfp",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfp) \
