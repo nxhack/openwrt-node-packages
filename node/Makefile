@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_16),y)
-PKG_VERSION:=v16.6.2
+PKG_VERSION:=v16.7.0
 PKG_RELEASE:=1
-PKG_HASH:=8794cba1f971e4200a38690c76d7cc0a3bd1cba96fbf4305dfbe21fc459d79eb
+PKG_HASH:=fa85fdfbd378e587fa04ad9548e7c9f50e690af9575730d3b330cba6fc3f2d37
 PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
