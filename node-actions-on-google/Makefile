@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=actions-on-google
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.14.0
-PKG_RELEASE:=2
+PKG_VERSION:=3.0.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=dff2c0aaad0f6b38e255b8350cb271ec2cc8ecf985168d1e58b91c68055c9a18
+PKG_HASH:=6172ea5dd89f07a22de89bd5364f3320575a707d2cd8a05437dce6de8c9e3a26
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
