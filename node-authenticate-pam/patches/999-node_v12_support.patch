@@ -105,7 +105,7 @@ index b171d45..6040616 100644
      "url": "https://github.com/RushPL/node-authenticate-pam.git"
    },
    "dependencies": {
--    "nan": "^2.3.2"
+-    "nan": "^2.3.3"
 +    "nan": "^2.14.0"
    }
  }
