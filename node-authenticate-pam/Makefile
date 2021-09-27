@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=authenticate-pam
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.2
-PKG_RELEASE:=22
+PKG_VERSION:=1.0.5
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6725d6c46ac02fdd90b146a8b5ed5130015663630c7aa1162642b712bcfc2595
+PKG_HASH:=eee6adb5e20658750a2ca681cbd2db084672bb054f3950f3ccec27ce01e3ed28
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -63,8 +63,6 @@ endef
 define Package/node-authenticate-pam/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.txt,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/node_modules \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
