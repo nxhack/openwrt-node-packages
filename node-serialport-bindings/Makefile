@@ -7,12 +7,12 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=serialport
 PKG_NPM_NAME:=bindings
 PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=9.2.3
+PKG_VERSION:=9.2.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=cdd61d93353dff9967ec13fb752c9a6bf2b1cab2f94a2a09caadadfe15f79c83
+PKG_HASH:=ef03bad9b4d6d109e997c001f42cb60af15460fa1b0ea5081f9e3bf2a5abbf5e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
