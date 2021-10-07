@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -46,7 +46,6 @@
+@@ -47,7 +47,6 @@
    "homepage": "https://github.com/NRCHKB/node-red-contrib-homekit-bridged#readme",
    "dependencies": {
      "@nrchkb/logger": "^1.3.3",
