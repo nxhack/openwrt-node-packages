@@ -1,9 +1,0 @@
---- a/package.json
-+++ b/package.json
-@@ -30,6 +30,5 @@
-     "typescript": "^3.9.7"
-   },
-   "dependencies": {
--    "aws-crt": "1.9.8"
-   }
- }
