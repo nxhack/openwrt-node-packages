@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=utf-8-validate
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.0.6
+PKG_VERSION:=5.0.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9f3b8688bbbbe5e2def78c32ed62039565968015e8ffb571fa5d94130644edb6
+PKG_HASH:=1360afbf35567f058fc9b06ae59acf04abfb7e88d2c74bf72e906f5bab46ec6e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
