@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_16),y)
-PKG_VERSION:=v16.11.1
+PKG_VERSION:=v16.12.0
 PKG_RELEASE:=1
-PKG_HASH:=67587f4de25e30a9cc0b51a6033eca3bc82d7b4e0d79bb84a265e88f76ab6278
+PKG_HASH:=5f620a6a400901a6565aa0c07309cde3aab3dbaa765cecb934241de520d36bac
 PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
@@ -95,7 +95,7 @@ define Package/node/config
 			bool "12.x Maintenance LTS"
 
 		config NODEJS_14
-			bool "14.x Active LTS"
+			bool "14.x Maintenance LTS"
 
 		config NODEJS_16
 			bool "16.x Current"
