@@ -7,9 +7,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_16),y)
-PKG_VERSION:=v16.12.0
+PKG_VERSION:=v16.13.0
 PKG_RELEASE:=1
-PKG_HASH:=5f620a6a400901a6565aa0c07309cde3aab3dbaa765cecb934241de520d36bac
+PKG_HASH:=32114b3dc3945ed0f95f8bc33b42c68e0ef18c408cb56122572a163d907ecbcc
 PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
@@ -87,7 +87,7 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_14
+		default NODEJS_16
 		help
 		 Select node.js version.
 
@@ -98,7 +98,7 @@ define Package/node/config
 			bool "14.x Maintenance LTS"
 
 		config NODEJS_16
-			bool "16.x Current"
+			bool "16.x Active LTS"
 	endchoice
 
 	choice
