@@ -33,7 +33,7 @@
  # We support two kinds of shared objects (.so):
  # 1) shared_library, which is just bundling together many dependent libraries
  # into a link line.
-@@ -198,6 +222,32 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
+@@ -198,6 +224,32 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
@@ -66,7 +66,7 @@
  # Due to circular dependencies between libraries :(, we wrap the
  # special "figure out circular dependencies" flags around the entire
  # input list during linking.
-@@ -1768,21 +1816,35 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)
+@@ -1768,21 +1820,35 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)
                  self.flavor not in ("mac", "openbsd", "netbsd", "win")
                  and not self.is_standalone_static_library
              ):
@@ -151,7 +151,7 @@
  # We support two kinds of shared objects (.so):
  # 1) shared_library, which is just bundling together many dependent libraries
  # into a link line.
-@@ -198,6 +222,32 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
+@@ -198,6 +224,32 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
@@ -184,7 +184,7 @@
  # Due to circular dependencies between libraries :(, we wrap the
  # special "figure out circular dependencies" flags around the entire
  # input list during linking.
-@@ -1768,21 +1816,35 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)
+@@ -1768,21 +1820,35 @@ $(obj).$(TOOLSET)/$(TARGET)/%%.o: $(obj)
                  self.flavor not in ("mac", "openbsd", "netbsd", "win")
                  and not self.is_standalone_static_library
              ):
