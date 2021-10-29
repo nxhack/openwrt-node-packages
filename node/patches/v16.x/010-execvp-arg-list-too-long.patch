@@ -1,28 +1,30 @@
 --- a/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
 +++ b/deps/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
-@@ -154,6 +154,30 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOL
+@@ -154,6 +154,32 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOL
  quiet_cmd_link = LINK($(TOOLSET)) $@
  cmd_link = $(LINK.$(TOOLSET)) -o $@ $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
  
 +define xargs
-+$(1) $(word 1,$(2))
-+$(if $(word 2,$(2)),$(call xargs,$(1),$(wordlist 2,$(words $(2)),$(2))))
++        $(1) $(wordlist 1,100,$(2))
++        $(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
-+@: >$(1)
-+$(call xargs,@printf "%s\\n" >>$(1),$(2))
++        @: >$(1)
++        $(call xargs,@printf "%s\\n" >>$(1),$(2))
 +endef
 +
-+OBJ_FILE_LIST := ar-file-list
++OBJ_FILE_LIST_SFX := ar-file-list
 +
 +define create_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(1).$(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crs $(1) @$(1).$(OBJ_FILE_LIST)
 +endef
 +
 +define create_thin_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crsT $(1) @$(1).$(OBJ_FILE_LIST)
@@ -31,29 +33,31 @@
  # We support two kinds of shared objects (.so):
  # 1) shared_library, which is just bundling together many dependent libraries
  # into a link line.
-@@ -198,6 +222,30 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
+@@ -198,6 +222,32 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
 +define xargs
-+$(1) $(word 1,$(2))
-+$(if $(word 2,$(2)),$(call xargs,$(1),$(wordlist 2,$(words $(2)),$(2))))
++        $(1) $(wordlist 1,100,$(2))
++        $(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
-+@: >$(1)
-+$(call xargs,@printf "%s\\n" >>$(1),$(2))
++        @echo >$(1)
++        $(call xargs,printf "%s\\n" >>$(1),$(2))
 +endef
 +
-+OBJ_FILE_LIST := ar-file-list
++OBJ_FILE_LIST_SFX := ar-file-list
 +
 +define create_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(1).$(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crs $(1) @$(1).$(OBJ_FILE_LIST)
 +endef
 +
 +define create_thin_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crsT $(1) @$(1).$(OBJ_FILE_LIST)
@@ -114,29 +118,31 @@
                  "%s: LD_INPUTS := %s"
 --- a/tools/gyp/pylib/gyp/generator/make.py
 +++ b/tools/gyp/pylib/gyp/generator/make.py
-@@ -154,6 +154,30 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOL
+@@ -154,6 +154,32 @@ cmd_alink_thin = rm -f $@ && $(AR.$(TOOL
  quiet_cmd_link = LINK($(TOOLSET)) $@
  cmd_link = $(LINK.$(TOOLSET)) -o $@ $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
  
 +define xargs
-+$(1) $(word 1,$(2))
-+$(if $(word 2,$(2)),$(call xargs,$(1),$(wordlist 2,$(words $(2)),$(2))))
++        $(1) $(wordlist 1,100,$(2))
++        $(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
-+@: >$(1)
-+$(call xargs,@printf "%s\\n" >>$(1),$(2))
++        @echo >$(1)
++        $(call xargs,printf "%s\\n" >>$(1),$(2))
 +endef
 +
-+OBJ_FILE_LIST := ar-file-list
++OBJ_FILE_LIST_SFX := ar-file-list
 +
 +define create_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(1).$(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crs $(1) @$(1).$(OBJ_FILE_LIST)
 +endef
 +
 +define create_thin_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crsT $(1) @$(1).$(OBJ_FILE_LIST)
@@ -145,29 +151,31 @@
  # We support two kinds of shared objects (.so):
  # 1) shared_library, which is just bundling together many dependent libraries
  # into a link line.
-@@ -198,6 +222,30 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
+@@ -198,6 +222,32 @@ cmd_alink = rm -f $@ && $(AR.$(TOOLSET))
  quiet_cmd_alink_thin = AR($(TOOLSET)) $@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
 +define xargs
-+$(1) $(word 1,$(2))
-+$(if $(word 2,$(2)),$(call xargs,$(1),$(wordlist 2,$(words $(2)),$(2))))
++        $(1) $(wordlist 1,100,$(2))
++        $(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
-+@: >$(1)
-+$(call xargs,@printf "%s\\n" >>$(1),$(2))
++        @: >$(1)
++        $(call xargs,@printf "%s\\n" >>$(1),$(2))
 +endef
 +
-+OBJ_FILE_LIST := ar-file-list
++OBJ_FILE_LIST_SFX := ar-file-list
 +
 +define create_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(1).$(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crs $(1) @$(1).$(OBJ_FILE_LIST)
 +endef
 +
 +define create_thin_archive
++        $(eval OBJ_FILE_LIST := $(basename $(notdir $(1))).$(OBJ_FILE_LIST_SFX))
 +        rm -f $(1) $(OBJ_FILE_LIST); mkdir -p `dirname $(1)`
 +        $(call write-to-file,$(1).$(OBJ_FILE_LIST),$(filter %.o,$(2)))
 +        $(AR.$(TOOLSET)) crsT $(1) @$(1).$(OBJ_FILE_LIST)
