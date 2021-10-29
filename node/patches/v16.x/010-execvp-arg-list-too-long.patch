@@ -10,8 +10,8 @@
 +endef
 +
 +define write-to-file
-+        @: >$(1)
-+        $(call xargs,@printf "%s\\n" >>$(1),$(2))
++        @echo >$(1)
++        $(call xargs,printf "%s\\n" >>$(1),$(2))
 +endef
 +
 +OBJ_FILE_LIST_SFX := ar-file-list
@@ -161,8 +161,8 @@
 +endef
 +
 +define write-to-file
-+        @: >$(1)
-+        $(call xargs,@printf "%s\\n" >>$(1),$(2))
++        @echo >$(1)
++        $(call xargs,printf "%s\\n" >>$(1),$(2))
 +endef
 +
 +OBJ_FILE_LIST_SFX := ar-file-list
