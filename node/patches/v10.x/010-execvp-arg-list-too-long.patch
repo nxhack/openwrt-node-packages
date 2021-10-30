@@ -5,8 +5,8 @@
  cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
  
 +define xargs
-+$(1) $(wordlist 1,1000,$(2))
-+$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
++$(1) $(wordlist 1,100,$(2))
++$(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
@@ -36,8 +36,8 @@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
 +define xargs
-+$(1) $(wordlist 1,1000,$(2))
-+$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
++$(1) $(wordlist 1,100,$(2))
++$(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
@@ -91,8 +91,8 @@
  cmd_link = $(LINK.$(TOOLSET)) -o $@ $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -Wl,--start-group $(LD_INPUTS) $(LIBS) -Wl,--end-group
  
 +define xargs
-+$(1) $(wordlist 1,1000,$(2))
-+$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
++$(1) $(wordlist 1,100,$(2))
++$(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
@@ -122,8 +122,8 @@
  cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
  
 +define xargs
-+$(1) $(wordlist 1,1000,$(2))
-+$(if $(word 1001,$(2)),$(call xargs,$(1),$(wordlist 1001,$(words $(2)),$(2))))
++$(1) $(wordlist 1,100,$(2))
++$(if $(word 101,$(2)),$(call xargs,$(1),$(wordlist 101,$(words $(2)),$(2))))
 +endef
 +
 +define write-to-file
