@@ -6,12 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
-ifeq ($(CONFIG_NODEJS_10),y)
-PKG_VERSION:=v10.24.1
-PKG_RELEASE:=3
-PKG_HASH:=d72fc2c244603b4668da94081dc4d6067d467fdfa026e06a274012f16600480c
-PATCH_DIR:=./patches/v10.x
-else
+
 ifeq ($(CONFIG_NODEJS_14),y)
 PKG_VERSION:=v14.18.1
 PKG_RELEASE:=1
@@ -22,7 +17,6 @@ PKG_VERSION:=v12.22.7
 PKG_RELEASE:=1
 PKG_HASH:=cc6a23b44870679a94bd8f3c8d4e1f4b77bb2712a36888ab87463459e6785f6b
 PATCH_DIR:=./patches/v12.x
-endif
 endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
@@ -62,7 +56,7 @@ define Package/node/description
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 
   *** The following preparations must be made on the host side. ***
-      1. gcc 6.3 or higher is required.
+      1. gcc 8.3 or higher is required.
       2. To build a 32-bit target, gcc-multilib, g++-multilib are required.
       3. Requires libatomic package. (If necessary, install the 32-bit library at the same time.)
      ex) sudo apt-get install gcc-multilib g++-multilib
@@ -91,15 +85,12 @@ define Package/node/config
 		help
 		 Select node.js version.
 
-		config NODEJS_10
-			bool "10.x End-of-life : NO LONGER SUPPORTED"
-
 		config NODEJS_12
 			bool "12.x Maintenance LTS"
 
 		config NODEJS_14
 			depends on !(mips||mips64)
-			bool "14.x Active LTS"
+			bool "14.x Maintenance LTS"
 	endchoice
 
 	choice
@@ -124,10 +115,6 @@ define Package/node/config
 endef
 
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
-
-ifeq ($(CONFIG_NODEJS_10),y)
-TARGET_LDFLAGS+=-latomic
-endif
 
 ifneq ($(CONFIG_ARCH_64BIT),y)
 FORCE_32BIT:=-m32
@@ -180,7 +167,9 @@ endef
 
 define Package/node-npm/install
 $(INSTALL_DIR) $(1)/usr/lib/node_modules/npm
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE,*.md} \
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE} \
+		$(1)/usr/lib/node_modules/npm/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/README.md \
 		$(1)/usr/lib/node_modules/npm/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{node_modules,bin,lib} \
 		$(1)/usr/lib/node_modules/npm/
