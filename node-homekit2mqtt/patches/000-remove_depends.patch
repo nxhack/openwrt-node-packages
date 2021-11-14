@@ -1,0 +1,13 @@
+--- a/package.json
++++ b/package.json
+@@ -44,10 +44,7 @@
+     "express-basic-auth": "^1.1.5",
+     "font-awesome": "^4.7.0",
+     "free-jqgrid": "^4.15.4",
+-    "hap-nodejs": "0.4.47",
+-    "homebridge-camera-ffmpeg": "^0.1.8",
+     "jquery": "^3.3.1",
+-    "mqtt": "^2.18.1",
+     "nextport": "^1.0.0",
+     "obj-ease": "^1.0.1",
+     "popper.js": "^1.14.3",
