@@ -62,7 +62,7 @@ endef
 
 define Package/node-homekit2mqtt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{*.json,LICENSE,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{*.json,LICENSE,*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,characteristics,services,ui} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
