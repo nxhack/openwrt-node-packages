@@ -30,7 +30,7 @@ define Package/node-gladysassistant-server
   CATEGORY:=Languages
   TITLE:=Gladys Assistant Server
   URL:=https://gladysassistant.com/
-  DEPENDS:=+node +libopenzwave
+  DEPENDS:=+node +libopenzwave +libudev
 endef
 
 define Package/node-gladysassistant-server/description
@@ -66,8 +66,10 @@ define Build/Compile
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
-	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	rm -f $(PKG_BUILD_DIR)/server/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/server/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/bufferutil/prebuilds
+	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/utf-8-validate/prebuilds
 	cd $(PKG_BUILD_DIR)/front; \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -77,8 +79,8 @@ define Build/Compile
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
-	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	rm -f $(PKG_BUILD_DIR)/front/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/front/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
 define Package/node-gladysassistant-server/install
