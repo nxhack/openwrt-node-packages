@@ -66,10 +66,10 @@ define Build/Compile
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
-	rm -f $(PKG_BUILD_DIR)/server/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/server/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/bufferutil/prebuilds
 	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/utf-8-validate/prebuilds
+	rm -f $(PKG_BUILD_DIR)/server/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/server/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 	cd $(PKG_BUILD_DIR)/front; \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -84,45 +84,43 @@ define Build/Compile
 endef
 
 define Package/node-gladysassistant-server/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)-server
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)-server
 	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.js,*.json} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)-server/
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,README.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)-server/
 	$(CP) $(PKG_BUILD_DIR)/server/{node_modules,lib} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)-server/
 	$(CP) $(PKG_BUILD_DIR)/server/{api,cli,config,migrations,models} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)-server/
 	$(CP) $(PKG_BUILD_DIR)/server/{seeders,services,utils} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
-	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/$(PKG_NPM_NAME)-server $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)-server
+		$(1)/opt/$(PKG_NPM_NAME)-server/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/gladysassistant-server.init $(1)/etc/init.d/gladysassistant-server
 endef
 
 define Package/node-gladysassistant-front/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)-front
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)-front
 	$(CP) $(PKG_BUILD_DIR)/front/{package.json,*.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
+		$(1)/opt/$(PKG_NPM_NAME)-front/
 	$(CP) $(PKG_BUILD_DIR)/LICENSE \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
+		$(1)/opt/$(PKG_NPM_NAME)-front/
 	$(CP) $(PKG_BUILD_DIR)/front/{netlify.toml,README.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
+		$(1)/opt/$(PKG_NPM_NAME)-front/
 	$(CP) $(PKG_BUILD_DIR)/front/{node_modules,cypress,src} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
-	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/$(PKG_NPM_NAME)-front $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)-front
+		$(1)/opt/$(PKG_NPM_NAME)-front/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/gladysassistant-front.init $(1)/etc/init.d/gladysassistant-front
 endef
 
 define Package/node-gladysassistant-server/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/gladysassistant-server || true
-rm -rf /usr/lib/node/gladysassistant-server || true
+rm -rf /opt/gladysassistant-server || true
 endef
 
 define Package/node-gladysassistant-front/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/gladysassistant-front || true
-rm -rf /usr/lib/node/gladysassistant-front || true
+rm -rf /opt/gladysassistant-front || true
 endef
 
 $(eval $(call BuildPackage,node-gladysassistant-server))
