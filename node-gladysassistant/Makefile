@@ -63,7 +63,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --legacy-peer-deps
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/bufferutil/prebuilds
@@ -76,7 +76,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --legacy-peer-deps
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/front/node_modules/.package-lock.json
@@ -85,7 +85,9 @@ endef
 
 define Package/node-gladysassistant-server/install
 	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)-server
-	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.js,*.json} \
+	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.js} \
+		$(1)/opt/$(PKG_NPM_NAME)-server/
+	$(CP) $(PKG_BUILD_DIR)/server/{apidoc.json,jsconfig.json} \
 		$(1)/opt/$(PKG_NPM_NAME)-server/
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,README.md} \
 		$(1)/opt/$(PKG_NPM_NAME)-server/
@@ -93,7 +95,7 @@ define Package/node-gladysassistant-server/install
 		$(1)/opt/$(PKG_NPM_NAME)-server/
 	$(CP) $(PKG_BUILD_DIR)/server/{api,cli,config,migrations,models} \
 		$(1)/opt/$(PKG_NPM_NAME)-server/
-	$(CP) $(PKG_BUILD_DIR)/server/{seeders,services,utils} \
+	$(CP) $(PKG_BUILD_DIR)/server/{seeders,services,test,utils} \
 		$(1)/opt/$(PKG_NPM_NAME)-server/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/gladysassistant-server.init $(1)/etc/init.d/gladysassistant-server
@@ -107,7 +109,7 @@ define Package/node-gladysassistant-front/install
 		$(1)/opt/$(PKG_NPM_NAME)-front/
 	$(CP) $(PKG_BUILD_DIR)/front/{netlify.toml,README.md} \
 		$(1)/opt/$(PKG_NPM_NAME)-front/
-	$(CP) $(PKG_BUILD_DIR)/front/{node_modules,cypress,src} \
+	$(CP) $(PKG_BUILD_DIR)/front/{node_modules,cypress,src,tests} \
 		$(1)/opt/$(PKG_NPM_NAME)-front/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/gladysassistant-front.init $(1)/etc/init.d/gladysassistant-front
