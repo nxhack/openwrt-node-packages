@@ -30,7 +30,7 @@ define Package/node-gladysassistant-server
   CATEGORY:=Languages
   TITLE:=Gladys Assistant Server
   URL:=https://gladysassistant.com/
-  DEPENDS:=+node +libsqlite3 +libopenzwave
+  DEPENDS:=+node +libopenzwave
 endef
 
 define Package/node-gladysassistant-server/description
@@ -43,7 +43,7 @@ define Package/node-gladysassistant-front
   CATEGORY:=Languages
   TITLE:=Gladys Assistant Frontend
   URL:=https://gladysassistant.com/
-  DEPENDS:=+node +libsqlite3 +libopenzwave
+  DEPENDS:=+node
 endef
 
 define Package/node-gladysassistant-front/description
@@ -83,11 +83,15 @@ endef
 
 define Package/node-gladysassistant-server/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)-server
-	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.js,*.json} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
-	$(CP) $(PKG_BUILD_DIR)/server/{LICENSE,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
-	$(CP) $(PKG_BUILD_DIR)/server/{node_modules,lib,examples} \
+	$(CP) $(PKG_BUILD_DIR)/server/{node_modules,lib} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
+	$(CP) $(PKG_BUILD_DIR)/server/{api,cli,config,migrations,models} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
+	$(CP) $(PKG_BUILD_DIR)/server/{seeders,services,utils} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)-server/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME)-server $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)-server
@@ -95,11 +99,13 @@ endef
 
 define Package/node-gladysassistant-front/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)-front
-	$(CP) $(PKG_BUILD_DIR)/front/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/front/{package.json,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
-	$(CP) $(PKG_BUILD_DIR)/front/{LICENSE,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/LICENSE \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
-	$(CP) $(PKG_BUILD_DIR)/front/{node_modules,lib,examples} \
+	$(CP) $(PKG_BUILD_DIR)/front/{netlify.toml,README.md} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
+	$(CP) $(PKG_BUILD_DIR)/front/{node_modules,cypress,src} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)-front/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME)-front $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)-front
