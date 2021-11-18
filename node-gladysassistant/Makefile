@@ -57,20 +57,21 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
-	cd $(PKG_BUILD_DIR)/server; \
+	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --legacy-peer-deps
+	npm install --global-style --no-save --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --legacy-peer-deps
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
-	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/bufferutil/prebuilds
-	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/utf-8-validate/prebuilds
-	rm -f $(PKG_BUILD_DIR)/server/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/server/node_modules -type d -empty -print0 | xargs -0 rmdir || true
-	cd $(PKG_BUILD_DIR)/front; \
+	rm -rf $(PKG_BUILD_DIR)/services/ewelink/node_modules/bufferutil/prebuilds
+	rm -rf $(PKG_BUILD_DIR)/services/ewelink/node_modules/utf-8-validate/prebuilds
+	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+
+	cd $(PKG_BUILD_DIR)/server; \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
@@ -80,17 +81,32 @@ define Build/Compile
 	#npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --legacy-peer-deps
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
+	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/bufferutil/prebuilds
+	rm -rf $(PKG_BUILD_DIR)/server/services/ewelink/node_modules/utf-8-validate/prebuilds
+	rm -f $(PKG_BUILD_DIR)/server/node_modules/.package-lock.json
+	find $(PKG_BUILD_DIR)/server/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+
+	cd $(PKG_BUILD_DIR)/front; \
+	$(MAKE_VARS) \
+	$(MAKE_FLAGS) \
+	npm_config_nodedir=$(STAGING_DIR)/usr/ \
+	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
+	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
+	npm install --global-style --no-save --no-package-lock --build-from-source
+	#npm install --production --global-style --no-save --omit=dev --no-package-lock
+	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
+	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/front/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/front/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
 define Package/node-gladysassistant-server/install
 	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/server
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,README.md} \
+		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.js} \
 		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(CP) $(PKG_BUILD_DIR)/server/{apidoc.json,jsconfig.json} \
-		$(1)/opt/$(PKG_NPM_NAME)/server/
-	$(CP) $(PKG_BUILD_DIR)/{LICENSE,README.md} \
 		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(CP) $(PKG_BUILD_DIR)/server/{node_modules,lib} \
 		$(1)/opt/$(PKG_NPM_NAME)/server/
