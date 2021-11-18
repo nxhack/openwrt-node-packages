@@ -11,7 +11,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/GladysAssistant/Gladys/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=407f34d55ddc75594afb0abbf502a718f3d89a1c65f4657782043dea045fe4d2
+PKG_HASH:=694afc00a189ee12412632ea1a527db8b3aa54ccd81c98449a8c1972550b7c0d
 PKG_BUILD_DIR:=$(BUILD_DIR)/Gladys-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
