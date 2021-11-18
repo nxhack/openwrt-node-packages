@@ -84,45 +84,47 @@ define Build/Compile
 endef
 
 define Package/node-gladysassistant-server/install
-	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)-server
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/server
 	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.js} \
-		$(1)/opt/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(CP) $(PKG_BUILD_DIR)/server/{apidoc.json,jsconfig.json} \
-		$(1)/opt/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,README.md} \
-		$(1)/opt/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(CP) $(PKG_BUILD_DIR)/server/{node_modules,lib} \
-		$(1)/opt/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(CP) $(PKG_BUILD_DIR)/server/{api,cli,config,migrations,models} \
-		$(1)/opt/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(CP) $(PKG_BUILD_DIR)/server/{seeders,services,test,utils} \
-		$(1)/opt/$(PKG_NPM_NAME)-server/
+		$(1)/opt/$(PKG_NPM_NAME)/server/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/gladysassistant-server.init $(1)/etc/init.d/gladysassistant-server
 endef
 
 define Package/node-gladysassistant-front/install
-	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)-front
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/front
 	$(CP) $(PKG_BUILD_DIR)/front/{package.json,*.js} \
-		$(1)/opt/$(PKG_NPM_NAME)-front/
+		$(1)/opt/$(PKG_NPM_NAME)/front/
 	$(CP) $(PKG_BUILD_DIR)/LICENSE \
-		$(1)/opt/$(PKG_NPM_NAME)-front/
+		$(1)/opt/$(PKG_NPM_NAME)/front/
 	$(CP) $(PKG_BUILD_DIR)/front/{netlify.toml,README.md} \
-		$(1)/opt/$(PKG_NPM_NAME)-front/
+		$(1)/opt/$(PKG_NPM_NAME)/front/
 	$(CP) $(PKG_BUILD_DIR)/front/{node_modules,cypress,src,tests} \
-		$(1)/opt/$(PKG_NPM_NAME)-front/
+		$(1)/opt/$(PKG_NPM_NAME)/front/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/gladysassistant-front.init $(1)/etc/init.d/gladysassistant-front
 endef
 
 define Package/node-gladysassistant-server/postrm
 #!/bin/sh
-rm -rf /opt/gladysassistant-server || true
+rm -rf /opt/gladysassistant/server || true
+rmdir /opt/gladysassistant || true
 endef
 
 define Package/node-gladysassistant-front/postrm
 #!/bin/sh
-rm -rf /opt/gladysassistant-front || true
+rm -rf /opt/gladysassistant/front || true
+rmdir /opt/gladysassistant || true
 endef
 
 $(eval $(call BuildPackage,node-gladysassistant-server))
