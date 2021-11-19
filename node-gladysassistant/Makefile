@@ -30,7 +30,7 @@ define Package/node-gladysassistant-server
   CATEGORY:=Languages
   TITLE:=Gladys Assistant Server
   URL:=https://gladysassistant.com/
-  DEPENDS:=+node +libopenzwave +openzwave-config +libudev
+  DEPENDS:=+node +libopenzwave +openzwave-config +libudev +nmap +ffmpeg +sqlite +gzip +bluez
 endef
 
 define Package/node-gladysassistant-server/description
