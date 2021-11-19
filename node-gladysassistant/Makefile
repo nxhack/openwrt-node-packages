@@ -30,7 +30,7 @@ define Package/node-gladysassistant-server
   CATEGORY:=Languages
   TITLE:=Gladys Assistant Server
   URL:=https://gladysassistant.com/
-  DEPENDS:=+node +libopenzwave +libudev
+  DEPENDS:=+node +libopenzwave +openzwave-config +libudev
 endef
 
 define Package/node-gladysassistant-server/description
@@ -102,7 +102,9 @@ endef
 
 define Package/node-gladysassistant-server/install
 	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/server
-	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,README.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,node_modules} \
+		$(1)/opt/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,README.md} \
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/server/{package.json,*.js} \
 		$(1)/opt/$(PKG_NPM_NAME)/server/
@@ -122,8 +124,6 @@ define Package/node-gladysassistant-front/install
 	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/front
 	$(CP) $(PKG_BUILD_DIR)/front/{package.json,*.js} \
 		$(1)/opt/$(PKG_NPM_NAME)/front/
-	$(CP) $(PKG_BUILD_DIR)/LICENSE \
-		$(1)/opt/$(PKG_NPM_NAME)/front/
 	$(CP) $(PKG_BUILD_DIR)/front/{netlify.toml,README.md} \
 		$(1)/opt/$(PKG_NPM_NAME)/front/
 	$(CP) $(PKG_BUILD_DIR)/front/{node_modules,cypress,src,tests} \
@@ -135,6 +135,8 @@ endef
 define Package/node-gladysassistant-server/postrm
 #!/bin/sh
 rm -rf /opt/gladysassistant/server || true
+rm -rf /opt/gladysassistant/node_modules || true
+rm -rf /opt/gladysassistant/{LICENSE,package.json,README.md} || true
 rmdir /opt/gladysassistant || true
 endef
 
