@@ -2,11 +2,11 @@
 +++ b/package.json
 @@ -2,9 +2,6 @@
      "name"          : "node-red-node-serialport",
-     "version"       : "0.14.1",
+     "version"       : "0.15.0",
      "description"   : "Node-RED nodes to talk to serial ports",
 -    "dependencies"  : {
--        "serialport"   : "^9.1.0"
+-        "serialport"   : "^9.2.5"
 -    },
      "repository" : {
          "type":"git",
-         "url":"https://github.com/node-red/node-red-nodes/tree/master/io/serialport"
+         "url":"https://github.com/node-red/node-red-nodes.git"
