@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -70,7 +70,6 @@
+@@ -71,7 +71,6 @@
      "fs-extra": "9.1.0",
      "helmet": "4.4.1",
      "node-cache": "^5.1.2",
