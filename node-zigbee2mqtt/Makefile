@@ -86,10 +86,13 @@ define Package/node-zigbee2mqtt/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zigbee2mqtt.init $(1)/etc/init.d/zigbee2mqtt
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules
+	$(LN) /opt/zigbee2mqtt $(1)/usr/lib/node_modules/zigbee2mqtt
 endef
 
 define Package/node-zigbee2mqtt/postrm
 #!/bin/sh
+rm /usr/lib/node_modules/zigbee2mqtt || true
 rm -rf /opt/zigbee2mqtt || true
 endef
 
