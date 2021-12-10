@@ -27,13 +27,13 @@ define Package/node-zigbee2mqtt
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Zigbee to MQTT bridge using zigbee-shepherd
+  TITLE:=Zigbee to MQTT bridge using Zigbee-herdsman
   URL:=https://github.com/Koenkk/zigbee2mqtt
   DEPENDS:=+node
 endef
 
 define Package/node-zigbee2mqtt/description
-  Allows you to use your Zigbee devices without the vendors bridge or gateway. It bridges events and allows you to control your Zigbee devices via MQTT. In this way you can integrate your Zigbee devices with whatever smart home infrastructure you are using.
+  Allows you to use your Zigbee devices without the vendor's bridge or gateway. It bridges events and allows you to control your Zigbee devices via MQTT. In this way you can integrate your Zigbee devices with whatever smart home infrastructure you are using.
 endef
 
 define Package/node-zigbee2mqtt/conffiles
