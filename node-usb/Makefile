@@ -63,11 +63,9 @@ endef
 
 define Package/node-usb/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{LICENSE,*.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,test} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/usb_bindings.node \
