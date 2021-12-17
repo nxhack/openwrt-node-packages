@@ -66,7 +66,7 @@ define Package/node-usb-v2/install
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
-p		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/usb_bindings.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
