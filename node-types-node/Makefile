@@ -67,7 +67,7 @@ endef
 
 define Package/node-types-node/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.ts,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.ts,*.md} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{assert,dns,fs,stream,timers} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
@@ -97,7 +97,7 @@ endef
 
 define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
-	$(CP) $(HOST_BUILD_DIR)/{package.json,*.ts,*.md} \
+	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE,*.ts,*.md} \
 		$(1)/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(CP) $(HOST_BUILD_DIR)/{assert,dns,fs,stream,timers} \
 		$(1)/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
