@@ -23,16 +23,16 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-usb
+define Package/node-usb-v2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Library to access USB devices
+  TITLE:=Library to access USB devices (v2)
   URL:=https://www.npmjs.com/package/usb
   DEPENDS:=+node +libusb-1.0
 endef
 
-define Package/node-usb/description
+define Package/node-usb-v2/description
  Node.js library for communicating with USB devices in JavaScript / CoffeeScript
 endef
 
@@ -61,12 +61,12 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-usb/install
+define Package/node-usb-v2/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+p		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/usb_bindings.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
@@ -74,10 +74,10 @@ define Package/node-usb/install
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-usb/postrm
+define Package/node-usb-v2/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/usb || true
 rm -rf /usr/lib/node/usb || true
 endef
 
-$(eval $(call BuildPackage,node-usb))
+$(eval $(call BuildPackage,node-usb-v2))
