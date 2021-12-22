@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=zigbee2mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.22.1
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-zigbee2mqtt
   CATEGORY:=Languages
   TITLE:=Zigbee to MQTT bridge using Zigbee-herdsman
   URL:=https://github.com/Koenkk/zigbee2mqtt
-  DEPENDS:=+node
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-zigbee2mqtt/description
