@@ -31,5 +31,5 @@ advanced:
   # Optional: Output location of the log (default: shown below), leave empty to supress logging (log_output: [])
   # possible options: 'console', 'file', 'syslog'
   log_output:
-   # - console
+    - console
     - file
