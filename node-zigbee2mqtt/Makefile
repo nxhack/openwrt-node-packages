@@ -69,8 +69,10 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/locale
 	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/.deps
 	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/obj.target
+	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/build/Release/.deps
 	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/build/Release/obj.target
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/src
 	modclean --no-progress -r --patterns="default:safe" --additional-patterns="*.d.ts,*.gypi,*.mk,*.Makefile" \
 	         --path $(PKG_BUILD_DIR) --ignore="examples,example*"
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
