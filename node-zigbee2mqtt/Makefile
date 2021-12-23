@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=zigbee2mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.22.1
-PKG_RELEASE:=5
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-zigbee2mqtt
   CATEGORY:=Languages
   TITLE:=Zigbee to MQTT bridge using Zigbee-herdsman
   URL:=https://github.com/Koenkk/zigbee2mqtt
-  DEPENDS:=+node
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-zigbee2mqtt/description
@@ -67,7 +67,25 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/locale
-	modclean --no-progress -r --patterns="default:safe" --additional-patterns="*.d.ts" \
+	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/.deps
+	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/obj.target
+	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/src
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/build/Release/.deps
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/build/Release/obj.target
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/src
+	rm -rf $(PKG_BUILD_DIR)/node_modules/rimraf/node_modules/balanced-match/.github
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/.github
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/node-abi/.github
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/node-abi/.circleci
+	rm -rf $(PKG_BUILD_DIR)/node_modules/mqtt/node_modules/mqtt-packet/.github
+	rm -rf $(PKG_BUILD_DIR)/node_modules/mqtt/node_modules/balanced-match/.github
+	rm -rf $(PKG_BUILD_DIR)/node_modules/mqtt/node_modules/help-me/.github
+	rm -rf $(PKG_BUILD_DIR)/node_modules/ajv/node_modules/json-schema-traverse/.github
+	rm -f $(PKG_BUILD_DIR)/node_modules/winston/node_modules/logform/.babelrc
+	rm -f $(PKG_BUILD_DIR)/node_modules/winston/node_modules/winston-transport/.babelrc
+	rm -f $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/.babelrc.js
+	rm -f $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/.prebuild-installrc
+	modclean --no-progress -r --patterns="default:safe" --additional-patterns="*.d.ts,*.gypi,*.mk,*.Makefile" \
 	         --path $(PKG_BUILD_DIR) --ignore="examples,example*"
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
