@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-red-dashboard
-PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=3.1.3
+PKG_NPM_NAME:=homebridge-z2m
+PKG_NAME:=node-$(PKG_NPM_NAME)
+PKG_VERSION:=1.6.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=4d52a5814378b42bf11b1e6a4c21720dddc3cbf744b6fc92cca3929ae4f9a59c
+PKG_HASH:=6c19a41d34a282f70ad54af6b5904941db47fad22f5c27eef59033d5a68ced89
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -23,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-red-dashboard
+define Package/node-homebridge-z2m
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A set of dashboard nodes for Node-RED
-  URL:=https://flows.nodered.org/node/node-red-dashboard
-  DEPENDS:=+node +node-red
+  TITLE:=Expose your Zigbee devices to HomeKit with ease
+  URL:=https://www.npmjs.com/package/homebridge-z2m
+  DEPENDS:=+node +node-homebridge +node-mqtt
 endef
 
-define Package/node-red-dashboard/description
- This module provides a set of nodes in Node-RED to quickly create a live data dashboard.a
+define Package/node-homebridge-z2m/description
+ Expose your Zigbee devices to HomeKit with ease, by integrating Zigbee2MQTT with Homebridge (via an MQTT message broker).
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -59,22 +59,22 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-red-dashboard/install
+define Package/node-homebridge-z2m/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{LICENSE,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{*.md,config.schema.json} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{dist,nodes,node_modules} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist,exposes} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-red-dashboard/postrm
+define Package/node-homebridge-z2m/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/node-red-dashboard || true
-rm -rf /usr/lib/node/node-red-dashboard || true
+rm /usr/lib/node_modules/homebridge-z2m || true
+rm -rf /usr/lib/node/homebridge-z2m || true
 endef
 
-$(eval $(call BuildPackage,node-red-dashboard))
+$(eval $(call BuildPackage,node-homebridge-z2m))
