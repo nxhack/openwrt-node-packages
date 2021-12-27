@@ -67,6 +67,7 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/locale
+	rm -rf $(PKG_BUILD_DIR)/node_modules/ajv/lib
 	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/.deps
 	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/obj.target
 	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/src
