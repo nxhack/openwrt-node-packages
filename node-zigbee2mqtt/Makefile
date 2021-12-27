@@ -62,7 +62,9 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/locale
-	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules --exclude "**/*.map.js" "**/*.png" "**/example/" "**/examples/" --include "**/npm-shrinkwrap.json" "**/.babelrc.js" "**/.prebuild-installrc" "**/obj.target/" "**/config.gypi" "**/binding.Makefile"
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules --exclude "**/*.map.js" "**/*.png" \
+		"**/example/" "**/examples/" --include "**/npm-shrinkwrap.json" "**/.babelrc.js" \
+		"**/.prebuild-installrc" "**/obj.target/" "**/config.gypi" "**/binding.Makefile"
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
