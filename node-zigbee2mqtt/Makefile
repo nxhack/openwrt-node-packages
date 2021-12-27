@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=zigbee2mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.22.1
-PKG_RELEASE:=7
+PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -17,7 +17,7 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=GPL-3.0
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DEPENDS:=node/host node-modclean/host
+PKG_BUILD_DEPENDS:=node/host node-clean-modules/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
@@ -58,39 +58,17 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --prefer-dedupe
-	rm $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/npm-shrinkwrap.json
-	rm $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman-converters/npm-shrinkwrap.json
-	rm -f $(PKG_BUILD_DIR)/node_modules/zigbee2mqtt-frontend/dist/report.html
-	rm -f $(PKG_BUILD_DIR)/node_modules/zigbee2mqtt-frontend/dist/*.map
-	rm -f $(PKG_BUILD_DIR)/node_modules/zigbee2mqtt-frontend/dist/*/*.map
 	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman-converters/node_modules/zigbee-herdsman
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/locale
-	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/.deps
-	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/build/Release/obj.target
-	rm -rf $(PKG_BUILD_DIR)/node_modules/winston-syslog/node_modules/unix-dgram/src
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/build/Release/.deps
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/build/Release/obj.target
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/src
-	rm -rf $(PKG_BUILD_DIR)/node_modules/rimraf/node_modules/balanced-match/.github
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/.github
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/node-abi/.github
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/node-abi/.circleci
-	rm -rf $(PKG_BUILD_DIR)/node_modules/mqtt/node_modules/mqtt-packet/.github
-	rm -rf $(PKG_BUILD_DIR)/node_modules/mqtt/node_modules/balanced-match/.github
-	rm -rf $(PKG_BUILD_DIR)/node_modules/mqtt/node_modules/help-me/.github
-	rm -rf $(PKG_BUILD_DIR)/node_modules/ajv/node_modules/json-schema-traverse/.github
-	rm -f $(PKG_BUILD_DIR)/node_modules/winston/node_modules/logform/.babelrc
-	rm -f $(PKG_BUILD_DIR)/node_modules/winston/node_modules/winston-transport/.babelrc
-	rm -f $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/.babelrc.js
-	rm -f $(PKG_BUILD_DIR)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings/.prebuild-installrc
-	modclean --no-progress -r --patterns="default:safe" --additional-patterns="*.d.ts,*.gypi,*.mk,*.Makefile" \
-	         --path $(PKG_BUILD_DIR) --ignore="examples,example*"
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules --exclude "**/*.map.js" "**/*.png" \
+		"**/example/" "**/examples/" --include "**/npm-shrinkwrap.json" "**/.babelrc.js" \
+		"**/.prebuild-installrc" "**/obj.target/" "**/config.gypi" "**/binding.Makefile"
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
+	#find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
 endef
 
 define Package/node-zigbee2mqtt/install
