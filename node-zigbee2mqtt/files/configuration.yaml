@@ -17,10 +17,13 @@ mqtt:
 # Serial settings
 serial:
   # Location of CC2531 USB sniffer
-  port: /dev/ttyACM0
+  #port: /dev/ttyACM0
+  port: /dev/ttyUSB0
 
 advanced:
   #baudrate: 1000000
+  rtscts: false
+  #
   log_level: info
   # Optional: Location of log directory (default: shown below)
   log_directory: /tmp/log/zigbee2mqtt/%TIMESTAMP%
@@ -33,3 +36,7 @@ advanced:
   log_output:
     - console
     - file
+
+#frontend:
+#  port: 8080
+#  host: 0.0.0.0
