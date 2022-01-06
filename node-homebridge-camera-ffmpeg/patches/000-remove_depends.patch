@@ -1,11 +1,11 @@
 --- a/package.json
 +++ b/package.json
 @@ -69,8 +69,6 @@
-     "typescript": "^4.3.5"
+     "typescript": "^4.5.4"
    },
    "dependencies": {
 -    "ffmpeg-for-homebridge": "^0.0.9",
--    "mqtt": "^4.2.8",
+-    "mqtt": "4.2.8",
      "pick-port": "^1.0.0"
    }
  }
