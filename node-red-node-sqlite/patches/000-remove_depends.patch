@@ -2,7 +2,7 @@
 +++ b/package.json
 @@ -2,9 +2,6 @@
      "name": "node-red-node-sqlite",
-     "version": "1.0.1",
+     "version": "1.0.3",
      "description": "A sqlite node for Node-RED",
 -    "dependencies": {
 -        "sqlite3": "^5.0.2"
