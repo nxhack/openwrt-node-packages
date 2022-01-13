@@ -7,13 +7,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=homebridge-config-ui-x
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.41.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=8e537231f655251d253a40473e17fb521bd55fe9626b7dbfff4ab4eab7c84d1c
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node/host node-clean-modules/host
 PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
@@ -28,7 +28,7 @@ define Package/node-homebridge-config-ui-x
   CATEGORY:=Languages
   TITLE:=Homebridge Config UI X
   URL:=https://www.npmjs.org/package/homebridge-config-ui-x
-  DEPENDS:=+node +node-homebridge +sudo +node-pty-prebuilt-multiarch
+  DEPENDS:=+node +node-homebridge +sudo +node-pty-prebuilt-multiarch +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-homebridge-config-ui-x/description
@@ -41,8 +41,9 @@ define Package/node-homebridge-config-ui-x/description
  *** The hb-service command is not full compatible with the openwrt environment. ***
  *** You can edit config.json using the Homebridge Config UI X. ***
 
-      See: https://github.com/oznu/homebridge-config-ui-x#configuration
-           https://github.com/oznu/homebridge-config-ui-x#logs-from-custom-command
+      See: https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration
+           https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration#logs-from-custom-command
+           https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration#sudo-mode
 
         "platforms": [
             {
@@ -75,11 +76,17 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --prefer-dedupe
+	rm -rf $(PKG_BUILD_DIR)/node_modules/fastify/node_modules/light-my-request/node_modules/ajv/lib
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@nestjs/platform-fastify/node_modules/light-my-request/node_modules/ajv/lib
+	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/min
+	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/src
+	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/locale
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules --exclude "**/*.png" "**/example/" "**/examples/"
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
 endef
 
 define Package/node-homebridge-config-ui-x/install
