@@ -41,8 +41,9 @@ define Package/node-homebridge-config-ui-x/description
  *** The hb-service command is not full compatible with the openwrt environment. ***
  *** You can edit config.json using the Homebridge Config UI X. ***
 
-      See: https://github.com/oznu/homebridge-config-ui-x#configuration
-           https://github.com/oznu/homebridge-config-ui-x#logs-from-custom-command
+      See: https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration
+           https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration#logs-from-custom-command
+           https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration#sudo-mode
 
         "platforms": [
             {
