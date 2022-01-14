@@ -6,18 +6,18 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=2.1.4
+PKG_VERSION:=2.1.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=e840fa1c7d7b25b0565551ad3582e24214cefb772a9af0238a9f7dac94f4dabb
+PKG_HASH:=f33e6ed377f453b5e5e1bcabc71bcac6a86d670030136a326c08984b445b8f2f
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node/host node-clean-modules/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
@@ -56,11 +56,15 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock --omit=optional --no-optional
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --omit=optional --no-optional --prefer-dedupe
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/nodes/node_modules/ajv/lib
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/util/node_modules/moment/min
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/util/node_modules/moment/src
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/util/node_modules/moment/locale
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
 endef
 
 define Package/node-red/install
