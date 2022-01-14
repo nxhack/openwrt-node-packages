@@ -57,6 +57,7 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --omit=optional --no-optional --prefer-dedupe
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules --exclude "**/*.png" "**/example/" "**/examples/"
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/nodes/node_modules/ajv/lib
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/util/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/util/node_modules/moment/src
