@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=modbus-serial
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=8.0.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -66,7 +66,7 @@ define Package/node-modbus-serial/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,apis,utils} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,apis,utils,worker} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{examples,ports,servers,test} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
