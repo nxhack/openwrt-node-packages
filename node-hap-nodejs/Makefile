@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=hap-nodejs
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.9.8
+PKG_VERSION:=0.10.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=dbf16c11871cc81c6ef4acbc2b8e43db929a435b8cd2532205d212e9f4e15688
+PKG_HASH:=7770451c527308101876445162cbf6a1292e3b3067873788188056ab5b7bc5f4
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -53,6 +53,8 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --legacy-peer-deps
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/ftoi
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/itof
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
