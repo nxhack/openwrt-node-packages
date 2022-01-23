@@ -53,8 +53,8 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --legacy-peer-deps
-	rm -rf $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/ftoi
-	rm -rf $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/itof
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/ftoi
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/itof
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
