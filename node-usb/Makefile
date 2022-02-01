@@ -6,18 +6,18 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=usb
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.9.2
+PKG_VERSION:=2.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=48f07989f441cfb3e161557e5e2e0fd22d45b58aafd4b3c380b2ee73b6fd1d5c
+PKG_HASH:=3b5cd19e41d6e08e98b3686a10e2f49488b47b670e20017522e674bfbb351e6f
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node/host node-yarn/host node-typescript/host node-types-node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
@@ -27,7 +27,7 @@ define Package/node-usb
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Library to access USB devices
+  TITLE:=Library to access USB devices (v2)
   URL:=https://www.npmjs.com/package/usb
   DEPENDS:=+node +libusb-1.0
 endef
@@ -63,11 +63,9 @@ endef
 
 define Package/node-usb/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{LICENSE,*.js} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,test} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/usb_bindings.node \
