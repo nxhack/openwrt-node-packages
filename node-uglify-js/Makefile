@@ -108,6 +108,7 @@ define Host/Install
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/uglifyjs $(1)/bin/uglifyjs
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/uglifyjs
 endef
 
 $(eval $(call HostBuild))
