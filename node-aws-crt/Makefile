@@ -17,13 +17,11 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
-#PKG_BUILD_DEPENDS:=node/host golang/host
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
-#include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/node-aws-crt
   SUBMENU:=Node.js
@@ -31,8 +29,7 @@ define Package/node-aws-crt
   CATEGORY:=Languages
   TITLE:=NodeJS bindings for the AWS Common Runtime
   URL:=https://www.npmjs.com/package/aws-crt
-  DEPENDS:=+node @(i386||x86_64||aarch64||arm)
-#  DEPENDS:=+node @(i386||x86_64||aarch64||arm) $(GO_ARCH_DEPENDS)
+  DEPENDS:=+node @(x86_64||aarch64)
 endef
 
 define Package/node-aws-crt/description
