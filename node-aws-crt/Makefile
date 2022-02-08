@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=aws-crt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.5.2
-PKG_RELEASE:=2
+PKG_VERSION:=1.10.6
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d8eeb11dc1d223c67b74b23af9d3e13cb3252ed3972a65d5b505655a4afa3529
+PKG_HASH:=0d0667229a3496d8f5ba8a61c0806034596ced7f7dfce09b43cc55d7225a2e07
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -29,7 +29,7 @@ define Package/node-aws-crt
   CATEGORY:=Languages
   TITLE:=NodeJS bindings for the AWS Common Runtime
   URL:=https://www.npmjs.com/package/aws-crt
-  DEPENDS:=+node @(i386||x86_64||aarch64||arm)
+  DEPENDS:=+node @(x86_64||aarch64)
 endef
 
 define Package/node-aws-crt/description
@@ -63,7 +63,8 @@ define Build/Compile
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock --ignore-scripts --legacy-peer-deps
+	TARGET_CROSS="$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)" \
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --ignore-scripts
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -72,11 +73,12 @@ define Build/Compile
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
-	npm run install --production --global-style --no-save --omit=dev --no-package-lock --legacy-peer-deps --build-from-source --target_arch=$(NODEJS_CPU)
+	TARGET_CROSS="$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)" \
+	npm run install --production --global-style --no-save --omit=dev --no-package-lock
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
 endef
 
 define Package/node-aws-crt/install
@@ -93,7 +95,7 @@ define Package/node-aws-crt/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_BUILD_DIR)/build/lib/libs2n* \
 		$(1)/usr/lib/
-	$(CP) $(PKG_BUILD_DIR)/build/Release/libaws-c-* \
+	$(CP) $(PKG_BUILD_DIR)/build/Release/lib* \
 		$(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
