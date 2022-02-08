@@ -24,7 +24,7 @@
          CMAKE_INSTALL_PREFIX: 'crt/install',
          CMAKE_PREFIX_PATH: 'crt/install',
      }
-@@ -116,6 +126,14 @@ function buildLocally() {
+@@ -116,6 +126,18 @@ function buildLocally() {
          }
      }
  
@@ -33,6 +33,10 @@
 +        console.log(error, stdout, stderr);
 +    });
 +    exec("find ./crt  \\( -name CMakeLists.txt -or -name *.mk -or -name *.cmake \\) -exec sed -i -e 's|-D_FORTIFY_SOURCE=2||g' {} +", (error, stdout, stderr) => {
++        console.log(error, stdout, stderr);
++    });
++
++    exec("sed -i '35d' ./crt/aws-c-common/cmake/AwsSharedLibSetup.cmake", (error, stdout, stderr) => {
 +        console.log(error, stdout, stderr);
 +    });
 +
