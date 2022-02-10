@@ -75,7 +75,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1937,15 +1945,19 @@
+@@ -1934,15 +1942,19 @@
          }],
        ],
        'direct_dependent_settings': {
