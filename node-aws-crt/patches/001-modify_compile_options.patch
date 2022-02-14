@@ -1,32 +1,36 @@
 --- a/scripts/build.js
 +++ b/scripts/build.js
-@@ -11,6 +11,10 @@ const path = require("path");
+@@ -11,6 +11,11 @@ const path = require("path");
  const cmake = require("cmake-js");
  const axios = require("axios");
  const tar = require('tar');
 +
 +const exec = require('child_process').exec;
 +const TARGET_CROSS = process.env.TARGET_CROSS;
++const SYSTEM_PROCESSOR = process.env.CMAKE_SYSTEM_PROCESSOR;
 +
  function rmRecursive(rmPath) {
      let rmBasePath = path.basename(rmPath);
      if (rmBasePath == "." || rmBasePath == "..") {
-@@ -104,6 +108,12 @@ function buildLocally() {
+@@ -104,6 +109,15 @@ function buildLocally() {
          CMAKE_JS_PLATFORM: os.platform,
          CMAKE_JS_ARCH: os.arch,
          BUILD_TESTING: 'OFF',
-+        BUILD_LIBSSL: 'ON',
++        BUILD_LIBSSL: 'OFF',
++        USE_OPENSSL: 'ON',
++        OPENSSL_NO_ASM: 'ON',
 +        BUILD_SHARED_LIBS: 'ON',
 +        CMAKE_CROSSCOMPILING: 'TRUE',
 +        CMAKE_C_COMPILER_FORCED: 'TRUE',
++        CMAKE_SYSTEM_PROCESSOR: `${SYSTEM_PROCESSOR}`,
 +        CMAKE_OBJCOPY: `${TARGET_CROSS}objcopy`,
 +        CMAKE_STRIP: `${TARGET_CROSS}strip`,
          CMAKE_INSTALL_PREFIX: 'crt/install',
          CMAKE_PREFIX_PATH: 'crt/install',
      }
-@@ -116,6 +126,18 @@ function buildLocally() {
-         }
-     }
+@@ -119,6 +133,18 @@ function buildLocally() {
+     // Enable parallel build (ignored by cmake older than 3.12)
+     process.env.CMAKE_BUILD_PARALLEL_LEVEL = `${Math.max(os.cpus().length, 1)}`;
  
 +    // Bad technique (for OpenWrt)
 +    exec("find ./crt  \\( -name CMakeLists.txt -or -name *.mk -or -name *.cmake \\) -exec sed -i -e 's| -Werror||g' {} +", (error, stdout, stderr) => {
