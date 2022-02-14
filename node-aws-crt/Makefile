@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=aws-crt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.10.6
+PKG_VERSION:=1.11.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=0d0667229a3496d8f5ba8a61c0806034596ced7f7dfce09b43cc55d7225a2e07
+PKG_HASH:=0a0ad9e45a90174580490d3ae2a2a509e681daa910ee6067949f98b8f380954e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -29,7 +29,7 @@ define Package/node-aws-crt
   CATEGORY:=Languages
   TITLE:=NodeJS bindings for the AWS Common Runtime
   URL:=https://www.npmjs.com/package/aws-crt
-  DEPENDS:=+node @(x86_64||aarch64)
+  DEPENDS:=+node @(x86_64||aarch64||arm)
 endef
 
 define Package/node-aws-crt/description
@@ -63,6 +63,7 @@ define Build/Compile
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
+	CMAKE_SYSTEM_PROCESSOR="$(ARCH)" \
 	TARGET_CROSS="$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)" \
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --ignore-scripts
 	cd $(PKG_BUILD_DIR); \
@@ -73,6 +74,7 @@ define Build/Compile
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
 	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
+	CMAKE_SYSTEM_PROCESSOR="$(ARCH)" \
 	TARGET_CROSS="$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)" \
 	npm run install --production --global-style --no-save --omit=dev --no-package-lock
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
