@@ -1,10 +1,10 @@
 --- a/package.json
 +++ b/package.json
-@@ -6,7 +6,6 @@
-     "serialport-list": "./lib/index.js"
+@@ -10,7 +10,6 @@
+     "build": "tsc --build tsconfig-build.json"
    },
    "dependencies": {
--    "@serialport/bindings": "9.2.8",
-     "commander": "^7.1.0"
+-    "@serialport/bindings-cpp": "10.6.3",
+     "commander": "^9.0.0"
    },
    "engines": {
