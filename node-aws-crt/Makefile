@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=aws-crt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.11.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -54,8 +54,7 @@ define Build/Install
 endef
 
 define Build/Compile
-	rm -rf $(PKG_BUILD_DIR)/dist
-	rm -rf $(PKG_BUILD_DIR)/dist.browser
+	rm -rf $(PKG_BUILD_DIR)/dist/bin
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -117,7 +116,7 @@ define Package/node-aws-crt/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,NOTICE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/node_modules \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/aws-crt-nodejs.node \
