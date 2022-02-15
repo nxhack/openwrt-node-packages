@@ -1,31 +1,82 @@
-diff --git a/appveyor.yml b/.appveyor.yml
-similarity index 91%
-rename from appveyor.yml
-rename to .appveyor.yml
-index 955348e..aaa34d4 100644
 --- a/appveyor.yml
-+++ b/.appveyor.yml
-@@ -1,15 +1,10 @@
++++ /dev/null
+@@ -1,39 +0,0 @@
 -branches:
 -  only:
 -    - master
 -    - /^v?[0-9]/
 -
- environment:
-   GYP_MSVS_VERSION: 2013
- 
-   matrix:
+-environment:
+-  GYP_MSVS_VERSION: 2013
+-
+-  matrix:
 -    - node_version: '4'
 -    - node_version: '5'
-     - node_version: '6'
+-    - node_version: '6'
+-
+-install:
+-  - ps: Install-Product node $env:node_version $env:platform
+-  - ps: npm install -g node-gyp node-pre-gyp-github
+-  # This fixes an issue with Node 4.x on x86. If it builds without this line
+-  # needing to be set, we can remove it.
+-  - ps: npm config -g set node-gyp "$(npm config -g get prefix)\node_modules\node-gyp\bin\node-gyp.js"
+-
+-  - ps: if ($env:appveyor_repo_tag -match "true" -and $env:appveyor_repo_tag_name -match '^v?[0-9]') { $publish_binary=1; }
+-
+-build_script:
+-  - ps: echo $publish_binary
+-  - ps: |
+-      $ErrorActionPreference = 'Continue'
+-      git submodule update --init 2>&1 | write-host
+-      npm install --build-from-source 2>&1 | write-host
+-      ./node_modules/.bin/node-pre-gyp package 2>&1 | write-host
+-      if ($publish_binary -Eq "1") {
+-        node-pre-gyp-github publish 2>&1 | write-host
+-        if (-Not ($?)) {
+-          throw "Failed publishing";
+-        }
+-      }
+-      echo "done."
+-platform:
+-  - x86
+-  - x64
+--- /dev/null
++++ b/.appveyor.yml
+@@ -0,0 +1,34 @@
++environment:
++  GYP_MSVS_VERSION: 2013
++
++  matrix:
++    - node_version: '6'
 +    - node_version: '8'
 +    - node_version: '10'
- 
- install:
-   - ps: Install-Product node $env:node_version $env:platform
-diff --git a/.eslintrc.json b/.eslintrc.json
-new file mode 100644
-index 0000000..95ae63f
++
++install:
++  - ps: Install-Product node $env:node_version $env:platform
++  - ps: npm install -g node-gyp node-pre-gyp-github
++  # This fixes an issue with Node 4.x on x86. If it builds without this line
++  # needing to be set, we can remove it.
++  - ps: npm config -g set node-gyp "$(npm config -g get prefix)\node_modules\node-gyp\bin\node-gyp.js"
++
++  - ps: if ($env:appveyor_repo_tag -match "true" -and $env:appveyor_repo_tag_name -match '^v?[0-9]') { $publish_binary=1; }
++
++build_script:
++  - ps: echo $publish_binary
++  - ps: |
++      $ErrorActionPreference = 'Continue'
++      git submodule update --init 2>&1 | write-host
++      npm install --build-from-source 2>&1 | write-host
++      ./node_modules/.bin/node-pre-gyp package 2>&1 | write-host
++      if ($publish_binary -Eq "1") {
++        node-pre-gyp-github publish 2>&1 | write-host
++        if (-Not ($?)) {
++          throw "Failed publishing";
++        }
++      }
++      echo "done."
++platform:
++  - x86
++  - x64
 --- /dev/null
 +++ b/.eslintrc.json
 @@ -0,0 +1,27 @@
@@ -56,8 +107,6 @@ index 0000000..95ae63f
 +    "semi": ["error", "always"]
 +  }
 +}
-diff --git a/.travis.yml b/.travis.yml
-index 4707af0..4fda159 100644
 --- a/.travis.yml
 +++ b/.travis.yml
 @@ -1,17 +1,12 @@
@@ -80,8 +129,6 @@ index 4707af0..4fda159 100644
  
  before_install:
    - sudo apt-get install build-essential libudev-dev -y
-diff --git a/README.md b/README.md
-index 43f792a..e6606ab 100644
 --- a/README.md
 +++ b/README.md
 @@ -53,7 +53,7 @@ npm install bluetooth-hci-socket
@@ -93,7 +140,7 @@ index 43f792a..e6606ab 100644
  ```
  
  ### Actions
-@@ -61,13 +61,13 @@ var BluetoothHciSocket = require('bluetooth-hci-socket');
+@@ -61,13 +61,13 @@ var BluetoothHciSocket = require('blueto
  #### Create
  
  ```javascript
@@ -118,7 +165,7 @@ index 43f792a..e6606ab 100644
  ```
  
  __Note:__ must be called after ```bindRaw```.
-@@ -125,7 +125,7 @@ __Note:__ must be called after ```bindRaw``` or ```bindControl```.
+@@ -125,7 +125,7 @@ __Note:__ must be called after ```bindRa
  #### Write
  
  ```javascript
@@ -127,8 +174,6 @@ index 43f792a..e6606ab 100644
  
  // ...
  
-diff --git a/binding.gyp b/binding.gyp
-index 241f117..342b273 100644
 --- a/binding.gyp
 +++ b/binding.gyp
 @@ -1,7 +1,7 @@
@@ -140,8 +185,6 @@ index 241f117..342b273 100644
        'conditions': [
          ['OS=="linux" or OS=="android" or OS=="freebsd"', {
            'sources': [
-diff --git a/examples/le-advertisement-test.js b/examples/le-advertisement-test.js
-index 9620e38..71cbf07 100644
 --- a/examples/le-advertisement-test.js
 +++ b/examples/le-advertisement-test.js
 @@ -1,13 +1,14 @@
@@ -163,7 +206,7 @@ index 9620e38..71cbf07 100644
          if (data.readUInt8(6) === HCI_SUCCESS) {
            console.log('LE Advertising Parameters Set');
          }
-@@ -25,54 +26,54 @@ bluetoothHciSocket.on('data', function(data) {
+@@ -25,54 +26,54 @@ bluetoothHciSocket.on('data', function(d
          }
        }
      } else if (data.readUInt8(1) === EVT_DISCONN_COMPLETE) {
@@ -254,46 +297,50 @@ index 9620e38..71cbf07 100644
        }
      }
    }
-@@ -90,37 +91,37 @@ bluetoothHciSocket.on('error', function(error) {
+@@ -90,37 +91,37 @@ bluetoothHciSocket.on('error', function(
    }
  });
  
 -var HCI_COMMAND_PKT = 0x01;
 -var HCI_ACLDATA_PKT = 0x02;
 -var HCI_EVENT_PKT = 0x04;
-+const HCI_COMMAND_PKT = 0x01;
-+const HCI_ACLDATA_PKT = 0x02;
-+const HCI_EVENT_PKT = 0x04;
- 
+-
 -var EVT_DISCONN_COMPLETE = 0x05;
 -var EVT_CMD_COMPLETE = 0x0e;
 -var EVT_CMD_STATUS = 0x0f;
 -var EVT_LE_META_EVENT = 0x3e;
-+const EVT_DISCONN_COMPLETE = 0x05;
-+const EVT_CMD_COMPLETE = 0x0e;
-+const EVT_CMD_STATUS = 0x0f;
-+const EVT_LE_META_EVENT = 0x3e;
- 
+-
 -var EVT_LE_CONN_COMPLETE = 0x01;
 -var EVT_LE_CONN_UPDATE_COMPLETE = 0x03;
-+const EVT_LE_CONN_COMPLETE = 0x01;
-+const EVT_LE_CONN_UPDATE_COMPLETE = 0x03;
- 
+-
 -var OGF_LE_CTL = 0x08;
 -var OCF_LE_SET_ADVERTISING_PARAMETERS = 0x0006;
 -var OCF_LE_SET_ADVERTISING_DATA = 0x0008;
 -var OCF_LE_SET_SCAN_RESPONSE_DATA = 0x0009;
 -var OCF_LE_SET_ADVERTISE_ENABLE = 0x000a;
+-
+-var LE_SET_ADVERTISING_PARAMETERS_CMD = OCF_LE_SET_ADVERTISING_PARAMETERS | OGF_LE_CTL << 10;
+-var LE_SET_ADVERTISING_DATA_CMD = OCF_LE_SET_ADVERTISING_DATA | OGF_LE_CTL << 10;
+-var LE_SET_SCAN_RESPONSE_DATA_CMD = OCF_LE_SET_SCAN_RESPONSE_DATA | OGF_LE_CTL << 10;
+-var LE_SET_ADVERTISE_ENABLE_CMD = OCF_LE_SET_ADVERTISE_ENABLE | OGF_LE_CTL << 10;
++const HCI_COMMAND_PKT = 0x01;
++const HCI_ACLDATA_PKT = 0x02;
++const HCI_EVENT_PKT = 0x04;
++
++const EVT_DISCONN_COMPLETE = 0x05;
++const EVT_CMD_COMPLETE = 0x0e;
++const EVT_CMD_STATUS = 0x0f;
++const EVT_LE_META_EVENT = 0x3e;
++
++const EVT_LE_CONN_COMPLETE = 0x01;
++const EVT_LE_CONN_UPDATE_COMPLETE = 0x03;
++
 +const OGF_LE_CTL = 0x08;
 +const OCF_LE_SET_ADVERTISING_PARAMETERS = 0x0006;
 +const OCF_LE_SET_ADVERTISING_DATA = 0x0008;
 +const OCF_LE_SET_SCAN_RESPONSE_DATA = 0x0009;
 +const OCF_LE_SET_ADVERTISE_ENABLE = 0x000a;
- 
--var LE_SET_ADVERTISING_PARAMETERS_CMD = OCF_LE_SET_ADVERTISING_PARAMETERS | OGF_LE_CTL << 10;
--var LE_SET_ADVERTISING_DATA_CMD = OCF_LE_SET_ADVERTISING_DATA | OGF_LE_CTL << 10;
--var LE_SET_SCAN_RESPONSE_DATA_CMD = OCF_LE_SET_SCAN_RESPONSE_DATA | OGF_LE_CTL << 10;
--var LE_SET_ADVERTISE_ENABLE_CMD = OCF_LE_SET_ADVERTISE_ENABLE | OGF_LE_CTL << 10;
++
 +const LE_SET_ADVERTISING_PARAMETERS_CMD = OCF_LE_SET_ADVERTISING_PARAMETERS | OGF_LE_CTL << 10;
 +const LE_SET_ADVERTISING_DATA_CMD = OCF_LE_SET_ADVERTISING_DATA | OGF_LE_CTL << 10;
 +const LE_SET_SCAN_RESPONSE_DATA_CMD = OCF_LE_SET_SCAN_RESPONSE_DATA | OGF_LE_CTL << 10;
@@ -399,8 +446,6 @@ index 9620e38..71cbf07 100644
 +setScanResponseData(Buffer.from('0909657374696d6f74650e160a182eb8855fb5ddb601000200', 'hex'));
 +setAdvertisingData(Buffer.from('0201061aff4c000215b9407f30f5f8466eaff925556b57fe6d00010002b6', 'hex'));
  setAdvertiseEnable(true);
-diff --git a/examples/le-connection-test.js b/examples/le-connection-test.js
-index 003e778..bcf7b41 100644
 --- a/examples/le-connection-test.js
 +++ b/examples/le-connection-test.js
 @@ -1,74 +1,74 @@
@@ -523,7 +568,7 @@ index 003e778..bcf7b41 100644
      }
    }
  });
-@@ -83,40 +83,38 @@ bluetoothHciSocket.on('error', function(error) {
+@@ -83,40 +83,38 @@ bluetoothHciSocket.on('error', function(
    }
  });
  
@@ -595,7 +640,7 @@ index 003e778..bcf7b41 100644
  
    // header
    cmd.writeUInt8(HCI_COMMAND_PKT, 0);
-@@ -146,7 +144,7 @@ function createConnection(address, addressType) {
+@@ -146,7 +144,7 @@ function createConnection(address, addre
    cmd.writeUInt8(0x00, 8); // initiator filter
  
    cmd.writeUInt8(addressType === 'random' ? 0x01 : 0x00, 9); // peer address type
@@ -604,7 +649,7 @@ index 003e778..bcf7b41 100644
  
    cmd.writeUInt8(0x00, 16); // own address type
  
-@@ -161,7 +159,7 @@ function createConnection(address, addressType) {
+@@ -161,7 +159,7 @@ function createConnection(address, addre
  }
  
  function writeHandle(handle, data) {
@@ -622,8 +667,6 @@ index 003e778..bcf7b41 100644
  
    // header
    cmd.writeUInt8(HCI_COMMAND_PKT, 0);
-diff --git a/examples/le-scan-test.js b/examples/le-scan-test.js
-index e573c53..581d7d0 100644
 --- a/examples/le-scan-test.js
 +++ b/examples/le-scan-test.js
 @@ -1,9 +1,10 @@
@@ -640,7 +683,7 @@ index e573c53..581d7d0 100644
  
    if (data.readUInt8(0) === HCI_EVENT_PKT) {
      if (data.readUInt8(1) === EVT_CMD_COMPLETE) {
-@@ -18,19 +19,19 @@ bluetoothHciSocket.on('data', function(data) {
+@@ -18,19 +19,19 @@ bluetoothHciSocket.on('data', function(d
        }
      } else if (data.readUInt8(1) === EVT_LE_META_EVENT) {
        if (data.readUInt8(3) === EVT_LE_ADVERTISING_REPORT) { // subevent
@@ -670,7 +713,7 @@ index e573c53..581d7d0 100644
        }
      }
    }
-@@ -48,32 +49,31 @@ bluetoothHciSocket.on('error', function(error) {
+@@ -48,32 +49,31 @@ bluetoothHciSocket.on('error', function(
    }
  });
  
@@ -738,8 +781,6 @@ index e573c53..581d7d0 100644
  
    // header
    cmd.writeUInt8(HCI_COMMAND_PKT, 0);
-diff --git a/examples/list-devices-test.js b/examples/list-devices-test.js
-index fe0c69c..e14c762 100644
 --- a/examples/list-devices-test.js
 +++ b/examples/list-devices-test.js
 @@ -1,9 +1,10 @@
@@ -762,8 +803,6 @@ index fe0c69c..e14c762 100644
 +const nativeBluetoothHciSocket = new NativeBluetoothHciSocket();
 +const nativeDevices = nativeBluetoothHciSocket.getDeviceList();
 +console.log('nativeDevices: ', nativeDevices);
-diff --git a/examples/mgmt-test.js b/examples/mgmt-test.js
-index b5935e3..7cf3114 100644
 --- a/examples/mgmt-test.js
 +++ b/examples/mgmt-test.js
 @@ -1,8 +1,9 @@
@@ -798,15 +837,16 @@ index b5935e3..7cf3114 100644
 -  var length = data.readUInt16LE(4);
 -  var opcode = data.readUInt16LE(6);
 -  var status = data.readUInt8(8);
-+  const index = data.readUInt16LE(2);
-+  const length = data.readUInt16LE(4);
-+  const opcode = data.readUInt16LE(6);
-+  const status = data.readUInt8(8);
- 
+-
 -  console.log('\tindex = ' + index);
 -  console.log('\tlength = ' + length);
 -  console.log('\topcode = ' + opcode);
 -  console.log('\tstatus = ' + status + ' (' + STATUS_MAPPER[status] + ')');
++  const index = data.readUInt16LE(2);
++  const length = data.readUInt16LE(4);
++  const opcode = data.readUInt16LE(6);
++  const status = data.readUInt8(8);
++
 +  console.log(`\tindex = ${index}`);
 +  console.log(`\tlength = ${length}`);
 +  console.log(`\topcode = ${opcode}`);
@@ -831,7 +871,7 @@ index b5935e3..7cf3114 100644
      }
    }
  
-@@ -62,17 +62,17 @@ bluetoothHciSocket.on('data', function(data) {
+@@ -62,17 +62,17 @@ bluetoothHciSocket.on('data', function(d
  });
  
  bluetoothHciSocket.on('error', function(error) {
@@ -861,8 +901,6 @@ index b5935e3..7cf3114 100644
    bluetoothHciSocket.write(pkt);
  }
  
-diff --git a/lib/native.js b/lib/native.js
-index 68c4e79..f36106b 100644
 --- a/lib/native.js
 +++ b/lib/native.js
 @@ -1,19 +1,13 @@
@@ -893,8 +931,6 @@ index 68c4e79..f36106b 100644
 +util.inherits(BluetoothHciSocket, events.EventEmitter);
  
  module.exports = BluetoothHciSocket;
-diff --git a/lib/usb.js b/lib/usb.js
-index 1027b36..0260df2 100644
 --- a/lib/usb.js
 +++ b/lib/usb.js
 @@ -1,17 +1,16 @@
@@ -1026,13 +1062,10 @@ index 1027b36..0260df2 100644
 -      .map(d => usb.findByIds(d.vid, d.pid))
 -      .find(d => d != null);
 -  }
- 
+-
 -  if (!this._usbDevice) {
 -    throw new Error('No compatible USB Bluetooth 4.0 device found!');
 -  }
-+    if (!this._usbDevice) {
-+      throw new Error('No compatible USB Bluetooth 4.0 device found!');
-+    }
  
 -  this._usbDevice.open();
 -
@@ -1045,7 +1078,10 @@ index 1027b36..0260df2 100644
 -
 -  this._usbDeviceInterface.claim();
 -};
--
++    if (!this._usbDevice) {
++      throw new Error('No compatible USB Bluetooth 4.0 device found!');
++    }
+ 
 -BluetoothHciSocket.prototype.getDeviceList = function() {
 -  return usb.getDeviceList()
 -    .filter(dev => {
@@ -1162,38 +1198,29 @@ index 1027b36..0260df2 100644
  
 -  if (this._hciEventEndpointBuffer.length < 2) {
 -    return;
+-  }
 +    if (this._mode === 'raw' || this._mode === 'user') {
 +      const type = data.readUInt8(0);
-+
+ 
+-  // check if desired length
+-  var pktLen = this._hciEventEndpointBuffer.readUInt8(1);
+-  if (pktLen <= (this._hciEventEndpointBuffer.length - 2)) {
 +      if (HCI_COMMAND_PKT === type) {
 +        this._usbDevice.controlTransfer(usb.LIBUSB_REQUEST_TYPE_CLASS | usb.LIBUSB_RECIPIENT_INTERFACE, 0, 0, 0, data.slice(1), function() {});
 +      } else if(HCI_ACLDATA_PKT === type) {
 +        this._aclDataOutEndpoint.transfer(data.slice(1));
 +      }
 +    }
-   }
- 
--  // check if desired length
--  var pktLen = this._hciEventEndpointBuffer.readUInt8(1);
--  if (pktLen <= (this._hciEventEndpointBuffer.length - 2)) {
-+  onHciEventEndpointData(data) {
-+    debug(`HCI event: ${data.toString('hex')}`);
++  }
  
 -    var buf = this._hciEventEndpointBuffer.slice(0, pktLen + 2);
-+    if (data.length === 0) {
-+      return;
-+    }
-+
-+    // add to buffer
-+    this._hciEventEndpointBuffer = Buffer.concat([
-+      this._hciEventEndpointBuffer,
-+      data
-+    ]);
++  onHciEventEndpointData(data) {
++    debug(`HCI event: ${data.toString('hex')}`);
  
 -    if (this._mode === 'raw' && buf.length === 6 && ('0e0401030c00' === buf.toString('hex') || '0e0402030c00' === buf.toString('hex'))) {
 -      debug('reset complete');
 -      this._isUp = true;
-+    if (this._hciEventEndpointBuffer.length < 2) {
++    if (data.length === 0) {
 +      return;
      }
  
@@ -1202,31 +1229,41 @@ index 1027b36..0260df2 100644
 -      new Buffer([HCI_EVENT_PKT]),
 -      buf
 -    ]));
-+    // check if desired length
-+    const pktLen = this._hciEventEndpointBuffer.readUInt8(1);
-+    if (pktLen <= (this._hciEventEndpointBuffer.length - 2)) {
++    // add to buffer
++    this._hciEventEndpointBuffer = Buffer.concat([
++      this._hciEventEndpointBuffer,
++      data
++    ]);
  
 -    // reset buffer
 -    this._hciEventEndpointBuffer = this._hciEventEndpointBuffer.slice(pktLen + 2);
 -  }
 -};
++    if (this._hciEventEndpointBuffer.length < 2) {
++      return;
++    }
++
++    // check if desired length
++    const pktLen = this._hciEventEndpointBuffer.readUInt8(1);
++    if (pktLen <= (this._hciEventEndpointBuffer.length - 2)) {
++
 +      const buf = this._hciEventEndpointBuffer.slice(0, pktLen + 2);
- 
--BluetoothHciSocket.prototype.onAclDataInEndpointData = function(data) {
--  debug('ACL Data In: ' + data.toString('hex'));
++
 +      if (this._mode === 'raw' && buf.length === 6 && ('0e0401030c00' === buf.toString('hex') || '0e0402030c00' === buf.toString('hex'))) {
 +        debug('reset complete');
 +        this._isUp = true;
 +      }
  
--  if (data.length === 0) {
--    return;
+-BluetoothHciSocket.prototype.onAclDataInEndpointData = function(data) {
+-  debug('ACL Data In: ' + data.toString('hex'));
 +      // fire event
 +      this.emit('data', Buffer.concat([
 +        Buffer.from([HCI_EVENT_PKT]),
 +        buf
 +      ]));
-+
+ 
+-  if (data.length === 0) {
+-    return;
 +      // reset buffer
 +      this._hciEventEndpointBuffer = this._hciEventEndpointBuffer.slice(pktLen + 2);
 +    }
@@ -1246,32 +1283,32 @@ index 1027b36..0260df2 100644
 +    if (data.length === 0) {
 +      return;
 +    }
-+
+ 
+-  // check if desired length
+-  var pktLen = this._aclDataInEndpointBuffer.readUInt16LE(2);
+-  if (pktLen <= (this._aclDataInEndpointBuffer.length - 4)) {
 +    // add to buffer
 +    this._aclDataInEndpointBuffer = Buffer.concat([
 +      this._aclDataInEndpointBuffer,
 +      data
 +    ]);
-+
+ 
+-    var buf = this._aclDataInEndpointBuffer.slice(0, pktLen + 4);
 +    if (this._aclDataInEndpointBuffer.length < 4) {
 +      return;
 +    }
- 
--  // check if desired length
--  var pktLen = this._aclDataInEndpointBuffer.readUInt16LE(2);
--  if (pktLen <= (this._aclDataInEndpointBuffer.length - 4)) {
-+    // check if desired length
-+    const pktLen = this._aclDataInEndpointBuffer.readUInt16LE(2);
-+    if (pktLen <= (this._aclDataInEndpointBuffer.length - 4)) {
- 
--    var buf = this._aclDataInEndpointBuffer.slice(0, pktLen + 4);
-+      const buf = this._aclDataInEndpointBuffer.slice(0, pktLen + 4);
  
 -    // fire event
 -    this.emit('data', Buffer.concat([
 -      new Buffer([HCI_ACLDATA_PKT]),
 -      buf
 -    ]));
++    // check if desired length
++    const pktLen = this._aclDataInEndpointBuffer.readUInt16LE(2);
++    if (pktLen <= (this._aclDataInEndpointBuffer.length - 4)) {
++
++      const buf = this._aclDataInEndpointBuffer.slice(0, pktLen + 4);
++
 +      // fire event
 +      this.emit('data', Buffer.concat([
 +        Buffer.from([HCI_ACLDATA_PKT]),
@@ -1312,9 +1349,6 @@ index 1027b36..0260df2 100644
 +}
  
  module.exports = BluetoothHciSocket;
-diff --git a/package-lock.json b/package-lock.json
-new file mode 100644
-index 0000000..10e721d
 --- /dev/null
 +++ b/package-lock.json
 @@ -0,0 +1,1571 @@
@@ -2889,8 +2923,6 @@ index 0000000..10e721d
 +    }
 +  }
 +}
-diff --git a/package.json b/package.json
-index 43ee21f..78dd347 100644
 --- a/package.json
 +++ b/package.json
 @@ -26,26 +26,26 @@
@@ -2935,11 +2967,9 @@ index 43ee21f..78dd347 100644
 +    "remote_path": "{version}"
    }
  }
-diff --git a/src/BluetoothHciSocket.cpp b/src/BluetoothHciSocket.cpp
-index 469cda2..e05bb34 100644
 --- a/src/BluetoothHciSocket.cpp
 +++ b/src/BluetoothHciSocket.cpp
-@@ -276,7 +276,7 @@ void BluetoothHciSocket::emitErrnoError() {
+@@ -276,7 +276,7 @@ void BluetoothHciSocket::emitErrnoError(
      Nan::New(strerror(errno)).ToLocalChecked()
    };
  
@@ -2948,7 +2978,7 @@ index 469cda2..e05bb34 100644
  
    Local<Value> argv[2] = {
      Nan::New("error").ToLocalChecked(),
-@@ -538,4 +538,4 @@ void BluetoothHciSocket::PollCallback(uv_poll_t* handle, int status, int events)
+@@ -538,4 +538,4 @@ void BluetoothHciSocket::PollCallback(uv
    p->poll();
  }
  
