@@ -1,8 +1,10 @@
 --- a/package.json
 +++ b/package.json
-@@ -9,5 +9,4 @@
+@@ -8,7 +8,6 @@
+     "bson": "~4.6.1",
      "debug": "~4.3.2",
      "jsmodbus": "~4.0.6",
 -    "modbus-serial": "~8.0.5",
      "vm2": "~3.9.5"
    },
+   "optionalDependencies": {
