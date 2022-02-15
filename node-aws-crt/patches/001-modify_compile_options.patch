@@ -46,12 +46,10 @@
  function rmRecursive(rmPath) {
      let rmBasePath = path.basename(rmPath);
      if (rmBasePath == "." || rmBasePath == "..") {
-@@ -104,6 +143,43 @@ function buildLocally() {
+@@ -104,6 +143,41 @@ function buildLocally() {
          CMAKE_JS_PLATFORM: os.platform,
          CMAKE_JS_ARCH: os.arch,
          BUILD_TESTING: 'OFF',
-+        BUILD_SHARED_LIBS: 'ON',
-+        USE_OPENSSL: 'ON',
 +        CMAKE_CROSSCOMPILING: true,
 +        CMAKE_SYSTEM_NAME: `${CMAKE_SYSTEM_NAME}`,
 +        CMAKE_SYSTEM_VERSION: `${CMAKE_SYSTEM_VERSION}`,
