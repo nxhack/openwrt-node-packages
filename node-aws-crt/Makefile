@@ -122,7 +122,7 @@ define Package/node-aws-crt/install
 	$(CP) $(PKG_BUILD_DIR)/build/Release/aws-crt-nodejs.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
-	$(CP) $(PKG_BUILD_DIR)/{index.*,browser,common,native} \
+	$(CP) $(PKG_BUILD_DIR)/dist/{index.*,browser,common,native} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
 	$(CP) $(PKG_BUILD_DIR)/build/lib/libs2n* \
