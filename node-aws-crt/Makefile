@@ -130,7 +130,7 @@ define Package/node-aws-crt/install
 	$(CP) $(PKG_BUILD_DIR)/build/Release/libaws* \
 		$(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
-	$(CP) $(PKG_BUILD_DIR)/build/lib/libcrypto.so \
+	$(CP) $(PKG_BUILD_DIR)/build/Release/libcrypto.so \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
