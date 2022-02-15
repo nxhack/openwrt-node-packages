@@ -7,12 +7,12 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=serialport
 PKG_NPM_NAME:=list
 PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=9.2.8
+PKG_VERSION:=10.3.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=e10a34e139e0d84f051bde8254c000ef2121fbcca10075630e505336687ab0c9
+PKG_HASH:=875616cbe2d9b6b23300a7416b1f7bd3169b9055788b9800b089b3b4f5c0aebf
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -30,7 +30,7 @@ define Package/node-serialport-list
   CATEGORY:=Languages
   TITLE:=SerialPort List
   URL:=https://www.npmjs.com/package/@serialport/list
-  DEPENDS:=+node +node-serialport-bindings
+  DEPENDS:=+node +node-serialport-bindings-cpp
 endef
 
 define Package/node-serialport-list/description
