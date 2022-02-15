@@ -124,14 +124,6 @@ define Package/node-aws-crt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/native
 	$(CP) $(PKG_BUILD_DIR)/build/Release/aws-crt-nodejs.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/native/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
-	$(CP) $(PKG_BUILD_DIR)/build/lib/libs2n* \
-		$(1)/usr/lib/
-	$(CP) $(PKG_BUILD_DIR)/build/Release/libaws* \
-		$(1)/usr/lib/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
-	$(CP) $(PKG_BUILD_DIR)/build/Release/libcrypto.so \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
