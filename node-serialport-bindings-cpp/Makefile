@@ -5,14 +5,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NPM_SCOPE:=serialport
-PKG_NPM_NAME:=list
+PKG_NPM_NAME:=bindings-cpp
 PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=10.3.0
+PKG_VERSION:=10.6.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=875616cbe2d9b6b23300a7416b1f7bd3169b9055788b9800b089b3b4f5c0aebf
+PKG_HASH:=a45abd0835f4e385b7bd62ae6b32c6710b051d245963ebba25b0ae2509470183
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -24,17 +24,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-serialport-list
+define Package/node-serialport-bindings-cpp
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=SerialPort List
-  URL:=https://www.npmjs.com/package/@serialport/list
-  DEPENDS:=+node +node-serialport-bindings-cpp
+  TITLE:=SerialPort Hardware bindings for node serialport written in c++
+  URL:=https://www.npmjs.com/package/@serialport/bindings-cpp
+  DEPENDS:=+node
 endef
 
-define Package/node-serialport-list/description
- The package @serialport/list will install the serialport-list cli tool which lists all available serial ports in different formats.
+define Package/node-serialport-bindings-cpp/description
+ The Bindings provide a low level interface to work with your serialport. It is possible to use them alone but it's usually easier to use them with an interface.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -53,30 +53,33 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-serialport-list/install
+define Package/node-serialport-bindings-cpp/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_BUILD_DIR)/build/Release/bindings.node \
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)
 	$(LN) ../../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
 		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 endef
 
-define Package/node-serialport-list/postrm
+define Package/node-serialport-bindings-cpp/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/@serialport/list || true
-rm -rf /usr/lib/node/@serialport/list || true
+rm /usr/lib/node_modules/@serialport/bindings-cpp || true
+rm -rf /usr/lib/node/@serialport/bindings-cpp || true
 rmdir /usr/lib/node_modules/@serialport || true
 rmdir /usr/lib/node/@serialport || true
 endef
 
-$(eval $(call BuildPackage,node-serialport-list))
+$(eval $(call BuildPackage,node-serialport-bindings-cpp))
