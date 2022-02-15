@@ -116,16 +116,19 @@ define Package/node-aws-crt/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,NOTICE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
+	$(CP) $(PKG_BUILD_DIR)/node_modules \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/aws-crt-nodejs.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
-	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
+	$(CP) $(PKG_BUILD_DIR)/{index.*,browser,common,native} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
 	$(CP) $(PKG_BUILD_DIR)/build/lib/libs2n* \
-		$(1)/usr/lib/
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
 	$(CP) $(PKG_BUILD_DIR)/build/Release/lib* \
-		$(1)/usr/lib/
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
