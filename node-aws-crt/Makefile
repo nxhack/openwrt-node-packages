@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=aws-crt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.11.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -54,8 +54,7 @@ define Build/Install
 endef
 
 define Build/Compile
-	rm -rf $(PKG_BUILD_DIR)/dist
-	rm -rf $(PKG_BUILD_DIR)/dist.browser
+	rm -rf $(PKG_BUILD_DIR)/dist/bin
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -122,11 +121,14 @@ define Package/node-aws-crt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/aws-crt-nodejs.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
-	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
+	$(CP) $(PKG_BUILD_DIR)/dist/{index.*,browser,common,native} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
 	$(CP) $(PKG_BUILD_DIR)/build/lib/libs2n* \
-		$(1)/usr/lib/
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
 	$(CP) $(PKG_BUILD_DIR)/build/Release/lib* \
-		$(1)/usr/lib/
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/lib
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
