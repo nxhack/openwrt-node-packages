@@ -3,7 +3,7 @@
 @@ -7,6 +7,9 @@
  #include <node_buffer.h>
  #include <nan.h>
-
+ 
 +/* __MUSL__ */
 +#include <byteswap.h>
 +

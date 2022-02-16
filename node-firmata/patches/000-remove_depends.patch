@@ -1,5 +1,5 @@
---- ./package.json.orig	2019-02-06 14:39:27.207913500 +0900
-+++ ./package.json	2019-02-06 14:39:39.083861720 +0900
+--- a/package.json
++++ b/package.json
 @@ -11,8 +11,7 @@
    },
    "main": "./lib/firmata",
