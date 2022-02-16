@@ -7,11 +7,9 @@ Subject: [PATCH] Support building for Node v12
  src/statvfs.cpp | 11 +++++++----
  1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/src/statvfs.cpp b/src/statvfs.cpp
-index f3eb914..07ed47a 100644
 --- a/src/statvfs.cpp
 +++ b/src/statvfs.cpp
-@@ -41,11 +41,14 @@ static Nan::Persistent<String> namemax_sym;
+@@ -41,11 +41,14 @@ static Nan::Persistent<String> namemax_s
  	if (ARGS.Length() == 0)					\
  		RETURN_ARGS_EXCEPTION("missing arguments");
  
