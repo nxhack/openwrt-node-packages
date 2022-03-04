@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=typescript
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.5.5
+PKG_VERSION:=4.6.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9ec479672e48d9f4b72c1a1dcdb5af063ece7c274f3a932d96b9acc60d100fe8
+PKG_HASH:=30afe4c71ff164ba41560e0770e0f8c48f9c03959cbcdcc7c410ab052bf2f6d6
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
