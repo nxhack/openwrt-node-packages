@@ -30,7 +30,7 @@ define Package/node-wot-binding-coap
   CATEGORY:=Languages
   TITLE:=CoAP Protocol Binding of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-coap
-  DEPENDS:=+node +node-wot-core
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools
 endef
 
 define Package/node-wot-binding-coap/description
