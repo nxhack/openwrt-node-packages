@@ -1,11 +1,11 @@
 --- a/package.json
 +++ b/package.json
-@@ -38,8 +38,6 @@
-     "wot-typescript-definitions": "0.8.0-SNAPSHOT.22"
-   },
-   "dependencies": {
-     "ajv": "^7.0.4",
-     "ajv-formats": "^2.1.1",
--    "@node-wot/core": "0.8.0",
--    "@node-wot/td-tools": "0.8.0",
-     "node-opcua": "2.65.1",
+@@ -40,8 +40,6 @@
+     "dependencies": {
+         "ajv": "^7.0.4",
+         "ajv-formats": "^2.1.1",
+-        "@node-wot/core": "0.8.0",
+-        "@node-wot/td-tools": "0.8.0",
+         "node-opcua": "2.65.1",
+         "node-opcua-json": "0.19.0",
+         "node-opcua-pubsub-client": "0.19.0",
