@@ -8,3 +8,5 @@
 -        "@node-wot/core": "0.8.0"
 -    },
      "scripts": {
+         "build": "tsc -b",
+         "test": "",
