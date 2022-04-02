@@ -61,9 +61,7 @@ endef
 
 define Package/node-classic-level/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{binding.*,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,deps} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
