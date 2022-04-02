@@ -9,7 +9,7 @@ start_service()
 	procd_set_param env ZIGBEE2MQTT_DATA=/etc/zigbee2mqtt/ NODE_PATH=/opt/zigbee2mqtt/node_modules/winston/node_modules:/opt/zigbee2mqtt/node_modules/zigbee-herdsman/node_modules
 	procd_set_param command /usr/bin/npm start --prefix /opt/zigbee2mqtt
 	procd_set_param stdout 1
-	procd_set_param respawn 3600 15 100
+	procd_set_param respawn 3600 12 100
 	procd_set_param stderr 1
 	procd_close_instance
 }
