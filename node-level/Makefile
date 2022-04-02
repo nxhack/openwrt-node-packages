@@ -29,7 +29,7 @@ define Package/node-level
   CATEGORY:=Languages
   TITLE:=Fast & simple storage - a Node.js-style LevelDB wrapper
   URL:=https://www.npmjs.org/package/level
-  DEPENDS:=+node +node-leveldown
+  DEPENDS:=+node +node-leveldown node-classic-level
 endef
 
 define Package/node-level/description
