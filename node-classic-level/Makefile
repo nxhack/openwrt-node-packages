@@ -4,18 +4,18 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=ask-sdk
+PKG_NPM_NAME:=classic-level
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.12.1
+PKG_VERSION:=1.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=50190b18c89f9cd1c07a9f5c14d055c553ee6c56762880149a2a0e46a45f3e9a
+PKG_HASH:=cd722aa4ddfad527340d53aa33f2eb7433d61adf934bebac02d116a12143aebe
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILES:=LICENSE.txt
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
@@ -23,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-ask-sdk
+define Package/node-classic-level
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Alexa Skills Kit SDK for Node.js
-  URL:=https://www.npmjs.org/package/ask-sdk
-  DEPENDS:=+node
+  TITLE:=An abstract-level database backed by LevelDB
+  URL:=https://www.npmjs.org/package/classic-level
+  DEPENDS:=+node +node-leveldown
 endef
 
-define Package/node-ask-sdk/description
- The ASK SDK v2 for Node.js is an open-source Alexa Skill Development Kit. ASK SDK v2 for Node.js makes it easier for you to build highly engaging skills, by allowing you to spend more time on implementing features and less on writing boiler-plate code.
+define Package/node-classic-level/description
+ An abstract-level database backed by LevelDB. The successor to leveldown with builtin encodings, sublevels, events, promises and support of Uint8Array.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -52,29 +52,30 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-ask-sdk/install
+define Package/node-classic-level/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/LICENSE \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,deps} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_BUILD_DIR)/build/Release/classic_level.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-ask-sdk/postrm
+define Package/node-classic-level/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/ask-sdk || true
-rm -rf /usr/lib/node/ask-sdk || true
+rm /usr/lib/node_modules/classic-level || true
+rm -rf /usr/lib/node/classic-level || true
 endef
 
-$(eval $(call BuildPackage,node-ask-sdk))
+$(eval $(call BuildPackage,node-classic-level))

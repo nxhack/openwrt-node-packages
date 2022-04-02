@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=level
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=7.0.1
+PKG_VERSION:=8.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=346d9eaf98fff64f1bfa53141e2af8f41c7adf942d9a005a3a4f2b314b6eca62
+PKG_HASH:=a4a592ac982fd0e9de21898b5a3acf88681d2f6a907c43eb056806a1442a849c
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -29,7 +29,7 @@ define Package/node-level
   CATEGORY:=Languages
   TITLE:=Fast & simple storage - a Node.js-style LevelDB wrapper
   URL:=https://www.npmjs.org/package/level
-  DEPENDS:=+node +node-leveldown
+  DEPENDS:=+node +node-classic-level
 endef
 
 define Package/node-level/description

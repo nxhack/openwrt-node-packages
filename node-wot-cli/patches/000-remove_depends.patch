@@ -1,15 +1,15 @@
 --- a/package.json
 +++ b/package.json
-@@ -27,12 +27,6 @@
-     "ts-node": "^8.6.2"
-   },
-   "dependencies": {
--    "@node-wot/core": "0.7.8",
--    "@node-wot/binding-coap": "0.7.8",
--    "@node-wot/binding-file": "0.7.8",
--    "@node-wot/binding-http": "0.7.8",
--    "@node-wot/binding-websockets": "0.7.8",
--    "@node-wot/binding-mqtt": "0.7.8",
-     "dotenv": "^8.2.0"
-   },
-   "scripts": {
+@@ -38,12 +38,6 @@
+         "ts-node": "10.1.0"
+     },
+     "dependencies": {
+-        "@node-wot/binding-coap": "0.8.0",
+-        "@node-wot/binding-file": "0.8.0",
+-        "@node-wot/binding-http": "0.8.0",
+-        "@node-wot/binding-mqtt": "0.8.0",
+-        "@node-wot/binding-websockets": "0.8.0",
+-        "@node-wot/core": "0.8.0",
+         "dotenv": "^8.6.0"
+     },
+     "scripts": {
