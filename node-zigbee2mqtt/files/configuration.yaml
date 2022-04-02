@@ -18,6 +18,7 @@ mqtt:
 serial:
   # Location of CC2531 USB sniffer
   #port: /dev/ttyACM0
+  #port: tcp://yourip:port    
   port: /dev/ttyUSB0
 
 advanced:
@@ -37,6 +38,6 @@ advanced:
     - console
     - file
 
-frontend:
-  port: 8080
+#frontend:
+#  port: 8080
 #  host: 0.0.0.0
