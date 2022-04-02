@@ -7,12 +7,12 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=node-wot
 PKG_NPM_NAME:=binding-coap
 PKG_NAME:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=0.7.8
+PKG_VERSION:=0.8.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=707b824e48f9ddf6082f589b33e4a8010e923f0e3ec86cad8673912899927287
+PKG_HASH:=d0fa53277efac80cebda87401681e994f7a5f20e4f4eddf624b734b43611fe88
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=EPL-2.0 OR W3C-20150513
@@ -30,7 +30,7 @@ define Package/node-wot-binding-coap
   CATEGORY:=Languages
   TITLE:=CoAP Protocol Binding of node-wot
   URL:=https://www.npmjs.com/package/@node-wot/binding-coap
-  DEPENDS:=+node +node-wot-core
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools
 endef
 
 define Package/node-wot-binding-coap/description
