@@ -172,6 +172,7 @@ define Package/node/install
 endef
 
 define Package/node-npm/install
+	$(RM) $(1)/usr/lib/node_modules/npm
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/npm
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE} \
 		$(1)/usr/lib/node_modules/npm/
