@@ -1,10 +1,11 @@
 --- a/package.json
 +++ b/package.json
-@@ -28,7 +28,6 @@
-     "typescript-standard": "0.3.30"
-   },
-   "dependencies": {
--    "@node-wot/core": "0.7.8",
-     "@types/url-parse": "^1.4.3",
-     "case-1.5.3": "npm:case@^1.5.3",
-     "node-opcua-client": "^2.43.0",
+@@ -40,8 +40,6 @@
+     "dependencies": {
+         "ajv": "^7.0.4",
+         "ajv-formats": "^2.1.1",
+-        "@node-wot/core": "0.8.0",
+-        "@node-wot/td-tools": "0.8.0",
+         "node-opcua": "2.65.1",
+         "node-opcua-json": "0.19.0",
+         "node-opcua-pubsub-client": "0.19.0",

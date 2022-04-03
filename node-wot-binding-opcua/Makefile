@@ -7,12 +7,12 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=node-wot
 PKG_NPM_NAME:=binding-opcua
 PKG_NAME:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=0.7.8
-PKG_RELEASE:=2
+PKG_VERSION:=0.8.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=e58570900b9cfadef03ab897cd0350b452c8b83d8869a29ef4b444eeb84bf319
+PKG_HASH:=ecdca2cb31b448603da16c1ab8939e6b85418ee804457112861acc51f63b0002
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=EPL-2.0 OR W3C-20150513
@@ -30,7 +30,7 @@ define Package/node-wot-binding-opcua
   CATEGORY:=Languages
   TITLE:=OPC UA Client Protocol Binding
   URL:=https://www.npmjs.com/package/@node-wot/binding-opcua
-  DEPENDS:=+node +node-wot-core
+  DEPENDS:=+node +node-wot-core +node-wot-td-tools
 endef
 
 define Package/node-wot-binding-opcua/description
