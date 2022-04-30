@@ -190,7 +190,7 @@ rm -rf /usr/lib/node_modules/npm || true
 endef
 
 define Host/Install
-	$(RM) $(1)/lib/node_modules/npm
+	$(RM) -rf $(1)/lib/node_modules/npm
 	$(call Host/Install/Default)
 endef
 
