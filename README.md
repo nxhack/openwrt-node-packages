@@ -42,9 +42,6 @@ If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxh
 
 If you want to use with 21.02, see [openwrt-21.02 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-21.02) (***MIPS is no longer supported***)
 
-OpenSSL 1.0.x becomes EoL, OpenWrt-18.06 will not be supported.
-Python2 becomes EoL, node v8.x will not be supported.
-
 On the host side, the following preparations are required.
 * [Unix prerequisites](https://github.com/nodejs/node/blob/master/BUILDING.md#unix-prerequisites)
 * To build a 32-bit target, gcc-multilib, g++-multilib are required.
