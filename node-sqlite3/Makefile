@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=sqlite3
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.0.2
-PKG_RELEASE:=2
+PKG_VERSION:=5.0.6
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=c2d364341eff7c6ae1c57ad62cfea3bb3e2cd7a3ae1eddbdde701e9ed52f2f39
+PKG_HASH:=f8dc7c4824dd304a4535547123955324e98dddd669f2493abb87d39920cae125
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
@@ -64,7 +64,7 @@ endef
 
 define Package/node-sqlite3/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,LICENSE,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/

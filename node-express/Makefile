@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=express
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.17.3
+PKG_VERSION:=4.18.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=2a5414ee2204cfb71d2cab0ade734d5e0af5b45919158e818c4b8683c272ec2b
+PKG_HASH:=8fc3ea14bf5b8670d828ed0b00ccbb00a57f7a8bacef507b4676be8bd8cfaa61
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
