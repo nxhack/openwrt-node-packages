@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -40,6 +40,7 @@
+         "webpack-cli": "^4.8.0"
+     },
+     "dependencies": {
++        "ajv": "^7.0.4",
+         "is-absolute-url": "3.0.3",
+         "json-placeholder-replacer": "^1.0.35",
+         "url-toolkit": "2.1.6",
