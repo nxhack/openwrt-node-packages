@@ -64,7 +64,7 @@ endef
 
 define Package/node-sqlite3/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,LICENSE,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
