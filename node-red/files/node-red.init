@@ -16,7 +16,7 @@ start_service() {
 
 	procd_open_instance
 	procd_set_param command /usr/bin/node-red
-	procd_append_param command --port "$port"
+	procd_append_param command --port "$port" -u /root/.node-red
 	[ "$verbose" = "1" ] && procd_append_param command --verbose
 	procd_set_param stdout "$log_stdout"
 	procd_set_param stderr "$log_stderr"
