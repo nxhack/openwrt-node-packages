@@ -18,10 +18,10 @@ PKG_RELEASE:=1
 PKG_HASH:=ef4375a9152ff69f2823d7b20a3b53767a046164bbac7824429cb216d1688cf0
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v12.22.12
+PKG_VERSION:=v18.1.0
 PKG_RELEASE:=1
-PKG_HASH:=bc42b7f8495b9bfc7f7850dd180bb02a5bdf139cc232b8c6f02a6967e20714f2
-PATCH_DIR:=./patches/v12.x
+PKG_HASH:=e8b0cc20089e0d7726bc0e921d247f8831263bdba6b5f102bd95ea0f63300b7e
+PATCH_DIR:=./patches/v18.x
 endif
 endif
 
@@ -53,7 +53,7 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64||mipsel) \
 	   +libstdcpp +libopenssl +zlib +libnghttp2 +libuv \
-	   +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
+	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
 define Package/node/description
@@ -91,14 +91,14 @@ define Package/node/config
 		help
 		 Select node.js version.
 
-		config NODEJS_12
-			bool "12.x Maintenance LTS"
-
 		config NODEJS_14
 			bool "14.x Maintenance LTS"
 
 		config NODEJS_16
 			bool "16.x Active LTS"
+
+		config NODEJS_18
+			bool "18.x Current"
 	endchoice
 
 	choice
@@ -148,6 +148,7 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--shared-nghttp2 \
 	--shared-libuv \
+	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring +neon,$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +vfp",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfp) \
