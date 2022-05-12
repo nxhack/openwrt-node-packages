@@ -121,9 +121,9 @@ define Package/node-aws-crt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
 	$(CP) $(PKG_BUILD_DIR)/dist/{index.*,browser,common,native} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/native
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/linux-$(NODEJS_CPU)
 	$(CP) $(PKG_BUILD_DIR)/build/linux-x64/Release/aws-crt-nodejs.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/native/
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/linux-$(NODEJS_CPU)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
