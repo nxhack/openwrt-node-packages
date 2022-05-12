@@ -36,7 +36,7 @@ define Package/node-sqlite3
 endef
 
 define Package/node-sqlite3/description
- Node.js package to access serial ports for reading and writing OR Welcome your robotic JavaScript overlords. Better yet, program them!
+ Asynchronous, non-blocking SQLite3 bindings for Node.js
 endef
 
 TAR_OPTIONS+= --strip-components 1
