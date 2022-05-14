@@ -1,0 +1,10 @@
+--- a/src/node_usb.h
++++ b/src/node_usb.h
+@@ -4,6 +4,7 @@
+ #include <assert.h>
+ #include <string>
+ #include <map>
++#include <atomic>
+ 
+ #ifdef _WIN32
+ #include <WinSock2.h>
