@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for Head (Development branch)
+OpenWrt Node.js Packages : for OpenWrt-22.03
 
 Note: support arches are aarch64, arm, x86_64
 
@@ -16,7 +16,7 @@ See [LICENSE](LICENSE) file.
 
 Add the following line to feeds.conf or feeds.conf.default.
 ```
-src-git node https://github.com/nxhack/openwrt-node-packages.git
+src-git node https://github.com/nxhack/openwrt-node-packages.git;openwrt-22.03
 ```
 
 Run
@@ -32,12 +32,6 @@ make defconfig
 If you want a new module (native module) that requires a precompiled binary, ***please open the issue.***
 
 ## Note
-If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/for-15.05) (***End of life***)
-
-If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com/nxhack/openwrt-node-packages/tree/lede-17.01) (***End of life***)
-
-If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-18.06) (***End of life***)
-
 If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07) (***End of life***) (***MIPS FPU EMULATOR support***)
 
 If you want to use with 21.02, see [openwrt-21.02 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-21.02) (***MIPS is no longer supported***)
