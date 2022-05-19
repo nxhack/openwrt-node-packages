@@ -13,9 +13,9 @@ PKG_HASH:=a0f812efc43f78321eca08957960a48f5e6bf97004d5058c8dd3b03c646ea4f7
 PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.19.2
+PKG_VERSION:=v14.19.3
 PKG_RELEASE:=1
-PKG_HASH:=ef4375a9152ff69f2823d7b20a3b53767a046164bbac7824429cb216d1688cf0
+PKG_HASH:=5cf45b1f1aca77523acf36240c1d53a999279070a7711eabf23346f88b0cc994
 PATCH_DIR:=./patches/v14.x
 else
 PKG_VERSION:=v12.22.12
@@ -92,7 +92,7 @@ define Package/node/config
 		 Select node.js version.
 
 		config NODEJS_12
-			bool "12.x Maintenance LTS"
+			bool "12.x End-of-life : NO LONGER SUPPORTED"
 
 		config NODEJS_14
 			bool "14.x Maintenance LTS"
