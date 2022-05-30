@@ -7,7 +7,7 @@
 -  ],
 -  "dependencies": {
 -    "detect-libc": "^2.0.1",
--    "dotenv": "^16.0.0",
+-    "dotenv": "^16.0.1",
 -    "mkdirp": "^1.0.4",
 -    "simple-get": "^4.0.1",
 -    "tar": "^6.1.11"
