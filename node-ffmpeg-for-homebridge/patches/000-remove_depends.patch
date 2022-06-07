@@ -1,16 +1,12 @@
 --- a/package.json
 +++ b/package.json
-@@ -29,12 +29,5 @@
-     "audio",
-     "libfdk-aac",
+@@ -31,9 +31,5 @@
      "h264_omx"
--  ],
--  "dependencies": {
+   ],
+   "dependencies": {
 -    "detect-libc": "^2.0.1",
 -    "dotenv": "^16.0.1",
--    "mkdirp": "^1.0.4",
 -    "simple-get": "^4.0.1",
 -    "tar": "^6.1.11"
--  }
-+  ]
+   }
  }
