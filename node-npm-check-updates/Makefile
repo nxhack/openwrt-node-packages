@@ -52,7 +52,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --no-save --no-package-lock --legacy-peer-deps
+	npm install --production --no-save --no-package-lock --legacy-peer-deps --ignore-scripts
 	# npm install --production --global-style --no-save --omit=dev --no-package-lock --legacy-peer-deps
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
