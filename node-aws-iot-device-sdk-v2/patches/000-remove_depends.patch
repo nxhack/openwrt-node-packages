@@ -1,9 +1,10 @@
 --- a/package.json
 +++ b/package.json
-@@ -31,6 +31,5 @@
+@@ -32,7 +32,6 @@
      "typescript": "^3.9.7"
    },
    "dependencies": {
--    "aws-crt": "1.12.3"
-   }
- }
+-    "aws-crt": "1.12.5"
+   },
+   "resolutions": {
+     "minimist": "1.2.6",
