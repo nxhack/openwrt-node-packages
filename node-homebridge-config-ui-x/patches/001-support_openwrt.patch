@@ -7,5 +7,5 @@
 -const linux_1 = require("./platforms/linux");
 +const linux_1 = require("./platforms/openwrt");
  const darwin_1 = require("./platforms/darwin");
+ const freebsd_1 = require("./platforms/freebsd");
  class HomebridgeServiceHelper {
-     constructor() {
