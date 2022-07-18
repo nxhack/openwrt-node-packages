@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ws
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=8.8.0
+PKG_VERSION:=8.8.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=b0563ae0fae7538d7d2b048b1489a4f1a75ede49eb9415be6ba59ff2f68ff9d7
+PKG_HASH:=a7fdae64b33a876f7ae6a76fef597e2e2cbe8c13c5fb8e7b333afb3e3c5b6d8c
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
