@@ -1,10 +1,10 @@
 --- a/package.json
 +++ b/package.json
 @@ -9,7 +9,6 @@
-     "debug": "~4.3.2",
+     "debug": "~4.3.4",
      "jsmodbus": "~4.0.6",
      "line-by-line": "~0.1.6",
 -    "modbus-serial": "~8.0.5",
-     "source-map-support": "~0.5.20",
-     "vm2": "~3.9.5"
+     "source-map-support": "~0.5.21",
+     "vm2": "~3.9.10"
    },
