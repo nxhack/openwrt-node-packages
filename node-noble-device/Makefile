@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=bleacon
+PKG_NPM_NAME:=noble-device
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.5.1
-PKG_RELEASE:=11
+PKG_VERSION:=1.4.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=faf72b2adbb99386665eba5678f89b813486a1b6a294bb8f013058a2b536eef5
+PKG_HASH:=e2869e92505a0fdef50c4827ebe2969b9a96e36798b6db7f90f862c7783cd75c
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -23,17 +23,17 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-bleacon
+define Package/node-noble-device
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Library for creating/discovering/configuring iBeacons
-  URL:=https://www.npmjs.org/package/bleacon
-  DEPENDS:=+node +node-bignum +node-bleno +node-noble-device
+  TITLE:=A Node.js lib to abstract BLE peripherals, using noble
+  URL:=https://www.npmjs.org/package/noble-device
+  DEPENDS:=+node +node-noble
 endef
 
-define Package/node-bleacon/description
- A Node.js library for creating, discovering, and configuring iBeacons
+define Package/node-noble-device/description
+ A Node.js lib to abstract BLE (Bluetooth Low Energy) peripherals, using noble
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -42,7 +42,7 @@ TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst i386,ia32,$(ARCH)))))
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
-TARGET_CFLAGS+=$(FPIC)
+TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/security
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
@@ -59,26 +59,22 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-bleacon/install
+define Package/node-noble-device/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,README.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{index.js,test.js} \
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{bleu-station,radbeacon} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{estimote,estimote-sticker} \
+	$(CP) $(PKG_BUILD_DIR)/{examples,lib,test} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-bleacon/postrm
+define Package/node-noble-device/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/bleacon || true
-rm -rf /usr/lib/node/bleacon || true
+rm /usr/lib/node_modules/noble-device || true
+rm -rf /usr/lib/node/noble-device || true
 endef
 
-$(eval $(call BuildPackage,node-bleacon))
+$(eval $(call BuildPackage,node-noble-device))
