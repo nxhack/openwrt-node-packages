@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ejdb2_node
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=2.62.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-ejdb2_node
   CATEGORY:=Languages
   TITLE:=EJDB2 Node.js native binding
   URL:=https://www.npmjs.com/package/ejdb2_node
-  DEPENDS:=+node +libatomic
+  DEPENDS:=+node +libatomic @BROKEN
 endef
 
 define Package/node-ejdb2_node/description
