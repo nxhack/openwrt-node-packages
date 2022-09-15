@@ -1,8 +1,8 @@
 --- a/scripts/build.js
 +++ b/scripts/build.js
-@@ -12,6 +12,45 @@ const cmake = require("cmake-js");
- const axios = require("axios");
- const tar = require("tar");
+@@ -14,6 +14,45 @@ const tar = require("tar");
+ 
+ const nativeSourceDir = "crt/";
  
 +const exec = require('child_process').exec;
 +const CMAKE_SYSTEM_NAME = process.env.CMAKE_SYSTEM_NAME;
@@ -46,7 +46,7 @@
  function rmRecursive(rmPath) {
      let rmBasePath = path.basename(rmPath);
      if (rmBasePath == "." || rmBasePath == "..") {
-@@ -119,6 +158,42 @@ function buildLocally() {
+@@ -121,6 +160,42 @@ async function buildLocally() {
              CMAKE_EXPORT_COMPILE_COMMANDS: true,
              CMAKE_JS_PLATFORM: platform,
              BUILD_TESTING: 'OFF',
@@ -89,7 +89,7 @@
              CMAKE_INSTALL_PREFIX: 'crt/install',
              CMAKE_PREFIX_PATH: 'crt/install',
          }
-@@ -145,6 +220,18 @@ function buildLocally() {
+@@ -147,6 +222,18 @@ async function buildLocally() {
      // Enable parallel build (ignored by cmake older than 3.12)
      process.env.CMAKE_BUILD_PARALLEL_LEVEL = `${Math.max(os.cpus().length, 1)}`;
  
@@ -107,4 +107,4 @@
 +
      // Run the build
      var buildSystem = new cmake.BuildSystem(options);
-     return buildSystem.build();
+     await buildSystem.build();
