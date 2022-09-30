@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=hap-nodejs
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.10.3
+PKG_VERSION:=0.10.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=eaee02b0cf7e4a568c64700a3f2f6099945a1f1276c3f61c3abe5a376fb1ede2
+PKG_HASH:=45ab0f09eb1d1c68df66d5dc3bc377af6ada4f96dbf9c2b7278d9c989b064a46
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -53,8 +53,8 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	npm install --production --global-style --no-save --omit=dev --no-package-lock --legacy-peer-deps
-	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/ftoi
-	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/put/test/c/itof
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/@homebridge/put/test/c/ftoi
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/@homebridge/put/test/c/itof
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
