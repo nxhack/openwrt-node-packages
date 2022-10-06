@@ -18,10 +18,10 @@ PKG_RELEASE:=1
 PKG_HASH:=365057ea661923cbfa71bdd7a8d0ace9ddff8d22d431ad92355f8433cecff14d
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v12.22.12
+PKG_VERSION:=v18.10.0
 PKG_RELEASE:=1
-PKG_HASH:=bc42b7f8495b9bfc7f7850dd180bb02a5bdf139cc232b8c6f02a6967e20714f2
-PATCH_DIR:=./patches/v12.x
+PKG_HASH:=ad711b54e2be4a7d24f37c73fb2801adeaf6d26d298d431be98d6abc0202e89f
+PATCH_DIR:=./patches/v18.x
 endif
 endif
 
@@ -91,14 +91,14 @@ define Package/node/config
 		help
 		 Select node.js version.
 
-		config NODEJS_12
-			bool "12.x End-of-life : NO LONGER SUPPORTED"
-
 		config NODEJS_14
 			bool "14.x Maintenance LTS"
 
 		config NODEJS_16
 			bool "16.x Active LTS"
+
+		config NODEJS_18
+			bool "18.x Current"
 	endchoice
 
 	choice

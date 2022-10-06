@@ -1,0 +1,20 @@
+--- a/deps/npm/lib/utils/config/definitions.js
++++ b/deps/npm/lib/utils/config/definitions.js
+@@ -1241,7 +1241,7 @@ define('lockfile-version', {
+ })
+ 
+ define('loglevel', {
+-  default: 'notice',
++  default: 'info',
+   type: [
+     'silent',
+     'error',
+@@ -2053,7 +2053,7 @@ define('strict-peer-deps', {
+ })
+ 
+ define('strict-ssl', {
+-  default: true,
++  default: false,
+   type: Boolean,
+   description: `
+     Whether or not to do SSL key validation when making requests to the
