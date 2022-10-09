@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-z2m
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.9.0
+PKG_VERSION:=1.9.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=61d3640bf9fa20177875abe671ea845a9c693dfaeb10d4c501d271e9ad66b0b6
+PKG_HASH:=119aac6891fad5491a5ef726d6223be4e3d8c18ff174be63becfd11d90af9584
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
