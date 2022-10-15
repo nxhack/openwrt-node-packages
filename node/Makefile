@@ -83,7 +83,6 @@ endef
 
 define Package/node/config
 	menu "Configuration"
-		depends on PACKAGE_node
 
 	choice
 		prompt "Version Selection"
