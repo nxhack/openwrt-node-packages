@@ -1,0 +1,26 @@
+--- a/package.json
++++ b/package.json
+@@ -129,22 +129,5 @@
+     "xstate": "4.29.0"
+   },
+   "devDependencies": {
+-    "@microsoft/api-extractor": "*",
+-    "@types/fs-extra": "^9.0.13",
+-    "@types/jest": "^29.0.2",
+-    "@types/node": "^14.18.29",
+-    "@types/proper-lockfile": "^4.1.2",
+-    "@types/semver": "^7.3.12",
+-    "@types/source-map-support": "^0.5.6",
+-    "@xstate/test": "^0.5.1",
+-    "@zwave-js/maintenance": "10.3.0",
+-    "@zwave-js/transformers": "10.2.0",
+-    "del-cli": "^5.0.0",
+-    "esbuild": "0.15.7",
+-    "esbuild-register": "^3.3.3",
+-    "jest-extended": "^2.0.0",
+-    "mockdate": "^3.0.5",
+-    "prettier": "^2.7.1",
+-    "typescript": "4.8.3"
+   }
+ }
+\ No newline at end of file
