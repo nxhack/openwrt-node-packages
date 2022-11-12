@@ -4,6 +4,6 @@
      "typescript": "^4.7.4"
    },
    "dependencies": {
--    "aws-crt": "^1.14.5"
+-    "aws-crt": "^1.14.7"
    }
  }
