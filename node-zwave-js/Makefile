@@ -29,7 +29,7 @@ define Package/node-zwave-js
   CATEGORY:=Languages
   TITLE:=Z-Wave driver written entirely in JavaScript/TypeScript
   URL:=https://www.npmjs.org/package/zwave-js
-  DEPENDS:=+node
+  DEPENDS:=+node +node-serialport
 endef
 
 define Package/node-zwave-js/description
@@ -53,6 +53,7 @@ define Build/Compile
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
 	npm install --production --global-style --no-save --omit=dev --no-package-lock
+	rm -f $(PKG_BUILD_DIR)/node_modules/serialport
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
