@@ -1,11 +1,11 @@
 --- a/package.json
 +++ b/package.json
 @@ -39,7 +39,6 @@
-     "web-bluetooth-mock": "^1.0.2"
+     "webbluetooth": "^2.1.0"
    },
    "dependencies": {
 -    "debug": "^4.1.1",
--    "serialport": "^10.0.0"
+-    "serialport": "^10.4.0"
 +    "debug": "^4.1.1"
    }
  }
