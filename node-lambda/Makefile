@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-lambda
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.1.0
+PKG_VERSION:=1.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=1d1a331e9900f7f24ae87d25d26f7527d413efbe7df0ecc074d5fbf249f49906
+PKG_HASH:=d59b907104f05eaaf13d08931a02097cd3c7dceae6d803cc4afba3fa45072eac
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
