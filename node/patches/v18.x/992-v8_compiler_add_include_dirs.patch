@@ -6,5 +6,5 @@
        'sources': ['<@(v8_compiler_sources)'],
 +      'include_dirs': [ '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
        'conditions': [
-         ['OS=="win" and _toolset=="target"', {
+         ['OS=="win"', {
            'msvs_precompiled_header': '<(V8_ROOT)/../../tools/msvs/pch/v8_pch.h',
