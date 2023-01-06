@@ -1,11 +1,11 @@
 --- a/tools/icu/icu-generic.gyp
 +++ b/tools/icu/icu-generic.gyp
-@@ -419,6 +419,7 @@
+@@ -418,6 +418,7 @@
        'target_name': 'genrb',
        'type': 'executable',
        'toolsets': [ 'host' ],
 +      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-       'dependencies': [ 'icutools' ],
+       'dependencies': [ 'icutools', 'icu_implementation' ],
        'sources': [
          '<@(icu_src_genrb)'
 @@ -435,6 +436,7 @@
