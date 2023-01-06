@@ -1,18 +1,13 @@
 --- a/deps/zlib/zlib.gyp
 +++ b/deps/zlib/zlib.gyp
-@@ -43,10 +43,12 @@
-             'zutil.c',
-             'zutil.h',
-           ],
-+          'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
-           'include_dirs': [
-             '.',
-           ],
-           'direct_dependent_settings': {
-+            'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
-             'include_dirs': [
-               '.',
-             ],
+@@ -9,6 +9,7 @@
+     'arm_fpu%': '',
+     'llvm_version%': '0.0',
+   },
++  'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+   'conditions': [
+     ['use_system_zlib==0', {
+       'targets': [
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
 @@ -60,6 +60,7 @@
