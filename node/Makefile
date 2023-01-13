@@ -18,9 +18,9 @@ PKG_RELEASE:=1
 PKG_HASH:=d8f09a0f16773a77613c3817606f6d455624992d9c43443aca15e91807a1ff03
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v18.12.1
+PKG_VERSION:=v18.13.0
 PKG_RELEASE:=1
-PKG_HASH:=4fa406451bc52659a290e52cfdb2162a760bd549da4b8bbebe6a29f296d938df
+PKG_HASH:=fd4ac562e01d172896e3a959bd59552dbf647331c90d726f8d3471683dd3da68
 PATCH_DIR:=./patches/v18.x
 endif
 endif
@@ -52,7 +52,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64||mipsel) \
-	   +libstdcpp +libopenssl +zlib +libnghttp2 +libuv \
+	   +libstdcpp +libopenssl +zlib +libnghttp2 \
 	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
@@ -150,7 +150,6 @@ CONFIGURE_ARGS:= \
 	--shared-zlib \
 	--shared-openssl \
 	--shared-nghttp2 \
-	--shared-libuv \
 	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring +neon,$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
