@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=rimraf
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.2
-PKG_RELEASE:=3
+PKG_VERSION:=4.0.5
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=5876c20fd84707b7056ec61ccee1a71e80fec1657650010bd4dac828bb977f52
+PKG_HASH:=9a19538e72bedcba514999859836640931cc6d783fd96f12c6c5a794510f384d
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC
@@ -57,7 +57,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM) \
 	npm_config_tmp=$(TMP_DIR)/npm-tmp-$(TMPNPM) \
-	npm install --production --global-style --no-save --omit=dev --no-package-lock
+	npm install --production --global-style --no-save --omit=dev --no-package-lock --ignore-scripts
 	rm -rf $(TMP_DIR)/npm-tmp-$(TMPNPM)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
@@ -68,9 +68,9 @@ define Package/node-rimraf/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/*.md \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/node_modules \
+	$(CP) $(PKG_BUILD_DIR)/dist \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin.js $(1)/usr/bin/rimraf
@@ -101,9 +101,9 @@ define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
 	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{*.md,*.js} \
+	$(CP) $(HOST_BUILD_DIR)/*.md \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/node_modules \
+	$(CP) $(HOST_BUILD_DIR)/dist \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin.js $(1)/bin/rimraf
