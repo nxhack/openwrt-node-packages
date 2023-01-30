@@ -41,6 +41,9 @@ If you want to use with 22.03, see [openwrt-22.03 branch](https://github.com/nxh
 On the host side, the following preparations are required.
 * [Unix prerequisites](https://github.com/nodejs/node/blob/master/BUILDING.md#unix-prerequisites)
 * To build a 32-bit target, gcc-multilib, g++-multilib are required.
+```
+sudo apt-get install gcc-multilib g++-multilib
+```
 * The libatomic package is required. (Install the 32-bit library at the same time, if necessary).
 
 ## Illegal instruction issue
