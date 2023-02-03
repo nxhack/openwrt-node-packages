@@ -1,6 +1,6 @@
 --- a/deps/npm/lib/utils/config/definitions.js
 +++ b/deps/npm/lib/utils/config/definitions.js
-@@ -1241,7 +1241,7 @@ define('lockfile-version', {
+@@ -1266,7 +1266,7 @@ define('lockfile-version', {
  })
  
  define('loglevel', {
@@ -9,7 +9,7 @@
    type: [
      'silent',
      'error',
-@@ -2053,7 +2053,7 @@ define('strict-peer-deps', {
+@@ -2036,7 +2036,7 @@ define('strict-peer-deps', {
  })
  
  define('strict-ssl', {
