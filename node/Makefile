@@ -52,7 +52,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64||mipsel) \
-	   +libstdcpp +libopenssl +zlib +libnghttp2 +libuv \
+	   +libstdcpp +NODEJS_18:libopenssl +zlib +libnghttp2 +libuv \
 	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
@@ -148,7 +148,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--cross-compiling \
 	--shared-zlib \
-	--shared-openssl \
+	$(if $(CONFIG_NODEJS_18),--shared-openssl) \
 	--shared-nghttp2 \
 	--shared-libuv \
 	--shared-cares \
