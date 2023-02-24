@@ -9,7 +9,7 @@
    type: [
      'silent',
      'error',
-@@ -2036,7 +2036,7 @@ define('strict-peer-deps', {
+@@ -2045,7 +2045,7 @@ define('strict-peer-deps', {
  })
  
  define('strict-ssl', {
