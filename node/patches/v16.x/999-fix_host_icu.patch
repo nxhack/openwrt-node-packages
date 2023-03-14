@@ -1,6 +1,16 @@
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -694,6 +694,9 @@
+@@ -239,6 +239,9 @@
+       'sources': [
+         '<(V8_ROOT)/src/init/setup-isolate-full.cc',
+       ],
++      'include_dirs': [
++        '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
++      ],
+     },  # v8_init
+     {
+       'target_name': 'v8_initializers',
+@@ -694,6 +697,9 @@
          'v8_shared_internal_headers',
        ],
        'sources': ['<@(v8_compiler_sources)'],
