@@ -20,3 +20,13 @@
        'conditions': [
          ['OS=="win" and _toolset=="target"', {
            'msvs_precompiled_header': '<(V8_ROOT)/../../tools/msvs/pch/v8_pch.h',
+@@ -1400,6 +1406,9 @@
+       'type': 'executable',
+       'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
+       'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/current/lib' ],
++      'include_dirs': [
++        '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
++      ],
+       'dependencies': [
+         'v8_base_without_compiler',
+         'v8_compiler_for_mksnapshot',
