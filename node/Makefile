@@ -120,6 +120,19 @@ define Package/node/config
 		endchoice
 	endif
 
+	config NODEJS_NPM_KEEP_CACHE
+		bool "keep npm cache (experimental)"
+		help
+		  Keep npm package cache.
+		  More space will be consumed by the cache.
+
+	config NODEJS_NPM_CACHE_DIR
+		string "Set npm cache directory" if NODEJS_NPM_KEEP_CACHE
+		default ""
+		help
+		  Store npm cache in this directory.
+		  If not set, uses './tmp'
+
 	endmenu
 endef
 
