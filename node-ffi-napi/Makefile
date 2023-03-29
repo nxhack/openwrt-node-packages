@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ffi-napi
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.0.3
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -44,7 +44,7 @@ NODEJS_CPU:=$(subst powerpc,ppc,$(subst aarch64,arm64,$(subst x86_64,x64,$(subst
 TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 NPM_CACHE_DIR:=$(if $(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(TMP_DIR))
 
-TARGET_CFLAGS+=$(FPIC) -I$(BUILD_DIR)/libffi-$(PKG_LIBFFI_VERSION)/$(GNU_TARGET_NAME)-gnu
+TARGET_CFLAGS+=$(FPIC) -I$(BUILD_DIR)/libffi-$(PKG_LIBFFI_VERSION)/$(GNU_TARGET_NAME)-$(TARGET_SUFFIX)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
