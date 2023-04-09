@@ -14,7 +14,7 @@ PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=5025f1a55f4cf33580cb729c84fdc39150d3f449b023a403ad13e56981fdd240
 
 PKG_BUILD_DEPENDS:=node/host node-clean-modules/host
-PKG_USE_MIPS16:=0
+PKG_BUILD_FLAGS:=no-mips16
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT

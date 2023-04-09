@@ -14,7 +14,7 @@ PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
 PKG_HASH:=969b84ef86d62f6f9500466b6fc2ba2cda503bbe33e86fe357761f2ffee4ebfd
 
 PKG_BUILD_DEPENDS:=node/host
-PKG_USE_MIPS16:=0
+PKG_BUILD_FLAGS:=no-mips16
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC Apache-2.0
