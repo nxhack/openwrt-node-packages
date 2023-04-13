@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=aws-crt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.15.13
+PKG_VERSION:=1.15.15
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=7693f6e5bdb74cf41294e4f920b6a38eb1954febcf7c27a208771168801a3d08
+PKG_HASH:=eff72cb542a5e73f4a1fc86c6cbd6b9984d9be82ca3c57bf16707581778a67b1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -117,11 +117,8 @@ define Package/node-aws-crt/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,NOTICE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist.browser} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist,dist.browser} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
-	$(CP) $(PKG_BUILD_DIR)/dist/{index.*,lib,common,native} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/linux-$(NODEJS_CPU)
 	$(CP) $(PKG_BUILD_DIR)/build/linux-x64/Release/aws-crt-nodejs.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/linux-$(NODEJS_CPU)/
