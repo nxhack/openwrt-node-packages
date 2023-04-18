@@ -12,11 +12,11 @@ PKG_RELEASE:=1
 PKG_HASH:=e0990f992234e40a51fe11f92c3816c93a77e1b081145d3dd762cd1026345349
 PATCH_DIR:=./patches/v16.x
 else
-ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.21.3
+ifeq ($(CONFIG_NODEJS_20),y)
+PKG_VERSION:=v20.0.0
 PKG_RELEASE:=1
-PKG_HASH:=458ec092e60ad700ddcf079cb63d435c15da4c7bb3d3f99b9a8e58a99e54075e
-PATCH_DIR:=./patches/v14.x
+PKG_HASH:=7450e7579568f7d1cb398185cfce472da2837b2aa36c59620b22ce4b977b5cb5
+PATCH_DIR:=./patches/v20.x
 else
 PKG_VERSION:=v18.16.0
 PKG_RELEASE:=1
@@ -52,7 +52,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64||mipsel) \
-	   +libstdcpp +NODEJS_18:libopenssl +zlib +libnghttp2 +libuv \
+	   +libstdcpp +!NODEJS_16:libopenssl +zlib +libnghttp2 +libuv \
 	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
@@ -91,14 +91,14 @@ define Package/node/config
 		 Select node.js version.
 		 The host package version is also the same.
 
-		config NODEJS_14
-			bool "14.x Maintenance"
-
 		config NODEJS_16
 			bool "16.x Maintenance"
 
 		config NODEJS_18
 			bool "18.x Active LTS"
+
+		config NODEJS_20
+			bool "20.x Current"
 	endchoice
 
 	if PACKAGE_node
@@ -161,7 +161,7 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--cross-compiling \
 	--shared-zlib \
-	$(if $(CONFIG_NODEJS_18),--shared-openssl) \
+	$(if $(CONFIG_NODEJS_16),,--shared-openssl) \
 	--shared-nghttp2 \
 	--shared-libuv \
 	--shared-cares \
