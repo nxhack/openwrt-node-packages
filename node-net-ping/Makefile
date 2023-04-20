@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=net-ping
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.2.3
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-net-ping
   CATEGORY:=Languages
   TITLE:=Raw sockets for Node.js
   URL:=https://www.npmjs.com/package/net-ping
-  DEPENDS:=+node
+  DEPENDS:=+node @BROKEN
 endef
 
 define Package/node-net-ping/description
