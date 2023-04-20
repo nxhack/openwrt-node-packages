@@ -29,7 +29,7 @@ define Package/node-zwave-js
   CATEGORY:=Languages
   TITLE:=Z-Wave driver written entirely in JavaScript/TypeScript
   URL:=https://www.npmjs.org/package/zwave-js
-  DEPENDS:=+node +node-serialport
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-zwave-js/description
@@ -52,11 +52,11 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --install-strategy=shallow --no-save --omit=dev --no-package-lock
-	rm -rf $(PKG_BUILD_DIR)/node_modules/serialport
+	npm install --prefer-offline --no-audit --install-strategy=shallow --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@serialport/bindings-cpp/prebuilds
 endef
 
 define Package/node-zwave-js/install
