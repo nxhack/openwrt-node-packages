@@ -53,13 +53,11 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
 	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --legacy-peer-deps
-	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/@homebridge/put/test/c/itof
-	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/@homebridge/put/test/c/ftoi
-	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/put/test/c/ftoi
-	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/put/test/c/itof
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/@homebridge/put/test/c/itof
+	rm -f $(PKG_BUILD_DIR)/node_modules/@homebridge/dbus-native/node_modules/@homebridge/put/test/c/ftoi
 endef
 
 define Package/node-hap-nodejs/install
