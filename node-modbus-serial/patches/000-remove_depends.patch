@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -39,7 +39,6 @@
+@@ -40,7 +40,6 @@
      "webbluetooth": "^2.1.0"
    },
    "dependencies": {

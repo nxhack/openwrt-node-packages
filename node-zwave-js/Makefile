@@ -57,7 +57,6 @@ define Build/Compile
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 	rm -rf $(PKG_BUILD_DIR)/node_modules/serialport/node_modules/@serialport/bindings-cpp/prebuilds
-	rm -rf $(PKG_BUILD_DIR)/node_modules/@serialport/bindings-cpp/prebuilds
 endef
 
 define Package/node-zwave-js/install
