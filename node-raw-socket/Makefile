@@ -66,7 +66,7 @@ define Package/node-raw-socket/install
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_BUILD_DIR)/build/Release/raw-socket.node \
+	$(CP) $(PKG_BUILD_DIR)/build/Release/raw.node \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
