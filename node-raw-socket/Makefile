@@ -4,18 +4,18 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=net-ping
+PKG_NPM_NAME:=raw-socket
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.2.3
-PKG_RELEASE:=6
+PKG_VERSION:=1.7.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=769957f1a6b4ddc2e61c9a67d8111fdf738774da26bf5ec1960bd42954dcf745
+PKG_HASH:=4c0f58b2b9fda8ac4c654036fc979019b6d694dadbe4670411bf10ab9a642790
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILES:=LICENSE.txt
+PKG_LICENSE:=MIT
+PKG_LICENSE_FILES:=README.md
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
@@ -23,17 +23,18 @@ PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-net-ping
+define Package/node-raw-socket
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Raw sockets for Node.js
-  URL:=https://www.npmjs.com/package/net-ping
-  DEPENDS:=+node +node-raw-socket
+  URL:=https://www.npmjs.org/package/raw-socket
+  DEPENDS:=+node
 endef
 
-define Package/node-net-ping/description
- This module implements ICMP Echo (ping) support for Node.js
+define Package/node-raw-socket/description
+ This module implements raw sockets for Node.js.
+ This module has been created primarily to facilitate implementation of the net-ping module.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -52,24 +53,29 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock
+	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-net-ping/install
+define Package/node-raw-socket/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,*.js} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_BUILD_DIR)/build/Release/raw.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-net-ping/postrm
+define Package/node-raw-socket/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/net-ping || true
-rm -rf /usr/lib/node/net-ping || true
+rm /usr/lib/node_modules/raw-socket || true
+rm -rf /usr/lib/node/raw-socket || true
 endef
 
-$(eval $(call BuildPackage,node-net-ping))
+$(eval $(call BuildPackage,node-raw-socket))
