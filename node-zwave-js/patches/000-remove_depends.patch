@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -137,25 +137,5 @@
+@@ -106,25 +106,5 @@
      "xstate": "4.29.0"
    },
    "devDependencies": {
@@ -13,8 +13,8 @@
 -    "@types/sinon": "^10.0.13",
 -    "@types/source-map-support": "^0.5.6",
 -    "@xstate/test": "^0.5.1",
--    "@zwave-js/maintenance": "10.15.0",
--    "@zwave-js/transformers": "10.13.0",
+-    "@zwave-js/maintenance": "10.16.0",
+-    "@zwave-js/transformers": "10.16.0",
 -    "ava": "^4.3.3",
 -    "del-cli": "^5.0.0",
 -    "esbuild": "0.15.7",
