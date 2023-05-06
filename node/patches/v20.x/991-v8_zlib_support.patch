@@ -46,7 +46,7 @@
        ],
        'sources': [
          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_initializers.*?sources = ")',
-@@ -868,6 +873,7 @@
+@@ -873,6 +878,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -54,7 +54,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1487,6 +1493,7 @@
+@@ -1492,6 +1498,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -62,7 +62,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1867,6 +1874,7 @@
+@@ -1872,6 +1879,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -70,7 +70,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2046,15 +2054,19 @@
+@@ -2051,15 +2059,19 @@
          }],
        ],
        'direct_dependent_settings': {
