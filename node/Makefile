@@ -13,10 +13,10 @@ PKG_HASH:=e0990f992234e40a51fe11f92c3816c93a77e1b081145d3dd762cd1026345349
 PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.21.3
+PKG_VERSION:=v20.1.0
 PKG_RELEASE:=1
-PKG_HASH:=458ec092e60ad700ddcf079cb63d435c15da4c7bb3d3f99b9a8e58a99e54075e
-PATCH_DIR:=./patches/v14.x
+PKG_HASH:=600f9e11860995814b9122b1ac5318f6ad564274784deed98d8a9206649436b5
+PATCH_DIR:=./patches/v20.x
 else
 PKG_VERSION:=v18.16.0
 PKG_RELEASE:=1
@@ -86,7 +86,7 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_16
+		default NODEJS_18
 		help
 		 Select node.js version.
 		 The host package version is also the same.
