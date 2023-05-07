@@ -91,14 +91,14 @@ define Package/node/config
 		 Select node.js version.
 		 The host package version is also the same.
 
-		config NODEJS_14
-			bool "14.x Maintenance"
-
 		config NODEJS_16
 			bool "16.x Maintenance"
 
 		config NODEJS_18
 			bool "18.x Active LTS"
+
+		config NODEJS_20
+			bool "20.x Current"
 	endchoice
 
 	if PACKAGE_node
