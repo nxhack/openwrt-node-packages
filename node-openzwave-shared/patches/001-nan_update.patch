@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -5,7 +5,7 @@
+   "main": "./lib/openzwave-shared.js",
+   "types": "./types/openzwave-shared.d.ts",
+   "dependencies": {
+-    "nan": ">=2.14.0"
++    "nan": "^2.17.0"
+   },
+   "scripts": {
+     "test": "node test.js",

@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -7,7 +7,6 @@
+     "example": "example"
+   },
+   "dependencies": {
+-    "raw-socket": "*"
+   },
+   "contributors": [
+     {
