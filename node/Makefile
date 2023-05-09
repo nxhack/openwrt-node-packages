@@ -11,17 +11,20 @@ PKG_VERSION:=v16.20.0
 PKG_RELEASE:=1
 PKG_HASH:=e0990f992234e40a51fe11f92c3816c93a77e1b081145d3dd762cd1026345349
 PATCH_DIR:=./patches/v16.x
+NODEJS_BIN_SUM:=dff21020b555cc165a1ac36da7d4f6c810b35409c94e00afc51d5d370aae47ae
 else
 ifeq ($(CONFIG_NODEJS_20),y)
 PKG_VERSION:=v20.1.0
 PKG_RELEASE:=1
 PKG_HASH:=600f9e11860995814b9122b1ac5318f6ad564274784deed98d8a9206649436b5
 PATCH_DIR:=./patches/v20.x
+NODEJS_BIN_SUM:=08e01d4ae29013f965dc8bde52d7f1abf780b5867ff40ade6bdd35bc9cbffd96
 else
 PKG_VERSION:=v18.16.0
 PKG_RELEASE:=1
 PKG_HASH:=33d81a233e235a509adda4a4f2209008d04591979de6b3f0f67c1c906093f118
 PATCH_DIR:=./patches/v18.x
+NODEJS_BIN_SUM:=44d93d9b4627fe5ae343012d855491d62c7381b236c347f7666a7ad070f26548
 endif
 endif
 
@@ -133,6 +136,11 @@ define Package/node/config
 		  Store npm cache in this directory.
 		  If not set, uses './tmp'
 
+	config NODEJS_HOST_BIN
+		bool "LINUX ONLY: Install the official nodejs binary package as HOSTPKG (experimental)"
+		help
+		  Reduce build time for host package.
+
 	endmenu
 endef
 
@@ -206,10 +214,45 @@ define Package/node-npm/postrm
 rm -rf /usr/lib/node_modules/npm || true
 endef
 
+ifeq ($(CONFIG_NODEJS_HOST_BIN),y)
+  ifeq ($(HOST_OS),Linux)
+	USE_NODEJS_HOST_BIN:=y
+  endif
+endif
+
+ifeq ($(USE_NODEJS_HOST_BIN),y)
+
+NODEJS_BIN:=node-$(PKG_VERSION)-linux-x64.tar.xz
+
+define Download/nodebin
+	URL:=https://nodejs.org/download/release/$(PKG_VERSION)/
+	FILE:=$(NODEJS_BIN)
+	HASH:=$(NODEJS_BIN_SUM)
+endef
+
+define Host/Prepare
+	$(eval $(call Download,nodebin))
+endef
+
+define Host/Configure
+	# nothing to do
+endef
+
+define Host/Compile
+	# nothing to do
+endef
+
+define Host/Install
+	$(TAR) -xvf $(DL_DIR)/$(NODEJS_BIN) -C $(1) --strip-components=1
+	$(RM) $(1)/{CHANGELOG.md,LICENSE,README.md}
+endef
+
+else
 define Host/Install
 	$(RM) -rf $(1)/lib/node_modules/npm
 	$(call Host/Install/Default)
 endef
+endif
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node))
