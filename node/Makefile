@@ -137,8 +137,7 @@ define Package/node/config
 		  If not set, uses './tmp'
 
 	config NODEJS_HOST_BIN
-		bool "Install the official nodejs binary package as HOSTPKG (experimental)"
-		depends on HOST_OS_LINUX
+		bool "LINUX ONLY: Install the official nodejs binary package as HOSTPKG (experimental)"
 		help
 		  Reduce build time for host package.
 
@@ -216,6 +215,12 @@ rm -rf /usr/lib/node_modules/npm || true
 endef
 
 ifeq ($(CONFIG_NODEJS_HOST_BIN),y)
+  ifeq ($(HOST_OS),Linux)
+	USE_NODEJS_HOST_BIN:=y
+  endif
+endif
+
+ifeq ($(USE_NODEJS_HOST_BIN),y)
 
 NODEJS_BIN:=node-$(PKG_VERSION)-linux-x64.tar.xz
 
