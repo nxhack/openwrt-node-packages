@@ -4,7 +4,7 @@
  
  const nativeSourceDir = "crt/";
  
-+const exec = require('child_process').exec;
++const execSync = require('child_process').execSync;
 +const CMAKE_SYSTEM_NAME = process.env.CMAKE_SYSTEM_NAME;
 +const CMAKE_SYSTEM_VERSION = process.env.CMAKE_SYSTEM_VERSION;
 +const CMAKE_SYSTEM_PROCESSOR = process.env.CMAKE_SYSTEM_PROCESSOR;
@@ -94,14 +94,14 @@
      process.env.CMAKE_BUILD_PARALLEL_LEVEL = `${Math.max(os.cpus().length, 1)}`;
  
 +    // Bad technique (for OpenWrt)
-+    exec("find ./crt  \\( -name CMakeLists.txt -or -name *.mk -or -name *.cmake \\) -exec sed -i -e 's| -Werror||g' {} +", (error, stdout, stderr) => {
++    execSync("find ./crt  \\( -name CMakeLists.txt -or -name *.mk -or -name *.cmake \\) -exec sed -i -e 's| -Werror||g' {} +", (error, stdout, stderr) => {
 +        console.log(error, stdout, stderr);
 +    });
-+    exec("find ./crt  \\( -name CMakeLists.txt -or -name *.mk -or -name *.cmake \\) -exec sed -i -e 's|-D_FORTIFY_SOURCE=2||g' {} +", (error, stdout, stderr) => {
++    execSync("find ./crt  \\( -name CMakeLists.txt -or -name *.mk -or -name *.cmake \\) -exec sed -i -e 's|-D_FORTIFY_SOURCE=2||g' {} +", (error, stdout, stderr) => {
 +        console.log(error, stdout, stderr);
 +    });
 +
-+    exec("sed -i '35d' ./crt/aws-c-common/cmake/AwsSharedLibSetup.cmake", (error, stdout, stderr) => {
++    execSync("sed -i '35d' ./crt/aws-c-common/cmake/AwsSharedLibSetup.cmake", (error, stdout, stderr) => {
 +        console.log(error, stdout, stderr);
 +    });
 +
