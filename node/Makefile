@@ -243,7 +243,7 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(TAR) -xvf $(DL_DIR)/$(NODEJS_BIN) -C $(1) --strip-components=1
+	$(TAR) xvfJ $(DL_DIR)/$(NODEJS_BIN) -C $(1) --strip-components=1
 	$(RM) $(1)/{CHANGELOG.md,LICENSE,README.md}
 endef
 
