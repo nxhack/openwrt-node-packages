@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.6.0
+PKG_VERSION:=1.6.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=969b84ef86d62f6f9500466b6fc2ba2cda503bbe33e86fe357761f2ffee4ebfd
+PKG_HASH:=f6d25a51db50c252b3d3775bf9df26e510ec0a9e17215362a7f6c95dea15caff
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_FLAGS:=no-mips16
