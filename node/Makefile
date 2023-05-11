@@ -140,7 +140,7 @@ define Package/node/config
 		bool "Install the official nodejs binary package as HOSTPKG (experimental)"
 		depends on HOST_OS_LINUX
 		help
-		  Reduce build time for host package.
+		  Reduce build time for the host package.
 
 	endmenu
 endef
