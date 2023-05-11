@@ -139,7 +139,7 @@ define Package/node/config
 	config NODEJS_HOST_BIN
 		bool "LINUX ONLY: Install the official nodejs binary package as HOSTPKG (experimental)"
 		help
-		  Reduce build time for host package.
+		  Reduce build time for the host package.
 
 	endmenu
 endef
