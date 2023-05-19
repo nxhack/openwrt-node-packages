@@ -13,7 +13,7 @@
 -    "@types/sinon": "^10.0.14",
 -    "@types/source-map-support": "^0.5.6",
 -    "@xstate/test": "^0.5.1",
--    "@zwave-js/maintenance": "10.17.0",
+-    "@zwave-js/maintenance": "10.20.0",
 -    "@zwave-js/transformers": "10.17.0",
 -    "ava": "^4.3.3",
 -    "del-cli": "^5.0.0",
