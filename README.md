@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt Node.js Packages : for Head (Development branch)
+OpenWrt Node.js Packages : for OpenWrt-23.05
 
 Note: support arches are aarch64, arm, x86_64
 
@@ -16,7 +16,7 @@ See [LICENSE](LICENSE) file.
 
 Add the following line to feeds.conf or feeds.conf.default.
 ```
-src-git node https://github.com/nxhack/openwrt-node-packages.git
+src-git node https://github.com/nxhack/openwrt-node-packages.git;openwrt-23.05
 ```
 
 Run
