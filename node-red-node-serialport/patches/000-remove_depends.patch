@@ -2,10 +2,10 @@
 +++ b/package.json
 @@ -2,9 +2,6 @@
      "name"          : "node-red-node-serialport",
-     "version"       : "1.0.3",
+     "version"       : "1.0.4",
      "description"   : "Node-RED nodes to talk to serial ports",
 -    "dependencies"  : {
--        "serialport"   : "^10.5.0"
+-        "serialport"   : "^11.0.0"
 -    },
      "repository" : {
          "type":"git",
