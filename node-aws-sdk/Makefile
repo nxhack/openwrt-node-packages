@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=aws-sdk
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.1388.0
+PKG_VERSION:=2.1389.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=f29cc1f06d22ecfa4b78ab9cf8a17edca8813e0b71efab4b0dc289d3ebf28460
+PKG_HASH:=c5ad9eddfe7253b9a084c19ff7bfec122eb89ef5dcaad627ad9b1dad10c48bda
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
