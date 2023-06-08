@@ -10,7 +10,7 @@
        'targets': [
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -56,6 +56,7 @@
+@@ -73,6 +73,7 @@
        ],
        'hard_dependency': 1,
        'direct_dependent_settings': {
@@ -18,7 +18,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -177,6 +178,7 @@
+@@ -194,6 +195,7 @@
            '<@(torque_outputs_cc)',
            '<@(torque_outputs_inc)',
          ],
@@ -26,7 +26,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -198,6 +200,7 @@
+@@ -215,6 +217,7 @@
          'sources': [
            '<(generate_bytecode_builtins_list_output)',
          ],
@@ -34,9 +34,9 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -245,9 +248,11 @@
-         'v8_base_without_compiler',
+@@ -263,9 +266,11 @@
          'v8_shared_internal_headers',
+         'v8_pch',
        ],
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
        'include_dirs': [
@@ -46,7 +46,7 @@
        ],
        'sources': [
          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_initializers.*?sources = ")',
-@@ -873,6 +878,7 @@
+@@ -861,6 +866,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -54,7 +54,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1492,6 +1498,7 @@
+@@ -1474,6 +1480,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -62,7 +62,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1872,6 +1879,7 @@
+@@ -1847,6 +1854,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -70,7 +70,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2051,15 +2059,19 @@
+@@ -2026,15 +2034,19 @@
          }],
        ],
        'direct_dependent_settings': {
