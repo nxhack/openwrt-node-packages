@@ -14,11 +14,11 @@ PATCH_DIR:=./patches/v16.x
 NODEJS_BIN_SUM:=dff21020b555cc165a1ac36da7d4f6c810b35409c94e00afc51d5d370aae47ae
 else
 ifeq ($(CONFIG_NODEJS_20),y)
-PKG_VERSION:=v20.2.0
+PKG_VERSION:=v20.3.0
 PKG_RELEASE:=1
-PKG_HASH:=22523df2316c35569714ff1f69b053c2e286ced460898417dee46945efcdf989
+PKG_HASH:=1ba8d49423ed3a75729066bb3ea26493ee9cb7d6568ef948597fc9ef454f7435
 PATCH_DIR:=./patches/v20.x
-NODEJS_BIN_SUM:=9257b5d5cc807d372da0d3574ce0e2d9b14c9510d7099081d30a464e5d4c0b2b
+NODEJS_BIN_SUM:=2dd1f5c0e01732024ba1f5de4517fa3976eb0976fa7976ff687ec09b62dd73fa
 else
 PKG_VERSION:=v18.16.0
 PKG_RELEASE:=1
@@ -55,7 +55,7 @@ define Package/node
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64) \
-	   +libstdcpp +!NODEJS_16:libopenssl +zlib +libnghttp2 +libuv \
+	   +libstdcpp +!NODEJS_16:libopenssl +zlib +libnghttp2 \
 	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
@@ -172,7 +172,6 @@ CONFIGURE_ARGS:= \
 	--shared-zlib \
 	$(if $(CONFIG_NODEJS_16),,--shared-openssl) \
 	--shared-nghttp2 \
-	--shared-libuv \
 	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring +neon",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
