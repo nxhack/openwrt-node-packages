@@ -1,6 +1,6 @@
 --- a/lib/internal/modules/cjs/loader.js
 +++ b/lib/internal/modules/cjs/loader.js
-@@ -1392,7 +1392,8 @@ Module._initPaths = function() {
+@@ -1394,7 +1394,8 @@ Module._initPaths = function() {
      path.resolve(process.execPath, '..') :
      path.resolve(process.execPath, '..', '..');
  
