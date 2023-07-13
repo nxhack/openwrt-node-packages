@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=zigbee2mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.32.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -67,8 +67,8 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/moment/locale
-	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules --exclude "**/*.map.js" "**/*.png" \
-		"**/example/" "**/examples/" --include "**/npm-shrinkwrap.json" "**/.babelrc.js" \
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.map.js" "!**/*.png" \
+		"!**/example/" "!**/examples/" "**/npm-shrinkwrap.json" "**/.babelrc.js" \
 		"**/.prebuild-installrc" "**/obj.target/" "**/config.gypi" "**/binding.Makefile"
 endef
 
