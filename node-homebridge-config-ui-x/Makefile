@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=homebridge-config-ui-x
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.50.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -85,7 +85,7 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/locale
-	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules --exclude "**/*.png" "**/example/" "**/examples/"
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/example/" "!**/examples/"
 endef
 
 define Package/node-homebridge-config-ui-x/install
