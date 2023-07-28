@@ -1,10 +1,10 @@
 --- a/package.json
 +++ b/package.json
-@@ -76,7 +76,6 @@
+@@ -113,7 +113,6 @@
      "reinterval": "^1.1.0",
      "rfdc": "^1.3.0",
-     "split2": "^3.1.0",
--    "ws": "^7.5.5",
-     "xtend": "^4.0.2"
+     "split2": "^4.2.0",
+-    "ws": "^8.13.0"
    },
    "devDependencies": {
+     "@release-it/conventional-changelog": "^6.0.0",
