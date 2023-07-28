@@ -17,7 +17,7 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE.md
 
-PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_DEPENDS:=node/host node-typescript/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
@@ -52,7 +52,7 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --ignore-scripts
+	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
@@ -67,14 +67,14 @@ define Package/node-mqtt/install
 	$(CP) $(PKG_BUILD_DIR)/{build,dist,doc} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/mqtt.js $(1)/usr/bin/mqtt
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/bin/pub.js $(1)/usr/bin/mqtt_pub
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/bin/sub.js $(1)/usr/bin/mqtt_sub
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/src/bin/mqtt.js $(1)/usr/bin/mqtt
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/src/bin/pub.js $(1)/usr/bin/mqtt_pub
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/src/bin/sub.js $(1)/usr/bin/mqtt_sub
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/mqtt.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/bin/pub.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/bin/sub.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/src/bin/mqtt.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/src/bin/pub.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/src/bin/sub.js
 endef
 
 define Package/node-mqtt/postrm
