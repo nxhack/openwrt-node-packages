@@ -72,7 +72,7 @@ define Package/node-rimraf/install
 	$(CP) $(PKG_BUILD_DIR)/dist \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin.js $(1)/usr/bin/rimraf
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/cjs/src/bin.js $(1)/usr/bin/rimraf
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
@@ -103,7 +103,7 @@ define Host/Install
 	$(CP) $(HOST_BUILD_DIR)/dist \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin.js $(1)/bin/rimraf
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/dist/cjs/src/bin.js $(1)/bin/rimraf
 endef
 
 $(eval $(call HostBuild))
