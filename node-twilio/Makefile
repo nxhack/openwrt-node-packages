@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=twilio
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.14.0
+PKG_VERSION:=4.14.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=838a4d360f9e71e69b64873cb3fbd6e4cec1c7546e3dfa3fe7dfea3af8da0dab
+PKG_HASH:=43e36f0b2913f2f8dbc1702cfedc713ef8ad3a63fc568dab8e2f021d4329e605
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
