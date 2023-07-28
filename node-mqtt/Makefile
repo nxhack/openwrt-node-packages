@@ -17,7 +17,7 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE.md
 
-PKG_BUILD_DEPENDS:=node/host node-typescript/host
+PKG_BUILD_DEPENDS:=node/host node-typescript/host node-rimraf/host
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 
