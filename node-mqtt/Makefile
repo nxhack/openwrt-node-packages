@@ -62,19 +62,19 @@ define Package/node-mqtt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,build} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{bin,dist,doc} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/mqtt.js $(1)/usr/bin/mqtt
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pub.js $(1)/usr/bin/mqtt_pub
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/sub.js $(1)/usr/bin/mqtt_sub
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/mqtt.js $(1)/usr/bin/mqtt
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/bin/pub.js $(1)/usr/bin/mqtt_pub
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/bin/sub.js $(1)/usr/bin/mqtt_sub
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/mqtt.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/pub.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/sub.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/mqtt.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/bin/pub.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/bin/sub.js
 endef
 
 define Package/node-mqtt/postrm
