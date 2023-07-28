@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.3.7
+PKG_VERSION:=5.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=50c6114205a0ed0d0ec19568ca4e98c827fff4b14f85aa45aae346090489e2dc
+PKG_HASH:=2e0cb8e230a3094d31494704ca6989004350fa889e2cca4214908ac81fa63eda
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -60,21 +60,21 @@ endef
 
 define Package/node-mqtt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,build} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{bin,dist,doc} \
+	$(CP) $(PKG_BUILD_DIR)/{build,dist,doc} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/mqtt.js $(1)/usr/bin/mqtt
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pub.js $(1)/usr/bin/mqtt_pub
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/sub.js $(1)/usr/bin/mqtt_sub
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/src/bin/mqtt.js $(1)/usr/bin/mqtt
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/src/bin/pub.js $(1)/usr/bin/mqtt_pub
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/src/bin/sub.js $(1)/usr/bin/mqtt_sub
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/mqtt.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/pub.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/sub.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/src/bin/mqtt.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/src/bin/pub.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/src/bin/sub.js
 endef
 
 define Package/node-mqtt/postrm
