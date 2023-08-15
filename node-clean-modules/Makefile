@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=clean-modules
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.0.2
+PKG_VERSION:=3.0.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=fe4b86da35b1f155bc286e4f3fd34af05244cdccf184d817bde5f32319cb5b03
+PKG_HASH:=1425de8b06fad3cb45fed23114c3cb83e9746f7e28278e69c03b2dc92eb2866e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC
