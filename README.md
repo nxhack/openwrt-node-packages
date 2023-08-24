@@ -68,8 +68,9 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either.
  Note: ICU currently supports only ***LITTLE ENDIAN***.
 
 ## Note about mDNS and homebridge
-Read this document: ([mDNS Options](https://github.com/homebridge/homebridge/wiki/mDNS-Options)).
-If you want, you can print the OpenWrt mDNS package (umdns / avahi-dbus-daemon / mdnsresponder).
+Read this document: [mDNS Options](https://github.com/homebridge/homebridge/wiki/mDNS-Options)
+
+If you want, you can install the OpenWrt mDNS package (umdns / avahi-dbus-daemon / mdnsresponder).
 
 (1)
 Some OpenWrt / Lede images have built in dnscrypt-proxy package, which by default listening on 5353 port.
