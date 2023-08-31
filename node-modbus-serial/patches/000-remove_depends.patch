@@ -5,7 +5,7 @@
    },
    "dependencies": {
 -    "debug": "^4.1.1",
--    "serialport": "^10.4.0"
+-    "serialport": "^11.0.0"
 +    "debug": "^4.1.1"
    }
  }
