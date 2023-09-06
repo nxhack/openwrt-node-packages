@@ -47,6 +47,12 @@ NPM_CACHE_DIR:=$(if $(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(call qstrip,
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
+define Build/Configure
+endef
+
+define Build/Install
+endef
+
 define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/package/prebuilds
 	cd $(PKG_BUILD_DIR); \
