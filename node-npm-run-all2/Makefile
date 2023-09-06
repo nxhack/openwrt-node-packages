@@ -75,6 +75,9 @@ define Package/node-npm-run-all2/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/npm-run-all/index.js $(1)/usr/bin/npm-run-all
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/run-p/index.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/run-s/index.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/npm-run-all/index.js
 endef
 
 define Package/node-npm-run-all2/postrm
@@ -104,6 +107,9 @@ define Host/Install
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/run-p/index.js $(1)/bin/run-p
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/run-s/index.js $(1)/bin/run-s
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/npm-run-all/index.js $(1)/bin/npm-run-all
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/run-p/index.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/run-s/index.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/npm-run-all/index.js
 endef
 
 $(eval $(call HostBuild))
