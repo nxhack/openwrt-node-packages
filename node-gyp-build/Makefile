@@ -27,7 +27,7 @@ PKG_BUILD_FLAGS:=no-mips16
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-node-gyp-build
+define Package/node-gyp-build
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -36,7 +36,7 @@ define Package/node-node-gyp-build
   DEPENDS:=+node
 endef
 
-define Package/node-node-gyp-build/description
+define Package/node-gyp-build/description
  Build tool and bindings loader for node-gyp that supports prebuilds
 endef
 
@@ -63,7 +63,7 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-node-gyp-build/install
+define Package/node-gyp-build/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
@@ -77,7 +77,7 @@ define Package/node-node-gyp-build/install
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-node-gyp-build/postrm
+define Package/node-gyp-build/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/node-gyp-build || true
 rm -rf /usr/lib/node/node-gyp-build || true
@@ -107,4 +107,4 @@ define Host/Install
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,node-node-gyp-build))
+$(eval $(call BuildPackage,node-gyp-build))
