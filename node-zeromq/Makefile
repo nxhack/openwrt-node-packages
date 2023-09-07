@@ -30,7 +30,7 @@ define Package/node-zeromq
   CATEGORY:=Languages
   TITLE:=Next-generation ZeroMQ bindings for Node.js
   URL:=https://www.npmjs.org/package/zeromq
-  DEPENDS:=+node +libbsd
+  DEPENDS:=+node
 endef
 
 define Package/node-zeromq/description
