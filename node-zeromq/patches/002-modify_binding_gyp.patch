@@ -1,0 +1,11 @@
+--- a/binding.gyp
++++ b/binding.gyp
+@@ -75,7 +75,7 @@
+           'conditions': [
+             ['OS != "win"', {
+               'libraries': [
+-                '<(module_root_dir)/build/libzmq/lib/libzmq.a',
++                '<(module_root_dir)/build/libzmq-staging/build/lib/libzmq.a',
+               ],
+             }],
+ 
