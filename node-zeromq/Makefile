@@ -45,7 +45,7 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 NPM_CACHE_DIR:=$(if $(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(TMP_DIR))
 
 TARGET_CFLAGS+=$(FPIC)
-TARGET_CPPFLAGS+=$(FPIC)
+TARGET_CPPFLAGS+=$(FPIC) -I$(PKG_BUILD_DIR)/build/libzmq-staging/libzmq-de5ee18203f4ba472812fd08665603cd3f88955d/include
 
 define Build/Configure
 endef
@@ -54,7 +54,6 @@ define Build/Install
 endef
 
 define Build/Compile
-	rm -rf $(PKG_BUILD_DIR)/package/prebuilds
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
