@@ -106,6 +106,7 @@ define Host/Install
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/mocha.js $(1)/bin/mocha
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/_mocha $(1)/bin/_mocha
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/mocha.js
 endef
 
 $(eval $(call HostBuild))
