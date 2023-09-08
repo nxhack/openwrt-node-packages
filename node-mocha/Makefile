@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=mocha
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=10.2.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -72,7 +72,7 @@ define Package/node-mocha/install
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,bin,lib} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/mocha $(1)/usr/bin/mocha
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/mocha.js $(1)/usr/bin/mocha
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/_mocha $(1)/usr/bin/_mocha
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
@@ -104,7 +104,7 @@ define Host/Install
 	$(CP) $(HOST_BUILD_DIR)/{node_modules,bin,lib} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/mocha $(1)/bin/mocha
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/mocha.js $(1)/bin/mocha
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/_mocha $(1)/bin/_mocha
 endef
 
