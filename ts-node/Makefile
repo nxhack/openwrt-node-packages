@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ts-node
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=10.9.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -75,6 +75,11 @@ define Package/ts-node/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/bin-transpile.js $(1)/usr/bin/ts-node-transpile-only
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin-script-deprecated.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin-script.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin-cwd.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin-transpile.js
 endef
 
 define Package/ts-node/postrm
