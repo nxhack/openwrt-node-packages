@@ -76,6 +76,7 @@ define Package/node-mocha/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/_mocha $(1)/usr/bin/_mocha
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/mocha.js
 endef
 
 define Package/node-mocha/postrm
