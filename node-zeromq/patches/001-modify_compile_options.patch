@@ -54,11 +54,11 @@
 +    build_options += " -DCMAKE_NM=" + process.env.CMAKE_NM;
 +    build_options += " -DCMAKE_RANLIB=" + process.env.CMAKE_RANLIB;
 +    build_options += " -DCMAKE_FIND_ROOT_PATH=\"" + process.env.CMAKE_FIND_ROOT_PATH + "\"";
-+    build_options += " -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=\"" + process.env.CMAKE_FIND_ROOT_PATH_MODE_PROGRAM + "\"";
-+    build_options += " -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=\"" + process.env.CMAKE_FIND_ROOT_PATH_MODE_LIBRARY + "\"";
-+    build_options += " -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=\"" + process.env.CMAKE_FIND_ROOT_PATH_MODE_INCLUDE + "\"";
++    build_options += " -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=" + process.env.CMAKE_FIND_ROOT_PATH_MODE_PROGRAM;
++    build_options += " -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=" + process.env.CMAKE_FIND_ROOT_PATH_MODE_LIBRARY;
++    build_options += " -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=" + process.env.CMAKE_FIND_ROOT_PATH_MODE_INCLUDE;
 +    build_options += " -DDL_LIBRARY=\"" + process.env.DL_LIBRARY + "\"";
-+    build_options += " -DCMAKE_SKIP_RPATH=\"" + process.env.CMAKE_SKIP_RPATH + "\"";
++    build_options += " -DCMAKE_SKIP_RPATH=" + process.env.CMAKE_SKIP_RPATH;
 +    build_options += " -DCMAKE_EXPORT_PACKAGE_REGISTRY=" + process.env.CMAKE_EXPORT_PACKAGE_REGISTRY;
 +    build_options += " -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=" + process.env.CMAKE_EXPORT_NO_PACKAGE_REGISTRY;
 +    build_options += " -DCMAKE_FIND_USE_PACKAGE_REGISTRY=" + process.env.CMAKE_FIND_USE_PACKAGE_REGISTRY;
