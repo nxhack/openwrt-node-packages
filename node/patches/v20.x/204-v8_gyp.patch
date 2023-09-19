@@ -136,7 +136,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2019,15 +2040,19 @@
+@@ -1961,15 +1982,19 @@
          }],
        ],
        'direct_dependent_settings': {
