@@ -243,22 +243,22 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(RM) -rf $(1)/bin/npm
-	$(RM) -rf $(1)/bin/npx
-	$(RM) -rf $(1)/lib/node_modules/npm
-	$(RM) -rf $(1)/bin/corepack
-	$(RM) -rf $(1)/lib/node_modules/corepack
+	rm -f $(1)/bin/npm
+	rm -f $(1)/bin/npx
+	rm -rf $(1)/lib/node_modules/npm
+	rm -f $(1)/bin/corepack
+	rm -rf $(1)/lib/node_modules/corepack
 	$(TAR) xvfJ $(DL_DIR)/$(NODEJS_BIN) -C $(1) --strip-components=1
-	$(RM) $(1)/{CHANGELOG.md,LICENSE,README.md}
+	rm -f $(1)/{CHANGELOG.md,LICENSE,README.md}
 endef
 
 else
 define Host/Install
-	$(RM) -rf $(1)/bin/npm
-	$(RM) -rf $(1)/bin/npx
-	$(RM) -rf $(1)/lib/node_modules/npm
-	$(RM) -rf $(1)/bin/corepack
-	$(RM) -rf $(1)/lib/node_modules/corepack
+	rm -f $(1)/bin/npm
+	rm -f $(1)/bin/npx
+	rm -rf $(1)/lib/node_modules/npm
+	rm -f $(1)/bin/corepack
+	rm -rf $(1)/lib/node_modules/corepack
 	$(call Host/Install/Default)
 endef
 endif
