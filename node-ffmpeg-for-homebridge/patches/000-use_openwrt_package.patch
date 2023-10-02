@@ -1,13 +1,8 @@
 --- a/index.js
 +++ b/index.js
-@@ -1,10 +1,11 @@
- "use strict";
- 
- const os = require("os");
--const path = require("path");
--const fs = require("fs");
-+// const path = require("path");
-+// const fs = require("fs");
+@@ -4,7 +4,8 @@ const os = require("os");
+ const path = require("path");
+ const fs = require("fs");
  
 -const ffmpegPath = path.resolve(__dirname, os.platform() === "win32" ? "ffmpeg.exe" : "ffmpeg");
 +// const ffmpegPath = path.resolve(__dirname, os.platform() === "win32" ? "ffmpeg.exe" : "ffmpeg");
