@@ -1,6 +1,6 @@
 --- a/index.js
 +++ b/index.js
-@@ -1,7 +1,8 @@
+@@ -4,7 +4,8 @@ const os = require("os");
  const path = require("path");
  const fs = require("fs");
  
