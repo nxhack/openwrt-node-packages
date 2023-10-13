@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : for OpenWrt-21.02
+OpenWrt/LEDE Node.js Packages : for OpenWrt-21.02 (***End of life***)
 
 Note: support arches are aarch64, arm, x86_64
 
@@ -38,7 +38,7 @@ If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com
 
 If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-18.06) (***End of life***)
 
-If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07) (***Outdated release: No longer receiving updates***) (***MIPS FPU EMULATOR support***)
+If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07) (***End of life***) (***MIPS FPU EMULATOR support***)
 
 OpenSSL 1.0.x becomes EoL, OpenWrt-18.06 will not be supported.
 Python2 becomes EoL, node v8.x will not be supported.
