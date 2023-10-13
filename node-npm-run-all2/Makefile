@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=npm-run-all2
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.0.6
+PKG_VERSION:=6.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=2fa564a2e01c98c4187595113dc30498feefaa7d7baa3d30a34ab2affea978d9
+PKG_HASH:=b752d2524c1813c0b794fcd5bdaedafbf1f6596da07792cf21f9ec19ca5fff5d
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
