@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt/LEDE Node.js Packages : OpenWrt-19.07
+OpenWrt/LEDE Node.js Packages : OpenWrt-19.07 (***End of life***)
 
 Note: support arches are aarch64, arm, mipsel, mips64el, x86_64
       (mipseb & mips64eb & i386 are not supported)
@@ -35,7 +35,7 @@ If you want to use with Chaos Calmer(15.05), see [for-15.05 branch](https://gith
 
 If you want to use with LEDE (17.01), see [lede-17.01 branch](https://github.com/nxhack/openwrt-node-packages/tree/lede-17.01) (***End of life***)
 
-If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-18.06) (***Outdated release: No longer receiving updates***)
+If you want to use with 18.06, see [openwrt-18.06 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-18.06) (***End of life***)
 
 MIPS(be) will no longer be supported because 'nosnapshot' build is deprecated.
 
