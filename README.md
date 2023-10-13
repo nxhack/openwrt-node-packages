@@ -32,7 +32,7 @@ make defconfig
 If you want a new module (native module) that requires a precompiled binary, ***please open the issue.***
 
 ## Note
-If you want to use with 21.02, see [openwrt-21.02 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-21.02) (***MIPS is no longer supported***)
+If you want to use with 21.02, see [openwrt-21.02 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-21.02) (***MIPS is no longer supported***) (***End of life***)
 
 On the host side, the following preparations are required.
 * [Unix prerequisites](https://github.com/nodejs/node/blob/master/BUILDING.md#unix-prerequisites)
