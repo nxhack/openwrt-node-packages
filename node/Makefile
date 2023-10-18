@@ -8,20 +8,20 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_16),y)
 PKG_VERSION:=v16.20.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=576f1a03c455e491a8d132b587eb6b3b84651fc8974bb3638433dd44d22c8f49
 PATCH_DIR:=./patches/v16.x
 NODEJS_BIN_SUM:=874463523f26ed528634580247f403d200ba17a31adf2de98a7b124c6eb33d87
 else
 ifeq ($(CONFIG_NODEJS_20),y)
 PKG_VERSION:=v20.8.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=f799c66f6a6386bb8ac2c75a378f740c455e97f1fe964393dd39c9f9f6efbc70
 PATCH_DIR:=./patches/v20.x
 NODEJS_BIN_SUM:=44096f6276cf735f3b25f47ffaaa1629b0abad4d9932c3a77d9dcdc743a3ff92
 else
 PKG_VERSION:=v18.18.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=7249e2f0af943ec38599504f4b2a2bd31fb938787291b6ccca6c8badf01e3b56
 PATCH_DIR:=./patches/v18.x
 NODEJS_BIN_SUM:=75aba25ae76999309fc6c598efe56ce53fbfc221381a44a840864276264ab8ac
@@ -42,7 +42,6 @@ HOST_BUILD_PARALLEL:=1
 PKG_BUILD_DEPENDS:=python3/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
-PKG_USE_MIPS16:=0
 PKG_ASLR_PIE:=0
 
 include $(INCLUDE_DIR)/host-build.mk
@@ -54,9 +53,9 @@ define Package/node
   SUBMENU:=Node.js
   TITLE:=Node.js is a platform built on Chrome's JavaScript runtime
   URL:=https://nodejs.org/
-  DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64||mipsel) \
-	   +libstdcpp +libopenssl +zlib +libnghttp2 \
-	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
+  DEPENDS:=@HAS_FPU @(x86_64||arm||aarch64) \
+	   +libstdcpp +zlib \
+	   +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
 endef
 
 define Package/node/description
@@ -98,7 +97,7 @@ define Package/node/config
 			bool "16.x End-of-Life"
 
 		config NODEJS_18
-			bool "18.x Active LTS"
+			bool "18.x Maintenance LTS"
 
 		config NODEJS_20
 			bool "20.x Current"
@@ -170,9 +169,6 @@ CONFIGURE_ARGS:= \
 	--dest-os=linux \
 	--cross-compiling \
 	--shared-zlib \
-	--shared-openssl \
-	--shared-nghttp2 \
-	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring +neon",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +neon-vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
