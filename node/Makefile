@@ -98,7 +98,7 @@ define Package/node/config
 			bool "16.x End-of-Life"
 
 		config NODEJS_18
-			bool "18.x Active LTS"
+			bool "18.x Maintenance LTS"
 
 		config NODEJS_20
 			bool "20.x Current"
