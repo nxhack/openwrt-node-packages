@@ -6,8 +6,6 @@ OpenWrt Node.js Packages : for OpenWrt-23.05
 
 Note: support arches are aarch64, arm, x86_64
 
-***MIPS without hardware FPU no longer be supported***
-
 ## License
 
 See [LICENSE](LICENSE) file.
