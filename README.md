@@ -6,8 +6,6 @@ OpenWrt Node.js Packages : for Head (Development branch)
 
 Note: support arches are aarch64, arm, x86_64
 
-***MIPS without hardware FPU no longer be supported***
-
 ## License
 
 See [LICENSE](LICENSE) file.
@@ -32,11 +30,9 @@ make defconfig
 If you want a new module (native module) that requires a precompiled binary, ***please open the issue.***
 
 ## Note
-If you want to use with 19.07, see [openwrt-19.07 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-19.07) (***End of life***) (***MIPS FPU EMULATOR support***)
-
-If you want to use with 21.02, see [openwrt-21.02 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-21.02) (***End of life***)
-
 If you want to use with 22.03, see [openwrt-22.03 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-22.03) (***Old stable series***)
+
+If you want to use with 23.05, see [openwrt-23.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-23.05) (***Current stable series***)
 
 On the host side, the following preparations are required.
 * [Unix prerequisites](https://github.com/nodejs/node/blob/master/BUILDING.md#unix-prerequisites)
