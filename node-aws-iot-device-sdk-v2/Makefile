@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=aws-iot-device-sdk-v2
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.16.0
+PKG_VERSION:=1.16.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=314e6a7d36048d3c953f04fbae6daeb5fe73237e9d720798efca67daba497f7c
+PKG_HASH:=62fa64aa348d1ee9089af7b8766408571355ea6f0bab16768915c77308afd995
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
