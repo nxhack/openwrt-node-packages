@@ -4,14 +4,16 @@
 
 include $(TOPDIR)/rules.mk
 
+PKG_NPM_SCOPE:=homebridge
 PKG_NPM_NAME:=node-pty-prebuilt-multiarch
-PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=0.10.1-pre.5
+PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
+PKG_VERSION:=0.11.7
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8d4536bb6626a8e8d92fb68d849a73de45e76f5e9578909987dbfcbca2610021
+PKG_SOURCE:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL_FILE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
+PKG_HASH:=c7004949c180b845a46d1026e089b431479382f2e1f7d23becd4f2e4650def07
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -23,16 +25,16 @@ PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-pty-prebuilt-multiarch
+define Package/node-homebridge-node-pty-prebuilt-multiarch
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Fork pseudoterminals in Node.JS
-  URL:=https://www.npmjs.com/package/node-pty-prebuilt-multiarch
+  URL:=https://www.npmjs.com/package/@homebridge/node-pty-prebuilt-multiarch
   DEPENDS:=+node
 endef
 
-define Package/node-pty-prebuilt-multiarch/description
+define Package/node-homebridge-node-pty-prebuilt-multiarch/description
  This project is a parallel fork of node-pty providing prebuilt packages for certain Node.js and Electron versions.
 endef
 
@@ -65,23 +67,26 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-pty-prebuilt-multiarch/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+define Package/node-homebridge-node-pty-prebuilt-multiarch/install
+	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/build/Release
 	$(CP) $(PKG_BUILD_DIR)/build/Release/pty.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
-	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)
+	$(LN) ../../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
+		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 endef
 
-define Package/node-pty-prebuilt-multiarch/postrm
+define Package/node-homebridge-node-pty-prebuilt-multiarch/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/node-pty-prebuilt-multiarch || true
-rm -rf /usr/lib/node/node-pty-prebuilt-multiarch || true
+rm /usr/lib/node_modules/@homebridge/node-pty-prebuilt-multiarch || true
+rm -rf /usr/lib/node/@homebridge/node-pty-prebuilt-multiarch || true
+rmdir /usr/lib/node_modules/@homebridge || true
+rmdir /usr/lib/node/@homebridge || true
 endef
 
-$(eval $(call BuildPackage,node-pty-prebuilt-multiarch))
+$(eval $(call BuildPackage,node-homebridge-node-pty-prebuilt-multiarch))
