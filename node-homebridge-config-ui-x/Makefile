@@ -28,7 +28,7 @@ define Package/node-homebridge-config-ui-x
   CATEGORY:=Languages
   TITLE:=Homebridge Config UI X
   URL:=https://www.npmjs.org/package/homebridge-config-ui-x
-  DEPENDS:=+node +node-homebridge +sudo +node-pty-prebuilt-multiarch +node-bufferutil +node-utf-8-validate
+  DEPENDS:=+node +node-homebridge +sudo +node-homebridge-node-pty-prebuilt-multiarch +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-homebridge-config-ui-x/description
