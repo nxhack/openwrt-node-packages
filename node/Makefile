@@ -59,6 +59,7 @@ define Package/node
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64) \
 	   +libstdcpp +libopenssl +zlib +libnghttp2 \
 	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
+  ABI_VERSION:=$(NODE_MODULE_VERSION)
 endef
 
 define Package/node/description
@@ -80,7 +81,6 @@ define Package/node-npm
   TITLE:=NPM stands for Node Package Manager
   URL:=https://www.npmjs.com/
   DEPENDS:=+node
-  ABI_VERSION:=$(NODE_MODULE_VERSION)
 endef
 
 define Package/node-npm/description
