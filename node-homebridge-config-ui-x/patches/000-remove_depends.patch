@@ -2,9 +2,9 @@
 +++ b/package.json
 @@ -56,7 +56,6 @@
      "@fastify/multipart": "8.0.0",
-     "@fastify/static": "6.11.2",
+     "@fastify/static": "6.12.0",
      "@fastify/swagger": "8.12.0",
--    "@homebridge/node-pty-prebuilt-multiarch": "0.11.7",
-     "@nestjs/axios": "3.0.0",
+-    "@homebridge/node-pty-prebuilt-multiarch": "0.11.8",
+     "@nestjs/axios": "3.0.1",
      "@nestjs/common": "10.2.7",
      "@nestjs/core": "10.2.7",
