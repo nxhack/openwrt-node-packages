@@ -1,11 +1,11 @@
 --- a/dist/bin/hb-service.js
 +++ b/dist/bin/hb-service.js
-@@ -16,7 +16,7 @@ const tar = require("tar");
- const axios_1 = require("axios");
- const tail_1 = require("tail");
- const win32_1 = require("./platforms/win32");
--const linux_1 = require("./platforms/linux");
-+const linux_1 = require("./platforms/openwrt");
+@@ -17,7 +17,7 @@ const tar = require("tar");
+ const tcpPortUsed = require("tcp-port-used");
  const darwin_1 = require("./platforms/darwin");
  const freebsd_1 = require("./platforms/freebsd");
+-const linux_1 = require("./platforms/linux");
++const linux_1 = require("./platforms/openwrt");
+ const win32_1 = require("./platforms/win32");
  class HomebridgeServiceHelper {
+     get logPath() {
