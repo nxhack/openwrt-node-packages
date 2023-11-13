@@ -27,7 +27,7 @@ define Package/node-homebridge-hue
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Homebridge plugin for Hue and/or deCONZ
+  TITLE:=Homebridge plugin for Hue
   URL:=https://www.npmjs.com/package/homebridge-hue
   DEPENDS:=+node +node-homebridge
 endef
