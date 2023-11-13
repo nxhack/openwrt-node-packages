@@ -1,15 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LinuxInstaller = void 0;
+const child_process = require("child_process");
 const os = require("os");
 const path = require("path");
-const child_process = require("child_process");
 const fs = require("fs-extra");
-const si = require("systeminformation");
 const semver = require("semver");
-class LinuxInstaller {
-    constructor(hbService) {
-        this.hbService = hbService;
+const si = require("systeminformation");
+const base_platform_1 = require("../base-platform");
+class LinuxInstaller extends base_platform_1.BasePlatform {
+    get systemdServiceName() {
+        return this.hbService.serviceName.toLowerCase();
     }
     get runPartsPath() {
         return path.resolve('/etc/hb-service', this.hbService.serviceName.toLowerCase(), 'prestart.d');
@@ -28,7 +29,7 @@ class LinuxInstaller {
         }
         catch (e) {
             console.error(e.toString());
-            this.hbService.logger(`ERROR: Failed Operation`, 'fail');
+            this.hbService.logger('ERROR: Failed Operation', 'fail');
         }
     }
     async uninstall() {
@@ -44,7 +45,8 @@ class LinuxInstaller {
             this.hbService.logger(`${this.hbService.serviceName} Started`, 'succeed');
         }
         catch (e) {
-            this.hbService.logger(`Failed to start ${this.hbService.serviceName}`, 'fail');
+            this.hbService.logger(`Failed to start ${this.hbService.serviceName} - ` + e, 'fail');
+            process.exit(1);
         }
     }
     async stop() {
@@ -55,7 +57,7 @@ class LinuxInstaller {
             this.hbService.logger(`${this.hbService.serviceName} Stopped`, 'succeed');
         }
         catch (e) {
-            this.hbService.logger(`Failed to stop homebridge`, 'fail');
+            this.hbService.logger(`Failed to stop ${this.systemdServiceName} - ` + e, 'fail');
         }
     }
     async restart() {
@@ -66,11 +68,11 @@ class LinuxInstaller {
             this.hbService.logger(`${this.hbService.serviceName} Restarted`, 'succeed');
         }
         catch (e) {
-            this.hbService.logger(`Failed to restart ${this.hbService.serviceName}`, 'fail');
+            this.hbService.logger(`Failed to restart ${this.hbService.serviceName} - ` + e, 'fail');
         }
     }
     async rebuild(all = false) {
-        this.hbService.logger(`You cannot rebuild in the Openwrt.`);
+        this.hbService.logger('You cannot rebuild in the Openwrt.');
     }
     async getId() {
         if (process.getuid() === 0 && this.hbService.asUser) {
@@ -91,7 +93,7 @@ class LinuxInstaller {
     getPidOfPort(port) {
         try {
             if (this.hbService.docker) {
-                return child_process.execSync(`pidof homebridge`).toString('utf8').trim();
+                return child_process.execSync('pidof homebridge').toString('utf8').trim();
             }
             else {
                 return child_process.execSync(`fuser ${port}/tcp 2>/dev/null`).toString('utf8').trim();
@@ -102,20 +104,20 @@ class LinuxInstaller {
         }
     }
     async updateNodejs(job) {
-        this.hbService.logger(`You cannot update Nodejs in the Openwrt.`);
+        this.hbService.logger('You cannot update Nodejs in the Openwrt.');
     }
     async updateNodeFromTarball(job, targetPath) {
-        this.hbService.logger(`You cannot update Nodejs in the Openwrt.`);
+        this.hbService.logger('You cannot update Nodejs in the Openwrt.');
     }
     async updateNodeFromNodesource(job) {
-        this.hbService.logger(`You cannot update Nodejs in the Openwrt.`);
+        this.hbService.logger('You cannot update Nodejs in the Openwrt.');
     }
     async enableService() {
         try {
             child_process.execSync(`/etc/init.d/homebridge enable 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger(`WARNING: failed to run "enable homebridge"`, 'warn');
+            this.hbService.logger('WARNING: failed to run "enable homebridge"', 'warn');
         }
     }
     async disableService() {
@@ -123,7 +125,7 @@ class LinuxInstaller {
             child_process.execSync(`/etc/init.d/homebridge disable 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger(`WARNING: failed to run "disable homebridge"`, 'warn');
+            this.hbService.logger('WARNING: failed to run "disable homebridge"', 'warn');
         }
     }
     checkForRoot() {
@@ -163,14 +165,14 @@ class LinuxInstaller {
         await fs.mkdirp(this.runPartsPath);
         const permissionScriptPath = path.resolve(this.runPartsPath, '10-fix-permissions');
         const permissionScript = [
-            `#!/bin/sh`,
-            ``,
-            `# Ensure the storage path permissions are correct`,
-            `if [ -n "$UIX_STORAGE_PATH" ] && [ -n "$USER" ]; then`,
-            `  echo "Ensuring $UIX_STORAGE_PATH is owned by $USER"`,
-            `  [ -d $UIX_STORAGE_PATH ] || mkdir -p $UIX_STORAGE_PATH`,
-            `  chown -R $USER: $UIX_STORAGE_PATH`,
-            `fi`,
+            '#!/bin/sh',
+            '',
+            '# Ensure the storage path permissions are correct',
+            'if [ -n "$UIX_STORAGE_PATH" ] && [ -n "$USER" ]; then',
+            '  echo "Ensuring $UIX_STORAGE_PATH is owned by $USER"',
+            '  [ -d $UIX_STORAGE_PATH ] || mkdir -p $UIX_STORAGE_PATH',
+            '  chown -R $USER: $UIX_STORAGE_PATH',
+            'fi',
         ].filter(x => x !== null).join('\n');
         await fs.writeFile(permissionScriptPath, permissionScript);
         await fs.chmod(permissionScriptPath, '755');
