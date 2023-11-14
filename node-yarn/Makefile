@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=yarn
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.22.19
+PKG_VERSION:=1.22.21
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=732620bac8b1690d507274f025f3c6cfdc3627a84d9642e38a07452cc00e0f2e
+PKG_HASH:=dbed5b7e10c552ba0e1a545c948d5473bc6c5a28ce22a8fd27e493e3e5eb6370
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>, Patrik Laszlo <alabard@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
