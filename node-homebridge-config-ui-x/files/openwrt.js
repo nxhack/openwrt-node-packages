@@ -92,12 +92,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
     }
     getPidOfPort(port) {
         try {
-            if (this.hbService.docker) {
-                return child_process.execSync('pidof homebridge').toString('utf8').trim();
-            }
-            else {
-                return child_process.execSync(`fuser ${port}/tcp 2>/dev/null`).toString('utf8').trim();
-            }
+            return child_process.execSync('pidof homebridge').toString('utf8').trim();
         }
         catch (e) {
             return null;
