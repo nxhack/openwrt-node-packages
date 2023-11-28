@@ -74,6 +74,7 @@ define Package/node-zwave-js-ui/install
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zwave-js-ui.init $(1)/etc/init.d/zwave-js-ui
+	$(INSTALL_DIR) $(1)/etc/zwave-js-ui
 	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/server/bin/www.js
 endef
 
