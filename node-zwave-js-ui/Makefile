@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=zwave-js-ui
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=9.4.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-zwave-js-ui
   CATEGORY:=Languages
   TITLE:=Z-Wave control panel UI and MQTT gateway
   URL:=https://www.npmjs.org/package/zwave-js-ui
-  DEPENDS:=+node
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
 endef
 
 define Package/node-zwave-js-ui/description
@@ -69,11 +69,12 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/locale
-	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/test/" \
-		"!**/example/" "!**/examples/" "**/obj.target/" "**/config.gypi" \
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/@zwave-js/core/build/test/" \
+		"**/@zwave-js/core/build/test/*.ts" "**/@zwave-js/core/build/test/*.map" \
+		"**/*.d.ts" "**/@types/**" "**/obj.target/" "**/config.gypi" \
+		"**/.nvmrc" "**/.devcontainer/" "**/.bowerrc" "**/.airtap.yml" "**/.test/" \
+		"**/.notags" "**/.releaserc" "**/.dprint.jsonc" "**/.eslintrc" \
 		"**/binding.Makefile" "**/.deps/" "**/Makefile" "**/binding.gyp"
-
-# memo... "!**/@zwave-js/server/*.ts" "!**/@zwave-js/server/src/"
 endef
 
 define Package/node-zwave-js-ui/install
