@@ -32,8 +32,12 @@ define Package/node-zwave-js-ui
   DEPENDS:=+node
 endef
 
-define Package/node-zwave-js/description
+define Package/node-zwave-js-ui/description
  Z-Wave control panel UI and MQTT gateway
+endef
+
+define Package/node-zwave-js-ui/conffiles
+/etc/zwave-js-ui/
 endef
 
 TAR_OPTIONS+= --strip-components 1
