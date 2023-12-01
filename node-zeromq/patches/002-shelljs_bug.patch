@@ -1,0 +1,38 @@
+--- a/script/build.js
++++ b/script/build.js
+@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModu
+ const path_1 = require("path");
+ const fs_1 = require("fs");
+ const shelljs_1 = require("shelljs");
++const { execSync } = require('child_process')
+ const root = (0, path_1.dirname)(__dirname);
+ function main() {
+     const zmq_rev = 
+@@ -44,10 +45,12 @@ function main() {
+     }
+     else {
+         console.log(`Downloading libzmq source from ${src_url}`);
+-        (0, shelljs_1.exec)(`curl "${src_url}" -fsSL -o "${tarball}"`, execOptions);
++        const execCommand = `curl "${src_url}" -fsSL -o "${tarball}"`;
++        (0, execSync)(execCommand);
+     }
+     if (!(0, fs_1.existsSync)(src_dir)) {
+-        (0, shelljs_1.exec)(`tar xzf "${tarball}"`, execOptions);
++        const extractTarball = `tar xzf "${tarball}"`;
++        (0, execSync)(extractTarball);
+     }
+     if (process.env.ZMQ_DRAFT === "true") {
+         console.log("Enabling draft support");
+@@ -101,10 +104,10 @@ function main() {
+ 
+     const cmake_configure = `cmake -S "${src_dir}" -B ./build ${build_options} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX="${libzmq_install_prefix}" -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_STATIC=ON -DBUILD_TESTS=OFF -DBUILD_SHARED=OFF -DWITH_DOCS=OFF -DWITH_LIBSODIUM=OFF`;
+     console.log(cmake_configure);
+-    (0, shelljs_1.exec)(cmake_configure, execOptions);
++    (0, execSync)(cmake_configure);
+     const cmake_build = `cmake --build ./build --config ${CMAKE_BUILD_TYPE} --target install`;
+     console.log(cmake_build);
+-    (0, shelljs_1.exec)(cmake_build, execOptions);
++    (0, execSync)(cmake_build);
+     if (process.platform === "win32") {
+         // rename libzmq-v143-mt-s-4_3_4.lib to libzmq.lib
+         const build_file = (0, shelljs_1.find)(`${libzmq_install_prefix}/lib/*.lib`)[0];
