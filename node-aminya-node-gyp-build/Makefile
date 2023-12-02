@@ -35,7 +35,7 @@ define Package/aminya-node-gyp-build
   CATEGORY:=Languages
   TITLE:=Build tool and bindings loader for node-gyp that supports prebuilds
   URL:=https://www.npmjs.com/package/@aminya/node-gyp-build
-  DEPENDS:=+node
+  DEPENDS:=+node +node-gyp
 endef
 
 define Package/aminya-node-gyp-build/description

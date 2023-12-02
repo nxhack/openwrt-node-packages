@@ -17,7 +17,7 @@ PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DEPENDS:=node/host node-shx/host node-npm-run-all2/host node-gyp-build/host
+PKG_BUILD_DEPENDS:=node/host node-shx/host node-npm-run-all2/host node-gyp-build/host node-gyp/host
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 
