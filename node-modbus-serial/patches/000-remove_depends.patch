@@ -1,11 +1,11 @@
 --- a/package.json
 +++ b/package.json
-@@ -40,7 +40,6 @@
-     "webbluetooth": "^2.1.0"
+@@ -41,7 +41,6 @@
+     "webbluetooth": "^3.1.0"
    },
    "dependencies": {
--    "debug": "^4.1.1",
--    "serialport": "^11.0.0"
-+    "debug": "^4.1.1"
+-    "debug": "^4.3.1",
+-    "serialport": "^12.0.0"
++    "debug": "^4.3.1"
    }
  }
