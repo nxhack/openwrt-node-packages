@@ -29,7 +29,7 @@ PKG_BUILD_FLAGS:=no-mips16
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/aminya-node-gyp-build
+define Package/node-aminya-node-gyp-build
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
@@ -38,7 +38,7 @@ define Package/aminya-node-gyp-build
   DEPENDS:=+node +node-gyp
 endef
 
-define Package/aminya-node-gyp-build/description
+define Package/node-aminya-node-gyp-build/description
  Build tool and bindings loader for node-gyp that supports prebuilds
  Fork created because of https://github.com/prebuild/node-gyp-build/pull/55
 endef
@@ -66,7 +66,7 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/aminya-node-gyp-build/install
+define Package/node-aminya-node-gyp-build/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
@@ -81,7 +81,7 @@ define Package/aminya-node-gyp-build/install
 		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 endef
 
-define Package/aminya-node-gyp-build/postrm
+define Package/node-aminya-node-gyp-build/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/@aminya/node-gyp-build || true
 rm -rf /usr/lib/node/@aminya/node-gyp-build || true
@@ -111,4 +111,4 @@ define Host/Install
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,aminya-node-gyp-build))
+$(eval $(call BuildPackage,node-aminya-node-gyp-build))
