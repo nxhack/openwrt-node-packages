@@ -4,14 +4,14 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=node-gyp-build
-PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=4.7.1
-PKG_RELEASE:=3
+PKG_NPM_NAME:=cross-env
+PKG_NAME:=node-$(PKG_NPM_NAME)
+PKG_VERSION:=7.0.3
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8a1c2c9eaa79ae9362e4ac8c8100bcceebd5f4d0767d7dcede1d10b9e6c5dd47
+PKG_HASH:=d44ad3b6925ff024f64fc4eec88a7da8b8291dd66de858c34866be611ad3c5de
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -27,17 +27,17 @@ PKG_BUILD_FLAGS:=no-mips16
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-gyp-build
+define Package/node-cross-env
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Build tool and bindings loader for node-gyp that supports prebuilds
-  URL:=https://www.npmjs.com/package/node-gyp-build
-  DEPENDS:=+node +node-gyp
+  TITLE:=Run scripts that set and use environment variables across platforms
+  URL:=https://www.npmjs.com/package/cross-env
+  DEPENDS:=+node
 endef
 
-define Package/node-gyp-build/description
- Build tool and bindings loader for node-gyp that supports prebuilds
+define Package/node-cross-env/description
+ Run scripts that set and use environment variables across platforms
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -63,24 +63,23 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-gyp-build/install
+define Package/node-cross-env/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.js,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{src,node_modules} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin.js $(1)/usr/bin/node-gyp-build
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/optional.js $(1)/usr/bin/node-gyp-build-optional
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build-test.js $(1)/usr/bin/node-gyp-build-test
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/src/bin/cross-env.js $(1)/usr/bin/cross-env
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js $(1)/usr/bin/cross-env-shell
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-gyp-build/postrm
+define Package/node-cross-env/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/node-gyp-build || true
-rm -rf /usr/lib/node/node-gyp-build || true
+rm /usr/lib/node_modules/cross-env || true
+rm -rf /usr/lib/node/cross-env || true
 endef
 
 define Host/Compile
@@ -96,15 +95,14 @@ endef
 
 define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
-	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE} \
+	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{*.js,*.md} \
+	$(CP) $(HOST_BUILD_DIR)/{src,node_modules} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin.js $(1)/bin/node-gyp-build
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/optional.js $(1)/bin/node-gyp-build-optional
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/build-test.js $(1)/bin/node-gyp-build-test
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env.js $(1)/bin/cross-env
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js $(1)/bin/cross-env-shell
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,node-gyp-build))
+$(eval $(call BuildPackage,node-cross-env))

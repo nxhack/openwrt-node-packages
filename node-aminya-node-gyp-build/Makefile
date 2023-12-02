@@ -4,14 +4,16 @@
 
 include $(TOPDIR)/rules.mk
 
+PKG_NPM_SCOPE:=aminya
 PKG_NPM_NAME:=node-gyp-build
-PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=4.7.1
-PKG_RELEASE:=3
+PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
+PKG_VERSION:=4.5.0-aminya.5
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8a1c2c9eaa79ae9362e4ac8c8100bcceebd5f4d0767d7dcede1d10b9e6c5dd47
+PKG_SOURCE:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL_FILE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
+PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
+PKG_HASH:=b442a2bc27c07e2d904459ebde8027e268901e3a3a6faf3bac02bb6d7b1e23f7
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -27,17 +29,18 @@ PKG_BUILD_FLAGS:=no-mips16
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-gyp-build
+define Package/node-aminya-node-gyp-build
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Build tool and bindings loader for node-gyp that supports prebuilds
-  URL:=https://www.npmjs.com/package/node-gyp-build
+  URL:=https://www.npmjs.com/package/@aminya/node-gyp-build
   DEPENDS:=+node +node-gyp
 endef
 
-define Package/node-gyp-build/description
+define Package/node-aminya-node-gyp-build/description
  Build tool and bindings loader for node-gyp that supports prebuilds
+ Fork created because of https://github.com/prebuild/node-gyp-build/pull/55
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -63,24 +66,25 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-gyp-build/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+define Package/node-aminya-node-gyp-build/install
+	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{*.js,*.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin.js $(1)/usr/bin/node-gyp-build
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/optional.js $(1)/usr/bin/node-gyp-build-optional
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build-test.js $(1)/usr/bin/node-gyp-build-test
-	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	$(LN) ../lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/bin.js $(1)/usr/bin/aminya-node-gyp-build
+	$(LN) ../lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/optional.js $(1)/usr/bin/aminya-node-gyp-build-optional
+	$(LN) ../lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/build-test.js $(1)/usr/bin/aminya-node-gyp-build-test
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)
+	$(LN) ../../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
+		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 endef
 
-define Package/node-gyp-build/postrm
+define Package/node-aminya-node-gyp-build/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/node-gyp-build || true
-rm -rf /usr/lib/node/node-gyp-build || true
+rm /usr/lib/node_modules/@aminya/node-gyp-build || true
+rm -rf /usr/lib/node/@aminya/node-gyp-build || true
 endef
 
 define Host/Compile
@@ -95,16 +99,16 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE} \
-		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
+		$(1)/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(CP) $(HOST_BUILD_DIR)/{*.js,*.md} \
-		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
+		$(1)/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin.js $(1)/bin/node-gyp-build
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/optional.js $(1)/bin/node-gyp-build-optional
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/build-test.js $(1)/bin/node-gyp-build-test
+	$(LN) ../lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/bin.js $(1)/bin/aminya-node-gyp-build
+	$(LN) ../lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/optional.js $(1)/bin/aminya-node-gyp-build-optional
+	$(LN) ../lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/build-test.js $(1)/bin/aminya-node-gyp-build-test
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,node-gyp-build))
+$(eval $(call BuildPackage,node-aminya-node-gyp-build))
