@@ -77,7 +77,7 @@ define Package/node-aminya-node-gyp-build/install
 	$(LN) ../lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/optional.js $(1)/usr/bin/aminya-node-gyp-build-optional
 	$(LN) ../lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/build-test.js $(1)/usr/bin/aminya-node-gyp-build-test
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
+	$(LN) ../../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
 		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 endef
 
