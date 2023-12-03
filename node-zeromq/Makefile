@@ -6,18 +6,18 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zeromq
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.0.0-beta.18
+PKG_VERSION:=6.0.0-beta.19
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6a0e87b5cc1df1b0cee8e01ba6dc004cfc72ed830934456f1095f38393f7900a
+PKG_HASH:=3d73e0f48ce306a35d30485020e1f6537c6776673ce459bbe3231fd90eba5dfd
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DEPENDS:=node/host node-shx/host node-npm-run-all2/host node-gyp-build/host node-gyp/host
+PKG_BUILD_DEPENDS:=node/host node-gyp-build/host
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 
@@ -59,7 +59,7 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --no-save --no-package-lock --ignore-scripts
+	npm install --prefer-offline --no-audit --no-package-lock --include=dev --ignore-scripts
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -101,7 +101,7 @@ define Build/Compile
 	CMAKE_SYSROOT="$(STAGING_DIR_ROOT)" \
 	CROSS_COMPILE="$(OPTIMIZE_FOR_CPU)-openwrt-linux$(if $(TARGET_SUFFIX),-$(TARGET_SUFFIX))-" \
 	TARGET_CROSS="$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)" \
-	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
+	npm install --prefer-offline --no-audit --no-package-lock --include=dev --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(PKG_BUILD_DIR)/node_modules
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
