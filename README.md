@@ -97,7 +97,7 @@ OpenWrt custom packages available: https://github.com/nxhack/openwrt-custom-pack
 Specify v8-options.
 
 ```
---optimize_for_size --max_old_space_size=460 --gc_interval=100
+--optimize_for_size --max_old_space_size=128 --gc_interval=100
 ```
 For Reference: [Avoid Garbage](https://devcenter.heroku.com/articles/node-best-practices#avoid-garbage).
 
