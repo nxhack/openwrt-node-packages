@@ -7,7 +7,7 @@ start_service()
 {
 	procd_open_instance
 	procd_set_param env HOME=/root NODE_PATH=/usr/lib/node/zwave-js-ui/node_modules/zwave-js/node_modules STORE_DIR=/etc/zwave-js-ui ZWAVEJS_EXTERNAL_CONFIG=/etc/zwave-js-ui/config-db
-	procd_set_param command /usr/bin/zwave-js-ui
+	procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=128 --gc_interval=100 /usr/bin/zwave-js-ui
 	procd_set_param respawn
 	procd_set_param stdout 1
 	procd_set_param stderr 1
