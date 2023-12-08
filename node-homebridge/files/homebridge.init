@@ -11,7 +11,7 @@ start_service() {
 	}
 	procd_open_instance
 	procd_set_param env HOME=/usr/share/homebridge
-	procd_set_param command /usr/bin/homebridge -U /usr/share/homebridge
+	procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=128 --gc_interval=100 /usr/bin/homebridge -U /usr/share/homebridge
 	procd_set_param user homebridge
 	procd_set_param stdout 1
 	procd_set_param stderr 1
