@@ -73,7 +73,8 @@ define Build/Compile
 	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/@zwave-js/core/build/test/" \
 		"**/*.d.ts" "**/@types/**" "**/obj.target/" "**/config.gypi" \
 		"**/.nvmrc" "**/.devcontainer/" "**/.bowerrc" "**/.airtap.yml" "**/.test/" \
-		"**/.notags" "**/.releaserc" "**/.dprint.jsonc" "**/.eslintrc" \
+		"**/.notags" "**/.releaserc" "**/.dprint.jsonc" "**/.eslintrc" "**/locales/" \
+		"**/esm/" "**/esm-debug/" "**/esm-browser/" "**/esm-node/" "**/*.esm.*" "**/esm.*" \
 		"**/binding.Makefile" "**/.deps/" "**/Makefile" "**/binding.gyp"
 endef
 
