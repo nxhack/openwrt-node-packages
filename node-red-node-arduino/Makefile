@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-node-arduino
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=0.3.1
-PKG_RELEASE:=3
+PKG_VERSION:=1.0.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=b23feef3796b6253695235fb492c28c4f53f89e026daa6b3d5cb0d05c1d6d57c
+PKG_HASH:=ed4400fcf9570e1300ac879ea4b7e929a0766cea8dcd0762bf73af8bde163ba5
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -29,7 +29,7 @@ define Package/node-red-node-arduino
   CATEGORY:=Languages
   TITLE:=node to talk to an Arduino running firmata
   URL:=https://flows.nodered.org/node/node-red-node-arduino
-  DEPENDS:=+node +node-red +node-firmata
+  DEPENDS:=+node +node-red +node-serialport
 endef
 
 define Package/node-red-node-arduino/description
