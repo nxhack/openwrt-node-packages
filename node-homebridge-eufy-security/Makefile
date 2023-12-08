@@ -56,6 +56,7 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@homebridge/camera-utils/node_modules/ffmpeg-for-homebridge
 endef
 
 define Package/node-homebridge-eufy-security/install
