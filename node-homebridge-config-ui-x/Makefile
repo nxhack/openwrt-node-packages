@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-config-ui-x
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.54.0
-PKG_RELEASE:=1
+PKG_VERSION:=4.54.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=fb823874572f6abd710b2d12ebe33f6c3f642d81eaf3c24787c7a05942195b17
+PKG_HASH:=56e457bb2498805026042f65311d30004cbbcf6811ab61bc7591fbcdbf379eed
 
 PKG_BUILD_DEPENDS:=node/host node-clean-modules/host
 PKG_BUILD_FLAGS:=no-mips16
@@ -80,12 +80,12 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
-	rm -rf $(PKG_BUILD_DIR)/node_modules/fastify/node_modules/light-my-request/node_modules/ajv/lib
-	rm -rf $(PKG_BUILD_DIR)/node_modules/@nestjs/platform-fastify/node_modules/light-my-request/node_modules/ajv/lib
-	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/min
-	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/src
-	rm -rf $(PKG_BUILD_DIR)/node_modules/node-schedule/node_modules/moment/locale
-	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/example/" "!**/examples/"
+	rm -rf $(PKG_BUILD_DIR)/node_modules/./fastify/node_modules/ajv/lib
+	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "**/*.d.ts" "**/@types/**" \
+		"**/.nvmrc" "**/.c8rc.json" "**/.taprc" "**/.airtap.yml" "**/.husky/" \
+		"**/.runkit_example.js" "**/.gitkeep" "**/.nojekyll" \
+		"**/esm/" "**/esm-debug/" "**/esm2015/" "**/esm5/" "**/*.esm.*" "**/esm.*" \
+		"**/.hidden" "**/.nojekyll" "**/.??*.json" "**/.??*.yaml" "**/*.esm5.*" "**/esm5.*"
 endef
 
 define Package/node-homebridge-config-ui-x/install
