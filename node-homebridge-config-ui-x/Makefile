@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=homebridge-config-ui-x
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.54.1
-PKG_RELEASE:=2
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -54,7 +54,7 @@ define Package/node-homebridge-config-ui-x/description
               "sudo": true,
               "log": {
                 "method": "custom",
-                "command": "sudo logread -f -l 300 -e homebridge"
+                "command": "sudo logread -f -l 100 -e homebridge"
               }
             }
         ]
@@ -107,6 +107,9 @@ define Package/node-homebridge-config-ui-x/install
 
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1/interfaces
 	$(CP) ./files/org.freedesktop.Avahi.Server.xml $(1)/usr/share/dbus-1/interfaces/
+	$(INSTALL_DIR) $(1)/etc/sudoers.d
+	$(CP) ./files/010_homebridge $(1)/etc/sudoers.d
+	chmod 0440 $(1)/etc/sudoers.d/010_homebridge
 endef
 
 define Package/node-homebridge-config-ui-x/postrm
