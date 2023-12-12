@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=zwave-js-ui
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=9.5.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -79,25 +79,25 @@ define Build/Compile
 endef
 
 define Package/node-zwave-js-ui/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{server,dist,snippets,node_modules,public} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/opt/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/server/bin/www.js $(1)/usr/bin/zwave-js-ui
+	$(LN) /opt/$(PKG_NPM_NAME)/server/bin/www.js $(1)/usr/bin/zwave-js-ui
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	$(LN) /opt/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zwave-js-ui.init $(1)/etc/init.d/zwave-js-ui
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/server/bin/www.js
+	chmod +x $(1)/opt/$(PKG_NPM_NAME)/server/bin/www.js
 endef
 
 define Package/node-zwave-js-ui/postrm
 #!/bin/sh
 rm /usr/lib/node_modules/zwave-js-ui || true
-rm -rf /usr/lib/node/zwave-js-ui || true
+rm -rf /opt/zwave-js-ui || true
 endef
 
 $(eval $(call BuildPackage,node-zwave-js-ui))
