@@ -21,6 +21,7 @@ start_service() {
 	[ "$verbose" = "1" ] && procd_append_param command --verbose
 	procd_set_param stdout "$log_stdout"
 	procd_set_param stderr "$log_stderr"
+	procd_set_param term_timeout 60
 
 	procd_close_instance
 }
