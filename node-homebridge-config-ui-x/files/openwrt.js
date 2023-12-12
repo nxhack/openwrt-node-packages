@@ -145,7 +145,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
     }
     setupSudo() {
         try {
-            const sudoersEntry = `${this.hbService.asUser}    ALL=(ALL) NOPASSWD:SETENV: /etc/init.d/homebridge, /sbin/halt, /sbin/reboot, /sbin/poweroff, /sbin/logread, /usr/bin/npm`;
+            const sudoersEntry = `${this.hbService.asUser}    ALL=(ALL) NOPASSWD:SETENV: /etc/init.d/homebridge, /sbin/halt, /sbin/reboot, /sbin/poweroff, /sbin/logread, /usr/bin/npm, /usr/bin/hb-service`;
             const sudoers = fs.readFileSync('/etc/sudoers', 'utf-8');
             if (sudoers.includes(sudoersEntry)) {
                 return;

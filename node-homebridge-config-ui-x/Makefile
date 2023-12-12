@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=homebridge-config-ui-x
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.54.1
-PKG_RELEASE:=3
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -50,7 +50,7 @@ define Package/node-homebridge-config-ui-x/description
               "platform": "config",
               "name": "Config",
               "port": 8581,
-              "restart": "sudo /etc/init.d/homebridge restart",
+              "restart": "sudo /usr/bin/hb-service restart",
               "sudo": true,
               "log": {
                 "method": "custom",
