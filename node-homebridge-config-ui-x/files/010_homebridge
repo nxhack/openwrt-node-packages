@@ -1,0 +1,2 @@
+#homebridge ALL=(ALL) NOPASSWD: ALL
+#homebridge ALL=(ALL) NOPASSWD: /usr/share/homebridge/Your_App
