@@ -72,7 +72,7 @@ define Package/node-rimraf/install
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/cjs/src/bin.js $(1)/usr/bin/rimraf
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/esm/bin.mjs $(1)/usr/bin/rimraf
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
