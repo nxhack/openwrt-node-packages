@@ -4,17 +4,17 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=rimraf
+PKG_NPM_NAME:=terser
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.0.5
+PKG_VERSION:=5.26.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=363c10967147d8b4f6179ef4c708f8d3ac587d48d3dcba7aaec3a83d9dc6ec8b
+PKG_HASH:=7c88a5187a351eb7e298a6593619f3cf0bcf8122ea13a27f143938d8ede75d77
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=ISC
+PKG_LICENSE:=BSD-2-Clause
 PKG_LICENSE_FILES:=LICENSE
 
 HOST_BUILD_DEPENDS:=node/host
@@ -27,17 +27,17 @@ PKG_BUILD_FLAGS:=no-mips16
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-rimraf
+define Package/node-terser
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A deep deletion module for node (like rm -rf)
-  URL:=https://www.npmjs.org/package/rimraf
+  TITLE:=JavaScript parser, mangler/compressor
+  URL:=https://www.npmjs.org/package/terser
   DEPENDS:=+node
 endef
 
-define Package/node-rimraf/description
- The UNIX command rm -rf for node
+define Package/node-terser/description
+ JavaScript parser, mangler/compressor and beautifier toolkit for ES6+
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -63,24 +63,25 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-rimraf/install
+define Package/node-terser/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/*.md \
+	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
+	$(CP) $(PKG_BUILD_DIR)/{bin,dist,lib,tools,node_modules} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/esm/bin.mjs $(1)/usr/bin/rimraf
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/terser $(1)/usr/bin/terser
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/terser
 endef
 
-define Package/node-rimraf/postrm
+define Package/node-terser/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/rimraf || true
-rm -rf /usr/lib/node/rimraf || true
+rm /usr/lib/node_modules/terser || true
+rm -rf /usr/lib/node/terser || true
 endef
 
 define Host/Compile
@@ -98,13 +99,14 @@ define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
 	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/*.md \
+	$(CP) $(HOST_BUILD_DIR)/{*.md,*.js} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{node_modules,dist} \
+	$(CP) $(HOST_BUILD_DIR)/{bin,dist,lib,tools,node_modules} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/dist/cjs/src/bin.js $(1)/bin/rimraf
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/terser $(1)/bin/terser
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/terser
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,node-rimraf))
+$(eval $(call BuildPackage,node-terser))
