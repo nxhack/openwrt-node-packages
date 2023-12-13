@@ -17,7 +17,7 @@ PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DEPENDS:=node/host node-clean-modules/host
+PKG_BUILD_DEPENDS:=node/host node-clean-modules/host node-esbuild/host node-terser/host
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 
