@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-lambda
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=1.2.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-lambda
   CATEGORY:=Languages
   TITLE:=Tools for Amazon Lambda
   URL:=https://www.npmjs.org/package/node-lambda
-  DEPENDS:=+node
+  DEPENDS:=+node +node-aws-sdk
 endef
 
 define Package/node-lambda/description
