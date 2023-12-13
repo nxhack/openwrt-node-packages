@@ -1,0 +1,199 @@
+From 68326d635917895520be883013934d2789998d83 Mon Sep 17 00:00:00 2001
+From: Daniel Lando <daniel.sorridi@gmail.com>
+Date: Tue, 12 Dec 2023 17:26:17 +0100
+Subject: [PATCH] feat: create esbuild bundle for embedded devices (#3480)
+
+---
+ .gitignore             |   4 +-
+ api/lib/ZwaveClient.ts |   2 +-
+ api/lib/utils.ts       |   4 +-
+ esbuild.js             | 138 +++++++++++++++++++++++++++++++++++++++++
+ package.json           |   1 +
+ 5 files changed, 146 insertions(+), 3 deletions(-)
+ create mode 100644 esbuild.js
+
+diff -up server/lib/utils.js new/utils.js
+--- a/server/lib/utils.js	2023-12-13 00:12:21.495907422 +0000
++++ b/server/lib/utils.js	2023-12-13 00:11:50.248389764 +0000
+@@ -73,7 +73,9 @@ function fileDate(date) {
+ }
+ exports.fileDate = fileDate;
+ /** Where package.json is */
+-exports.basePath = (0, path_1.resolve)(__dirname, '..', '..');
++exports.basePath = __filename.endsWith('index.js')
++    ? (0, path_1.resolve)(__dirname) // esbuild bundle
++    : (0, path_1.resolve)(__dirname, '..', '..');
+ /**
+  *  Get the base root path to application directory. When we are in a `pkg` environment
+  *  the path of the snapshot is not writable
+diff -up server/lib/ZwaveClient.js new/ZwaveClient.js
+--- a/server/lib/ZwaveClient.js	2023-12-13 00:12:21.655904952 +0000
++++ b/server/lib/ZwaveClient.js	2023-12-13 00:11:50.415387186 +0000
+@@ -2916,7 +2916,7 @@ class ZwaveClient extends EventEmitter_1
+         if (controllerNode) {
+             const oldStatistics = controllerNode.statistics;
+             controllerNode.statistics = stats;
+-            if (stats.messagesRX > oldStatistics?.messagesRX ?? 0) {
++            if (stats.messagesRX > (oldStatistics?.messagesRX ?? 0)) {
+                 // no need to emit `lastActive` event. That would cause useless traffic
+                 controllerNode.lastActive = Date.now();
+             }
+diff --git a/esbuild.js b/esbuild.js
+new file mode 100644
+index 00000000..5c0c7459
+--- /dev/null
++++ b/esbuild.js
+@@ -0,0 +1,138 @@
++const esbuild = require('esbuild')
++const { cp, stat, readFile, writeFile } = require('fs/promises')
++const { exists, emptyDir } = require('fs-extra')
++
++const outputDir = 'build'
++
++// from https://github.com/evanw/esbuild/issues/1051#issuecomment-806325487
++const nativeNodeModulesPlugin = {
++	name: 'native-node-modules',
++	setup(build) {
++		// If a ".node" file is imported within a module in the "file" namespace, resolve
++		// it to an absolute path and put it into the "node-file" virtual namespace.
++		build.onResolve({ filter: /\.node$/, namespace: 'file' }, (args) => ({
++			path: require.resolve(args.path, { paths: [args.resolveDir] }),
++			namespace: 'node-file',
++		}))
++
++		// Files in the "node-file" virtual namespace call "require()" on the
++		// path from esbuild of the ".node" file in the output directory.
++		build.onLoad({ filter: /.*/, namespace: 'node-file' }, (args) => ({
++			contents: `
++          import path from ${JSON.stringify(args.path)}
++          try { module.exports = require(path) }
++          catch {}
++        `,
++		}))
++
++		// If a ".node" file is imported within a module in the "node-file" namespace, put
++		// it in the "file" namespace where esbuild's default loading behavior will handle
++		// it. It is already an absolute path since we resolved it to one above.
++		build.onResolve(
++			{ filter: /\.node$/, namespace: 'node-file' },
++			(args) => ({
++				path: args.path,
++				namespace: 'file',
++			}),
++		)
++
++		// Tell esbuild's default loading behavior to use the "file" loader for
++		// these ".node" files.
++		let opts = build.initialOptions
++		opts.loader = opts.loader || {}
++		opts.loader['.node'] = 'file'
++	},
++}
++
++async function printSize(fileName) {
++	const stats = await stat(fileName)
++
++	// print size in MB
++	console.log(`Bundle size: ${Math.round(stats.size / 10000) / 100}MB\n\n`)
++}
++
++async function main() {
++	const start = Date.now()
++	// clean build folder
++	await emptyDir(outputDir)
++
++	const outfile = `${outputDir}/index.js`
++
++	const externals = [
++		'@serialport/bindings-cpp/prebuilds',
++		'zwave-js/package.json',
++		'@zwave-js/config/package.json',
++		'@zwave-js/config/config',
++		'@zwave-js/config/build',
++		'./snippets',
++		'./dist',
++	]
++
++	/** @type { import('esbuild').BuildOptions } */
++	const config = {
++		entryPoints: ['api/bin/www.ts'],
++		plugins: [nativeNodeModulesPlugin],
++		bundle: true,
++		platform: 'node',
++		target: 'node18',
++		sourcemap: process.argv.includes('--sourcemap'),
++		outfile,
++		// suppress direct-eval warning
++		logOverride: {
++			'direct-eval': 'silent',
++		},
++		external: externals,
++	}
++
++	await esbuild.build(config)
++
++	console.log(`Build took ${Date.now() - start}ms`)
++	await printSize(outfile)
++
++	const content = (await readFile(outfile, 'utf-8'))
++		.replace(
++			/__dirname, "\.\.\/"/g,
++			'__dirname, "./node_modules/@serialport/bindings-cpp"',
++		)
++		.replace(
++			`__dirname, "../package.json"`,
++			`__dirname, "./node_modules/@zwave-js/config/package.json"`,
++		)
++		.replace(
++			`__dirname, "../config"`,
++			`__dirname, "./node_modules/@zwave-js/config/config"`,
++		)
++
++	await writeFile(outfile, content)
++
++	if (process.argv.includes('--minify')) {
++		// minify the file
++		await esbuild.build({
++			...config,
++			entryPoints: [outfile],
++			minify: true,
++			keepNames: true, // needed for zwave-js as it relies on class names
++			allowOverwrite: true,
++			outfile,
++		})
++
++		console.log(`Minify took ${Date.now() - start}ms`)
++		await printSize(outfile)
++	}
++
++	// copy assets to build folder
++	for (const ext of externals) {
++		const path = ext.startsWith('./') ? ext : `node_modules/${ext}`
++		if (await exists(path)) {
++			console.log(`Copying "${path}" to "${outputDir}" folder`)
++			await cp(path, `${outputDir}/${path}`, { recursive: true })
++		} else {
++			console.log(`Asset "${path}" does not exist. Skipping...`)
++		}
++	}
++}
++
++main().catch((err) => {
++	console.error(err)
++	process.exit(1)
++})
+diff --git a/package.json b/package.json
+index eecb71cc..806ddfb7 100644
+--- a/package.json
++++ b/package.json
+@@ -45,6 +45,7 @@
+     "server": "ts-node -r esbuild-register api/bin/www.ts",
+     "fake-stick": "npm run mock-server -c server_config.js",
+     "start": "node --preserve-symlinks server/bin/www.js",
++    "bundle": "node esbuild.js",
+     "lint": "npm-run-all 'lint:*'",
+     "lint-fix": "npm-run-all 'lint-fix:*'",
+     "lint:eslint": "eslint --ext .js,.ts,.vue .",
+-- 
+2.41.0
+
