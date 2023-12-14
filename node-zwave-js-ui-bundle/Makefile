@@ -56,7 +56,7 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --no-audit --build-from-source --target_arch=$(NODEJS_CPU)
+	npm install --prefer-offline --no-audit
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -79,8 +79,7 @@ define Package/node-zwave-js-ui-bundle/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/build/* \
 		$(1)/opt/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules/@serialport
-	$(LN) /usr/lib/node/@serialport/bindings-cpp $(1)/opt/$(PKG_NPM_NAME)/node_modules/@serialport/
+	$(LN) /usr/lib/node/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zwave-js-ui-bundle.init $(1)/etc/init.d/zwave-js-ui-bundle
