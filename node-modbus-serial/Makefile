@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=modbus-serial
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=8.0.16
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -75,8 +75,8 @@ endef
 
 define Package/node-modbus-serial/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/node-modbus-serial || true
-rm -rf /usr/lib/node/node-modbus-serial || true
+rm /usr/lib/node_modules/modbus-serial || true
+rm -rf /usr/lib/node/modbus-serial || true
 endef
 
 $(eval $(call BuildPackage,node-modbus-serial))
