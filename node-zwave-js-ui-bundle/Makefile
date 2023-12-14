@@ -32,7 +32,7 @@ define Package/node-zwave-js-ui-bundle
   CATEGORY:=Languages
   TITLE:=Z-Wave control panel UI and MQTT gateway
   URL:=https://www.npmjs.org/package/zwave-js-ui-bundle
-  DEPENDS:=+node +node-bufferutil +node-utf-8-validate
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate +node-serialport-bindings-cpp
 endef
 
 define Package/node-zwave-js-ui-bundle/description
@@ -72,38 +72,23 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@serialport/bindings-cpp/prebuilds
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@serialport/bindings-cpp/src
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/moment/min
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/moment/src
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/moment/locale
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/min
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/src
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/locale
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@zwave-js/core/build/test/*.ts
-	#rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@zwave-js/core/build/test/*.map
-	#clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/@zwave-js/core/build/test/" \
-	#	"**/*.d.ts" "**/@types/**" "**/obj.target/" "**/config.gypi" \
-	#	"**/.nvmrc" "**/.devcontainer/" "**/.bowerrc" "**/.airtap.yml" "**/.test/" \
-	#	"**/.notags" "**/.releaserc" "**/.dprint.jsonc" "**/.eslintrc" "**/locales/" \
-	#	"**/esm/" "**/esm-debug/" "**/esm-browser/" "**/esm-node/" "**/*.esm.*" "**/esm.*" \
-	#	"**/binding.Makefile" "**/.deps/" "**/Makefile" "**/binding.gyp"
+	rm -rf $(PKG_BUILD_DIR)/build/node_modules/@serialport
 endef
 
 define Package/node-zwave-js-ui-bundle/install
 	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/opt/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{server,dist,snippets,node_modules,public} \
+	$(CP) $(PKG_BUILD_DIR)/build \
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) /opt/$(PKG_NPM_NAME)/server/bin/www.js $(1)/usr/bin/zwave-js-ui-bundle
+	$(LN) /opt/$(PKG_NPM_NAME)/build/index.js $(1)/usr/bin/zwave-js-ui-bundle
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) /opt/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/zwave-js-ui-bundle.init $(1)/etc/init.d/zwave-js-ui-bundle
-	$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle
-	chmod +x $(1)/opt/$(PKG_NPM_NAME)/server/bin/www.js
+	#$(INSTALL_DIR) $(1)/etc/init.d
+	#$(INSTALL_BIN) ./files/zwave-js-ui-bundle.init $(1)/etc/init.d/zwave-js-ui-bundle
+	#$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle
+	chmod +x $(1)/opt/$(PKG_NPM_NAME)/build/index.js
 endef
 
 define Package/node-zwave-js-ui-bundle/postrm
