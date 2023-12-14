@@ -32,7 +32,7 @@ define Package/node-zwave-js-ui-bundle
   CATEGORY:=Languages
   TITLE:=Z-Wave control panel UI and MQTT gateway
   URL:=https://www.npmjs.org/package/zwave-js-ui-bundle
-  DEPENDS:=+node +node-bufferutil +node-utf-8-validate +node-serialport-bindings-cpp
+  DEPENDS:=+node +node-bufferutil +node-utf-8-validate +node-serialport
 endef
 
 define Package/node-zwave-js-ui-bundle/description
@@ -79,6 +79,8 @@ define Package/node-zwave-js-ui-bundle/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/build/* \
 		$(1)/opt/$(PKG_NPM_NAME)/
+	$(LN) /usr/lib/node/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zwave-js-ui-bundle.init $(1)/etc/init.d/zwave-js-ui-bundle
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle
