@@ -79,8 +79,6 @@ define Package/node-zwave-js-ui-bundle/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/build/* \
 		$(1)/opt/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) /opt/$(PKG_NPM_NAME)/index.js $(1)/usr/bin/zwave-js-ui-bundle
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zwave-js-ui-bundle.init $(1)/etc/init.d/zwave-js-ui-bundle
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle
