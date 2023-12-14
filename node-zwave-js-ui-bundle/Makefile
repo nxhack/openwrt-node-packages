@@ -31,7 +31,7 @@ define Package/node-zwave-js-ui-bundle
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Z-Wave control panel UI and MQTT gateway
-  URL:=https://www.npmjs.org/package/zwave-js-ui-bundle
+  URL:=https://zwave-js.github.io/zwave-js-ui/
   DEPENDS:=+node +node-bufferutil +node-utf-8-validate +node-serialport
 endef
 
