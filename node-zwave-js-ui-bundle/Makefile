@@ -10,7 +10,6 @@ PKG_VERSION:=9.6.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL_FILE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/zwave-js/zwave-js-ui/archive/refs/tags/
 PKG_HASH:=caaa6f14045515f6dca7f1163d55809f1d06c24ffbb8813dfa4a130f8bcc24d0
