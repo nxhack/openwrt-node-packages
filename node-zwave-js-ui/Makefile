@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zwave-js-ui
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=9.5.1
-PKG_RELEASE:=3
+PKG_VERSION:=9.6.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=489769de78ad0f494eac4fb2c0ff66d52857f095437932078e3997fd1b20baaa
+PKG_HASH:=dc0c08b2f7c30c316e934318ec61e6a1f4dd86798feebe65ab4e9710bb6fd849
 
 PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
 PKG_LICENSE:=MIT
