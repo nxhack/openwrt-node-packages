@@ -6,15 +6,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zwave-js-ui-bundle
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=9.5.1
+PKG_VERSION:=9.6.0
 PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/zwave-js/zwave-js-ui.git
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=1f4cc1f9feaef9dbe6e393f37bfc12e755d51d97
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_MIRROR_HASH:=409b97823d52dd52d178f69cef28b72ce162bdae75fdb00144c83cceb2f7c1b0
+PKG_SOURCE_URL_FILE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/zwave-js/zwave-js-ui/archive/refs/tags/
+PKG_HASH:=caaa6f14045515f6dca7f1163d55809f1d06c24ffbb8813dfa4a130f8bcc24d0
 
 PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
 PKG_LICENSE:=MIT
