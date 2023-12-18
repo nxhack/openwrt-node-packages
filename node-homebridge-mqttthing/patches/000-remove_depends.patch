@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -72,7 +72,6 @@
+   "dependencies": {
+     "fakegato-history": "^0.6.2",
+     "homebridge-lib": "^6.0.1",
+-    "jsonpath": "^1.1.1",
+-    "mqtt": "^4.3.2"
++    "jsonpath": "^1.1.1"
+   }
+ }
