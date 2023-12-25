@@ -30,13 +30,14 @@ define Package/node-zwave-js-ui-bundle
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Z-Wave control panel UI and MQTT gateway
+  TITLE:=Z-Wave control panel UI and MQTT gateway (Web app)
   URL:=https://zwave-js.github.io/zwave-js-ui/
   DEPENDS:=+node +node-bufferutil +node-utf-8-validate +node-serialport
 endef
 
 define Package/node-zwave-js-ui-bundle/description
- Z-Wave control panel UI and MQTT gateway
+ Z-Wave control panel UI and MQTT gateway.
+ Bundled as a web app to compress file size.
 endef
 
 define Package/node-zwave-js-ui-bundle/conffiles
