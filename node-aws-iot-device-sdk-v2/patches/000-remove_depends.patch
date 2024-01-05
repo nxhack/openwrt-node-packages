@@ -5,7 +5,7 @@
    },
    "dependencies": {
 -    "@aws-sdk/util-utf8-browser": "^3.109.0",
--    "aws-crt": "^1.20.0"
+-    "aws-crt": "^1.20.1"
 +    "@aws-sdk/util-utf8-browser": "^3.109.0"
    }
  }
