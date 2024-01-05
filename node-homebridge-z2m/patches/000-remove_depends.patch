@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -67,7 +67,6 @@
+@@ -75,7 +75,6 @@
    ],
    "dependencies": {
      "color-convert": "^2.0.1",
