@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-gyp-build
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=4.7.1
-PKG_RELEASE:=3
+PKG_VERSION:=4.8.0
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=8a1c2c9eaa79ae9362e4ac8c8100bcceebd5f4d0767d7dcede1d10b9e6c5dd47
+PKG_HASH:=9c1496fb83e08a00a7cedfac9511f1b4d66d6dc229a2dbe7c33bbbba1865c9e1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
