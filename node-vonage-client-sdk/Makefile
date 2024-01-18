@@ -5,19 +5,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NPM_SCOPE:=vonage
-PKG_NPM_NAME:=server-sdk
+PKG_NPM_NAME:=client-sdk
 PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=3.12.1
+PKG_VERSION:=1.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL_FILE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=876981d1e67b6c9c7874147f8e6ffb39b4992b3c7f6e846b38a7f899f7621be2
+PKG_HASH:=5f3504ac7251ca117c8b49c547981ab303a0d9892ecce8247b64b8da341a009e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILES:=LICENSE.txt
+PKG_LICENSE:=SEE LICENSE IN LICENSE
+PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
@@ -25,17 +25,17 @@ PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-vonage-server-sdk
+define Package/node-vonage-client-sdk
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js Client for the Vonage API Platform
-  URL:=https://www.npmjs.org/package/@vonage/server-sdk
+  TITLE:=Vonage Client SDK
+  URL:=https://www.npmjs.org/package/@vonage/client-sdk
   DEPENDS:=+node
 endef
 
-define Package/node-vonage-server-sdk/description
- This is the Node.JS Server SDK for Vonage APIs. To use it you will need a Vonage account.
+define Package/node-vonage-client-sdk/description
+ The Client SDK is intended to provide a ready solution for developers to build Programmable Conversation applications across multiple Channels including: Messages, Voice, SIP, websockets, and App.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -60,23 +60,23 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-vonage-server-sdk/install
+define Package/node-vonage-client-sdk/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md,*.js} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{dist,node_modules} \
+	$(CP) $(PKG_BUILD_DIR)/{dist,scripts,node_modules} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)
 	$(LN) ../../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
 		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 endef
 
-define Package/node-vonage-server-sdk/postrm
+define Package/node-vonage-client-sdk/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/@vonage/server-sdk || true
-rm -rf /usr/lib/node/@vonage/server-sdk || true
+rm /usr/lib/node_modules/@vonage/client-sdk || true
+rm -rf /usr/lib/node/@vonage/client-sdk || true
 rmdir /usr/lib/node_modules/@vonage || true
 rmdir /usr/lib/node/@vonage || true
 endef
 
-$(eval $(call BuildPackage,node-vonage-server-sdk))
+$(eval $(call BuildPackage,node-vonage-client-sdk))
