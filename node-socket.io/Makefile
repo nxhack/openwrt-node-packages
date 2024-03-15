@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=socket.io
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.7.4
+PKG_VERSION:=4.7.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=4ea6db4b14cd9eb2121b62b828b3423ca38dbbf9dd161dd56b70d9d41d57c7ec
+PKG_HASH:=3817abdc7db51caf844a869ec711a74aa27f58a7b90e2c390f9d34530ff5d6f1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
