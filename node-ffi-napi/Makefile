@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ffi-napi
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.0.3
-PKG_RELEASE:=7
+PKG_RELEASE:=8
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -30,7 +30,7 @@ define Package/node-ffi-napi
   CATEGORY:=Languages
   TITLE:=Node.js Foreign Function Interface for N-API
   URL:=https://www.npmjs.com/package/ffi-napi
-  DEPENDS:=+node +libffi @NODEJS_21:BROKEN
+  DEPENDS:=+node +libffi @BROKEN
 endef
 
 define Package/node-ffi-napi/description
