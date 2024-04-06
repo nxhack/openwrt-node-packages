@@ -9,20 +9,20 @@ PKG_NAME:=node
 ifeq ($(CONFIG_NODEJS_20),y)
 PKG_VERSION:=v20.12.1
 PKG_RELEASE:=1
-PKG_HASH:=6840d490ba4d1d51655e0fbe1209956a15db405510d7ea166bad98a8c9d37a4e
+PKG_HASH:=b9bef0314e12773ef004368ee56a2db509a948d4170b9efb07441bac1f1407a0
 PATCH_DIR:=./patches/v20.x
-NODEJS_BIN_SUM:=042844eeea4e19fa46687cc028dd5e323602d81784a9da8386c24463e3984e11
+NODEJS_BIN_SUM:=da2f590a39717792dcf8c4bf6b9e4b269601e6ce3a3f150a3c4b379f7eea6d83
 NODE_MODULE_VERSION:=115
 else
 PKG_VERSION:=v18.20.1
 PKG_RELEASE:=1
-PKG_HASH:=c6d867a9f25e6354810effb8201f8147a15b28000e50790fda00d1ca15f49b8a
+PKG_HASH:=7fb430d0b1256c22f26dd321070182ab943005bdb7b738facc6d9a82b1e04ed7
 PATCH_DIR:=./patches/v18.x
-NODEJS_BIN_SUM:=1d08285abd9fad971af5c73d13e8f2a6ae9f2906ee036095dad7d5c286642a4e
+NODEJS_BIN_SUM:=d226c39c5546dca97567db8f8ca7f92fca6572d44f181b1f85af83eee5d6f9e1
 NODE_MODULE_VERSION:=108
 endif
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://nodejs.org/dist/$(PKG_VERSION)
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
@@ -206,7 +206,7 @@ endef
 
 ifeq ($(CONFIG_NODEJS_HOST_BIN),y)
 
-NODEJS_BIN:=node-$(PKG_VERSION)-linux-x64.tar.xz
+NODEJS_BIN:=node-$(PKG_VERSION)-linux-x64.tar.gz
 
 define Download/nodebin
 	URL:=https://nodejs.org/download/release/$(PKG_VERSION)/
@@ -232,7 +232,7 @@ define Host/Install
 	rm -rf $(1)/lib/node_modules/npm
 	rm -f $(1)/bin/corepack
 	rm -rf $(1)/lib/node_modules/corepack
-	$(TAR) xvfJ $(DL_DIR)/$(NODEJS_BIN) -C $(1) --strip-components=1
+	$(TAR) xvf $(DL_DIR)/$(NODEJS_BIN) -C $(1) --strip-components=1
 	rm -f $(1)/{CHANGELOG.md,LICENSE,README.md}
 endef
 
@@ -246,6 +246,7 @@ define Host/Install
 	$(call Host/Install/Default)
 endef
 endif
+
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,node))
