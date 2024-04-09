@@ -91,6 +91,8 @@ Please read this document. '[Why avahi and bonjour don't work on your home netwo
 
 ***IGMP-querier*** will solve your problem.
 
+OpenWrt allows "multicast_querier" (IGMP-querier) to be set when "igmp_snooping" is enabled.
+
 OpenWrt custom packages available: https://github.com/nxhack/openwrt-custom-packages
 
 ## Low memory
