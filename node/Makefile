@@ -6,13 +6,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=node
 
-ifeq ($(CONFIG_NODEJS_21),y)
-PKG_VERSION:=v21.7.3
+ifeq ($(CONFIG_NODEJS_22),y)
+PKG_VERSION:=v22.0.0
 PKG_RELEASE:=1
-PKG_HASH:=ce1f61347671ef219d9c2925313d629d3fef98fc8d7f5ef38dd4656f7d0f58e7
-PATCH_DIR:=./patches/v21.x
-NODEJS_BIN_SUM:=a64cbb12282cb60d35743ef4f51561f8d89946a5f0a484f99168f4de602d7c3d
-NODE_MODULE_VERSION:=120
+PKG_HASH:=47cd57486564a8cb4728ec01f1d98b510c6547e19e96a7f7583cf882d803d0c6
+PATCH_DIR:=./patches/v22.x
+NODEJS_BIN_SUM:=74bb0f3a80307c529421c3ed84517b8f543867709f41e53cd73df99e6442af4d
+NODE_MODULE_VERSION:=127
 else
 ifeq ($(CONFIG_NODEJS_18),y)
 PKG_VERSION:=v18.20.2
@@ -103,8 +103,8 @@ define Package/node/config
 		config NODEJS_20
 			bool "20.x Active LTS"
 
-		config NODEJS_21
-			bool "21.x Current"
+		config NODEJS_22
+			bool "22.x Current"
 	endchoice
 
 	if PACKAGE_node
