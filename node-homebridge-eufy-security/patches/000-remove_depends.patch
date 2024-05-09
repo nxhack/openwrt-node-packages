@@ -7,4 +7,4 @@
 -    "ffmpeg-for-homebridge": "2.1.1",
      "fs-extra": "^11.2.0",
      "rotating-file-stream": "^3.2.1",
-     "semver": "^7.6.0",
+     "semver": "^7.6.1",

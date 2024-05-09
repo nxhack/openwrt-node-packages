@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-eufy-security
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.1.2
+PKG_VERSION:=3.3.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6df8ab84ce44a741debb252dbaae5889ee3af7a9a366a5d1504c8835d55237c4
+PKG_HASH:=27edfe42fdba3a647e83ae69e5ece9b521a689ee8382101c53edcd72f67e9446
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
