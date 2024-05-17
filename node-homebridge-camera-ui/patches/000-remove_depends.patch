@@ -11,7 +11,7 @@
 -    "fs-extra": "10.1.0",
 -    "pick-port": "^1.0.0"
 +    "fs-extra": "^11.2.0",
-+    "pick-port": "^2.1.0"
++    "pick-port": "^2.0.1"
    },
    "devDependencies": {
 -    "@babel/core": "7.17.9",
