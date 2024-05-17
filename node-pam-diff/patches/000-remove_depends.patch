@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -94,7 +94,6 @@
+   },
+   "homepage": "https://github.com/kevinGodell/pam-diff#readme",
+   "dependencies": {
+-    "pixel-change": "^1.1.0",
+     "polygon-points": "^0.6.0"
+   },
+   "devDependencies": {
