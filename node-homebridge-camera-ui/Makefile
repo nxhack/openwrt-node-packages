@@ -62,7 +62,7 @@ define Package/node-homebridge-camera-ui/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js,config.schema.json} \
+	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js,*.json} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,homebridge-ui,services,src} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
