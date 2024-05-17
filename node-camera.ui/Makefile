@@ -29,11 +29,11 @@ define Package/node-camera.ui
   CATEGORY:=Languages
   TITLE:=NVR like user interface for RTSP capable cameras
   URL:=https://www.npmjs.com/package/camera.ui
-  DEPENDS:=+node +node-homebridge +node-pam-diff
+  DEPENDS:=+node +node-pam-diff +node-ffmpeg-for-homebridge
 endef
 
 define Package/node-camera.ui/description
- camera.ui allows you to expose cameras from camera.ui to HomeKit via Homebridge. camera.ui does not need to be installed separately. It is installed right away with camera.ui
+ NVR like user interface for RTSP capable cameras.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -62,9 +62,9 @@ define Package/node-camera.ui/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js,config.schema.json} \
+	$(CP) $(PKG_BUILD_DIR)/*.md \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,homebridge-ui,services,src} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,bin,interface,src} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
