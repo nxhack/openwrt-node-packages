@@ -1,0 +1,27 @@
+--- a/package.json
++++ b/package.json
+@@ -13,17 +13,16 @@
+   },
+   "main": "index.js",
+   "dependencies": {
+-    "@homebridge/plugin-ui-utils": "^0.0.19",
++    "@homebridge/plugin-ui-utils": "^1.0.3",
+     "camera.ui": "^1.1.17",
+-    "ffmpeg-for-homebridge": "0.0.9",
+-    "fs-extra": "10.1.0",
+-    "pick-port": "^1.0.0"
++    "fs-extra": "^11.2.0",
++    "pick-port": "^2.1.0"
+   },
+   "devDependencies": {
+-    "@babel/core": "7.17.9",
+-    "@babel/eslint-parser": "7.17.0",
+-    "@babel/eslint-plugin": "7.17.7",
+-    "concurrently": "7.1.0",
++    "@babel/core": "^7.17.9",
++    "@babel/eslint-parser": "^7.17.0",
++    "@babel/eslint-plugin": "^7.17.7",
++    "concurrently": "^7.1.0",
+     "eslint": "^8.14.0",
+     "eslint-config-prettier": "^8.5.0",
+     "eslint-plugin-import": "^2.26.0",
