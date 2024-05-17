@@ -29,7 +29,7 @@ define Package/node-homebridge-camera-ui
   CATEGORY:=Languages
   TITLE:=User Interface for RTSP capable cameras
   URL:=https://www.npmjs.com/package/homebridge-camera-ui
-  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge
+  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge +node-camera.ui
 endef
 
 define Package/node-homebridge-camera-ui/description
