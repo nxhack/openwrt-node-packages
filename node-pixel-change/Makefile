@@ -4,36 +4,36 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=mqtt
+PKG_NPM_NAME:=pixel-change
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.6.0
+PKG_VERSION:=1.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=bda3a2e5ba16dc7aee9c012252833b1bcd6a14b983dcc20e73191517aa76c276
+PKG_HASH:=9cd518aeba098f41161c4f50e65d6f3459bc712e2c9a0dc4540b1bd85367c919
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE.md
+PKG_LICENSE_FILES:=
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
+PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-mqtt
+define Package/node-pixel-change
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=A library for the MQTT protocol
-  URL:=https://www.npmjs.org/package/mqtt
-  DEPENDS:=+node +node-ws
+  TITLE:=Measure differences between 2 pixels
+  URL:=https://www.npmjs.org/package/pixel-change
+  DEPENDS:=+node
 endef
 
-define Package/node-mqtt/description
- MQTT.js is a client library for the MQTT protocol, written in JavaScript for node.js and the browser
+define Package/node-pixel-change/description
+ Measure differences between 2 identically sized buffer arrays of gray, rgb, or rgba pixels.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -47,40 +47,35 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
+	rm -rf $(PKG_BUILD_DIR)/prebuilds
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --ignore-scripts
+	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
 endef
 
-define Package/node-mqtt/install
+define Package/node-pixel-change/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,README.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,build} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{build,dist,help} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/mqtt.js $(1)/usr/bin/mqtt
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/pub.js $(1)/usr/bin/mqtt_pub
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/build/bin/sub.js $(1)/usr/bin/mqtt_sub
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_BUILD_DIR)/build/Release/pixel_change.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/mqtt.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/pub.js
-	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/bin/sub.js
 endef
 
-define Package/node-mqtt/postrm
+define Package/node-pixel-change/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/mqtt || true
-rm -rf /usr/lib/node/mqtt || true
+rm /usr/lib/node_modules/pixel-change || true
+rm -rf /usr/lib/node/pixel-change || true
 endef
 
-$(eval $(call BuildPackage,node-mqtt))
+$(eval $(call BuildPackage,node-pixel-change))
