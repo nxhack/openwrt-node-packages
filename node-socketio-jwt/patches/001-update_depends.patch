@@ -1,0 +1,13 @@
+--- a/package.json
++++ b/package.json
+@@ -23,8 +23,8 @@
+   },
+   "license": "MIT",
+   "dependencies": {
+-    "jsonwebtoken": "^8.3.0",
+-    "xtend": "~2.1.2"
++    "jsonwebtoken": "^9.0.2",
++    "xtend": "~4.0.2"
+   },
+   "devDependencies": {
+     "@types/socket.io": "~1.4.29",
