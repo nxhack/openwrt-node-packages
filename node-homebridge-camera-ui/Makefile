@@ -33,6 +33,7 @@ define Package/node-homebridge-camera-ui
 endef
 
 define Package/node-homebridge-camera-ui/description
+ *** "camara.ui" has not been maintained. Please use it at your own risk. ***
  homebridge-camera-ui allows you to expose cameras from camera.ui to HomeKit via Homebridge. camera.ui does not need to be installed separately. It is installed right away with homebridge-camera-ui
 endef
 
