@@ -73,7 +73,7 @@
 +    "swagger-jsdoc": "^6.2.8",
 +    "swagger-ui-express": "^5.0.0",
 +    "systeminformation": "^5.22.9",
-+    "tar": "^7.1.0",
++    "tar": "^6.2.1",
 +    "web-push": "^3.6.7"
    },
    "devDependencies": {
