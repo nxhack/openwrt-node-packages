@@ -33,6 +33,7 @@ define Package/node-camera.ui
 endef
 
 define Package/node-camera.ui/description
+ *** "camara.ui" has not been maintained. Please use it at your own risk. ***
  NVR like user interface for RTSP capable cameras.
 endef
 
