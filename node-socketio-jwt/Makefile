@@ -4,37 +4,36 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=homebridge
+PKG_NPM_NAME:=socketio-jwt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.8.2
-PKG_RELEASE:=2
+PKG_VERSION:=4.6.2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a8e588c78eef427dc15ce409f124a71f29807af07f10890c77a7790fbbbea428
-
-PKG_BUILD_DEPENDS:=node/host
-PKG_BUILD_FLAGS:=no-mips16
+PKG_HASH:=79596aca393797ae96044dc63e296838ce54d411d6d4eeb47112a7e251e2ff5c
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=ISC Apache-2.0
+PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+
+PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_PARALLEL:=1
+PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-homebridge
+define Package/node-socketio-jwt
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js HomeKit Server
-  URL:=https://www.npmjs.org/package/homebridge
-  DEPENDS:=+node +node-npm
-  USERID:=homebridge:homebridge
+  TITLE:=authenticate socket.io connections using JWTs
+  URL:=https://www.npmjs.org/package/socketio-jwt
+  DEPENDS:=+node
 endef
 
-define Package/node-homebridge/description
- Homebridge is a lightweight Node.js server you can run on your home network that emulates the iOS HomeKit API
- *** You need to install avahi-nodbus-daemon or avahi-dbus-daemon or umdns or mdnsd package. ***
+define Package/node-socketio-jwt/description
+ Authenticate socket.io incoming connections with JWTs.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -57,30 +56,22 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
-	rm -f $(PKG_BUILD_DIR)/node_modules/hap-nodejs/node_modules/@homebridge/put/test/c/ftoi
-	rm -f $(PKG_BUILD_DIR)/node_modules/hap-nodejs/node_modules/@homebridge/put/test/c/itof
 endef
 
-define Package/node-homebridge/install
+define Package/node-socketio-jwt/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{*.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,assets,lib,types} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{LICENSE,bin} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/homebridge $(1)/usr/bin/homebridge
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-homebridge/postrm
+define Package/node-socketio-jwt/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/homebridge || true
-rm -rf /usr/lib/node/homebridge || true
+rm /usr/lib/node_modules/socketio-jwt || true
+rm -rf /usr/lib/node/socketio-jwt || true
 endef
 
-$(eval $(call BuildPackage,node-homebridge))
+$(eval $(call BuildPackage,node-socketio-jwt))

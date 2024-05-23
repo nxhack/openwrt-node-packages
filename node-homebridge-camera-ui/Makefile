@@ -4,37 +4,37 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=homebridge
+PKG_NPM_NAME:=homebridge-camera-ui
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.8.2
-PKG_RELEASE:=2
+PKG_VERSION:=5.0.27
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=a8e588c78eef427dc15ce409f124a71f29807af07f10890c77a7790fbbbea428
-
-PKG_BUILD_DEPENDS:=node/host
-PKG_BUILD_FLAGS:=no-mips16
+PKG_HASH:=a2039951b7898b8e38102617c58cdb463e802f43c3b5dfc8562369b0fd60a9a1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=ISC Apache-2.0
+PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
+
+PKG_BUILD_DEPENDS:=node/host
+PKG_BUILD_PARALLEL:=1
+PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-homebridge
+define Package/node-homebridge-camera-ui
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Node.js HomeKit Server
-  URL:=https://www.npmjs.org/package/homebridge
-  DEPENDS:=+node +node-npm
-  USERID:=homebridge:homebridge
+  TITLE:=User Interface for RTSP capable cameras
+  URL:=https://www.npmjs.com/package/homebridge-camera-ui
+  DEPENDS:=+node +node-homebridge +node-ffmpeg-for-homebridge +node-camera.ui
 endef
 
-define Package/node-homebridge/description
- Homebridge is a lightweight Node.js server you can run on your home network that emulates the iOS HomeKit API
- *** You need to install avahi-nodbus-daemon or avahi-dbus-daemon or umdns or mdnsd package. ***
+define Package/node-homebridge-camera-ui/description
+ *** "camara.ui" has not been maintained. Please use it at your own risk. ***
+ homebridge-camera-ui allows you to expose cameras from camera.ui to HomeKit via Homebridge. camera.ui does not need to be installed separately. It is installed right away with homebridge-camera-ui
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -53,34 +53,28 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock
+	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --ignore-scripts
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
-	rm -f $(PKG_BUILD_DIR)/node_modules/hap-nodejs/node_modules/@homebridge/put/test/c/ftoi
-	rm -f $(PKG_BUILD_DIR)/node_modules/hap-nodejs/node_modules/@homebridge/put/test/c/itof
 endef
 
-define Package/node-homebridge/install
+define Package/node-homebridge-camera-ui/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{*.json,*.md} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
+	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js,*.json} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{LICENSE,bin} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,homebridge-ui,services,src} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/homebridge $(1)/usr/bin/homebridge
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
 
-define Package/node-homebridge/postrm
+define Package/node-homebridge-camera-ui/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/homebridge || true
-rm -rf /usr/lib/node/homebridge || true
+rm /usr/lib/node_modules/homebridge-camera-ui || true
+rm -rf /usr/lib/node/homebridge-camera-ui || true
 endef
 
-$(eval $(call BuildPackage,node-homebridge))
+$(eval $(call BuildPackage,node-homebridge-camera-ui))
