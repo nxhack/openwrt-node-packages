@@ -49,9 +49,9 @@ TARGET_LDFLAGS+=-latomic
 
 CMINC_PATH_LIST=$(STAGING_DIR)/usr/include
 ifeq ($(CONFIG_USE_MUSL),y)
-    CMINC_PATH_LIST+=$(TOOLCHAIN_ROOT_DIR)/include/fortify
+    CMINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include/fortify
 endif
-CMINC_PATH_LIST+=$(TOOLCHAIN_ROOT_DIR)/include
+CMINC_PATH_LIST+=$(TOOLCHAIN_DIR)/include
 CMINC_PATH:=$(subst $(space),:,$(CMINC_PATH_LIST))
 
 define Build/Compile
@@ -61,7 +61,7 @@ define Build/Compile
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
 	CMAKE_INCLUDE_PATH="$(CMINC_PATH)" \
-	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_ROOT_DIR)/lib" \
+	CMAKE_LIBRARY_PATH="$(STAGING_DIR)/usr/lib:$(TOOLCHAIN_DIR)/lib" \
 	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
