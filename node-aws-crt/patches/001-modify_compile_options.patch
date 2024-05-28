@@ -89,7 +89,7 @@
                  CMAKE_INSTALL_PREFIX: 'crt/install',
                  CMAKE_PREFIX_PATH: 'crt/install',
              }
-@@ -109,6 +184,18 @@ module.exports = {
+@@ -109,6 +184,22 @@ module.exports = {
          // Enable parallel build (ignored by cmake older than 3.12)
          process.env.CMAKE_BUILD_PARALLEL_LEVEL = `${Math.max(os.cpus().length, 1)}`;
  
@@ -102,6 +102,10 @@
 +        });
 +
 +        execSync("sed -i '35d' ./crt/aws-c-common/cmake/AwsSharedLibSetup.cmake", (error, stdout, stderr) => {
++            console.log(error, stdout, stderr);
++        });
++
++        execSync("sed -i 's/pthread_attr_setaffinity_np(attributes_ptr/pthread_attr_setaffinity_np((pthread_t)attributes_ptr/' ./crt/aws-c-common/source/posix/thread.c", (error, stdout, stderr) => {
 +            console.log(error, stdout, stderr);
 +        });
 +
