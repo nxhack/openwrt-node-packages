@@ -1,0 +1,11 @@
+--- a/binding.gyp
++++ b/binding.gyp
+@@ -24,7 +24,7 @@
+             "ldflags+": ["-Wl,--gc-sections"]
+           }]
+         ],
+-        "defines+": ["_FORTIFY_SOURCE=2", "NDEBUG"]
++        "defines+": ["NDEBUG"]
+       }
+     }
+   },
