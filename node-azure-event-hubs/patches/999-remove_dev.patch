@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -112,50 +112,5 @@
+@@ -112,49 +112,5 @@
      "tslib": "^2.2.0"
    },
    "devDependencies": {
@@ -8,7 +8,7 @@
 -    "@azure/eslint-plugin-azure-sdk": "^3.0.0",
 -    "@azure/identity": "^4.0.1",
 -    "@azure/mock-hub": "^1.0.0",
--    "@azure/test-utils": "^1.0.0",
+-    "@azure-tools/test-utils": "^1.0.1",
 -    "@azure-tools/test-recorder": "^3.0.0",
 -    "@microsoft/api-extractor": "^7.31.1",
 -    "@types/async-lock": "^1.1.0",
@@ -29,7 +29,6 @@
 -    "debug": "^4.1.1",
 -    "dotenv": "^16.0.0",
 -    "eslint": "^8.0.0",
--    "esm": "^3.2.18",
 -    "https-proxy-agent": "^7.0.0",
 -    "karma": "^6.2.0",
 -    "karma-chrome-launcher": "^3.0.0",
@@ -42,12 +41,12 @@
 -    "karma-sourcemap-loader": "^0.3.8",
 -    "mocha": "^10.0.0",
 -    "moment": "^2.24.0",
--    "c8": "^8.0.0",
+-    "nyc": "^15.1.0",
 -    "puppeteer": "^22.2.0",
 -    "rimraf": "^5.0.5",
 -    "sinon": "^17.0.0",
 -    "ts-node": "^10.0.0",
--    "typescript": "~5.3.3",
+-    "typescript": "~5.4.5",
 -    "ws": "^8.2.0"
    }
  }
