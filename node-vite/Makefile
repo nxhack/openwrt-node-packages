@@ -61,7 +61,8 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 rmdir || true
-	rm -rf $(PKG_BUILD_DIR)/node_modules/esbuild/node_modules/@esbuild/linux-x64
+	rm -rf $(PKG_BUILD_DIR)/node_modules/esbuild/node_modules/@esbuild
+	rm -rf $(PKG_BUILD_DIR)/node_modules/rollup/node_modules/@rollup
 endef
 
 define Package/node-vite/install
