@@ -60,7 +60,7 @@ define Build/Compile
 	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/example/" "!**/examples/"
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
-	find $(PKG_BUILD_DIR)/node_modules -type d -empty -delete || true
+	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 -r rmdir || true
 	#rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/nodes/node_modules/ajv/lib
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/util/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@node-red/util/node_modules/moment/src
