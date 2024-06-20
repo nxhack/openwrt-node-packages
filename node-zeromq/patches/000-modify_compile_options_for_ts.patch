@@ -11,7 +11,7 @@
  function main() {
    const zmq_rev =
      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions
--    process.env.ZMQ_VERSION || "20de92ac0a2b2b9a1869782a429df68f93c3625e"
+-    process.env.ZMQ_VERSION || "5657b4586f24ec433930e8ece02ddba7afcf0fe0"
 +    process.env.ZMQ_VERSION || "622fc6dde99ee172ebaa9c8628d85a7a1995a21d"
    const src_url = `https://github.com/zeromq/libzmq/archive/${zmq_rev}.tar.gz`
  
@@ -95,7 +95,7 @@
 -  exec(cmake_configure, execOptions)
 +  execSync(cmake_configure)
  
-   const cmake_build = `cmake --build ./build --config ${CMAKE_BUILD_TYPE} --target install`
+   const cmake_build = `cmake --build ./build --config ${CMAKE_BUILD_TYPE} --target install --parallel`
    console.log(cmake_build)
 -  exec(cmake_build, execOptions)
 +  execSync(cmake_build)
