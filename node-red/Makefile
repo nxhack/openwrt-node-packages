@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=3.1.11
+PKG_VERSION:=4.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=69c809be9396ab5babceb52526cf5635549e825efe895ae518cbf24a33e127b7
+PKG_HASH:=efb43375b389fb16a5beaeb0f410ef2734c9d9561aaa90d9cfedc4c857e1bbd0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
