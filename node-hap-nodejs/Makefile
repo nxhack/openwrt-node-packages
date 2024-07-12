@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=hap-nodejs
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.12.2
+PKG_VERSION:=1.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=08c1573aca3d46cbc1487f62a9255ea295e20248c2e9cb1ca8961cd47bc8b715
+PKG_HASH:=9e1e43df6372da1a680ff4db1cefe302587da8be8f6ea26cda7a16be5c1e2043
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
