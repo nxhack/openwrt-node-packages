@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=homebridge-miot
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=1.7.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -27,7 +27,7 @@ define Package/node-homebridge-miot
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=Homebridge plugin for devices supporting the miot protocol
+  TITLE:=Homebridge plugin for devices supporting the miot
   URL:=https://www.npmjs.com/package/homebridge-miot
   DEPENDS:=+node +node-homebridge
 endef
