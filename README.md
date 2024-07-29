@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt Node.js Packages : for OpenWrt-22.03
+OpenWrt Node.js Packages : for OpenWrt-22.03 (***End of life***)
 
 Note: support arches are aarch64, arm, x86_64
 
