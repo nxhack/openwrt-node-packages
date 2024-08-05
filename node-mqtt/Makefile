@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=mqtt
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.8.1
+PKG_VERSION:=5.9.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=f268475af84ec2af3b2fcdcb15804984ffd78507b689fd14a3bf199fc8180173
+PKG_HASH:=af53adf4aa71d8587846c8c0b79ffdefecedde37b8571bd56ef5d8dea8bcf2de
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
