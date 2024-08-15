@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-modbus
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=5.41.0
+PKG_VERSION:=5.42.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=fa1c2e57e641380d00622f634f70d4ffd1e883d092d53f2ddceaf3441a2af30c
+PKG_HASH:=f5420a3d1880a719f3b3798cf67ded618f9cd5d9d7f3f4c7ceb8e241f353e87f
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
@@ -56,7 +56,7 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 -r rmdir || true
-	rm -rf $(PKG_BUILD_DIR)/node_modules/@open-p4nr/modbus-serial/node_modules/@serialport/bindings-cpp/prebuilds
+	rm -rf $(PKG_BUILD_DIR)/node_modules/@openp4nr/modbus-serial/node_modules/@serialport/bindings-cpp/prebuilds
 endef
 
 define Package/node-red-contrib-modbus/install
