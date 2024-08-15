@@ -1,37 +1,37 @@
 --- a/script/build.ts
 +++ b/script/build.ts
-@@ -1,13 +1,14 @@
+@@ -1,6 +1,7 @@
  import {dirname} from "path"
  import {existsSync, writeFileSync} from "fs"
  import {mkdir, cd, exec, find, mv} from "shelljs"
 +import {execSync} from "child_process"
+ import {toBool, toString} from "./utils.js"
  
  const root = dirname(__dirname)
- 
- function main() {
-   const zmq_rev =
-     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions
--    process.env.ZMQ_VERSION || "5657b4586f24ec433930e8ece02ddba7afcf0fe0"
-+    process.env.ZMQ_VERSION || "622fc6dde99ee172ebaa9c8628d85a7a1995a21d"
-   const src_url = `https://github.com/zeromq/libzmq/archive/${zmq_rev}.tar.gz`
- 
-   const libzmq_build_prefix = `${root}/build/libzmq-staging`
-@@ -34,14 +35,6 @@ function main() {
+@@ -20,7 +21,7 @@ function parseOptions(): Options {
+     zmq_draft: toBool(process.env.npm_config_zmq_draft) ?? false,
+     zmq_version:
+       toString(process.env.npm_config_zmq_version) ??
+-      "5657b4586f24ec433930e8ece02ddba7afcf0fe0",
++      "622fc6dde99ee172ebaa9c8628d85a7a1995a21d",
+     zmq_build_type:
+       toString(process.env.npm_config_zmq_build_type) ?? "Release",
+     arch: toString(process.env.npm_config_arch) ?? process.arch,
+@@ -60,13 +61,6 @@ function main() {
      }
    }
  
--  build_options += archCMakeOptions()
+-  build_options += archCMakeOptions(opts)
 -
 -  if (process.platform === "darwin") {
--    const MACOSX_DEPLOYMENT_TARGET = "10.15"
--    process.env.MACOSX_DEPLOYMENT_TARGET = MACOSX_DEPLOYMENT_TARGET
--    build_options += ` -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}`
+-    process.env.MACOSX_DEPLOYMENT_TARGET = opts.macosx_deployment_target
+-    build_options += ` -DCMAKE_OSX_DEPLOYMENT_TARGET=${opts.macosx_deployment_target}`
 -  }
 -
    mkdir("-p", libzmq_build_prefix)
    cd(libzmq_build_prefix)
  
-@@ -58,11 +51,13 @@ function main() {
+@@ -83,11 +77,13 @@ function main() {
      console.log("Found libzmq source; skipping download...")
    } else {
      console.log(`Downloading libzmq source from ${src_url}`)
@@ -46,8 +46,8 @@
 +    execSync(extractTarball)
    }
  
-   if (process.env.ZMQ_DRAFT === "true") {
-@@ -78,13 +73,52 @@ function main() {
+   if (opts.zmq_draft) {
+@@ -103,13 +99,52 @@ function main() {
      writeFileSync(clang_format_file, "")
    }
  
@@ -90,15 +90,15 @@
 +  build_options += " -DCMAKE_DISABLE_FIND_BSD=ON"
 +  build_options += " -DWITH_LIBBSD=OFF"
 +
-   const cmake_configure = `cmake -S "${src_dir}" -B ./build ${build_options} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX="${libzmq_install_prefix}" -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_STATIC=ON -DBUILD_TESTS=OFF -DBUILD_SHARED=OFF -DWITH_DOCS=OFF -DWITH_LIBSODIUM=OFF`
+   const cmake_configure = `cmake -S "${src_dir}" -B ./build ${build_options} -DCMAKE_BUILD_TYPE=${opts.zmq_build_type} -DCMAKE_INSTALL_PREFIX="${libzmq_install_prefix}" -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_STATIC=ON -DBUILD_TESTS=OFF -DBUILD_SHARED=OFF -DWITH_DOCS=OFF -DWITH_LIBSODIUM=OFF`
    console.log(cmake_configure)
 -  exec(cmake_configure, execOptions)
 +  execSync(cmake_configure)
  
-   const cmake_build = `cmake --build ./build --config ${CMAKE_BUILD_TYPE} --target install --parallel`
+   const cmake_build = `cmake --build ./build --config ${opts.zmq_build_type} --target install --parallel`
    console.log(cmake_build)
 -  exec(cmake_build, execOptions)
-+  execSync(cmake_build)
++  execSync(cmake_configure)
  
    if (process.platform === "win32") {
      // rename libzmq-v143-mt-s-4_3_4.lib to libzmq.lib
