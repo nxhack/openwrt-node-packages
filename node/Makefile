@@ -226,7 +226,7 @@ ifeq ($(CONFIG_NODEJS_HOST_BIN),y)
 NODEJS_BIN:=node-v$(PKG_VERSION)-linux-x64.tar.gz
 
 define Download/nodebin
-	URL:=https://nodejs.org/download/release/$(PKG_VERSION)/
+	URL:=https://nodejs.org/download/release/v$(PKG_VERSION)/
 	FILE:=$(NODEJS_BIN)
 	HASH:=$(NODEJS_BIN_SUM)
 endef
