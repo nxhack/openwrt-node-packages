@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zeromq
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.0.0
+PKG_VERSION:=6.0.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=3b31e0f2a7fb5378d32683fbd99dbc931ce1b68b03e8f937a4ed6b475034fbb3
+PKG_HASH:=2867f0b6450c00ecbce7f0174729c4d9eb962ff29bded1aade406ebfb8fd0de1
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
