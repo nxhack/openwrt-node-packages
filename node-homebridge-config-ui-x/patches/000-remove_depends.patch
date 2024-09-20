@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -87,7 +87,6 @@
+@@ -88,7 +88,6 @@
      "@fastify/multipart": "8.3.0",
      "@fastify/static": "7.0.4",
      "@homebridge/hap-client": "1.10.2",
