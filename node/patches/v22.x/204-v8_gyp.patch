@@ -128,7 +128,7 @@
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
-@@ -2012,6 +2032,7 @@
+@@ -2036,6 +2056,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -136,7 +136,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2151,15 +2172,19 @@
+@@ -2175,15 +2196,19 @@
          }],
        ],
        'direct_dependent_settings': {
