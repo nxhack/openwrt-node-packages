@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-homekit-bridged
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.6.1
+PKG_VERSION:=1.7.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9eb4a9c3e5e708b7bdb19a800cab96f5f58b63517edfd03b39957160861c6546
+PKG_HASH:=a2b4206d0507bdff4148d8079280c7da2e67736e0ea9e5dc87a5990d9254baeb
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
