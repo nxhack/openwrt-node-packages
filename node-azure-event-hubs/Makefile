@@ -7,13 +7,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=azure
 PKG_NPM_NAME:=event-hubs
 PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=5.12.0
+PKG_VERSION:=5.12.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL_FILE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6ce249f0b71fbdb41f1638bcabd0c806367979dba230acd4b0d2e339fee2ed49
+PKG_HASH:=a87a5e2eaea95d77e124aef63d8bc825eeca1c65297b72e59dbff6cad5441027
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -64,7 +64,7 @@ define Package/node-azure-event-hubs/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{License,dist,dist-esm} \
+	$(CP) $(PKG_BUILD_DIR)/{License,dist} \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/node_modules \
 		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/

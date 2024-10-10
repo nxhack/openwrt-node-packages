@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=ffmpeg-for-homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.1.2
+PKG_VERSION:=2.1.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=2b81d51647b21733a8d2fb82ff95f608cc9ac86a340e8ef5c0f1094e4be06ae3
+PKG_HASH:=aedee8a520ac7de79b485e12a310ffffc3659107f0399e3194c6532402414b8f
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=none
