@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zeromq
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.0.8
+PKG_VERSION:=6.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=99047a704f35fd0ddf1c7877817a7f5336e0c2cd7ae40eddb5cd7b484b587670
+PKG_HASH:=3426015d73c6e5352eb749e598f623f211a5678011765c9d8d2e3679e4141ee0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -46,6 +46,9 @@ NPM_CACHE_DIR:=$(if $(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(call qstrip,
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
+
+# https://github.com/aminya/project_options/blob/86e68a9267caa3fdad3e8ad16d52ac02884ca13e/src/Git.cmake#L36
+MAKE_VARS+=HOME=$(PKG_BUILD_DIR)
 
 define Build/Configure
 endef
@@ -118,13 +121,13 @@ define Package/node-zeromq/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/package.json \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js,*.txt} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{lib,node_modules} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
-	$(CP) $(PKG_BUILD_DIR)/build/Release/zeromq.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/linux/$(NODEJS_CPU)/node/addon.node
+	$(CP) $(PKG_BUILD_DIR)/staging/linux/x64/node/*/addon.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/linux/$(NODEJS_CPU)/node/addon.node/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
