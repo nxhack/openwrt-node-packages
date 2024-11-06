@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -21,7 +21,7 @@
+     "url": "https://github.com/erikdubbelboer/node-sleep.git"
+   },
+   "dependencies": {
+-    "nan": "^2.14.1"
++    "nan": "^2.22.0"
+   },
+   "devDependencies": {
+     "mocha": "^8.0.1"

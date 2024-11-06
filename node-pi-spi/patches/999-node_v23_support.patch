@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -20,6 +20,6 @@
+     "url": "https://github.com/natevw/pi-spi/issues"
+   },
+   "dependencies": {
+-    "nan": "^2.14.0"
++    "nan": "^2.22.0"
+   }
+ }
