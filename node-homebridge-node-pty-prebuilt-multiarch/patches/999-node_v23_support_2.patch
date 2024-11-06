@@ -1,0 +1,13 @@
+--- a/binding.gyp
++++ b/binding.gyp
+@@ -95,8 +95,8 @@
+           'libraries': [
+             '-lutil'
+           ],
+-          'cflags': ['-Wall', '-std=c++17'],
+-          'cflags_cc': [ '-std=c++17' ],
++          'cflags': ['-Wall', '-std=c++20'],
++          'cflags_cc': [ '-std=c++20' ],
+           'conditions': [
+             # http://www.gnu.org/software/gnulib/manual/html_node/forkpty.html
+             #   One some systems (at least including Cygwin, Interix,
