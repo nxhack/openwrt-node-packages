@@ -5,7 +5,7 @@
  				],
  				"cflags_cc": [
 -					"-std=c++11"
-+					"-std=c++17"
++					"-std=c++20"
  				],
  				"cflags_cc!": [
  					"<!@(find <(OZW_INC) -name OZWException.h -exec echo -n \"-fno-exceptions\" \\;)"

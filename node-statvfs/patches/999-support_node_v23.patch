@@ -1,0 +1,10 @@
+--- a/package.json
++++ b/package.json
+@@ -22,6 +22,6 @@
+         "assert-plus": "^1.0.0"
+     },
+     "dependencies": {
+-        "nan": "^2.14.0"
++        "nan": "^2.22.0"
+     }
+ }
