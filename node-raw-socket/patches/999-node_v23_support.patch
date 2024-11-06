@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -7,7 +7,7 @@
+     "example": "example"
+   },
+   "dependencies": {
+-    "nan": "2.19.*"
++    "nan": "^2.22.0"
+   },
+   "contributors": [
+     {
