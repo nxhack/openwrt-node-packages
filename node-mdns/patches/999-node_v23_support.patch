@@ -1,0 +1,11 @@
+--- a/package.json
++++ b/package.json
+@@ -79,7 +79,7 @@
+   ],
+   "dependencies": {
+     "bindings": "~1.2.1",
+-    "nan": "^2.14.0"
++    "nan": "^2.22.0"
+   },
+   "gypfile": true
+ }
