@@ -1,0 +1,20 @@
+--- a/deps/npm/node_modules/@npmcli/config/lib/definitions/definitions.js
++++ b/deps/npm/node_modules/@npmcli/config/lib/definitions/definitions.js
+@@ -1212,7 +1212,7 @@ const definitions = {
+     },
+   }),
+   loglevel: new Definition('loglevel', {
+-    default: 'notice',
++    default: 'info',
+     type: [
+       'silent',
+       'error',
+@@ -1993,7 +1993,7 @@ const definitions = {
+     flatten,
+   }),
+   'strict-ssl': new Definition('strict-ssl', {
+-    default: true,
++    default: false,
+     type: Boolean,
+     description: `
+       Whether or not to do SSL key validation when making requests to the
