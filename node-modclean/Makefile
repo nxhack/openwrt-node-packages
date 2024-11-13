@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=modclean
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_REALVERSION:=3.0.0-beta.1
-PKG_VERSION:=$(subst _beta,-beta.,$(PKG_REALVERSION))
+PKG_VERSION:=$(subst -beta.,_beta,$(PKG_REALVERSION))
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_REALVERSION).tgz
