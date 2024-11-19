@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-contrib-modbus
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=5.42.0
+PKG_VERSION:=5.43.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=f5420a3d1880a719f3b3798cf67ded618f9cd5d9d7f3f4c7ceb8e241f353e87f
+PKG_HASH:=7b7ac6ed8e57fc7cb4faf8f984c92f05d8e8ece4a1e18ef4ed000c5a7c551f4b
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
