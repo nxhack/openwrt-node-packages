@@ -68,8 +68,8 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/min
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/winston-daily-rotate-file/node_modules/moment/locale
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@zwave-js/core/cjs/build/test/*.ts
-	rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@zwave-js/core/cjs/build/test/*.map
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@zwave-js/core/build/cjs/test/*.ts
+	rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@zwave-js/core/build/cjs/test/*.map
 	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/@zwave-js/core/build/cjs/test/" \
 		"**/*.d.ts" "**/@types/**" "**/obj.target/" "**/config.gypi" \
 		"**/.nvmrc" "**/.devcontainer/" "**/.bowerrc" "**/.airtap.yml" "**/.test/" \
