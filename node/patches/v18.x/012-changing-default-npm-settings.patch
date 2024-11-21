@@ -9,7 +9,7 @@
      type: [
        'silent',
        'error',
-@@ -1990,7 +1990,7 @@ const definitions = {
+@@ -1993,7 +1993,7 @@ const definitions = {
      flatten,
    }),
    'strict-ssl': new Definition('strict-ssl', {
