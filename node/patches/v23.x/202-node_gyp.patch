@@ -1,6 +1,6 @@
 --- a/node.gyp
 +++ b/node.gyp
-@@ -1330,6 +1330,7 @@
+@@ -1331,6 +1331,7 @@
        'dependencies': [
          'deps/simdutf/simdutf.gyp:simdutf#host',
        ],
