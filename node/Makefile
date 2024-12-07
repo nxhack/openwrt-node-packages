@@ -95,12 +95,6 @@ define Package/node/config
 
 		config NODEJS_20
 			bool "20.x Maintenance LTS"
-
-		config NODEJS_22
-			bool "22.x Active LTS"
-
-		config NODEJS_23
-			bool "23.x Current"
 	endchoice
 
 	if PACKAGE_node
