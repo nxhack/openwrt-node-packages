@@ -24,3 +24,11 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
+@@ -2228,6 +2253,7 @@
+       'variables': {
+         'ABSEIL_ROOT': '../../deps/v8/third_party/abseil-cpp',
+       },
++      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+       'direct_dependent_settings': {
+         'include_dirs': [
+           '<(ABSEIL_ROOT)',
