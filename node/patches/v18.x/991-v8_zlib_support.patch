@@ -42,7 +42,7 @@
        'include_dirs': [
          '<(SHARED_INTERMEDIATE_DIR)',
          '<(generate_bytecode_output_root)',
-+        '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
++        '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
        ],
        'sources': [
          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_initializers.*?sources = ")',
@@ -78,7 +78,7 @@
          'include_dirs': [
            '<(V8_ROOT)/third_party/zlib',
            '<(V8_ROOT)/third_party/zlib/google',
-+          '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
++          '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
          ],
        },
        'defines': [ 'ZLIB_IMPLEMENTATION' ],
@@ -86,7 +86,7 @@
        'include_dirs': [
          '<(V8_ROOT)/third_party/zlib',
          '<(V8_ROOT)/third_party/zlib/google',
-+        '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
++        '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
        ],
        'sources': [
          '<(V8_ROOT)/third_party/zlib/adler32.c',
