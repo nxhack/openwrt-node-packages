@@ -48,7 +48,7 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 NPM_CACHE_DIR:=$(if $(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(TMP_DIR))
 
 TARGET_CFLAGS+=$(FPIC) -I$(STAGING_DIR)/usr/include/libusb-1.0
-TARGET_CPPFLAGS+=$(FPIC)
+TARGET_CPPFLAGS+=$(FPIC) -std=c++17
 
 define Build/Compile
 	GYP_DEFINES='driver="hidraw"' \
