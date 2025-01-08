@@ -1,6 +1,6 @@
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -73,6 +73,7 @@
+@@ -86,6 +86,7 @@
        ],
        'hard_dependency': 1,
        'direct_dependent_settings': {
@@ -8,7 +8,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -194,6 +195,7 @@
+@@ -207,6 +208,7 @@
            '<@(torque_outputs_cc)',
            '<@(torque_outputs_inc)',
          ],
@@ -16,7 +16,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -215,6 +217,7 @@
+@@ -228,6 +230,7 @@
          'sources': [
            '<(generate_bytecode_builtins_list_output)',
          ],
@@ -24,7 +24,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -254,6 +257,7 @@
+@@ -267,6 +270,7 @@
        'sources': [
          '<(V8_ROOT)/src/init/setup-isolate-full.cc',
        ],
@@ -32,7 +32,7 @@
      },  # v8_init
      {
        # This target is used to work around a GCC issue that causes the
-@@ -297,9 +301,11 @@
+@@ -310,9 +314,11 @@
          'v8_abseil',
          'fp16',
        ],
@@ -44,7 +44,7 @@
        ],
        'sources': [
          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_initializers.*?sources = ")',
-@@ -831,6 +837,7 @@
+@@ -844,6 +850,7 @@
        'toolsets': ['host', 'target'],
        'direct_dependent_settings': {
          'sources': ['<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "v8_compiler_sources = ")'],
@@ -52,7 +52,7 @@
          'conditions': [
            ['v8_target_arch=="ia32"', {
              'sources': [
-@@ -946,6 +953,8 @@
+@@ -959,6 +966,8 @@
        'target_name': 'v8_turboshaft',
        'type': 'static_library',
        'toolsets': ['host', 'target'],
@@ -61,7 +61,7 @@
        'dependencies': [
          'generate_bytecode_builtins_list',
          'run_torque',
-@@ -986,6 +995,7 @@
+@@ -999,6 +1008,7 @@
          'run_torque',
          'v8_maybe_icu',
        ],
@@ -69,7 +69,7 @@
        'conditions': [
          ['(is_component_build and not v8_optimized_debug and v8_enable_fast_mksnapshot) or v8_enable_turbofan==0', {
            'dependencies': [
-@@ -1028,6 +1038,7 @@
+@@ -1041,6 +1051,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -77,7 +77,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1651,6 +1662,7 @@
+@@ -1664,6 +1675,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -85,7 +85,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1671,6 +1683,7 @@
+@@ -1684,6 +1696,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -93,7 +93,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1699,6 +1712,9 @@
+@@ -1712,6 +1725,9 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
@@ -103,7 +103,7 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -1746,6 +1762,7 @@
+@@ -1759,6 +1775,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
@@ -111,7 +111,7 @@
        'dependencies': [
          'torque_base',
          # "build/win:default_exe_manifest",
-@@ -1788,6 +1805,7 @@
+@@ -1801,6 +1818,7 @@
      {
        'target_name': 'torque-language-server',
        'type': 'executable',
@@ -119,7 +119,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1819,6 +1837,8 @@
+@@ -1832,6 +1850,8 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
@@ -128,7 +128,7 @@
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
-@@ -2040,6 +2060,7 @@
+@@ -2053,6 +2073,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -136,7 +136,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2179,15 +2200,19 @@
+@@ -2192,15 +2213,19 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -156,7 +156,7 @@
        ],
        'sources': [
          '<(V8_ROOT)/third_party/zlib/adler32.c',
-@@ -2232,6 +2257,7 @@
+@@ -2245,6 +2270,7 @@
        'variables': {
          'ABSEIL_ROOT': '../../deps/v8/third_party/abseil-cpp',
        },
