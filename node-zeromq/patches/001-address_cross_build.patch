@@ -1,13 +1,14 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -137,3 +137,44 @@ endif()
+@@ -137,3 +137,45 @@ endif()
  if(WIN32)
    target_link_libraries(addon PRIVATE "ShLwApi.lib" "delayimp.lib")
  endif()
 +
 +# OpenWrt Cross Build
 +set(ENABLE_CROSS_COMPILING ON)
-+set(CMAKE_CROSSCOMPILING "true")
++set(CMAKE_CROSSCOMPILING ON)
++set(CMAKE_MAKE_PROGRAM "$ENV{CMAKE_MAKE_PROGRAM}")
 +set(CMAKE_SYSTEM_NAME "$ENV{CMAKE_SYSTEM_NAME}")
 +set(CMAKE_SYSTEM_VERSION "$ENV{CMAKE_SYSTEM_VERSION}")
 +set(CMAKE_SYSTEM_PROCESSOR "$ENV{CMAKE_SYSTEM_PROCESSOR}")
