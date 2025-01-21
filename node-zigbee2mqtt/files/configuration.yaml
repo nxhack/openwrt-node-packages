@@ -20,10 +20,10 @@ serial:
   #port: /dev/ttyACM0
   port: /dev/ttyUSB0
   adapter: zstack
-  baudrate: 115200
-  rtscts: false
 
 advanced:
+  #baudrate: 1000000
+  rtscts: false
   #
   log_level: info
   # Optional: Location of log directory (default: shown below)
