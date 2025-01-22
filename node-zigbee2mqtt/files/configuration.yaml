@@ -19,6 +19,7 @@ serial:
   # Location of CC2531 USB sniffer
   #port: /dev/ttyACM0
   port: /dev/ttyUSB0
+  adapter: zstack
 
 advanced:
   #baudrate: 1000000
