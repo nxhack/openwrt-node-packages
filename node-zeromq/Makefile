@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zeromq
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.3.0
+PKG_VERSION:=6.0.8
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=fb18ea3177b57b4ade167daf1425a5ce8c55f7684a78b59d95f99ad12ae95b6e
+PKG_HASH:=99047a704f35fd0ddf1c7877817a7f5336e0c2cd7ae40eddb5cd7b484b587670
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -30,7 +30,7 @@ define Package/node-zeromq
   CATEGORY:=Languages
   TITLE:=Next-generation ZeroMQ bindings for Node.js
   URL:=https://www.npmjs.org/package/zeromq
-  DEPENDS:=+node @BROKEN
+  DEPENDS:=+node
 endef
 
 define Package/node-zeromq/description
@@ -47,9 +47,6 @@ NPM_CACHE_DIR:=$(if $(call qstrip,$(CONFIG_NODEJS_NPM_CACHE_DIR)),$(call qstrip,
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
-# https://github.com/aminya/project_options/blob/86e68a9267caa3fdad3e8ad16d52ac02884ca13e/src/Git.cmake#L36
-MAKE_VARS+=HOME=$(PKG_BUILD_DIR)
-
 define Build/Configure
 endef
 
@@ -62,7 +59,7 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --no-package-lock --include=dev --ignore-scripts --legacy-peer-deps
+	npm install --prefer-offline --no-audit --no-package-lock --include=dev --ignore-scripts
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -72,8 +69,6 @@ define Build/Compile
 	CMAKE_SYSTEM_VERSION=1 \
 	CMAKE_SYSTEM_PROCESSOR=$(ARCH) \
 	CMAKE_BUILD_TYPE=Release \
-	CMAKE_CROSSCOMPILING="ON" \
-	CMAKE_MAKE_PROGRAM=$(STAGING_DIR_HOST)/bin/ninja \
 	CMAKE_C_FLAGS_RELEASE="-DNDEBUG" \
 	CMAKE_CXX_FLAGS_RELEASE="-DNDEBUG" \
 	CMAKE_C_COMPILER_LAUNCHER="$(CMAKE_C_COMPILER_LAUNCHER)" \
@@ -106,7 +101,7 @@ define Build/Compile
 	CMAKE_SYSROOT="$(STAGING_DIR_ROOT)" \
 	CROSS_COMPILE="$(OPTIMIZE_FOR_CPU)-openwrt-linux$(if $(TARGET_SUFFIX),-$(TARGET_SUFFIX))-" \
 	TARGET_CROSS="$(firstword $(TOOLCHAIN_BIN_DIRS))/$(TARGET_CROSS)" \
-	npm install --prefer-offline --no-audit --no-package-lock --include=dev --build-from-source --target_arch=$(NODEJS_CPU) --legacy-peer-deps
+	npm install --prefer-offline --no-audit --no-package-lock --include=dev --build-from-source --target_arch=$(NODEJS_CPU)
 	rm -rf $(PKG_BUILD_DIR)/node_modules
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
@@ -123,13 +118,13 @@ define Package/node-zeromq/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/package.json \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js,*.txt} \
+	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{lib,node_modules} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/linux/$(NODEJS_CPU)/node/addon.node
-	$(CP) $(PKG_BUILD_DIR)/staging/linux/x64/node/*/addon.node \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/linux/$(NODEJS_CPU)/node/addon.node/
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release
+	$(CP) $(PKG_BUILD_DIR)/build/Release/zeromq.node \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/build/Release/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
