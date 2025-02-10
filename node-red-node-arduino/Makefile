@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-node-arduino
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=1.0.0
+PKG_VERSION:=1.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=ed4400fcf9570e1300ac879ea4b7e929a0766cea8dcd0762bf73af8bde163ba5
+PKG_HASH:=02d8bbb882f664060a2f62c5c1b643cc473821ef416d4689e3a92d8daf03a164
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
