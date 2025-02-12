@@ -14,12 +14,21 @@ PATCH_DIR:=./patches/v20.x
 NODEJS_BIN_SUM:=9fc3952da39b20d1fcfdb777b198cc035485afbbb1004b4df93f35245d61151e
 NODE_MODULE_VERSION:=115
 else
+ifeq ($(CONFIG_NODEJS_18),y)
 PKG_VERSION:=18.20.6
 PKG_RELEASE:=1
 PKG_HASH:=e7ddfeabea3d1f7cc622cc9861d2fb0955b9e60940dbbedbed6f2f821ab3e4c7
 PATCH_DIR:=./patches/v18.x
 NODEJS_BIN_SUM:=bff0672c5117e6f0809c456d9194630b5886442ddf298b2292529959c45b92c0
 NODE_MODULE_VERSION:=108
+else
+PKG_VERSION:=22.13.1
+PKG_RELEASE:=1
+PKG_HASH:=e7d5b1e84e7f3c3cebda81e2b138469eef41ba4ecf16a87fd15fc3f7afa3f701
+PATCH_DIR:=./patches/v22.x
+NODEJS_BIN_SUM:=666148b9fe0c7e1301cc1b029e33a45e9e4a893f68d2d2bb1cc88a931a88a004
+NODE_MODULE_VERSION:=127
+endif
 endif
 
 PKG_SOURCE:=$(PKG_NAME)-v$(PKG_VERSION).tar.gz
@@ -51,7 +60,7 @@ define Package/node
   URL:=https://nodejs.org/
   DEPENDS:=@HAS_FPU @(i386||x86_64||arm||aarch64) \
 	   +libstdcpp +libopenssl +zlib +libnghttp2 \
-	   +libcares +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
+	   +libatomic +NODEJS_ICU_SYSTEM:icu +NODEJS_ICU_SYSTEM:icu-full-data
   ABI_VERSION:=$(NODE_MODULE_VERSION)
 endef
 
@@ -95,6 +104,9 @@ define Package/node/config
 
 		config NODEJS_20
 			bool "20.x Maintenance LTS"
+
+		config NODEJS_22
+			bool "22.x Active LTS"
 	endchoice
 
 	if PACKAGE_node
@@ -165,7 +177,6 @@ CONFIGURE_ARGS:= \
 	--shared-zlib \
 	--shared-openssl \
 	--shared-nghttp2 \
-	--shared-cares \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
 	$(if $(findstring +neon",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +neon-vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \

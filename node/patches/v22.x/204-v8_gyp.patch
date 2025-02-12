@@ -1,0 +1,166 @@
+--- a/tools/v8_gypfiles/v8.gyp
++++ b/tools/v8_gypfiles/v8.gyp
+@@ -73,6 +73,7 @@
+       ],
+       'hard_dependency': 1,
+       'direct_dependent_settings': {
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(SHARED_INTERMEDIATE_DIR)',
+         ],
+@@ -194,6 +195,7 @@
+           '<@(torque_outputs_cc)',
+           '<@(torque_outputs_inc)',
+         ],
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(SHARED_INTERMEDIATE_DIR)',
+         ],
+@@ -215,6 +217,7 @@
+         'sources': [
+           '<(generate_bytecode_builtins_list_output)',
+         ],
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(generate_bytecode_output_root)',
+           '<(SHARED_INTERMEDIATE_DIR)',
+@@ -253,6 +256,7 @@
+       'sources': [
+         '<(V8_ROOT)/src/init/setup-isolate-full.cc',
+       ],
++      'include_dirs': [ '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
+     },  # v8_init
+     {
+       # This target is used to work around a GCC issue that causes the
+@@ -294,9 +298,11 @@
+         'v8_pch',
+         'v8_abseil',
+       ],
++      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+       'include_dirs': [
+         '<(SHARED_INTERMEDIATE_DIR)',
+         '<(generate_bytecode_output_root)',
++        '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
+       ],
+       'sources': [
+         '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_initializers.*?sources = ")',
+@@ -825,6 +831,7 @@
+       'toolsets': ['host', 'target'],
+       'direct_dependent_settings': {
+         'sources': ['<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "v8_compiler_sources = ")'],
++        'include_dirs': [ '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
+         'conditions': [
+           ['v8_target_arch=="ia32"', {
+             'sources': [
+@@ -939,6 +946,8 @@
+       'target_name': 'v8_turboshaft',
+       'type': 'static_library',
+       'toolsets': ['host', 'target'],
++      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
++      'include_dirs': [ '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
+       'dependencies': [
+         'generate_bytecode_builtins_list',
+         'run_torque',
+@@ -978,6 +987,7 @@
+         'run_torque',
+         'v8_maybe_icu',
+       ],
++      'include_dirs': [ '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
+       'conditions': [
+         ['(is_component_build and not v8_optimized_debug and v8_enable_fast_mksnapshot) or v8_enable_turbofan==0', {
+           'dependencies': [
+@@ -1020,6 +1030,7 @@
+       ],
+       'includes': ['inspector.gypi'],
+       'direct_dependent_settings': {
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(generate_bytecode_output_root)',
+           '<(SHARED_INTERMEDIATE_DIR)',
+@@ -1674,6 +1685,7 @@
+         }],
+       ],
+       'direct_dependent_settings': {
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(V8_ROOT)/include',
+         ],
+@@ -1694,6 +1706,7 @@
+     {
+       'target_name': 'bytecode_builtins_list_generator',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
+       'conditions': [
+         ['want_separate_host_toolset', {
+           'toolsets': ['host'],
+@@ -1722,6 +1735,9 @@
+     {
+       'target_name': 'mksnapshot',
+       'type': 'executable',
++      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
++      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/current/lib' ],
++      'include_dirs': [ '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
+       'dependencies': [
+         'v8_base_without_compiler',
+         'v8_compiler_for_mksnapshot',
+@@ -1750,6 +1766,7 @@
+     {
+       'target_name': 'torque',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
+       'dependencies': [
+         'torque_base',
+         # "build/win:default_exe_manifest",
+@@ -1792,6 +1809,7 @@
+     {
+       'target_name': 'torque-language-server',
+       'type': 'executable',
++      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
+       'conditions': [
+         ['want_separate_host_toolset', {
+           'toolsets': ['host'],
+@@ -1823,6 +1841,8 @@
+     {
+       'target_name': 'gen-regexp-special-case',
+       'type': 'executable',
++      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
++      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/current/lib' ],
+       'dependencies': [
+         'v8_libbase',
+         # "build/win:default_exe_manifest",
+@@ -2063,6 +2083,7 @@
+          }],
+       ],
+       'direct_dependent_settings': {
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(V8_ROOT)/include',
+         ],
+@@ -2202,15 +2223,19 @@
+         }],
+       ],
+       'direct_dependent_settings': {
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(V8_ROOT)/third_party/zlib',
+           '<(V8_ROOT)/third_party/zlib/google',
++          '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
+         ],
+       },
+       'defines': [ 'ZLIB_IMPLEMENTATION' ],
++      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+       'include_dirs': [
+         '<(V8_ROOT)/third_party/zlib',
+         '<(V8_ROOT)/third_party/zlib/google',
++        '../../deps/v8/third_party/abseil-cpp', '<!@(echo "$STAGING_DIR"/usr/../usr/include)',
+       ],
+       'sources': [
+         '<(V8_ROOT)/third_party/zlib/adler32.c',
+@@ -2255,6 +2280,7 @@
+       'variables': {
+         'ABSEIL_ROOT': '../../deps/v8/third_party/abseil-cpp',
+       },
++      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+       'direct_dependent_settings': {
+         'include_dirs': [
+           '<(ABSEIL_ROOT)',
