@@ -1,6 +1,6 @@
 --- a/node.gyp
 +++ b/node.gyp
-@@ -1129,6 +1129,7 @@
+@@ -1111,6 +1111,7 @@
        'includes': [
          'node.gypi'
        ],
