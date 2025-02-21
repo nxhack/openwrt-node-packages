@@ -1,0 +1,161 @@
+From 533508e79ccfe6f5c19e4b891415e5cc487f581d Mon Sep 17 00:00:00 2001
+From: Christian Clauss <cclauss@me.com>
+Date: Wed, 23 Oct 2024 16:57:40 +0200
+Subject: [PATCH 1/6] node-gyp-build: ^4.8.2
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 003523b2..a11ae06d 100644
+--- a/package.json
++++ b/package.json
+@@ -29,7 +29,7 @@
+     "debug": "^4.1.1",
+     "get-uv-event-loop-napi-h": "^1.0.5",
+     "node-addon-api": "^3.0.0",
+-    "node-gyp-build": "^4.2.1",
++    "node-gyp-build": "^4.8.2",
+     "ref-napi": "^2.0.1 || ^3.0.2",
+     "ref-struct-di": "^1.1.0"
+   },
+
+From 271e8a7b81a17c9abbeb2904d3a0fe04abf752f4 Mon Sep 17 00:00:00 2001
+From: Christian Clauss <cclauss@me.com>
+Date: Wed, 23 Oct 2024 17:20:10 +0200
+Subject: [PATCH 2/6] ppVeyor nodejs_version: 16, 18, 20, 22
+
+---
+ appveyor.yml | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/appveyor.yml b/appveyor.yml
+index 8bf753fe..69be7e6b 100644
+--- a/appveyor.yml
++++ b/appveyor.yml
+@@ -1,13 +1,17 @@
+ # http://www.appveyor.com/docs/appveyor-yml
+ 
++image: 
++  - Visual Studio 2022
++
+ # Test against these versions of Node.js.
+ environment:
+   # Test against these versions of Node.js and io.js
+   matrix:
+     # node.js
+-    - nodejs_version: "10"
+-    - nodejs_version: "12"
+-    - nodejs_version: "14"
++    - nodejs_version: "16"
++    - nodejs_version: "18"
++    - nodejs_version: "20"
++    - nodejs_version: "22"
+ 
+ platform:
+   - x86
+@@ -31,7 +35,7 @@ test_script:
+   - npm test
+ 
+ after_test:
+-  - ps: If ($env:nodejs_version -eq "12") { npm run prebuild --v8_enable_pointer_compression=false --v8_enable_31bit_smis_on_64bit_arch=false }
++  - ps: If ($env:nodejs_version -eq "22") { npm run prebuild --v8_enable_pointer_compression=false --v8_enable_31bit_smis_on_64bit_arch=false }
+ 
+ # Don't actually build.
+ build: off
+@@ -52,4 +56,4 @@ deploy:
+     auth_token: $(PREBUILD_GITHUB_TOKEN)
+     on:
+       appveyor_repo_tag: true
+-      nodejs_version: "12"
++      nodejs_version: "20"
+
+From 158aee366ffa964b3adddd75ed2d43e555aa01c7 Mon Sep 17 00:00:00 2001
+From: Christian Clauss <cclauss@me.com>
+Date: Wed, 23 Oct 2024 17:30:13 +0200
+Subject: [PATCH 3/6] ppveyor.yml: python -m pip install setuptools
+
+---
+ appveyor.yml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/appveyor.yml b/appveyor.yml
+index 69be7e6b..493bab6c 100644
+--- a/appveyor.yml
++++ b/appveyor.yml
+@@ -21,6 +21,7 @@ platform:
+ install:
+   - python -V
+   - set PYTHON=python
++  - python -m pip install setuptools
+   - ps: Install-Product node $env:nodejs_version $env:platform
+   - node -p process.arch
+   - node -p process.version
+
+From d9ee162a79f6caeebea66642695cfdbf2c1f61b7 Mon Sep 17 00:00:00 2001
+From: Christian Clauss <cclauss@me.com>
+Date: Wed, 23 Oct 2024 20:42:29 +0200
+Subject: [PATCH 4/6] libffi.gyp: ../../../deps/libffi/preprocess_asm.cmd
+
+---
+ deps/libffi/libffi.gyp | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/deps/libffi/libffi.gyp b/deps/libffi/libffi.gyp
+index d02bef73..5d495728 100644
+--- a/deps/libffi/libffi.gyp
++++ b/deps/libffi/libffi.gyp
+@@ -74,8 +74,7 @@
+               '<(INTERMEDIATE_DIR)/<(RULE_INPUT_ROOT).asm',
+             ],
+             'action': [
+-              'call',
+-              'preprocess_asm.cmd',
++              '../../../deps/libffi/preprocess_asm.cmd',
+                 'include',
+                 'config/<(OS)/<(target_arch)',
+                 '<(RULE_INPUT_PATH)',
+
+From 2c486e535f1b89c2e30a6643214fd5dd574284a2 Mon Sep 17 00:00:00 2001
+From: Christian Clauss <cclauss@me.com>
+Date: Wed, 23 Oct 2024 20:43:55 +0200
+Subject: [PATCH 5/6] Update ffi.cc
+
+---
+ src/ffi.cc | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/ffi.cc b/src/ffi.cc
+index abe468b3..13e2d990 100644
+--- a/src/ffi.cc
++++ b/src/ffi.cc
+@@ -1,5 +1,4 @@
+ #define NAPI_VERSION 6
+-#define NAPI_EXPERIMENTAL /* Until Node.js v12.17.0 is released */
+ #include "ffi.h"
+ #include "fficonfig.h"
+ #include <get-uv-event-loop-napi.h>
+
+From b2988beb5e18be4a233b7e3d7ce050328219a5fc Mon Sep 17 00:00:00 2001
+From: Christian Clauss <cclauss@me.com>
+Date: Thu, 24 Oct 2024 11:40:38 +0200
+Subject: [PATCH 6/6] package.json: "prebuildify": "^6.0.1",
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index a11ae06d..77050634 100644
+--- a/package.json
++++ b/package.json
+@@ -37,7 +37,7 @@
+     "fs-extra": "^9.0.0",
+     "mocha": "^7.1.1",
+     "nyc": "^15.0.0",
+-    "prebuildify": "^4.0.0",
++    "prebuildify": "^6.0.1",
+     "prebuildify-ci": "^1.0.5",
+     "ref-array-di": "^1.2.1"
+   },
