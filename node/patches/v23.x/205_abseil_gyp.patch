@@ -8,13 +8,13 @@
          'include_dirs': [
            '<(ABSEIL_ROOT)',
          ],
-+        'include_dirs': [ '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
++        'include_dirs': [ '<(ABSEIL_ROOT)', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
        },
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
        'include_dirs': [
          '<(ABSEIL_ROOT)',
        ],
-+      'include_dirs': [ '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
++      'include_dirs': [ '<(ABSEIL_ROOT)', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
        'sources': [
          '<(ABSEIL_ROOT)/absl/algorithm/algorithm.h',
          '<(ABSEIL_ROOT)/absl/algorithm/container.h',
