@@ -1,6 +1,6 @@
 --- a/node.gyp
 +++ b/node.gyp
-@@ -1317,6 +1317,7 @@
+@@ -1319,6 +1319,7 @@
        'target_name': 'node_js2c',
        'type': 'executable',
        'toolsets': ['host'],
