@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=modbus-serial
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=8.0.19
+PKG_VERSION:=8.0.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=9de3fbabb30aeec8db3d7726b18e702b292a291b0f698321b6a5eb347ac5ce86
+PKG_HASH:=77c94d54c4d05fdbaedda0842d8de9b0ec24c2a26608cf2544f13ec19941c99c
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC
