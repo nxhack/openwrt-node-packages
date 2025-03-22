@@ -29,7 +29,7 @@ define Package/node-classic-level
   CATEGORY:=Languages
   TITLE:=An abstract-level database backed by LevelDB
   URL:=https://www.npmjs.org/package/classic-level
-  DEPENDS:=+node
+  DEPENDS:=+node @!riscv64
 endef
 
 define Package/node-classic-level/description
