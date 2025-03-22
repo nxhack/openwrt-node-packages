@@ -29,7 +29,7 @@ define Package/node-leveldown
   CATEGORY:=Languages
   TITLE:=A Node.js LevelDB binding, primary backend for LevelUP
   URL:=https://www.npmjs.org/package/leveldown
-  DEPENDS:=+node
+  DEPENDS:=+node @!riscv64
 endef
 
 define Package/node-leveldown/description
