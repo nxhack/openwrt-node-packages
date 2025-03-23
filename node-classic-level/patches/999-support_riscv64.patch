@@ -1,0 +1,25 @@
+--- a/deps/leveldb/leveldb-1.20/port/atomic_pointer.h
++++ b/deps/leveldb/leveldb-1.20/port/atomic_pointer.h
+@@ -41,6 +41,8 @@
+ #define ARCH_CPU_PPC_FAMILY 1
+ #elif defined(__mips__)
+ #define ARCH_CPU_MIPS_FAMILY 1
++#elif defined(__riscv)
++#define ARCH_CPU_RISCV64_FAMILY 1
+ #endif
+ 
+ namespace leveldb {
+@@ -103,6 +105,13 @@ inline void MemoryBarrier() {
+ }
+ #define LEVELDB_HAVE_MEMORY_BARRIER
+ 
++// RISCV64
++#elif defined(ARCH_CPU_RISCV64_FAMILY)
++inline void MemoryBarrier() {
++  asm volatile("fence iorw, iorw" : : : "memory");
++}
++#define LEVELDB_HAVE_MEMORY_BARRIER
++
+ // PPC
+ #elif defined(ARCH_CPU_PPC_FAMILY) && defined(__GNUC__)
+ inline void MemoryBarrier() {
