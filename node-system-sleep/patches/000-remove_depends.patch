@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -31,9 +31,6 @@
+@@ -3,9 +3,6 @@
      "url": "https://github.com/jochemstoel/nodejs-system-sleep/issues"
    },
    "bundleDependencies": false,
