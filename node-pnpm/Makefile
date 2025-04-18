@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=pnpm
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=10.8.0
+PKG_VERSION:=10.8.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=29bf2c5ceaea7991ee82eec15fe7162e0fad816d0c4a6b35a16c01d39274bf69
+PKG_HASH:=d8b2ebbc65cf02c349eca6b45c9640b910f16b6adebdb7b926e9db440e47cac7
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MIT
