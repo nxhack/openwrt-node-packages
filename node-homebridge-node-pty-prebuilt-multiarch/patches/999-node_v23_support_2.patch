@@ -1,6 +1,6 @@
 --- a/binding.gyp
 +++ b/binding.gyp
-@@ -95,8 +95,8 @@
+@@ -89,8 +89,8 @@
            'libraries': [
              '-lutil'
            ],
