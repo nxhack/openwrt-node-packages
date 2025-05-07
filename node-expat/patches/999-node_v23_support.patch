@@ -5,7 +5,7 @@
    "dependencies": {
      "bindings": "^1.5.0",
 -    "nan": "^2.19.0"
-+    "nan": "^2.22.0"
++    "nan": "^2.22.2"
    },
    "devDependencies": {
      "benchmark": "^2.1.0",
