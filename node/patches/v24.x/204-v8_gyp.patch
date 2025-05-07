@@ -69,7 +69,7 @@
        'target_name': 'mksnapshot',
        'type': 'executable',
 +      'libraries!':[ '-L<!@(echo "$STAGING_DIR"/usr/lib)', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-+      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/current/lib', '-licui18n', '-licuuc', ' -ldl', '-lrt' ],
++      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/current/lib', '-licui18n', '-licuuc', '-ldl', '-lrt' ],
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
@@ -94,7 +94,7 @@
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
 +      'libraries!':[ '-L<!@(echo "$STAGING_DIR"/usr/lib)', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-+      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/current/lib', '-licui18n', '-licuuc', ' -ldl', '-lrt' ],
++      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/current/lib', '-licui18n', '-licuuc', '-ldl', '-lrt' ],
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
