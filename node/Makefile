@@ -14,21 +14,13 @@ PATCH_DIR:=./patches/v20.x
 NODEJS_BIN_SUM:=086ab500a98900a4c05127559b2cec4d659b3aa674453be5028d416de4eb1532
 NODE_MODULE_VERSION:=115
 else
-ifeq ($(CONFIG_NODEJS_18),y)
-PKG_VERSION:=18.20.8
+ifeq ($(CONFIG_NODEJS_24),y)
+PKG_VERSION:=24.0.0
 PKG_RELEASE:=1
-PKG_HASH:=ec60a6d2344ef9e1f093991ca1bb6bbe92c61c29d1762c4b99e08f87dbb91e2f
-PATCH_DIR:=./patches/v18.x
-NODEJS_BIN_SUM:=27a9f3f14d5e99ad05a07ed3524ba3ee92f8ff8b6db5ff80b00f9feb5ec8097a
-NODE_MODULE_VERSION:=108
-else
-ifeq ($(CONFIG_NODEJS_23),y)
-PKG_VERSION:=23.11.0
-PKG_RELEASE:=1
-PKG_HASH:=0080beb9a481e2536543f70b59880093cb6c42470092efad8193563219efdc80
-PATCH_DIR:=./patches/v23.x
-NODEJS_BIN_SUM:=66f768a7f2d89ecdda8fe1e33ee71ac04ed9180111cbf1c5fb944655fe7c90c7
-NODE_MODULE_VERSION:=131
+PKG_HASH:=144fec7c01052003ddc1f7fb2f3d698ac897711659c1017f60ac8b45e672ba17
+PATCH_DIR:=./patches/v24.x
+NODEJS_BIN_SUM:=b760ed6de40c35a25eb011b3cf5943d35d7a76f0c8c331d5a801e10925826cb3
+NODE_MODULE_VERSION:=137
 else
 PKG_VERSION:=22.15.0
 PKG_RELEASE:=1
@@ -36,7 +28,6 @@ PKG_HASH:=8e64edbc70a7188873e0f4f07c812fa747c27c477d558b23dcb135bdf5e32298
 PATCH_DIR:=./patches/v22.x
 NODEJS_BIN_SUM:=29d1c60c5b64ccdb0bc4e5495135e68e08a872e0ae91f45d9ec34fc135a17981
 NODE_MODULE_VERSION:=127
-endif
 endif
 endif
 
@@ -103,13 +94,10 @@ define Package/node/config
 
 	choice
 		prompt "Version Selection"
-		default NODEJS_20
+		default NODEJS_22
 		help
 		 Select node.js version.
 		 The host package version is also the same.
-
-		config NODEJS_18
-			bool "18.x Maintenance LTS"
 
 		config NODEJS_20
 			bool "20.x Maintenance LTS"
@@ -117,8 +105,8 @@ define Package/node/config
 		config NODEJS_22
 			bool "22.x Active LTS"
 
-		config NODEJS_23
-			bool "23.x Current"
+		config NODEJS_24
+			bool "24.x Current"
 	endchoice
 
 	if PACKAGE_node
