@@ -106,6 +106,7 @@ define Package/node/config
 			bool "22.x Active LTS"
 
 		config NODEJS_24
+			depends on ARCH_64BIT
 			bool "24.x Current"
 	endchoice
 
