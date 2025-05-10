@@ -1,0 +1,31 @@
+From 74c8358fa71defea7a27e1a17e89033e5eeb128f Mon Sep 17 00:00:00 2001
+From: RafaelGSS <rafael.nunu@hotmail.com>
+Date: Wed, 30 Apr 2025 16:55:54 -0300
+Subject: [PATCH] build: use FILE_OFFSET_BITS=64 esp. on 32-bit arch
+
+Co-Authored-By: richardlau - Richard Lau <rlau@redhat.com>
+PR-URL: https://github.com/nodejs/node/pull/58090
+Refs: https://github.com/nodejs/node/issues/57934
+Reviewed-By: Matteo Collina <matteo.collina@gmail.com>
+Reviewed-By: Antoine du Hamel <duhamelantoine1995@gmail.com>
+Reviewed-By: Richard Lau <rlau@redhat.com>
+Reviewed-By: Yagiz Nizipli <yagiz@nizipli.com>
+Reviewed-By: Michael Dawson <midawson@redhat.com>
+---
+ common.gypi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/common.gypi b/common.gypi
+index ed8fbbeaf20944..93b20503c4ce62 100644
+--- a/common.gypi
++++ b/common.gypi
+@@ -276,6 +276,9 @@
+     # Defines these mostly for node-gyp to pickup.
+     'defines': [
+       '_GLIBCXX_USE_CXX11_ABI=1',
++      # This help forks when building Node.js on a 32-bit arch as
++      # libuv is always compiled with _FILE_OFFSET_BITS=64
++      '_FILE_OFFSET_BITS=64'
+     ],
+ 
+     # Forcibly disable -Werror.  We support a wide range of compilers, it's

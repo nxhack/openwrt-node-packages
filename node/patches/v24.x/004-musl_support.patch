@@ -1,0 +1,22 @@
+--- a/deps/v8/src/base/platform/platform-posix.cc
++++ b/deps/v8/src/base/platform/platform-posix.cc
+@@ -1249,7 +1249,7 @@ bool Thread::Start() {
+ #if V8_OS_DARWIN
+     // Default on Mac OS X is 512kB -- bump up to 1MB
+     stack_size = 1 * 1024 * 1024;
+-#elif V8_OS_AIX
++#elif V8_OS_AIX || !defined(__GLIBC__)
+     // Default on AIX is 96kB -- bump up to 2MB
+     stack_size = 2 * 1024 * 1024;
+ #endif
+--- a/deps/v8/src/codegen/external-reference-table.cc
++++ b/deps/v8/src/codegen/external-reference-table.cc
+@@ -10,7 +10,7 @@
+ #include "src/ic/stub-cache.h"
+ #include "src/logging/counters.h"
+ 
+-#if defined(DEBUG) && defined(V8_OS_LINUX) && !defined(V8_OS_ANDROID)
++#if defined(DEBUG) && defined(V8_OS_LINUX) && !defined(V8_OS_ANDROID) && defined(V8_LIBC_GLIBC)
+ #define SYMBOLIZE_FUNCTION
+ #include <execinfo.h>
+ 

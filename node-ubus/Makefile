@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-ubus
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=1.0.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -29,7 +29,7 @@ define Package/node-ubus
   CATEGORY:=Languages
   TITLE:=OpenWrt Ubus interface for Node-js
   URL:=https://www.npmjs.com/package/node-ubus
-  DEPENDS:=+node +libubus +libjson-c +libblobmsg-json +libubox
+  DEPENDS:=+node +libubus +libjson-c +libblobmsg-json +libubox @NODEJS_24:BROKEN
 endef
 
 define Package/node-ubus/description

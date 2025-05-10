@@ -1,6 +1,6 @@
 --- a/deps/npm/node_modules/@npmcli/config/lib/definitions/definitions.js
 +++ b/deps/npm/node_modules/@npmcli/config/lib/definitions/definitions.js
-@@ -1212,7 +1212,7 @@ const definitions = {
+@@ -1220,7 +1220,7 @@ const definitions = {
      },
    }),
    loglevel: new Definition('loglevel', {
@@ -9,7 +9,7 @@
      type: [
        'silent',
        'error',
-@@ -1993,7 +1993,7 @@ const definitions = {
+@@ -2014,7 +2014,7 @@ const definitions = {
      flatten,
    }),
    'strict-ssl': new Definition('strict-ssl', {

@@ -1,6 +1,6 @@
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -86,6 +86,7 @@
+@@ -91,6 +91,7 @@
        ],
        'hard_dependency': 1,
        'direct_dependent_settings': {
@@ -8,7 +8,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -207,6 +208,7 @@
+@@ -212,6 +213,7 @@
            '<@(torque_outputs_cc)',
            '<@(torque_outputs_inc)',
          ],
@@ -16,7 +16,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -228,6 +230,7 @@
+@@ -233,6 +235,7 @@
          'sources': [
            '<(generate_bytecode_builtins_list_output)',
          ],
@@ -24,7 +24,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -310,6 +313,7 @@
+@@ -315,6 +318,7 @@
          'fp16',
          'abseil.gyp:abseil',
        ],
@@ -32,15 +32,15 @@
        'include_dirs': [
          '<(SHARED_INTERMEDIATE_DIR)',
          '<(generate_bytecode_output_root)',
-@@ -959,6 +963,7 @@
-       'target_name': 'v8_turboshaft',
+@@ -940,6 +944,7 @@
+       'target_name': 'v8_compiler',
        'type': 'static_library',
        'toolsets': ['host', 'target'],
 +      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
        'dependencies': [
          'generate_bytecode_builtins_list',
          'run_torque',
-@@ -1094,6 +1099,7 @@
+@@ -1067,6 +1072,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -48,7 +48,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1722,6 +1728,7 @@
+@@ -1676,6 +1682,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -56,7 +56,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1742,6 +1749,7 @@
+@@ -1696,6 +1703,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -64,24 +64,24 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1770,6 +1778,8 @@
+@@ -1725,6 +1733,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
-+      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-+      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/current/lib' ],
++      'libraries!':[ '-L<!@(echo "$STAGING_DIR"/usr/lib)', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
++      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/current/lib' ],
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -1817,6 +1827,7 @@
+@@ -1771,6 +1781,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
 +      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
        'dependencies': [
          'torque_base',
-         # "build/win:default_exe_manifest",
-@@ -1859,6 +1870,7 @@
+         'abseil.gyp:abseil',
+@@ -1814,6 +1825,7 @@
      {
        'target_name': 'torque-language-server',
        'type': 'executable',
@@ -89,16 +89,16 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1890,6 +1902,8 @@
+@@ -1845,6 +1857,8 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
-+      'libraries!':[ '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
-+      'library_dirs':[ '../../../../staging_dir/hostpkg/share/icu/current/lib' ],
++      'libraries!':[ '-L<!@(echo "$STAGING_DIR"/usr/lib)', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
++      'libraries':[ '-L../../../../staging_dir/hostpkg/share/icu/current/lib' ],
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
-@@ -2111,6 +2125,7 @@
+@@ -2067,6 +2081,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -106,7 +106,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2250,12 +2265,14 @@
+@@ -2208,12 +2223,14 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -121,7 +121,7 @@
        'include_dirs': [
          '<(V8_ROOT)/third_party/zlib',
          '<(V8_ROOT)/third_party/zlib/google',
-@@ -2303,6 +2320,7 @@
+@@ -2261,6 +2278,7 @@
        'variables': {
          'FP16_ROOT': '../../deps/v8/third_party/fp16',
        },

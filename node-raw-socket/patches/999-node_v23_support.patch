@@ -5,7 +5,7 @@
    },
    "dependencies": {
 -    "nan": "2.19.*"
-+    "nan": "^2.22.0"
++    "nan": "^2.22.2"
    },
    "contributors": [
      {
