@@ -15,8 +15,6 @@ Reviewed-By: Michael Dawson <midawson@redhat.com>
  common.gypi | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/common.gypi b/common.gypi
-index ed8fbbeaf20944..93b20503c4ce62 100644
 --- a/common.gypi
 +++ b/common.gypi
 @@ -276,6 +276,9 @@
