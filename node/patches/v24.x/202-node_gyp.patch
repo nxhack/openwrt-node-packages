@@ -1,6 +1,6 @@
 --- a/node.gyp
 +++ b/node.gyp
-@@ -1118,6 +1118,7 @@
+@@ -1133,6 +1133,7 @@
        'includes': [
          'node.gypi'
        ],
@@ -8,7 +8,7 @@
        'include_dirs': [
          'src',
          'tools/msvs/genfiles',
-@@ -1320,6 +1321,7 @@
+@@ -1335,6 +1336,7 @@
        'target_name': 'node_js2c',
        'type': 'executable',
        'toolsets': ['host'],
