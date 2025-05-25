@@ -34,7 +34,7 @@
        # This target is used to work around a GCC issue that causes the
 @@ -307,9 +311,11 @@
          'v8_pch',
-         'v8_abseil',
+         'abseil.gyp:abseil',
        ],
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
        'include_dirs': [
@@ -158,9 +158,9 @@
          '<(V8_ROOT)/third_party/zlib/adler32.c',
 @@ -2326,6 +2351,7 @@
        'variables': {
-         'ABSEIL_ROOT': '../../deps/v8/third_party/abseil-cpp',
+         'FP16_ROOT': '../../deps/v8/third_party/fp16',
        },
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
        'direct_dependent_settings': {
          'include_dirs': [
-           '<(ABSEIL_ROOT)',
+           '<(FP16_ROOT)/src/include',
