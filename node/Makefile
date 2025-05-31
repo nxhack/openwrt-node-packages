@@ -15,18 +15,18 @@ NODEJS_BIN_SUM:=eec2c7b9c6ac72e42885a42edfc0503c0e4ee455f855c4a17a6cbcf026656dd5
 NODE_MODULE_VERSION:=115
 else
 ifeq ($(CONFIG_NODEJS_24),y)
-PKG_VERSION:=24.0.2
+PKG_VERSION:=24.1.0
 PKG_RELEASE:=1
-PKG_HASH:=db699b535192419b02f35668aadd48f4d80e99b8ef807997df159bcf15a5e6b9
+PKG_HASH:=b565cba1dd8f2eb3db7c95e0c3a87ecc5e77f079611ea6a3688531511383ec72
 PATCH_DIR:=./patches/v24.x
-NODEJS_BIN_SUM:=0a44c1982b14ad2c67ae0d8ec26934d99e43a55c11880459f44a76757775c8fa
+NODEJS_BIN_SUM:=4d2beaa55d962c1b31d6a4663cc831087f79f83f304a066963b65c8f4495843f
 NODE_MODULE_VERSION:=137
 else
-PKG_VERSION:=22.15.1
+PKG_VERSION:=22.16.0
 PKG_RELEASE:=1
-PKG_HASH:=38aea029f8818f7783f273fbc70dcf930f9ef54bdd49c5f90c0152caec7a57be
+PKG_HASH:=108f250ff79cc103b464b3ef41fa60f4866e4e6c962117171adaac7325ebdab2
 PATCH_DIR:=./patches/v22.x
-NODEJS_BIN_SUM:=f4b8eec683708acb1a2a73c7182ba2de5466a5dd5f705934a0830903df28821c
+NODEJS_BIN_SUM:=fb870226119d47378fa9c92c4535389c72dae14fcc7b47e6fdcc82c43de5a547
 NODE_MODULE_VERSION:=127
 endif
 endif
@@ -70,7 +70,7 @@ define Package/node/description
    package ecosystem, npm, is the largest ecosystem of open source libraries in the world.
 
   *** The following preparations must be made on the host side. ***
-      1. gcc 10.1 or higher is required.
+      1. gcc 12.2 or higher is required.
       2. To build a 32-bit target, gcc-multilib, g++-multilib are required.
       3. Requires libatomic package. (If necessary, install the 32-bit library at the same time.)
      ex) sudo apt-get install gcc-multilib g++-multilib
