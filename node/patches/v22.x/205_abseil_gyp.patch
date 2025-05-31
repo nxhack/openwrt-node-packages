@@ -1,0 +1,19 @@
+--- a/tools/v8_gypfiles/abseil.gyp
++++ b/tools/v8_gypfiles/abseil.gyp
+@@ -8,13 +8,16 @@
+         'ABSEIL_ROOT': '../../deps/v8/third_party/abseil-cpp',
+       },
+       'direct_dependent_settings': {
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [
+           '<(ABSEIL_ROOT)',
+         ],
+       },
++      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+       'include_dirs': [
+         '<(ABSEIL_ROOT)',
+       ],
++      'include_dirs': [ '<(ABSEIL_ROOT)', '<!@(echo "$STAGING_DIR"/usr/../usr/include)' ],
+       'sources': [
+         '<(ABSEIL_ROOT)/absl/algorithm/algorithm.h',
+         '<(ABSEIL_ROOT)/absl/algorithm/container.h',
