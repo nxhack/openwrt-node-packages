@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=terser
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.39.0
+PKG_VERSION:=5.40.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=ef669abcd38fc0a31dede049f1186ae4999783c34cfa6652a5e12b4e57cccf58
+PKG_HASH:=f8e4b85f77d66b94a77c4ebde829e7cd5fe5a3b9e011cfade76540d9e751bd92
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
