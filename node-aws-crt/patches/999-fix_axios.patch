@@ -1,0 +1,20 @@
+--- a/package.json
++++ b/package.json
+@@ -26,7 +26,7 @@
+     "install": "node ./scripts/install.js"
+   },
+   "overrides": {
+-    "axios": "^1.9.0"
++    "axios": "^1.10.0"
+   },
+   "devDependencies": {
+     "@types/crypto-js": "^3.1.43",
+@@ -54,7 +54,7 @@
+   "dependencies": {
+     "@aws-sdk/util-utf8-browser": "^3.259.0",
+     "@httptoolkit/websocket-stream": "^6.0.1",
+-    "axios": "^1.9.0",
++    "axios": "^1.10.0",
+     "buffer": "^6.0.3",
+     "crypto-js": "^4.2.0",
+     "mqtt": "^4.3.8",
