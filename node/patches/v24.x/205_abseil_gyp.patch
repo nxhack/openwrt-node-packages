@@ -1,6 +1,6 @@
 --- a/tools/v8_gypfiles/abseil.gyp
 +++ b/tools/v8_gypfiles/abseil.gyp
-@@ -8,16 +8,20 @@
+@@ -9,16 +9,20 @@
          'ABSEIL_ROOT': '../../deps/v8/third_party/abseil-cpp',
        },
        'direct_dependent_settings': {
