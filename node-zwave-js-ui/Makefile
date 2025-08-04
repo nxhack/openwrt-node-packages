@@ -74,7 +74,7 @@ define Build/Compile
 		"**/*.d.ts" "**/@types/**" "**/obj.target/" "**/config.gypi" \
 		"**/.nvmrc" "**/.devcontainer/" "**/.bowerrc" "**/.airtap.yml" "**/.test/" \
 		"**/.notags" "**/.releaserc" "**/.dprint.jsonc" "**/.eslintrc" "**/locales/" \
-		"**/esm/" "**/esm-debug/" "**/esm-browser/" "**/esm-node/" "**/*.esm.*" "**/esm.*" \
+		"**/esm-debug/" "**/esm-browser/" "**/esm-node/" "**/*.esm.*" "**/esm.*" \
 		"**/binding.Makefile" "**/.deps/" "**/Makefile" "**/binding.gyp"
 endef
 
