@@ -35,29 +35,14 @@ define Package/node-homebridge-config-ui-x/description
  Homebridge Config UI X is a web based management tool for Homebridge that allows you to manage all aspects of your Homebridge setup.
 
  Run as root:
-    hb-service install --user homebridge -U /usr/share/homebridge
-    hb-service restart
+    /etc/init.d/homebridge stop
+    /etc/init.d/homebridge disable
+    hb-service install --user homebridge -U /usr/share/homebridge --port 8581
+    sudo --user=homebridge hb-service run -U /usr/share/homebridge --port 8581 &
 
  *** The hb-service command is not full compatible with the openwrt environment. ***
  *** You can edit config.json using the Homebridge Config UI X. ***
-
-      See: https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration
-           https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration#logs-from-custom-command
-           https://github.com/oznu/homebridge-config-ui-x/wiki/Manual-Configuration#sudo-mode
-
-        "platforms": [
-            {
-              "platform": "config",
-              "name": "Config",
-              "port": 8581,
-              "restart": "sudo /etc/init.d/homebridge restart",
-              "sudo": true,
-              "log": {
-                "method": "custom",
-                "command": "sudo logread -f -l 100 -e homebridge"
-              }
-            }
-        ]
+ *** The behavior in Homebridge servicemode is still unstable. ***
 endef
 
 TAR_OPTIONS+= --strip-components 1
