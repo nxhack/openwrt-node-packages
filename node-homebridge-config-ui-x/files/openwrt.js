@@ -41,7 +41,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
         this.checkForRoot();
         try {
             this.hbService.logger(`Starting ${this.hbService.serviceName} Service...`);
-            child_process.execSync(`/etc/init.d/homebridge start`);
+            //# child_process.execSync(`/etc/init.d/homebridge start`);
             this.hbService.logger(`${this.hbService.serviceName} Started`, 'succeed');
         }
         catch (e) {
@@ -53,7 +53,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
         this.checkForRoot();
         try {
             this.hbService.logger(`Stopping ${this.hbService.serviceName} Service...`);
-            child_process.execSync(`/etc/init.d/homebridge stop`);
+            //# child_process.execSync(`/etc/init.d/homebridge stop`);
             this.hbService.logger(`${this.hbService.serviceName} Stopped`, 'succeed');
         }
         catch (e) {
@@ -64,7 +64,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
         this.checkForRoot();
         try {
             this.hbService.logger(`Restarting ${this.hbService.serviceName} Service...`);
-            child_process.execSync(`/etc/init.d/homebridge restart`);
+            //# child_process.execSync(`/etc/init.d/homebridge restart`);
             this.hbService.logger(`${this.hbService.serviceName} Restarted`, 'succeed');
         }
         catch (e) {
@@ -109,7 +109,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
     }
     async enableService() {
         try {
-            child_process.execSync(`/etc/init.d/homebridge enable 2> /dev/null`);
+            //# child_process.execSync(`/etc/init.d/homebridge enable 2> /dev/null`);
         }
         catch (e) {
             this.hbService.logger('WARNING: failed to run "enable homebridge"', 'warn');
@@ -117,7 +117,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
     }
     async disableService() {
         try {
-            child_process.execSync(`/etc/init.d/homebridge disable 2> /dev/null`);
+            //# child_process.execSync(`/etc/init.d/homebridge disable 2> /dev/null`);
         }
         catch (e) {
             this.hbService.logger('WARNING: failed to run "disable homebridge"', 'warn');
