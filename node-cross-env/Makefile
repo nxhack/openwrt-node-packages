@@ -67,11 +67,11 @@ define Package/node-cross-env/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{src,node_modules} \
+	$(CP) $(PKG_BUILD_DIR)/{dist,node_modules} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/src/bin/cross-env.js $(1)/usr/bin/cross-env
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js $(1)/usr/bin/cross-env-shell
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env.js $(1)/usr/bin/cross-env
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js $(1)/usr/bin/cross-env-shell
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
