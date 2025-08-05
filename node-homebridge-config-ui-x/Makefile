@@ -35,15 +35,12 @@ define Package/node-homebridge-config-ui-x/description
  Homebridge Config UI X is a web based management tool for Homebridge that allows you to manage all aspects of your Homebridge setup.
 
  Run as root:
-    *** start ***
     /etc/init.d/homebridge stop
     /etc/init.d/homebridge disable
     hb-service install --user homebridge -U /usr/share/homebridge --port 8581
-    sudo --user=homebridge hb-service run -U /usr/share/homebridge --port 8581 &
-
-    *** restart ***
-    hb-service stop
-    sudo --user=homebridge hb-service run -U /usr/share/homebridge --port 8581 &
+    cp /opt/homebridge-config-ui-x/hb-service.init /etc/init.d/hb-service
+    /etc/init.d/hb-service enable
+    /etc/init.d/hb-service start
 
  *** The hb-service command is not full compatible with the openwrt environment. ***
  *** The behavior in Homebridge servicemode is still unstable. ***
@@ -93,6 +90,8 @@ define Package/node-homebridge-config-ui-x/install
 	$(LN) /opt/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/hb-service.js
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/standalone.js
+
+	$(INSTALL_BIN) ./files/hb-service.init $(1)/opt/$(PKG_NPM_NAME)/
 
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1/interfaces
 	$(CP) ./files/org.freedesktop.Avahi.Server.xml $(1)/usr/share/dbus-1/interfaces/
