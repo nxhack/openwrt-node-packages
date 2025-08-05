@@ -88,8 +88,6 @@ define Package/node-homebridge-config-ui-x/install
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/hb-service.js
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/standalone.js
 
-	$(INSTALL_BIN) ./files/hb-service.init $(1)/opt/$(PKG_NPM_NAME)/
-
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1/interfaces
 	$(CP) ./files/org.freedesktop.Avahi.Server.xml $(1)/usr/share/dbus-1/interfaces/
 	$(INSTALL_DIR) $(1)/etc/sudoers.d
