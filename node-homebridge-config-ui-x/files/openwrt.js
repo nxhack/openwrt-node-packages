@@ -29,6 +29,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
         await this.hbService.configCheck();
         try {
             await this.createSystemdService();
+            await this.enableService();
             await this.start();
             await this.hbService.printPostInstallInstructions();
         }
@@ -128,6 +129,14 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
     }
     async updateNodejs(job) {
         this.hbService.logger('ERROR: You cannot update Nodejs in the Openwrt.', 'fail');
+    }
+    async enableService() {
+        try {
+            (0, node_child_process_1.execSync)(`/etc/init.d/${this.systemdServiceName} enable 2> /dev/null`);
+        }
+        catch (e) {
+            this.hbService.logger(`WARNING: failed to run "systemctl enable ${this.systemdServiceName}"`, 'warn');
+        }
     }
     async disableService() {
         try {
