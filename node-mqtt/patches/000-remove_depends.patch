@@ -1,12 +1,12 @@
 --- a/package.json
 +++ b/package.json
-@@ -124,8 +124,7 @@
+@@ -125,8 +125,7 @@
      "rfdc": "^1.4.1",
-     "socks": "^2.8.3",
+     "socks": "^2.8.6",
      "split2": "^4.2.0",
--    "worker-timers": "^7.1.8",
--    "ws": "^8.18.0"
-+    "worker-timers": "^7.1.8"
+-    "worker-timers": "^8.0.23",
+-    "ws": "^8.18.3"
++    "worker-timers": "^8.0.23"
    },
    "devDependencies": {
-     "@esm-bundle/chai": "^4.3.4",
+     "@eslint/eslintrc": "^3.3.1",
