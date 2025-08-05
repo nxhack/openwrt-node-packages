@@ -1,20 +1,25 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LinuxInstaller = void 0;
-const child_process = require("child_process");
-const os = require("os");
-const path = require("path");
-const fs = require("fs-extra");
-const semver = require("semver");
-const si = require("systeminformation");
+const node_child_process_1 = require("node:child_process");
+const node_os_1 = require("node:os");
+const node_path_1 = require("node:path");
+const node_process_1 = __importDefault(require("node:process"));
+const fs_extra_1 = require("fs-extra");
+const semver_1 = require("semver");
+const systeminformation_1 = require("systeminformation");
 const base_platform_1 = require("../base-platform");
 class LinuxInstaller extends base_platform_1.BasePlatform {
     get systemdServiceName() {
         return this.hbService.serviceName.toLowerCase();
     }
-    get runPartsPath() {
-        return path.resolve('/etc/hb-service', this.hbService.serviceName.toLowerCase(), 'prestart.d');
+    get systemdServicePath() {
+        return (0, node_path_1.resolve)('/etc/init.d', `${this.systemdServiceName}`);
     }
+
     async install() {
         this.checkForRoot();
         await this.checkUser();
@@ -23,8 +28,9 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
         await this.hbService.storagePathCheck();
         await this.hbService.configCheck();
         try {
-            await this.createRunPartsPath();
+            await this.createSystemdService();
             await this.enableService();
+            await this.start();
             await this.hbService.printPostInstallInstructions();
         }
         catch (e) {
@@ -36,141 +42,190 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
         this.checkForRoot();
         await this.stop();
         await this.disableService();
+        try {
+            if ((0, fs_extra_1.existsSync)(this.systemdServicePath)) {
+                (0, fs_extra_1.unlinkSync)(this.systemdServicePath);
+            }
+            this.hbService.logger(`Removed ${this.hbService.serviceName} Service`, 'succeed');
+        }
+        catch (e) {
+            console.error(e.toString());
+            this.hbService.logger('ERROR: Failed Operation', 'fail');
+        }
+    }
+    async viewLogs() {
+        try {
+            const ret = (0, node_child_process_1.execSync)(`sudo logread -l 100 -e ${this.systemdServiceName}`).toString();
+            console.log(ret);
+        }
+        catch (e) {
+            this.hbService.logger(`Failed to start ${this.hbService.serviceName} - ${e}`, 'fail');
+        }
     }
     async start() {
         this.checkForRoot();
         try {
             this.hbService.logger(`Starting ${this.hbService.serviceName} Service...`);
-            child_process.execSync(`/etc/init.d/homebridge start`);
-            this.hbService.logger(`${this.hbService.serviceName} Started`, 'succeed');
+            (0, node_child_process_1.execSync)(`/etc/init.d/${this.systemdServiceName} start`);
         }
         catch (e) {
-            this.hbService.logger(`Failed to start ${this.hbService.serviceName} - ` + e, 'fail');
-            process.exit(1);
+            this.hbService.logger(`Failed to start ${this.hbService.serviceName} - ${e}`, 'fail');
+            node_process_1.default.exit(1);
         }
     }
     async stop() {
         this.checkForRoot();
         try {
             this.hbService.logger(`Stopping ${this.hbService.serviceName} Service...`);
-            child_process.execSync(`/etc/init.d/homebridge stop`);
+            (0, node_child_process_1.execSync)(`/etc/init.d/${this.systemdServiceName} stop`);
             this.hbService.logger(`${this.hbService.serviceName} Stopped`, 'succeed');
         }
         catch (e) {
-            this.hbService.logger(`Failed to stop ${this.systemdServiceName} - ` + e, 'fail');
+            this.hbService.logger(`Failed to stop ${this.systemdServiceName} - ${e}`, 'fail');
         }
     }
     async restart() {
         this.checkForRoot();
         try {
             this.hbService.logger(`Restarting ${this.hbService.serviceName} Service...`);
-            child_process.execSync(`/etc/init.d/homebridge restart`);
+            (0, node_child_process_1.execSync)(`/etc/init.d/${this.systemdServiceName} restart`);
             this.hbService.logger(`${this.hbService.serviceName} Restarted`, 'succeed');
         }
         catch (e) {
-            this.hbService.logger(`Failed to restart ${this.hbService.serviceName} - ` + e, 'fail');
+            this.hbService.logger(`Failed to restart ${this.hbService.serviceName} - ${e}`, 'fail');
         }
     }
     async rebuild(all = false) {
-        this.hbService.logger('You cannot rebuild in the Openwrt.');
+        this.hbService.logger('ERROR: You cannot rebuild in the Openwrt.', 'fail');
     }
     async getId() {
-        if (process.getuid() === 0 && this.hbService.asUser) {
-            const uid = child_process.execSync(`id -u ${this.hbService.asUser}`).toString('utf8');
-            const gid = child_process.execSync(`id -g ${this.hbService.asUser}`).toString('utf8');
+        if (node_process_1.default.getuid() === 0 && this.hbService.asUser) {
+            const uid = (0, node_child_process_1.execSync)(`id -u ${this.hbService.asUser}`).toString('utf8');
+            const gid = (0, node_child_process_1.execSync)(`id -g ${this.hbService.asUser}`).toString('utf8');
             return {
-                uid: parseInt(uid, 10),
-                gid: parseInt(gid, 10),
+                uid: Number.parseInt(uid, 10),
+                gid: Number.parseInt(gid, 10),
             };
         }
         else {
             return {
-                uid: os.userInfo().uid,
-                gid: os.userInfo().gid,
+                uid: (0, node_os_1.userInfo)().uid,
+                gid: (0, node_os_1.userInfo)().gid,
             };
         }
     }
     getPidOfPort(port) {
         try {
-            return child_process.execSync('pidof homebridge').toString('utf8').trim();
+            if (this.hbService.docker) {
+                return (0, node_child_process_1.execSync)('pidof homebridge').toString('utf8').trim();
+            }
+            else {
+                return (0, node_child_process_1.execSync)(`fuser ${port}/tcp 2>/dev/null`).toString('utf8').trim();
+            }
         }
         catch (e) {
             return null;
         }
     }
     async updateNodejs(job) {
-        this.hbService.logger('You cannot update Nodejs in the Openwrt.');
-    }
-    async updateNodeFromTarball(job, targetPath) {
-        this.hbService.logger('You cannot update Nodejs in the Openwrt.');
-    }
-    async updateNodeFromNodesource(job) {
-        this.hbService.logger('You cannot update Nodejs in the Openwrt.');
+        this.hbService.logger('ERROR: You cannot update Nodejs in the Openwrt.', 'fail');
     }
     async enableService() {
         try {
-            child_process.execSync(`/etc/init.d/homebridge enable 2> /dev/null`);
+            (0, node_child_process_1.execSync)(`/etc/init.d/${this.systemdServiceName} enable 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger('WARNING: failed to run "enable homebridge"', 'warn');
+            this.hbService.logger(`WARNING: failed to run "systemctl enable ${this.systemdServiceName}"`, 'warn');
         }
     }
     async disableService() {
         try {
-            child_process.execSync(`/etc/init.d/homebridge disable 2> /dev/null`);
+            (0, node_child_process_1.execSync)(`/etc/init.d/${this.systemdServiceName} disable 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger('WARNING: failed to run "disable homebridge"', 'warn');
+            this.hbService.logger(`WARNING: failed to run "/etc/init.d/${this.systemdServiceName} disable"`, 'warn');
         }
     }
     checkForRoot() {
-        if (process.getuid() !== 0) {
+        if (node_process_1.default.getuid() !== 0) {
             this.hbService.logger('ERROR: This command must be executed using sudo on Linux', 'fail');
             this.hbService.logger(`EXAMPLE: sudo hb-service ${this.hbService.action}`, 'fail');
-            process.exit(1);
+            node_process_1.default.exit(1);
         }
         if (this.hbService.action === 'install' && !this.hbService.asUser) {
             this.hbService.logger('ERROR: User parameter missing. Pass in the user you want to run Homebridge as using the --user flag eg.', 'fail');
             this.hbService.logger(`EXAMPLE: sudo hb-service ${this.hbService.action} --user your-user`, 'fail');
-            process.exit(1);
+            node_process_1.default.exit(1);
+        }
+    }
+    checkIsNotRoot() {
+        if (node_process_1.default.getuid() === 0 && !this.hbService.allowRunRoot && node_process_1.default.env.HOMEBRIDGE_CONFIG_UI !== '1') {
+            this.hbService.logger('ERROR: This command must not be executed as root or with sudo', 'fail');
+            this.hbService.logger('ERROR: If you know what you are doing; you can override this by adding --allow-root', 'fail');
+            node_process_1.default.exit(1);
         }
     }
     async checkUser() {
         try {
-            child_process.execSync(`id ${this.hbService.asUser} 2> /dev/null`);
+            (0, node_child_process_1.execSync)(`id ${this.hbService.asUser} 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger(`WARNING: The ${this.hbService.asUser} user does not exist.`);
+            (0, node_child_process_1.execSync)(`useradd -m --system ${this.hbService.asUser}`);
+            this.hbService.logger(`Created service user: ${this.hbService.asUser}`, 'info');
+            if (this.hbService.addGroup) {
+                (0, node_child_process_1.execSync)(`usermod -a -G ${this.hbService.addGroup} ${this.hbService.asUser}`, { timeout: 10000 });
+                this.hbService.logger(`Added ${this.hbService.asUser} to group ${this.hbService.addGroup}`, 'info');
+            }
+        }
+        try {
+            const os = await (0, systeminformation_1.osInfo)();
+            if (os.distro === 'Raspbian GNU/Linux') {
+                (0, node_child_process_1.execSync)(`usermod -a -G audio,bluetooth,dialout,gpio,video ${this.hbService.asUser} 2> /dev/null`);
+                (0, node_child_process_1.execSync)(`usermod -a -G input,i2c,spi ${this.hbService.asUser} 2> /dev/null`);
+            }
+        }
+        catch (e) {
         }
     }
     setupSudo() {
         try {
             const sudoersEntry = `${this.hbService.asUser}    ALL=(ALL) NOPASSWD:SETENV: /etc/init.d/homebridge, /sbin/halt, /sbin/reboot, /sbin/poweroff, /sbin/logread, /usr/bin/npm, /usr/bin/hb-service`;
-            const sudoers = fs.readFileSync('/etc/sudoers', 'utf-8');
+            const sudoers = (0, fs_extra_1.readFileSync)('/etc/sudoers', 'utf-8');
             if (sudoers.includes(sudoersEntry)) {
                 return;
             }
-            child_process.execSync(`echo '${sudoersEntry}' | sudo EDITOR='tee -a' visudo`);
+            (0, node_child_process_1.execSync)(`echo '${sudoersEntry}' | sudo EDITOR='tee -a' visudo`);
         }
         catch (e) {
             this.hbService.logger('WARNING: Failed to setup /etc/sudoers, you may not be able to shutdown/restart your server from the Homebridge UI.', 'warn');
         }
     }
-    async createRunPartsPath() {
-        await fs.mkdirp(this.runPartsPath);
-        const permissionScriptPath = path.resolve(this.runPartsPath, '10-fix-permissions');
-        const permissionScript = [
-            '#!/bin/sh',
+    async createSystemdService() {
+        const serviceFile = [
+            '#!/bin/sh /etc/rc.common',
             '',
-            '# Ensure the storage path permissions are correct',
-            'if [ -n "$UIX_STORAGE_PATH" ] && [ -n "$USER" ]; then',
-            '  echo "Ensuring $UIX_STORAGE_PATH is owned by $USER"',
-            '  [ -d $UIX_STORAGE_PATH ] || mkdir -p $UIX_STORAGE_PATH',
-            '  chown -R $USER: $UIX_STORAGE_PATH',
-            'fi',
+            'START=98',
+            'USE_PROCD=1',
+            '',
+            'start_service() {',
+            '	[ -d /usr/share/homebridge ] || {',
+            '		mkdir -m 0755 -p /usr/share/homebridge',
+            '		chmod 0700 /usr/share/homebridge',
+            '		chown homebridge:homebridge /usr/share/homebridge',
+            '	}',
+            '	procd_open_instance',
+            '	procd_set_param env HOME=/usr/share/homebridge',
+            '	procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=256 --gc_interval=100 /usr/bin/hb-service run -U /usr/share/homebridge --port 8581',
+            '	procd_set_param user homebridge',
+            '	procd_set_param respawn',
+            '	procd_set_param stdout 1',
+            '	procd_set_param stderr 1',
+            '	procd_set_param term_timeout 60',
+            '	procd_close_instance',
+            '',
+            '}',
         ].filter(x => x !== null).join('\n');
-        await fs.writeFile(permissionScriptPath, permissionScript);
-        await fs.chmod(permissionScriptPath, '755');
+        await (0, fs_extra_1.writeFile)(this.systemdServicePath, serviceFile);
     }
 }
 exports.LinuxInstaller = LinuxInstaller;

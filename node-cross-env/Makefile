@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=cross-env
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=7.0.3
+PKG_VERSION:=10.0.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d44ad3b6925ff024f64fc4eec88a7da8b8291dd66de858c34866be611ad3c5de
+PKG_HASH:=234310f6f0d09c909c2a2af1d79dee55703c36f210dc4cab4be149bae43319ff
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -67,11 +67,11 @@ define Package/node-cross-env/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{src,node_modules} \
+	$(CP) $(PKG_BUILD_DIR)/{dist,node_modules} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/src/bin/cross-env.js $(1)/usr/bin/cross-env
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js $(1)/usr/bin/cross-env-shell
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env.js $(1)/usr/bin/cross-env
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js $(1)/usr/bin/cross-env-shell
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
