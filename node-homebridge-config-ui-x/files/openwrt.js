@@ -55,7 +55,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
     }
     async viewLogs() {
         try {
-            const ret = (0, node_child_process_1.execSync)(`sudo logread -f -l 100 -e ${this.systemdServiceName}`).toString();
+            const ret = (0, node_child_process_1.execSync)(`sudo logread -l 100 -e ${this.systemdServiceName}`).toString();
             console.log(ret);
         }
         catch (e) {
