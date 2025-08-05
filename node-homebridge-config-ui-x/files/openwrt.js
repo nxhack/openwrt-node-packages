@@ -215,13 +215,14 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
             '	}',
             '	procd_open_instance',
             '	procd_set_param env HOME=/usr/share/homebridge',
-            '	procd_set_param command /usr/bin/hb-service run -U /usr/share/homebridge --port 8581',
+            '	procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=256 --gc_interval=100 /usr/bin/hb-service run -U /usr/share/homebridge --port 8581',
             '	procd_set_param user homebridge',
             '	procd_set_param respawn',
             '	procd_set_param stdout 1',
             '	procd_set_param stderr 1',
             '	procd_set_param term_timeout 60',
             '	procd_close_instance',
+            '',
             '}',
         ].filter(x => x !== null).join('\n');
         await (0, fs_extra_1.writeFile)(this.systemdServicePath, serviceFile);
