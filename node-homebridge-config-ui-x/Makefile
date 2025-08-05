@@ -38,9 +38,6 @@ define Package/node-homebridge-config-ui-x/description
     /etc/init.d/homebridge stop
     /etc/init.d/homebridge disable
     hb-service install --user homebridge -U /usr/share/homebridge --port 8581
-    cp /opt/homebridge-config-ui-x/hb-service.init /etc/init.d/hb-service
-    /etc/init.d/hb-service enable
-    /etc/init.d/hb-service start
 
  *** The hb-service command is not full compatible with the openwrt environment. ***
  *** The behavior in Homebridge servicemode is still unstable. ***

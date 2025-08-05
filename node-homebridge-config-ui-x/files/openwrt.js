@@ -28,9 +28,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
         await this.hbService.storagePathCheck();
         await this.hbService.configCheck();
         try {
-            await this.createSystemdEnvFile();
             await this.createSystemdService();
-            await this.createRunPartsPath();
             await this.start();
             await this.hbService.printPostInstallInstructions();
         }
@@ -182,9 +180,7 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
     }
     setupSudo() {
         try {
-            const npmPath = (0, node_child_process_1.execSync)('which npm').toString('utf8').trim();
-            const shutdownPath = (0, node_child_process_1.execSync)('which shutdown').toString('utf8').trim();
-            const sudoersEntry = `${this.hbService.asUser}    ALL=(ALL) NOPASSWD:SETENV: /etc/init.d/homebridge, /sbin/halt, /sbin/reboot, /sbin/poweroff, /sbin/logread, /usr/bin/npm, /usr/bin/hb-service, /etc/init.d/hb-service`;
+            const sudoersEntry = `${this.hbService.asUser}    ALL=(ALL) NOPASSWD:SETENV: /etc/init.d/homebridge, /sbin/halt, /sbin/reboot, /sbin/poweroff, /sbin/logread, /usr/bin/npm, /usr/bin/hb-service`;
             const sudoers = (0, fs_extra_1.readFileSync)('/etc/sudoers', 'utf-8');
             if (sudoers.includes(sudoersEntry)) {
                 return;
@@ -205,12 +201,12 @@ class LinuxInstaller extends base_platform_1.BasePlatform {
             'start_service() {',
             '	[ -d /usr/share/homebridge ] || {',
             '		mkdir -m 0755 -p /usr/share/homebridge',
-            '		chmod 0700 /usr/share/homebridge'
+            '		chmod 0700 /usr/share/homebridge',
             '		chown homebridge:homebridge /usr/share/homebridge',
             '	}',
-            '	procd_open_instance'.',
+            '	procd_open_instance',
             '	procd_set_param env HOME=/usr/share/homebridge',
-            `	procd_set_param command /usr/bin/hb-service run -U /usr/share/homebridge --port 8581',
+            '	procd_set_param command /usr/bin/hb-service run -U /usr/share/homebridge --port 8581',
             '	procd_set_param user homebridge',
             '	procd_set_param stdout 1',
             '	procd_set_param stderr 1',
