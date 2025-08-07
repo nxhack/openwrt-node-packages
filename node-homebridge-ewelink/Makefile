@@ -4,14 +4,15 @@
 
 include $(TOPDIR)/rules.mk
 
+PKG_NPM_SCOPE:=homebridge-plugins
 PKG_NPM_NAME:=homebridge-ewelink
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=12.3.3
+PKG_VERSION:=12.6.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=301b448e588da907c3e10afbbeb692c0ddd1f19af6d30757697597212af087fa
+PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
+PKG_HASH:=e024d37bd36005058ee41aac8720907d18a3fc40c51f662e66c3dd4532f13f3c
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -59,21 +60,30 @@ define Build/Compile
 endef
 
 define Package/node-homebridge-ewelink/install
-	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{*.md,*.js,config.schema.json} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(INSTALL_DIR) $(1)/usr/lib/node_modules
-	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+		$(1)/usr/lib/node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/
+	$(INSTALL_DIR) $(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)
+	$(LN) ../../node/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME) \
+		$(1)/usr/lib/node_modules/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)
+endef
+
+define Package/node-homebridge-ewelink/preinst
+#!/bin/sh
+rm -rf /usr/lib/node_modules/homebridge-ewelink || true
+rm -rf /usr/lib/node/homebridge-ewelink || true
 endef
 
 define Package/node-homebridge-ewelink/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/homebridge-ewelink || true
-rm -rf /usr/lib/node/homebridge-ewelink || true
+rm /usr/lib/node_modules/@homebridge-plugins/homebridge-ewelink || true
+rm -rf /usr/lib/node/@homebridge-plugins/homebridge-ewelink || true
+rmdir /usr/lib/node_modules/@homebridge-plugins || true
+rmdir /usr/lib/node/@homebridge-plugins || true
 endef
 
 $(eval $(call BuildPackage,node-homebridge-ewelink))
