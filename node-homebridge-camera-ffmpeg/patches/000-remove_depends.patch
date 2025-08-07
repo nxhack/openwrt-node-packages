@@ -1,11 +1,10 @@
 --- a/package.json
 +++ b/package.json
-@@ -69,8 +69,6 @@
-     "typescript": "^4.5.4"
-   },
+@@ -85,7 +85,6 @@
    "dependencies": {
--    "ffmpeg-for-homebridge": "^0.0.9",
--    "mqtt": "4.2.8",
-     "pick-port": "^1.0.0"
-   }
- }
+     "@homebridge/camera-utils": "^3.0.0",
+     "@homebridge/plugin-ui-utils": "^2.0.1",
+-    "mqtt": "5.10.4",
+     "pick-port": "^2.1.0"
+   },
+   "devDependencies": {
