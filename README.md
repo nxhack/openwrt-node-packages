@@ -30,7 +30,7 @@ make defconfig
 If you want a new module (native module) that requires a precompiled binary, ***please open the issue.***
 
 ## Note
-If you want to use with 23.05, see [openwrt-23.05 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-23.05) (***Current stable series***)
+If you want to use with 24.10, see [openwrt-24.10 branch](https://github.com/nxhack/openwrt-node-packages/tree/openwrt-24.10) (***Current stable series***)
 
 On the host side, the following preparations are required.
 * [Unix prerequisites](https://github.com/nodejs/node/blob/master/BUILDING.md#unix-prerequisites)
