@@ -3,6 +3,8 @@
 .*.swp
 *.orig
 *.rej
+.env
+.env.*
 *~
 .#*
 *#
