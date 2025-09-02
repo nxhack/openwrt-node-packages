@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -42,7 +42,6 @@
+@@ -44,7 +44,6 @@
      "typescript": "^4.9.5"
    },
    "dependencies": {
