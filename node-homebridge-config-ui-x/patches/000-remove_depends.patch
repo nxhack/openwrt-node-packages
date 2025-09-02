@@ -6,5 +6,5 @@
      "@homebridge/hap-client": "3.1.1",
 -    "@homebridge/node-pty-prebuilt-multiarch": "0.13.1",
      "@nestjs/axios": "4.0.1",
-     "@nestjs/common": "11.1.5",
-     "@nestjs/core": "11.1.5",
+     "@nestjs/common": "11.1.6",
+     "@nestjs/core": "11.1.6",
