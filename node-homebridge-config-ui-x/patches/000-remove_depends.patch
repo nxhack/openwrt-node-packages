@@ -1,7 +1,7 @@
 --- a/package.json
 +++ b/package.json
 @@ -82,7 +82,6 @@
-     "@fastify/multipart": "9.0.3",
+     "@fastify/multipart": "9.2.1",
      "@fastify/static": "8.2.0",
      "@homebridge/hap-client": "3.1.1",
 -    "@homebridge/node-pty-prebuilt-multiarch": "0.13.1",
