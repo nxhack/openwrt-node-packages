@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-miot
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.7.8
+PKG_VERSION:=1.8.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d28a78b18c6696448b422b6c922e54dbe8efe02cfa8ed538ef0154ae9e84e129
+PKG_HASH:=5e4809e199bff1eed6613b526aeabbc14ac36714d89ddacb60a923b0111bcf2f
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
