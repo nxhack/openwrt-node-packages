@@ -7,12 +7,12 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=homebridge-plugins
 PKG_NPM_NAME:=homebridge-camera-ffmpeg
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.0.1
+PKG_VERSION:=4.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=994ad6c82786a357142f7a71ecba32a62bd4a7cfadc94a6c234b2ee265cb3434
+PKG_HASH:=c13c341b01f6d616a4fb36e31fc367af6aec12f6592c23b0fdb69654a05615c0
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=ISC Apache-2.0 License
