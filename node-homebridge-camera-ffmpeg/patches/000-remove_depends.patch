@@ -3,8 +3,8 @@
 @@ -85,7 +85,6 @@
    "dependencies": {
      "@homebridge/camera-utils": "^3.0.0",
-     "@homebridge/plugin-ui-utils": "^2.0.1",
--    "mqtt": "5.10.4",
-     "pick-port": "^2.1.0"
+     "@homebridge/plugin-ui-utils": "^2.1.0",
+-    "mqtt": "5.14.1",
+     "pick-port": "^2.1.2"
    },
    "devDependencies": {
