@@ -1,11 +1,9 @@
 --- a/package.json
 +++ b/package.json
-@@ -37,8 +37,5 @@
-     "h264_omx"
+@@ -39,6 +39,5 @@
+     "videotoolbox"
    ],
    "dependencies": {
--    "dotenv": "^16.4.5",
--    "simple-get": "^4.0.1",
 -    "tar": "^7.4.3"
    }
  }
