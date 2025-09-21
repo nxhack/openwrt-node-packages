@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=ffi-napi
 PKG_NAME:=node-$(PKG_NPM_NAME)
 PKG_VERSION:=4.0.3
-PKG_RELEASE:=11
+PKG_RELEASE:=12
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
@@ -21,7 +21,7 @@ PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 IS_SNAPSHOT:=$(shell grep ^VERSION_NUMBER $(TOPDIR)/include/version.mk |fgrep -v CONFIG_VERSION_NUMBER|fgrep SNAPSHOT)
-PKG_LIBFFI_VERSION:=$(if $(IS_SNAPSHOT),3.4.7,3.4.6)
+PKG_LIBFFI_VERSION:=$(if $(IS_SNAPSHOT),3.4.7,3.4.7)
 
 include $(INCLUDE_DIR)/package.mk
 
