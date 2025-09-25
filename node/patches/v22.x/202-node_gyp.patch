@@ -1,6 +1,6 @@
 --- a/node.gyp
 +++ b/node.gyp
-@@ -1138,6 +1138,7 @@
+@@ -1137,6 +1137,7 @@
        'includes': [
          'node.gypi'
        ],
@@ -8,7 +8,7 @@
        'include_dirs': [
          'src',
          'tools/msvs/genfiles',
-@@ -1351,6 +1352,7 @@
+@@ -1353,6 +1354,7 @@
          'tools',
          'src',
        ],
