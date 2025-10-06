@@ -74,6 +74,8 @@ define Package/node-cross-env/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js $(1)/usr/bin/cross-env-shell
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js
 endef
 
 define Package/node-cross-env/postrm
@@ -102,6 +104,8 @@ define Host/Install
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env.js $(1)/bin/cross-env
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js $(1)/bin/cross-env-shell
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js
 endef
 
 $(eval $(call HostBuild))
