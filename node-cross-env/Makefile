@@ -102,10 +102,10 @@ define Host/Install
 	$(CP) $(HOST_BUILD_DIR)/{src,node_modules} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env.js $(1)/bin/cross-env
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js $(1)/bin/cross-env-shell
-	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env.js
-	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env.js $(1)/bin/cross-env
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js $(1)/bin/cross-env-shell
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js
 endef
 
 $(eval $(call HostBuild))
