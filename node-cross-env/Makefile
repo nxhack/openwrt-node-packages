@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=cross-env
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=10.0.0
+PKG_VERSION:=10.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=234310f6f0d09c909c2a2af1d79dee55703c36f210dc4cab4be149bae43319ff
+PKG_HASH:=f6fa0919bb0deb7d4f1727d7f8b7c402f7dc9fd387af732bdd602d76897a90d8
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -74,6 +74,8 @@ define Package/node-cross-env/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js $(1)/usr/bin/cross-env-shell
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env.js
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js
 endef
 
 define Package/node-cross-env/postrm
@@ -97,11 +99,13 @@ define Host/Install
 	$(INSTALL_DIR) $(1)/lib/node_modules/$(PKG_NPM_NAME)
 	$(CP) $(HOST_BUILD_DIR)/{package.json,LICENSE,*.md} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
-	$(CP) $(HOST_BUILD_DIR)/{src,node_modules} \
+	$(CP) $(HOST_BUILD_DIR)/{dist,node_modules} \
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env.js $(1)/bin/cross-env
-	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/src/bin/cross-env-shell.js $(1)/bin/cross-env-shell
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env.js $(1)/bin/cross-env
+	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js $(1)/bin/cross-env-shell
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env.js
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/dist/bin/cross-env-shell.js
 endef
 
 $(eval $(call HostBuild))
