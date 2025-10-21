@@ -1,5 +1,5 @@
---- a/deps/v8/src/codegen/riscv/assembler-riscv-inl.h	2025-10-09 04:56:39.000000000 +0900
-+++ b/deps/v8/src/codegen/riscv/assembler-riscv-inl.h	2025-10-16 15:19:49.779272293 +0900
+--- a/deps/v8/src/codegen/riscv/assembler-riscv-inl.h
++++ b/deps/v8/src/codegen/riscv/assembler-riscv-inl.h
 @@ -115,8 +115,9 @@ void Assembler::set_target_compressed_ad
      Address pc, Address constant_pool, Tagged_t target,
      WritableJitAllocation* jit_allocation, ICacheFlushMode icache_flush_mode) {
@@ -12,8 +12,8 @@
    } else {
      UNREACHABLE();
    }
---- a/deps/v8/src/execution/riscv/simulator-riscv.h	2025-10-09 04:56:39.000000000 +0900
-+++ b/deps/v8/src/execution/riscv/simulator-riscv.h	2025-10-16 15:19:49.779272293 +0900
+--- a/deps/v8/src/execution/riscv/simulator-riscv.h
++++ b/deps/v8/src/execution/riscv/simulator-riscv.h
 @@ -538,6 +538,7 @@ class Simulator : public SimulatorBase {
    // Return central stack view, without additional safety margins.
    // Users, for example wasm::StackMemory, can add their own.
@@ -22,8 +22,8 @@
  
    void IterateRegistersAndStack(::heap::base::StackVisitor* visitor);
  
---- a/deps/v8/src/maglev/riscv/maglev-ir-riscv.cc	2025-10-09 04:56:39.000000000 +0900
-+++ b/deps/v8/src/maglev/riscv/maglev-ir-riscv.cc	2025-10-16 15:19:49.779272293 +0900
+--- a/deps/v8/src/maglev/riscv/maglev-ir-riscv.cc
++++ b/deps/v8/src/maglev/riscv/maglev-ir-riscv.cc
 @@ -224,6 +224,40 @@ void CheckedIntPtrToInt32::GenerateCode(
                              Operand(std::numeric_limits<int32_t>::min()));
  }
