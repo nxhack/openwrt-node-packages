@@ -6,16 +6,16 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=rimraf
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.0.1
+PKG_VERSION:=6.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=b25facf7f802651ed3865a96732471327f7017f59c71861d1aa85fa89ba3160c
+PKG_HASH:=ef227fe070cf0563de1f286fcedd4f6a8acb6906d5994e173b7c44f6358f4648
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
-PKG_LICENSE:=ISC
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE:=BlueOak-1.0.0
+PKG_LICENSE_FILES:=LICENSE.md
 
 HOST_BUILD_DEPENDS:=node/host
 HOST_BUILD_PARALLEL:=1
@@ -65,9 +65,7 @@ endef
 
 define Package/node-rimraf/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/*.md \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
