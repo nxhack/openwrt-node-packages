@@ -13,7 +13,7 @@
      zmq_version:
        toString(process.env.npm_config_zmq_version) ??
 -      "5657b4586f24ec433930e8ece02ddba7afcf0fe0",
-+      "622fc6dde99ee172ebaa9c8628d85a7a1995a21d",
++      "7a7bfa10e6b0e99210ed9397369b59f9e69cef8e",
      zmq_build_type:
        toString(process.env.npm_config_zmq_build_type) ?? "Release",
      arch: toString(process.env.npm_config_arch) ?? process.arch,
@@ -47,7 +47,7 @@
    }
  
    if (opts.zmq_draft) {
-@@ -103,13 +99,52 @@ function main() {
+@@ -103,13 +99,53 @@ function main() {
      writeFileSync(clang_format_file, "")
    }
  
@@ -89,6 +89,7 @@
 +  build_options += " -DCMAKE_STRIP=" + process.env.TARGET_CROSS + "strip"
 +  build_options += " -DCMAKE_DISABLE_FIND_BSD=ON"
 +  build_options += " -DWITH_LIBBSD=OFF"
++  build_options += " -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
 +
    const cmake_configure = `cmake -S "${src_dir}" -B ./build ${build_options} -DCMAKE_BUILD_TYPE=${opts.zmq_build_type} -DCMAKE_INSTALL_PREFIX="${libzmq_install_prefix}" -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_STATIC=ON -DBUILD_TESTS=OFF -DBUILD_SHARED=OFF -DWITH_DOCS=OFF -DWITH_LIBSODIUM=OFF`
    console.log(cmake_configure)

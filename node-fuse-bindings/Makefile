@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_NAME:=node-fuse-bindings
 PKG_NAME:=$(PKG_NPM_NAME)
 PKG_VERSION:=2.12.4
-PKG_RELEASE:=5
+PKG_RELEASE:=7
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
