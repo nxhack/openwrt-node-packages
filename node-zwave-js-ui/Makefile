@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zwave-js-ui
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=11.4.1
+PKG_VERSION:=11.7.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=3325f1d42e426dcb5b76f51a1e6f3314c96c37c16f5bef5cda1b337cb82cb504
+PKG_HASH:=b599223d443176fc3693bc26e6b4388b4d242b077b6dc04645b1e8e2a64e6dc5
 
 PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
 PKG_LICENSE:=MIT
@@ -71,7 +71,7 @@ define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/core/build/cjs/test/*.ts
 	rm -rf $(PKG_BUILD_DIR)/node_modules/@zwave-js/core/build/cjs/test/*.map
 	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "!**/@zwave-js/core/build/cjs/test/" \
-		"!**/@zwave-js/core/build/esm/test/" \
+		"!**/@zwave-js/core/build/esm/test/" "!**/doc/" \
 		"**/*.d.ts" "**/@types/**" "**/obj.target/" "**/config.gypi" \
 		"**/.nvmrc" "**/.devcontainer/" "**/.bowerrc" "**/.airtap.yml" "**/.test/" \
 		"**/.notags" "**/.releaserc" "**/.dprint.jsonc" "**/.eslintrc" "**/locales/" \
@@ -93,6 +93,13 @@ define Package/node-zwave-js-ui/install
 	$(INSTALL_BIN) ./files/zwave-js-ui.init $(1)/etc/init.d/zwave-js-ui
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/server/bin/www.js
+	# for ESM
+	$(LN) ./@zwave-js/core/node_modules/triple-beam $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ../zwave-js/node_modules/@zwave-js/config $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ./zwave-js/node_modules/alcalzone-shared $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/json-logic-js $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/json5 $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/pathe $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 endef
 
 define Package/node-zwave-js-ui/postrm
