@@ -1,11 +1,11 @@
 --- a/dist/bin/hb-service.js
 +++ b/dist/bin/hb-service.js
-@@ -54,7 +54,7 @@ const tar_1 = require("tar");
- const tcp_port_used_1 = require("tcp-port-used");
- const darwin_1 = require("./platforms/darwin");
- const freebsd_1 = require("./platforms/freebsd");
--const linux_1 = require("./platforms/linux");
-+const linux_1 = require("./platforms/openwrt");
- const win32_1 = require("./platforms/win32");
- node_process_1.default.title = 'hb-service';
- class HomebridgeServiceHelper {
+@@ -18,7 +18,7 @@ import { extract } from 'tar';
+ import { check as tcpCheck } from 'tcp-port-used';
+ import { DarwinInstaller } from './platforms/darwin.js';
+ import { FreeBSDInstaller } from './platforms/freebsd.js';
+-import { LinuxInstaller } from './platforms/linux.js';
++import { LinuxInstaller } from './platforms/openwrt.js';
+ import { Win32Installer } from './platforms/win32.js';
+ process.title = 'hb-service';
+ const __filename = fileURLToPath(import.meta.url);
