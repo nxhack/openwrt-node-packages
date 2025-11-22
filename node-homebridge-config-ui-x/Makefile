@@ -67,8 +67,8 @@ define Build/Compile
 	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "**/*.d.ts" "**/@types/**" \
 		"**/.nvmrc" "**/.c8rc.json" "**/.taprc" "**/.airtap.yml" "**/.husky/" \
 		"**/.runkit_example.js" "**/.gitkeep" "**/.nojekyll" \
-		"**/esm/" "**/esm-debug/" "**/esm2015/" "**/esm5/" "**/*.esm.*" "**/esm.*" \
-		"**/.hidden" "**/.nojekyll" "**/.??*.json" "**/.??*.yaml" "**/*.esm5.*" "**/esm5.*"
+		"**/esm-debug/" "**/esm2015/" "**/esm5/" "**/*.esm.*" \
+		"**/.hidden" "**/.nojekyll" "**/.??*.json" "**/*.esm5.*" "**/esm5.*"
 endef
 
 define Package/node-homebridge-config-ui-x/install
@@ -81,12 +81,12 @@ define Package/node-homebridge-config-ui-x/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) /opt/$(PKG_NPM_NAME)/dist/bin/hb-service.js $(1)/usr/bin/hb-service
-	$(LN) /opt/$(PKG_NPM_NAME)/dist/bin/standalone.js $(1)/usr/bin/homebridge-config-ui-x
 	$(CP) ./files/openwrt.js $(1)/opt/$(PKG_NPM_NAME)/dist/bin/platforms/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) /opt/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/hb-service.js
-	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/standalone.js
+	# for ESM
+	$(LN) /usr/lib/node/@homebridge/node-pty-prebuilt-multiarch $(1)/opt/$(PKG_NPM_NAME)/node_modules/@homebridge/
 
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1/interfaces
 	$(CP) ./files/org.freedesktop.Avahi.Server.xml $(1)/usr/share/dbus-1/interfaces/
