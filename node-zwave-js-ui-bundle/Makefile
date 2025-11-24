@@ -6,14 +6,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zwave-js-ui-bundle
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=11.7.0
+PKG_VERSION:=11.8.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL_FILE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/zwave-js/zwave-js-ui/archive/refs/tags/
-PKG_HASH:=7f3e25ba2a6dd7eb366273ded782f1afccf98b5886d430dd5e1d12b270250f6e
+PKG_HASH:=5fc0903900e6622298e299b876410a8e42f4e991d5703fce2f43a0b430db7292
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
@@ -83,14 +83,18 @@ define Package/node-zwave-js-ui-bundle/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/build/* \
 		$(1)/opt/$(PKG_NPM_NAME)/
-	$(LN) /usr/lib/node/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
-	$(LN) /usr/lib/node/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/zwave-js-ui-bundle.init $(1)/etc/init.d/zwave-js-ui-bundle
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle/config
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle/config-db
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui-bundle/config-db/devices
+	# for ESM
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules
+	$(LN) /usr/lib/node/bufferutil $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(SED) '/"type": "module"/d' $(1)/opt/$(PKG_NPM_NAME)/package.json
 endef
 

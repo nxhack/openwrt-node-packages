@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zwave-js-ui
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=11.7.0
+PKG_VERSION:=11.8.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=b599223d443176fc3693bc26e6b4388b4d242b077b6dc04645b1e8e2a64e6dc5
+PKG_HASH:=01e038511032a741d50d21689b0362b0c2799b40a016fc7149dcd6ae384168d5
 
 PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
 PKG_LICENSE:=MIT
@@ -94,6 +94,9 @@ define Package/node-zwave-js-ui/install
 	$(INSTALL_DIR) $(1)/etc/zwave-js-ui
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/server/bin/www.js
 	# for ESM
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules
+	$(LN) /usr/lib/node/bufferutil $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ./@zwave-js/core/node_modules/triple-beam $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ../zwave-js/node_modules/@zwave-js/config $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
 	$(LN) ./zwave-js/node_modules/alcalzone-shared $(1)/opt/$(PKG_NPM_NAME)/node_modules/
