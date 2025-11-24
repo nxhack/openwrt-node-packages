@@ -86,6 +86,9 @@ define Package/node-homebridge-config-ui-x/install
 	$(LN) /opt/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/hb-service.js
 	# for ESM
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules
+	$(LN) /usr/lib/node/bufferutil $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/@homebridge/node-pty-prebuilt-multiarch $(1)/opt/$(PKG_NPM_NAME)/node_modules/@homebridge/
 
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1/interfaces
