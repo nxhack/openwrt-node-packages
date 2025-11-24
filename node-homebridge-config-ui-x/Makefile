@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-config-ui-x
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.9.0
+PKG_VERSION:=5.10.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=74ba576f1dd2a1424a00f2171f6e46133bbacaa02750bb783a094c5bc1bf20ed
+PKG_HASH:=760ea3eee23254696067c468bf85ac1af989d3c891b5702d827e0e68fbbb97c8
 
 PKG_BUILD_DEPENDS:=node/host node-clean-modules/host
 PKG_BUILD_FLAGS:=no-mips16
@@ -67,8 +67,8 @@ define Build/Compile
 	clean-modules -y -D $(PKG_BUILD_DIR)/node_modules "!**/*.png" "**/*.d.ts" "**/@types/**" \
 		"**/.nvmrc" "**/.c8rc.json" "**/.taprc" "**/.airtap.yml" "**/.husky/" \
 		"**/.runkit_example.js" "**/.gitkeep" "**/.nojekyll" \
-		"**/esm/" "**/esm-debug/" "**/esm2015/" "**/esm5/" "**/*.esm.*" "**/esm.*" \
-		"**/.hidden" "**/.nojekyll" "**/.??*.json" "**/.??*.yaml" "**/*.esm5.*" "**/esm5.*"
+		"**/esm-debug/" "**/esm2015/" "**/esm5/" "**/*.esm.*" \
+		"**/.hidden" "**/.nojekyll" "**/.??*.json" "**/*.esm5.*" "**/esm5.*"
 endef
 
 define Package/node-homebridge-config-ui-x/install
@@ -81,12 +81,15 @@ define Package/node-homebridge-config-ui-x/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) /opt/$(PKG_NPM_NAME)/dist/bin/hb-service.js $(1)/usr/bin/hb-service
-	$(LN) /opt/$(PKG_NPM_NAME)/dist/bin/standalone.js $(1)/usr/bin/homebridge-config-ui-x
 	$(CP) ./files/openwrt.js $(1)/opt/$(PKG_NPM_NAME)/dist/bin/platforms/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) /opt/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/hb-service.js
-	chmod +x $(1)/opt/$(PKG_NPM_NAME)/dist/bin/standalone.js
+	# for ESM
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules
+	$(LN) /usr/lib/node/bufferutil $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/@homebridge/node-pty-prebuilt-multiarch $(1)/opt/$(PKG_NPM_NAME)/node_modules/@homebridge/
 
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1/interfaces
 	$(CP) ./files/org.freedesktop.Avahi.Server.xml $(1)/usr/share/dbus-1/interfaces/
