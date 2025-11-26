@@ -6,14 +6,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zwave-js-ui-bundle
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=11.8.0
+PKG_VERSION:=11.8.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL_FILE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/zwave-js/zwave-js-ui/archive/refs/tags/
-PKG_HASH:=5fc0903900e6622298e299b876410a8e42f4e991d5703fce2f43a0b430db7292
+PKG_HASH:=999a5101dfb6a7cc8529a764c1ec45176812145f5a65139cca2adc437d35d409
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
@@ -95,6 +95,7 @@ define Package/node-zwave-js-ui-bundle/install
 	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	# Workaround...
 	$(SED) '/"type": "module"/d' $(1)/opt/$(PKG_NPM_NAME)/package.json
 endef
 
