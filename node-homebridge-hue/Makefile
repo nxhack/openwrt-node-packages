@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-hue
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.15.1
+PKG_VERSION:=0.15.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=5d52bbff31fef3cd8ce65291da03c5c57c9875f83f09fda0e77605383af78e10
+PKG_HASH:=593007189d26f19ccefd0ed8cc4b41c36acb380765ac5f28d5e2aa207918f172
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
