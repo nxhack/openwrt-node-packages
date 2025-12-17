@@ -2,7 +2,7 @@
 
 ## Description
 
-OpenWrt Node.js Packages : for Head (Development branch)
+OpenWrt Node.js Packages : for OpenWrt-24.10
 
 Note: support arches are aarch64, arm, x86_64
 
