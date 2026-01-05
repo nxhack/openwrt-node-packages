@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-mqttthing
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.1.47
+PKG_VERSION:=1.1.49
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=6ba9f3be2bec6c1e875c59a1c1d87c8bd3aa0bea989a0f0f7e98f0e91741f841
+PKG_HASH:=9ace09a06e002fd0600ead48dfd4155d5ad727b5433c6b6687ad9d393bc8fd77
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
