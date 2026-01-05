@@ -55,9 +55,6 @@ TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
-	# for ESM
-	# Workaround...
-	mv $(PKG_BUILD_DIR)/esbuild-import-meta-url-shim.js $(PKG_BUILD_DIR)/esbuild-import-meta-url-shim.cjs
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
@@ -99,7 +96,7 @@ define Package/node-zwave-js-ui-bundle/install
 	$(LN) /usr/lib/node/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	# Workaround...
-	#$(SED) '/"type": "module"/d' $(1)/opt/$(PKG_NPM_NAME)/package.json
+	$(SED) '/"type": "module"/d' $(1)/opt/$(PKG_NPM_NAME)/package.json
 endef
 
 define Package/node-zwave-js-ui-bundle/postrm
