@@ -96,7 +96,7 @@ define Package/node-zwave-js-ui-bundle/install
 	$(LN) /usr/lib/node/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	# Workaround...
-	#$(SED) '/"type": "module"/d' $(1)/opt/$(PKG_NPM_NAME)/package.json
+	$(SED) '/"type": "module"/d' $(1)/opt/$(PKG_NPM_NAME)/package.json
 endef
 
 define Package/node-zwave-js-ui-bundle/postrm
