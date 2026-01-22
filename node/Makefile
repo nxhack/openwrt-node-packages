@@ -165,7 +165,7 @@ MAKE_VARS+= \
 HOST_MAKE_VARS+=NO_LOAD='cctest.target.mk embedtest.target.mk overlapped-checker.target.mk'
 
 CONFIGURE_VARS:= \
-	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION) -flax-vector-conversions" \
+	CC="$(TARGET_CC) $(TARGET_OPTIMIZATION)" \
 	CXX="$(TARGET_CXX) $(TARGET_OPTIMIZATION)" \
 	CC_host="$(HOSTCC) $(FORCE_32BIT)" \
 	CXX_host="$(HOSTCXX) $(FORCE_32BIT)"
