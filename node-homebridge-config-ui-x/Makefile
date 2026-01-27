@@ -90,6 +90,7 @@ define Package/node-homebridge-config-ui-x/install
 	$(LN) /usr/lib/node/bufferutil $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/@homebridge/node-pty-prebuilt-multiarch $(1)/opt/$(PKG_NPM_NAME)/node_modules/@homebridge/
+	$(LN) ./otplib/node_modules/@otplib $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1/interfaces
 	$(CP) ./files/org.freedesktop.Avahi.Server.xml $(1)/usr/share/dbus-1/interfaces/
