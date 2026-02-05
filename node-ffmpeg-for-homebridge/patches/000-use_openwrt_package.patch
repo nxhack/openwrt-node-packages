@@ -1,12 +1,12 @@
 --- a/index.js
 +++ b/index.js
-@@ -4,7 +4,8 @@ const os = require("os");
- const path = require("path");
- const fs = require("fs");
+@@ -4,7 +4,8 @@ const os = require("node:os");
+ const path = require("node:path");
+ const fs = require("node:fs");
  
 -const ffmpegPath = path.resolve(__dirname, os.platform() === "win32" ? "ffmpeg.exe" : "ffmpeg");
 +// const ffmpegPath = path.resolve(__dirname, os.platform() === "win32" ? "ffmpeg.exe" : "ffmpeg");
 +const ffmpegPath = '/usr/bin/ffmpeg';
  
- if (fs.existsSync(ffmpegPath)) {
+ if(fs.existsSync(ffmpegPath)) {
  
