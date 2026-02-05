@@ -1,6 +1,6 @@
 --- a/package.json
 +++ b/package.json
-@@ -95,7 +95,7 @@
+@@ -98,7 +98,7 @@
    "license": "MIT AND MPL-2.0",
    "author": "Amin Yahyaabadi <aminyahyaabadi74@gmail.com>, Rolf Timmermans <rolf@zxcv.nl>",
    "scripts": {
@@ -9,9 +9,9 @@
      "clean": "shx rm -rf ./build ./prebuilds && run-p clean.lib clean.script clean.temp",
      "clean.lib": "shx rm -rf ./lib/",
      "clean.script": "shx rm -rf ./script/*.js ./script/*.mjs ./script/*.js.map ./script/*.mjs.map ./script/*.d.ts ./script/*.d.mts ./script/*.cjs ./scripts/*.cjs.map ./scripts/*.d.cts ./script/*.tsbuildinfo",
-@@ -124,4 +124,4 @@
-     "lint-test": "run-s lint-test.eslint",
-     "bench": "node --expose-gc test/bench"
+@@ -128,4 +128,4 @@
+     "bench": "node --expose-gc test/bench",
+     "bump": "pnpx npm-check-updates -u -x typescript,eslint,chai && pnpx typesync && pnpm update"
    }
 -}
 \ No newline at end of file
