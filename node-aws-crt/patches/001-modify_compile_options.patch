@@ -89,7 +89,7 @@
                  CMAKE_INSTALL_PREFIX: 'crt/install',
                  CMAKE_PREFIX_PATH: 'crt/install',
              }
-@@ -109,6 +184,18 @@ module.exports = {
+@@ -118,6 +193,18 @@ module.exports = {
          // Enable parallel build (ignored by cmake older than 3.12)
          process.env.CMAKE_BUILD_PARALLEL_LEVEL = `${Math.max(os.cpus().length, 1)}`;
  
