@@ -1,6 +1,6 @@
 --- a/node.gyp
 +++ b/node.gyp
-@@ -1163,6 +1163,7 @@
+@@ -1161,6 +1161,7 @@
          'node.gypi'
        ],
        'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
