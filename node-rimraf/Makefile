@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=rimraf
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=6.1.2
+PKG_VERSION:=6.1.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d401b9ae06edf3220b4f549726efeb8cbd167c1add3deb283314c0389ee54b7f
+PKG_HASH:=3e0b33bb2cac954eddbadc3816f72ca7168bb69660fb298f4e5f1c25bf6ea368
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BlueOak-1.0.0
