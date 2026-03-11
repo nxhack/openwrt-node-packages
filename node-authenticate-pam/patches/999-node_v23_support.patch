@@ -5,7 +5,7 @@
    },
    "dependencies": {
 -    "nan": "^2.3.3"
-+    "nan": "^2.22.2"
++    "nan": "^2.25.0"
    },
    "files": [
      "authenticate_pam.cc",

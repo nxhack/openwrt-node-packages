@@ -29,7 +29,7 @@ define Package/node-ubus
   CATEGORY:=Languages
   TITLE:=OpenWrt Ubus interface for Node-js
   URL:=https://www.npmjs.com/package/node-ubus
-  DEPENDS:=+node +libubus +libjson-c +libblobmsg-json +libubox @NODEJS_24:BROKEN
+  DEPENDS:=+node +libubus +libjson-c +libblobmsg-json +libubox @NODEJS_24:BROKEN @NODEJS_25:BROKEN
 endef
 
 define Package/node-ubus/description
