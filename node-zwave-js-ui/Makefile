@@ -60,6 +60,9 @@ define Build/Compile
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 -r rmdir || true
+	rm -rf $(PKG_BUILD_DIR)/node_modules/archiver/node_modules/bare-url/prebuilds
+	rm -rf $(PKG_BUILD_DIR)/node_modules/archiver/node_modules/bare-os/prebuilds
+	rm -rf $(PKG_BUILD_DIR)/node_modules/archiver/node_modules/bare-fs/prebuilds
 	rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@serialport/bindings-cpp/prebuilds
 	rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/@serialport/bindings-cpp/src
 	rm -rf $(PKG_BUILD_DIR)/node_modules/zwave-js/node_modules/moment/min
