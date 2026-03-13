@@ -41,10 +41,10 @@ PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 PKG_CPE_ID:=cpe:/a:nodejs:node.js
 
-HOST_BUILD_DEPENDS:=python3/host python-setuptools/host
+HOST_BUILD_DEPENDS:=python3/host
 HOST_BUILD_PARALLEL:=1
 
-PKG_BUILD_DEPENDS:=python3/host python-setuptools/host
+PKG_BUILD_DEPENDS:=python3/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 PKG_ASLR_PIE:=0
