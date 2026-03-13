@@ -1,0 +1,18 @@
+--- a/deps/LIEF/lief.gyp
++++ b/deps/LIEF/lief.gyp
+@@ -419,6 +419,7 @@
+       'toolsets': ['host', 'target'],
+       'type': 'static_library',
+       'includes': [],
++      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+       'include_dirs': [
+         '.',
+         #include <LIEF/third-party/internal/expected.hpp>
+@@ -439,6 +440,7 @@
+         "include/LIEF/third-party/internal",
+       ],
+       'direct_dependent_settings': {
++        'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
+         'include_dirs': [ 'include' ],
+       },
+       'defines': [
