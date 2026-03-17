@@ -7,12 +7,12 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=homebridge-plugins
 PKG_NPM_NAME:=homebridge-ewelink
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=12.10.0
+PKG_VERSION:=12.11.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d769dbf6936adf791d7f3e63c35b4e082d8398e8884b8e66f76177febb5bb268
+PKG_HASH:=61c2feef4370dec9836b050320b1cd50de432fb21cb4d908dfd89105061b92cc
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
