@@ -29,7 +29,7 @@ define Package/node-homebridge-ewelink
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Homebridge plugin to integrate eWeLink devices
-  URL:=https://www.npmjs.com/package/homebridge-ewelink
+  URL:=https://www.npmjs.com/package/@homebridge-plugins/homebridge-ewelink
   DEPENDS:=+node +node-homebridge
 endef
 
