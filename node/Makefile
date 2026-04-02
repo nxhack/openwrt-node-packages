@@ -129,10 +129,11 @@ define Package/node/config
 	endif
 
 	config NODEJS_NPM_KEEP_CACHE
-		bool "keep npm cache (experimental)"
+		bool "keep npm cache"
 		help
 		  Keep npm package cache.
 		  More space will be consumed by the cache.
+		default n
 
 	config NODEJS_NPM_CACHE_DIR
 		string "Set npm cache directory" if NODEJS_NPM_KEEP_CACHE
@@ -142,10 +143,11 @@ define Package/node/config
 		  If not set, uses './tmp'
 
 	config NODEJS_HOST_BIN
-		bool "Install the official nodejs binary package as HOSTPKG (experimental)"
+		bool "Install the official nodejs binary package as HOSTPKG"
 		depends on HOST_OS_LINUX
 		help
 		  Reduce build time for the host package.
+		default y
 
 	endmenu
 endef
