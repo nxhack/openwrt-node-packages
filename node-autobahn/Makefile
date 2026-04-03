@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=autobahn
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=22.11.1
+PKG_VERSION:=26.3.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=1a5279e0e1b115599db6c4e5fb9eccd048cbf4e971bc71c83302a4939ee84e07
+PKG_HASH:=21e540e175ab9b8b6bcc9e531c8df59a9a68fc0bf39ee04c14949b1eb24d732e
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -29,7 +29,7 @@ define Package/node-autobahn
   CATEGORY:=Languages
   TITLE:=Web Application Messaging Protocol for Node.js
   URL:=https://www.npmjs.org/package/autobahn
-  DEPENDS:=+node +node-ws
+  DEPENDS:=+node
 endef
 
 define Package/node-autobahn/description
