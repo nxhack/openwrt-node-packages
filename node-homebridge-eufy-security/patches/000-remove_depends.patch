@@ -2,9 +2,9 @@
 +++ b/package.json
 @@ -44,7 +44,6 @@
    "dependencies": {
-     "eufy-security-client": "^3.7.2",
-     "@homebridge/plugin-ui-utils": "^2.2.0",
--    "ffmpeg-for-homebridge": "2.2.1",
-     "tslog": "^4.10.2",
-     "rotating-file-stream": "^3.2.8",
+     "@homebridge/plugin-ui-utils": "^2.2.2",
+     "eufy-security-client": "dev",
+-    "ffmpeg-for-homebridge": "2.2.2",
      "pick-port": "^2.2.0",
+     "rotating-file-stream": "^3.2.9",
+     "tar": "^7.5.13",
