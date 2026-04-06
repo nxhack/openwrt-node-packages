@@ -40,9 +40,7 @@ sudo apt-get install gcc-multilib g++-multilib
 ```
 * The libatomic package is required. (Install the 32-bit library at the same time, if necessary).
 
-
-Since Node.js opens a large number of files, please adjust the resource limits.
-
+Since building Node.js involves opening a large number of files, please adjust your resource limits accordingly.
 ```
 ulimit -n 4096
 ```
