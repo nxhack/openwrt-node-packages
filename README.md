@@ -40,6 +40,12 @@ sudo apt-get install gcc-multilib g++-multilib
 ```
 * The libatomic package is required. (Install the 32-bit library at the same time, if necessary).
 
+Since building Node.js involves opening a large number of files, please adjust your resource limits accordingly.
+
+```
+ulimit -n 4096
+```
+
 ## Illegal instruction issue
 
 ***V8 JIT code generates FP instruction. Node.js does not work without hardware FPU.***
