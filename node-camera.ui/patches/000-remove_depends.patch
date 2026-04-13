@@ -10,7 +10,7 @@
 -    "alexa-remote2": "^4.1.2",
 -    "axios": "^0.26.1",
 +    "alexa-remote2": "^7.0.4",
-+    "axios": "^1.6.8",
++    "axios": "^1.15.0",
      "bunyan": "^1.8.15",
 -    "chalk": "4.1.2",
 -    "check-disk-space": "^3.3.0",
