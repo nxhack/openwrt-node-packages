@@ -1,7 +1,7 @@
 --- a/package.json
 +++ b/package.json
 @@ -3,7 +3,6 @@
-     "version": "2.0.0",
+     "version": "2.0.1",
      "description": "A sqlite node for Node-RED",
      "dependencies": {
 -        "sqlite3": "^6.0.1"
