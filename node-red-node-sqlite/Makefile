@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=node-red-node-sqlite
 PKG_NAME:=$(PKG_NPM_NAME)
-PKG_VERSION:=2.0.0
+PKG_VERSION:=2.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=85de30d952259e4140441f4b6313b3bf00f0b8a1d9a05fbb0266d574dd0b6d5a
+PKG_HASH:=ac128a5c8fd3907f5f5ea5c4465a69cbf7ecf82df3ee337bcd3ea397e27d3457
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=Apache-2.0
