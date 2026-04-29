@@ -8,7 +8,7 @@ PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_22),y)
 PKG_VERSION:=22.22.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=f4b9606f33aef725a77b6292460102b48b80902571a8bb94cd769837ee0577df
 PATCH_DIR:=./patches/v22.x
 NODEJS_BIN_SUM:=978978a635eef872fa68beae09f0aad0bbbae6757e444da80b570964a97e62a3
@@ -16,14 +16,14 @@ NODE_MODULE_VERSION:=127
 else
 ifeq ($(CONFIG_NODEJS_25),y)
 PKG_VERSION:=25.9.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=d55d77187039d4cd85c732f76838f44e3be552054473459dfa9cc0eb611ea664
 PATCH_DIR:=./patches/v25.x
 NODEJS_BIN_SUM:=134e55b2408448a219760fe04dc44d6851f9de8a79549021ffd870e9082d9e7b
 NODE_MODULE_VERSION:=141
 else
 PKG_VERSION:=24.15.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_HASH:=729de494dd2872e5a3a6c32a1cd156a5413d4aca2772b2d873ee86bb5531bcd9
 PATCH_DIR:=./patches/v24.x
 NODEJS_BIN_SUM:=44836872d9aec49f1e6b52a9a922872db9a2b02d235a616a5681b6a85fec8d89
@@ -125,6 +125,9 @@ define Package/node/config
 			config NODEJS_ICU_SYSTEM
 				depends on ARCH_64BIT
 				bool "system-icu"
+
+			config NODEJS_FULL_ICU
+				bool "full-icu"
 		endchoice
 	endif
 
@@ -180,7 +183,7 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--shared-nghttp2 \
 	--shared-cares \
-	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,none)) \
+	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,$(if $(CONFIG_NODEJS_FULL_ICU),full-icu,none))) \
 	$(if $(findstring +neon",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +neon-vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=vfpv3) \
