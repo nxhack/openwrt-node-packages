@@ -58,9 +58,11 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either.
 | :---: | --- | :---: |
 | 32bit | Disable | NO |
 | 32bit | small-icu | YES |
+| 32bit | full-icu | YES |
 | 64bit | Disable | NO |
 | 64bit | small-icu | YES |
 | 64bit | system-icu | YES |
+| 64bit | full-icu | YES |
 
  [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
 
