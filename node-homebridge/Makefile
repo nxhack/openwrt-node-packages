@@ -70,7 +70,7 @@ define Package/node-homebridge/install
 	$(CP) $(PKG_BUILD_DIR)/{LICENSE,bin} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/homebridge $(1)/usr/bin/homebridge
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/homebridge.js $(1)/usr/bin/homebridge
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
