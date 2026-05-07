@@ -75,8 +75,8 @@ define Package/node-pnpm/install
 	$(CP) $(PKG_BUILD_DIR)/dist/{pnpm.cjs,worker.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpm.cjs $(1)/usr/bin/pnpm
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpx.cjs $(1)/usr/bin/pnpx
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpm.mjs $(1)/usr/bin/pnpm
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpx.mjs $(1)/usr/bin/pnpx
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef
