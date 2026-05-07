@@ -66,6 +66,8 @@ define Package/node-pm2/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,lib,bin} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
+	$(CP) $(PKG_BUILD_DIR)/{modules,scripts,types} \
+		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pm2 $(1)/usr/bin/pm2
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pm2-dev $(1)/usr/bin/pm2-dev
