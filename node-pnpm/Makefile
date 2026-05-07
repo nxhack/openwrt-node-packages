@@ -72,7 +72,7 @@ define Package/node-pnpm/install
 	$(CP) $(PKG_BUILD_DIR)/bin \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
-	$(CP) $(PKG_BUILD_DIR)/dist/{pnpm.cjs,worker.js} \
+	$(CP) $(PKG_BUILD_DIR)/dist/{pnpm.mjs,worker.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpm.mjs $(1)/usr/bin/pnpm
