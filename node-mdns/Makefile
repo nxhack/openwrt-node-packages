@@ -29,7 +29,7 @@ define Package/node-mdns
   CATEGORY:=Languages
   TITLE:=multicast DNS service discovery
   URL:=https://www.npmjs.org/package/mdns
-  DEPENDS:=+node +mdnsd @NODEJS_24:BROKEN @NODEJS_25:BROKEN
+  DEPENDS:=+node +mdnsd @NODEJS_24:BROKEN @NODEJS_26:BROKEN
 endef
 
 define Package/node-mdns/description
