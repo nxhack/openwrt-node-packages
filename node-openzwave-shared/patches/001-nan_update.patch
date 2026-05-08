@@ -5,7 +5,7 @@
    "types": "./types/openzwave-shared.d.ts",
    "dependencies": {
 -    "nan": ">=2.14.0"
-+    "nan": "^2.25.0"
++    "nan": "^2.26.2"
    },
    "scripts": {
      "test": "node test.js",
