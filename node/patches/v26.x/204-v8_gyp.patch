@@ -24,15 +24,15 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -339,6 +342,7 @@
-         'fp16',
+@@ -302,6 +305,7 @@
+         'v8_pch',
          'abseil.gyp:abseil',
        ],
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
        'include_dirs': [
          '<(SHARED_INTERMEDIATE_DIR)',
          '<(generate_bytecode_output_root)',
-@@ -988,6 +992,7 @@
+@@ -940,6 +944,7 @@
        'target_name': 'v8_compiler',
        'type': 'static_library',
        'toolsets': ['host', 'target'],
@@ -40,7 +40,7 @@
        'dependencies': [
          'generate_bytecode_builtins_list',
          'run_torque',
-@@ -1120,6 +1125,7 @@
+@@ -1069,6 +1074,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -48,7 +48,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1763,6 +1769,7 @@
+@@ -1712,6 +1718,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -56,7 +56,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1783,6 +1790,7 @@
+@@ -1732,6 +1739,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -64,7 +64,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1813,6 +1821,8 @@
+@@ -1772,6 +1780,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
@@ -73,7 +73,7 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -1859,6 +1869,7 @@
+@@ -1827,6 +1837,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
@@ -81,7 +81,7 @@
        'dependencies': [
          'torque_base',
          'abseil.gyp:abseil',
-@@ -1903,6 +1914,7 @@
+@@ -1881,6 +1892,7 @@
      {
        'target_name': 'torque-language-server',
        'type': 'executable',
@@ -89,7 +89,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1935,6 +1947,8 @@
+@@ -1923,6 +1935,8 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
@@ -98,7 +98,7 @@
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
-@@ -2159,6 +2173,7 @@
+@@ -2174,6 +2188,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -106,7 +106,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2302,12 +2317,14 @@
+@@ -2317,12 +2332,14 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -121,11 +121,11 @@
        'include_dirs': [
          '<(V8_ROOT)/third_party/zlib',
          '<(V8_ROOT)/third_party/zlib/google',
-@@ -2355,6 +2372,7 @@
+@@ -2370,6 +2387,7 @@
        'variables': {
          'FP16_ROOT': '../../deps/v8/third_party/fp16',
        },
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
-       'direct_dependent_settings': {
+       'all_dependent_settings': {
          'include_dirs': [
            '<(FP16_ROOT)/src/include',
