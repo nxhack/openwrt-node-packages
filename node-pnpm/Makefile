@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=pnpm
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=10.33.2
+PKG_VERSION:=11.0.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=7a7bcf13d7f6ceb3946c03978373d99be9fde1cafc3000bdfed4c4f791167610
+PKG_HASH:=4d84d7b0e31c9054f61658795698070007d03b7238481e2161a562557aa90834
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MIT
@@ -72,11 +72,11 @@ define Package/node-pnpm/install
 	$(CP) $(PKG_BUILD_DIR)/bin \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist
-	$(CP) $(PKG_BUILD_DIR)/dist/{pnpm.cjs,worker.js} \
+	$(CP) $(PKG_BUILD_DIR)/dist/{pnpm.mjs,worker.js} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpm.cjs $(1)/usr/bin/pnpm
-	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpx.cjs $(1)/usr/bin/pnpx
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpm.mjs $(1)/usr/bin/pnpm
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/pnpx.mjs $(1)/usr/bin/pnpx
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 endef

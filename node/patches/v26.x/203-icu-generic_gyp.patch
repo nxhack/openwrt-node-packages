@@ -80,7 +80,7 @@
        'dependencies': [ 'icutools', 'icu_implementation' ],
        'sources': [
          '<@(icu_src_genrb)'
-@@ -463,6 +473,7 @@
+@@ -473,6 +483,7 @@
        'target_name': 'iculslocs',
        'toolsets': [ 'host' ],
        'type': 'executable',
@@ -88,7 +88,7 @@
        'dependencies': [ 'icutools' ],
        'sources': [
          'iculslocs.cc',
-@@ -481,6 +492,7 @@
+@@ -501,6 +512,7 @@
        'target_name': 'icupkg',
        'toolsets': [ 'host' ],
        'type': 'executable',
@@ -96,7 +96,7 @@
        'dependencies': [ 'icutools' ],
        'sources': [
          '<@(icu_src_icupkg)',
-@@ -498,6 +510,7 @@
+@@ -528,6 +540,7 @@
        'target_name': 'genccode',
        'toolsets': [ 'host' ],
        'type': 'executable',

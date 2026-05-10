@@ -14,13 +14,13 @@ PATCH_DIR:=./patches/v22.x
 NODEJS_BIN_SUM:=978978a635eef872fa68beae09f0aad0bbbae6757e444da80b570964a97e62a3
 NODE_MODULE_VERSION:=127
 else
-ifeq ($(CONFIG_NODEJS_25),y)
-PKG_VERSION:=25.9.0
-PKG_RELEASE:=2
-PKG_HASH:=d55d77187039d4cd85c732f76838f44e3be552054473459dfa9cc0eb611ea664
-PATCH_DIR:=./patches/v25.x
-NODEJS_BIN_SUM:=134e55b2408448a219760fe04dc44d6851f9de8a79549021ffd870e9082d9e7b
-NODE_MODULE_VERSION:=141
+ifeq ($(CONFIG_NODEJS_26),y)
+PKG_VERSION:=26.1.0
+PKG_RELEASE:=1
+PKG_HASH:=ccaf9bfea12ec3d2beb36f5a1d54483f2620ad9de007e551fb8640ed82d29989
+PATCH_DIR:=./patches/v26.x
+NODEJS_BIN_SUM:=62d555c329e05e3625109f2e3a8b5195b368d5ef38266292469d32f63cd98ffd
+NODE_MODULE_VERSION:=147
 else
 PKG_VERSION:=24.15.0
 PKG_RELEASE:=2
@@ -105,8 +105,8 @@ define Package/node/config
 		config NODEJS_24
 			bool "24.x Active LTS"
 
-		config NODEJS_25
-			bool "25.x Current"
+		config NODEJS_26
+			bool "26.x Current"
 	endchoice
 
 	if PACKAGE_node
@@ -183,6 +183,8 @@ CONFIGURE_ARGS:= \
 	--shared-openssl \
 	--shared-nghttp2 \
 	--shared-cares \
+	$(if $(CONFIG_NODEJS_26),--v8-disable-temporal-support) \
+	$(if $(CONFIG_NODEJS_26),$(if $(CONFIG_ARCH_64BIT),,--without-ffi)) \
 	--with-intl=$(if $(CONFIG_NODEJS_ICU_SMALL),small-icu,$(if $(CONFIG_NODEJS_ICU_SYSTEM),system-icu,$(if $(CONFIG_NODEJS_FULL_ICU),full-icu,none))) \
 	$(if $(findstring +neon",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
 	$(if $(findstring +neon-vfpv4",$(CONFIG_CPU_TYPE)),--with-arm-fpu=neon) \
