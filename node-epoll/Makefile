@@ -29,7 +29,7 @@ define Package/node-epoll
   CATEGORY:=Languages
   TITLE:=A low-level Node.js binding for the Linux epoll API
   URL:=https://www.npmjs.org/package/epoll
-  DEPENDS:=+node
+  DEPENDS:=+node @NODEJS_26:BROKEN
 endef
 
 define Package/node-epoll/description
