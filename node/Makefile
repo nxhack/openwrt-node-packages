@@ -100,7 +100,7 @@ define Package/node/config
 		 The host package version is also the same.
 
 		config NODEJS_20
-			bool "20.x Maintenance LTS"
+			bool "20.x End-of-Life"
 
 		config NODEJS_22
 			bool "22.x Maintenance LTS"
