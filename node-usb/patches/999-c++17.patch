@@ -1,7 +1,7 @@
 --- a/binding.gyp
 +++ b/binding.gyp
-@@ -32,7 +32,7 @@
-         'src/thread_name.cc'
+@@ -33,7 +33,7 @@
+         'src/hotplug.cc'
        ],
        'cflags_cc': [
 -        '-std=c++14'
