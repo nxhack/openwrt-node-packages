@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import { existsSync, readFileSync, unlinkSync } from 'node:fs';
+import { constants, existsSync, readFileSync, statSync, unlinkSync } from 'node:fs';
 import { chmod, readdir, rm, writeFile } from 'node:fs/promises';
 import { userInfo } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -8,6 +8,7 @@ import { mkdirp, pathExists, readJson, remove } from 'fs-extra/esm';
 import { gte, parse } from 'semver';
 import { osInfo } from 'systeminformation';
 import { isNodeV24SupportedArchitecture } from '../../core/node-version.constants.js';
+import { RE_OS_USERNAME } from '../../core/regex.constants.js';
 import { BasePlatform } from '../base-platform.js';
 export class LinuxInstaller extends BasePlatform {
     get systemdServiceName() {
