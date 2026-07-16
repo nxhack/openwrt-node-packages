@@ -75,6 +75,14 @@ define Package/node-homebridge/install
 	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	# FIX LINK
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter
+	$(LN) ./main/node_modules/@matter/general $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/model $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/node $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/nodejs $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/protocol $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/types $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
 endef
 
 define Package/node-homebridge/postrm
