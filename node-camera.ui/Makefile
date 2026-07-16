@@ -15,7 +15,7 @@ PKG_HASH:=3e4b52f05d03ee4c0d47445fe3d6334df3ddb8079fcb167bc2bd055d54ad9c9b
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE_FILES:=LICENSE.md
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
@@ -27,14 +27,13 @@ define Package/node-camera.ui
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=NVR like user interface for RTSP capable cameras
+  TITLE:=camera.ui
   URL:=https://www.npmjs.com/package/camera.ui
   DEPENDS:=+node +node-mqtt +node-socket.io  +node-pam-diff +node-ffmpeg-for-homebridge +node-socketio-jwt
 endef
 
 define Package/node-camera.ui/description
- *** "camara.ui" has not been maintained. Please use it at your own risk. ***
- NVR like user interface for RTSP capable cameras.
+ A self-hosted platform for your security cameras — live viewing, 24/7 recording*, on-device AI detection, semantic search*, smart-home integration, and push notifications*, all built on an extensible plugin ecosystem for endless possibilities. Runs on hardware you own — no mandatory cloud, your footage stays with you.
 endef
 
 TAR_OPTIONS+= --strip-components 1
