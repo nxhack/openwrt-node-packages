@@ -66,6 +66,9 @@ define Package/node-camera.ui/install
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/cameraui.js $(1)/usr/bin/cameraui
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/cameraui.js
 endef
 
 define Package/node-camera.ui/postrm
