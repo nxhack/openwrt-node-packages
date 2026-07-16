@@ -2,9 +2,9 @@
 +++ b/package.json
 @@ -44,7 +44,6 @@
    "dependencies": {
-     "@homebridge/plugin-ui-utils": "^2.2.2",
-     "eufy-security-client": "dev",
+     "@homebridge/plugin-ui-utils": "^2.2.5",
+     "eufy-security-client": "^4.1.1-1",
 -    "ffmpeg-for-homebridge": "2.2.2",
-     "pick-port": "^2.2.0",
+     "pick-port": "^2.2.1",
      "rotating-file-stream": "^3.2.9",
-     "tar": "^7.5.13",
+     "tar": "^7.5.20",

@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=homebridge-plugins
 PKG_NPM_NAME:=homebridge-eufy-security
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=4.6.1
+PKG_VERSION:=4.7.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
