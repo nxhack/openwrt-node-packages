@@ -29,7 +29,8 @@ define Package/node-camera.ui
   CATEGORY:=Languages
   TITLE:=camera.ui
   URL:=https://www.npmjs.com/package/camera.ui
-  DEPENDS:=+node +node-mqtt +node-socket.io  +node-pam-diff +node-ffmpeg-for-homebridge +node-socketio-jwt
+  DEPENDS:=+node +sudo
+  USERID:=cui:cui
 endef
 
 define Package/node-camera.ui/description
@@ -68,7 +69,11 @@ define Package/node-camera.ui/install
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/cameraui.js $(1)/usr/bin/cameraui
+	$(CP) ./files/openwrt.js $(1)/opt/$(PKG_NPM_NAME)/dist/installer/
 	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/cameraui.js
+	$(INSTALL_DIR) $(1)/etc/sudoers.d
+	$(CP) ./files/010_cameraui $(1)/etc/sudoers.d
+	chmod 0440 $(1)/etc/sudoers.d/010_cameraui
 endef
 
 define Package/node-camera.ui/postrm

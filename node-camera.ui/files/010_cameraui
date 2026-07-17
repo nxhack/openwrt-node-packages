@@ -1,0 +1,2 @@
+#cameraui ALL=(ALL) NOPASSWD: ALL
+#cameraui ALL=(ALL) NOPASSWD: /usr/share/cameraui/Your_App
