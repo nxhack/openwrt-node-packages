@@ -28,6 +28,7 @@ export class LinuxInstaller extends BasePlatform {
         await this.cli.portCheck();
         await this.cli.homePathCheck();
         try {
+            await this.createSystemdService();
             await this.createRunPartsPath();
             await this.enableService();
             await this.start();
@@ -192,6 +193,9 @@ export class LinuxInstaller extends BasePlatform {
             // do nothing
         }
     }
+    async createRunPartsPath() {
+        await mkdirp(this.runPartsPath);
+    }
     setupSudo() {
         try {
             const sysctlPath = execSync('which sysctl').toString('utf8').trim();
@@ -223,8 +227,8 @@ export class LinuxInstaller extends BasePlatform {
             ' }',
             ' procd_open_instance',
             ' procd_set_param env HOME=/usr/share/cui',
-            ' procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=256 --gc_interval=100 --preserve-symlinks /usr/bin/cameraui run -H /usr/share/cui --user cui --group cui --port 3443',
-            ' procd_set_param user homebridge',
+            ' procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=256 --gc_interval=100 --preserve-symlinks /usr/bin/cameraui run -H /usr/share/cui --user cui --group cui',
+            ' procd_set_param user cui',
             ' procd_set_param respawn',
             ' procd_set_param stdout 1',
             ' procd_set_param stderr 1',
@@ -233,6 +237,7 @@ export class LinuxInstaller extends BasePlatform {
             '}',
         ].filter((x) => x !== null).join('\n');
         await writeFile(this.systemdServicePath, serviceFile);
+        await chmod(this.systemdServicePath, '755');
     }
 }
 //# sourceMappingURL=linux.js.map
