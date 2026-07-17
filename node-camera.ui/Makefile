@@ -29,8 +29,8 @@ define Package/node-camera.ui
   CATEGORY:=Languages
   TITLE:=camera.ui
   URL:=https://www.npmjs.com/package/camera.ui
-  DEPENDS:=+node +sudo
-  USERID:=cui:cui
+  DEPENDS:=+node +node-pty +sudo +node-bufferutil +node-utf-8-validate
+  USERID:=cameraui:cameraui
 endef
 
 define Package/node-camera.ui/description
@@ -74,6 +74,10 @@ define Package/node-camera.ui/install
 	$(INSTALL_DIR) $(1)/etc/sudoers.d
 	$(CP) ./files/010_cameraui $(1)/etc/sudoers.d
 	chmod 0440 $(1)/etc/sudoers.d/010_cameraui
+	# TEST
+	$(LN) /usr/lib/node/node-pty $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/bufferutil $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/utf-8-validate $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules/
 endef
 
 define Package/node-camera.ui/postrm

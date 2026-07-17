@@ -117,7 +117,7 @@ export class LinuxInstaller extends BasePlatform {
     getPidOfPort(port) {
         try {
             if (this.cli.isDocker) {
-                return execSync('pidof cui').toString('utf8').trim();
+                return execSync('pidof cameraui').toString('utf8').trim();
             }
             else {
                 return execSync(`fuser ${port}/tcp 2>/dev/null`).toString('utf8').trim();
@@ -220,15 +220,15 @@ export class LinuxInstaller extends BasePlatform {
             'USE_PROCD=1',
             '',
             'start_service() {',
-            '	[ -d /usr/share/cui ] || {',
-            '		mkdir -m 0755 -p /usr/share/cui',
-            '		chmod 0700 /usr/share/cui',
-            '		chown cui:cui /usr/share/cui',
+            '	[ -d /usr/share/cameraui ] || {',
+            '		mkdir -m 0755 -p /usr/share/cameraui',
+            '		chmod 0700 /usr/share/cameraui',
+            '		chown cameraui:cameraui /usr/share/cameraui',
             ' }',
             ' procd_open_instance',
-            ' procd_set_param env HOME=/usr/share/cui',
-            ' procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=256 --gc_interval=100 --preserve-symlinks /usr/bin/cameraui run -H /usr/share/cui --user cui --group cui',
-            ' procd_set_param user cui',
+            ' procd_set_param env HOME=/usr/share/cameraui',
+            ' procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=256 --gc_interval=100 --preserve-symlinks /usr/bin/cameraui run -H /usr/share/cameraui --user cameraui --group cameraui',
+            ' procd_set_param user cameraui',
             ' procd_set_param respawn',
             ' procd_set_param stdout 1',
             ' procd_set_param stderr 1',
