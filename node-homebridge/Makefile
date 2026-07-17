@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.1.0
+PKG_VERSION:=2.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=330f469a25850496a46d96c8162562fe89d982d29fac7fc5ca1d3f11e4177ebd
+PKG_HASH:=986ee2fbeff5fb006dd67a316655821546a345d8e814be032ff7619a680aade5
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_FLAGS:=no-mips16
@@ -75,6 +75,14 @@ define Package/node-homebridge/install
 	$(INSTALL_BIN) ./files/homebridge.init $(1)/etc/init.d/homebridge
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	# FIX LINK
+	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter
+	$(LN) ./main/node_modules/@matter/general $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/model $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/node $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/nodejs $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/protocol $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
+	$(LN) ./main/node_modules/@matter/types $(1)/usr/lib/node/$(PKG_NPM_NAME)/node_modules/@matter/
 endef
 
 define Package/node-homebridge/postrm

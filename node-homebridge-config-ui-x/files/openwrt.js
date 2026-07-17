@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import { existsSync, readFileSync, unlinkSync } from 'node:fs';
+import { constants, existsSync, readFileSync, statSync, unlinkSync } from 'node:fs';
 import { chmod, readdir, rm, writeFile } from 'node:fs/promises';
 import { userInfo } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -8,6 +8,7 @@ import { mkdirp, pathExists, readJson, remove } from 'fs-extra/esm';
 import { gte, parse } from 'semver';
 import { osInfo } from 'systeminformation';
 import { isNodeV24SupportedArchitecture } from '../../core/node-version.constants.js';
+import { RE_OS_USERNAME } from '../../core/regex.constants.js';
 import { BasePlatform } from '../base-platform.js';
 export class LinuxInstaller extends BasePlatform {
     get systemdServiceName() {
@@ -31,7 +32,7 @@ export class LinuxInstaller extends BasePlatform {
         }
         catch (e) {
             console.error(e.toString());
-            this.hbService.logger('ERROR: Failed Operation', 'fail');
+            this.hbService.logger.error('ERROR: Failed Operation');
         }
     }
     async uninstall() {
@@ -42,11 +43,11 @@ export class LinuxInstaller extends BasePlatform {
             if (existsSync(this.systemdServicePath)) {
                 unlinkSync(this.systemdServicePath);
             }
-            this.hbService.logger(`Removed ${this.hbService.serviceName} Service`, 'succeed');
+            this.hbService.logger.success(`Removed ${this.hbService.serviceName} Service`);
         }
         catch (e) {
             console.error(e.toString());
-            this.hbService.logger('ERROR: Failed Operation', 'fail');
+            this.hbService.logger.error('ERROR: Failed Operation');
         }
     }
     async viewLogs() {
@@ -55,44 +56,44 @@ export class LinuxInstaller extends BasePlatform {
             console.log(ret);
         }
         catch (e) {
-            this.hbService.logger(`Failed to start ${this.hbService.serviceName} - ${e}`, 'fail');
+            this.hbService.logger.error(`Failed to start ${this.hbService.serviceName} - ${e}`);
         }
     }
     async start() {
         this.checkForRoot();
         try {
-            this.hbService.logger(`Starting ${this.hbService.serviceName} Service...`);
+            this.hbService.logger.log(`Starting ${this.hbService.serviceName} Service...`);
             execSync(`/etc/init.d/${this.systemdServiceName} start`);
         }
         catch (e) {
-            this.hbService.logger(`Failed to start ${this.hbService.serviceName} - ${e}`, 'fail');
+            this.hbService.logger.error(`Failed to start ${this.hbService.serviceName} - ${e}`);
             process.exit(1);
         }
     }
     async stop() {
         this.checkForRoot();
         try {
-            this.hbService.logger(`Stopping ${this.hbService.serviceName} Service...`);
+            this.hbService.logger.log(`Stopping ${this.hbService.serviceName} Service...`);
             execSync(`/etc/init.d/${this.systemdServiceName} stop`);
-            this.hbService.logger(`${this.hbService.serviceName} Stopped`, 'succeed');
+            this.hbService.logger.success(`${this.hbService.serviceName} Stopped`);
         }
         catch (e) {
-            this.hbService.logger(`Failed to stop ${this.systemdServiceName} - ${e}`, 'fail');
+            this.hbService.logger.error(`Failed to stop ${this.systemdServiceName} - ${e}`);
         }
     }
     async restart() {
         this.checkForRoot();
         try {
-            this.hbService.logger(`Restarting ${this.hbService.serviceName} Service...`);
+            this.hbService.logger.log(`Restarting ${this.hbService.serviceName} Service...`);
             execSync(`/etc/init.d/${this.systemdServiceName} restart`);
-            this.hbService.logger(`${this.hbService.serviceName} Restarted`, 'succeed');
+            this.hbService.logger.success(`${this.hbService.serviceName} Restarted`);
         }
         catch (e) {
-            this.hbService.logger(`Failed to restart ${this.hbService.serviceName} - ${e}`, 'fail');
+            this.hbService.logger.error(`Failed to restart ${this.hbService.serviceName} - ${e}`);
         }
     }
     async rebuild(all = false) {
-        this.hbService.logger('ERROR: You cannot rebuild in the Openwrt.', 'fail');
+        this.hbService.logger.error('ERROR: You cannot rebuild in the Openwrt.');
     }
     async getId() {
         if (process.getuid() === 0 && this.hbService.asUser) {
@@ -124,14 +125,14 @@ export class LinuxInstaller extends BasePlatform {
         }
     }
     async updateNodejs(job) {
-        this.hbService.logger('ERROR: You cannot update Nodejs in the Openwrt.', 'fail');
+        this.hbService.logger.error('ERROR: You cannot update Nodejs in the Openwrt.');
     }
     async enableService() {
         try {
             execSync(`/etc/init.d/${this.systemdServiceName} enable 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger(`WARNING: failed to run "systemctl enable ${this.systemdServiceName}"`, 'warn');
+            this.hbService.logger.warn(`WARNING: failed to run "/etc/init.d/${this.systemdServiceName} enable"`);
         }
     }
     async disableService() {
@@ -139,25 +140,25 @@ export class LinuxInstaller extends BasePlatform {
             execSync(`/etc/init.d/${this.systemdServiceName} disable 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger(`WARNING: failed to run "/etc/init.d/${this.systemdServiceName} disable"`, 'warn');
+            this.hbService.logger.warn(`WARNING: failed to run "/etc/init.d/${this.systemdServiceName} disable"`);
         }
     }
     checkForRoot() {
         if (process.getuid() !== 0) {
-            this.hbService.logger('ERROR: This command must be executed using sudo on Linux', 'fail');
-            this.hbService.logger(`EXAMPLE: sudo hb-service ${this.hbService.action}`, 'fail');
+            this.hbService.logger.error('ERROR: This command must be executed using sudo on Linux');
+            this.hbService.logger.error(`EXAMPLE: sudo hb-service ${this.hbService.action}`);
             process.exit(1);
         }
         if (this.hbService.action === 'install' && !this.hbService.asUser) {
-            this.hbService.logger('ERROR: User parameter missing. Pass in the user you want to run Homebridge as using the --user flag eg.', 'fail');
-            this.hbService.logger(`EXAMPLE: sudo hb-service ${this.hbService.action} --user your-user`, 'fail');
+            this.hbService.logger.error('ERROR: User parameter missing. Pass in the user you want to run Homebridge as using the --user flag eg.');
+            this.hbService.logger.error(`EXAMPLE: sudo hb-service ${this.hbService.action} --user your-user`);
             process.exit(1);
         }
     }
     checkIsNotRoot() {
         if (process.getuid() === 0 && !this.hbService.allowRunRoot && process.env.HOMEBRIDGE_CONFIG_UI !== '1') {
-            this.hbService.logger('ERROR: This command must not be executed as root or with sudo', 'fail');
-            this.hbService.logger('ERROR: If you know what you are doing; you can override this by adding --allow-root', 'fail');
+            this.hbService.logger.error('ERROR: This command must not be executed as root or with sudo');
+            this.hbService.logger.error('ERROR: If you know what you are doing; you can override this by adding --allow-root');
             process.exit(1);
         }
     }
@@ -167,10 +168,10 @@ export class LinuxInstaller extends BasePlatform {
         }
         catch (e) {
             execSync(`useradd -m --system ${this.hbService.asUser}`);
-            this.hbService.logger(`Created service user: ${this.hbService.asUser}`, 'info');
+            this.hbService.logger.log(`Created service user: ${this.hbService.asUser}`);
             if (this.hbService.addGroup) {
                 execSync(`usermod -a -G ${this.hbService.addGroup} ${this.hbService.asUser}`, { timeout: 10000 });
-                this.hbService.logger(`Added ${this.hbService.asUser} to group ${this.hbService.addGroup}`, 'info');
+                this.hbService.logger.log(`Added ${this.hbService.asUser} to group ${this.hbService.addGroup}`);
             }
         }
         try {
@@ -193,7 +194,7 @@ export class LinuxInstaller extends BasePlatform {
             execSync(`echo '${sudoersEntry}' | sudo EDITOR='tee -a' visudo`);
         }
         catch (e) {
-            this.hbService.logger('WARNING: Failed to setup /etc/sudoers, you may not be able to shutdown/restart your server from the Homebridge UI.', 'warn');
+            this.hbService.logger.warn('WARNING: Failed to setup /etc/sudoers, you may not be able to shutdown/restart your server from the Homebridge UI.');
         }
     }
     async createSystemdService() {
