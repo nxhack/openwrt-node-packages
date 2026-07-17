@@ -4,18 +4,18 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NPM_NAME:=camera.ui
+PKG_NPM_NAME:=camera.ui-v2
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=1.1.17
+PKG_VERSION:=2.0.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=786f3d95be9037e27c435068e5d03b7380e274f094ae10c6a0359250c3f958ca
+PKG_HASH:=3e4b52f05d03ee4c0d47445fe3d6334df3ddb8079fcb167bc2bd055d54ad9c9b
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE_FILES:=LICENSE.md
 
 PKG_BUILD_DEPENDS:=node/host
 PKG_BUILD_PARALLEL:=1
@@ -23,18 +23,18 @@ PKG_BUILD_FLAGS:=no-mips16
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/node-camera.ui
+define Package/node-camera.ui-v2
   SUBMENU:=Node.js
   SECTION:=lang
   CATEGORY:=Languages
-  TITLE:=NVR like user interface for RTSP capable cameras
+  TITLE:=camera.ui-v2
   URL:=https://www.npmjs.com/package/camera.ui
-  DEPENDS:=+node +node-mqtt +node-socket.io  +node-pam-diff +node-ffmpeg-for-homebridge +node-socketio-jwt
+  DEPENDS:=+node +node-pty +sudo +node-bufferutil +node-utf-8-validate
+  USERID:=cameraui:cameraui
 endef
 
-define Package/node-camera.ui/description
- *** "camara.ui" has not been maintained. Please use it at your own risk. ***
- NVR like user interface for RTSP capable cameras.
+define Package/node-camera.ui-v2/description
+ A self-hosted platform for your security cameras — live viewing, 24/7 recording*, on-device AI detection, semantic search*, smart-home integration, and push notifications*, all built on an extensible plugin ecosystem for endless possibilities. Runs on hardware you own — no mandatory cloud, your footage stays with you.
 endef
 
 TAR_OPTIONS+= --strip-components 1
@@ -59,22 +59,31 @@ define Build/Compile
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 -r rmdir || true
 endef
 
-define Package/node-camera.ui/install
+define Package/node-camera.ui-v2/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
-	$(CP) $(PKG_BUILD_DIR)/{package.json,LICENSE} \
+	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md,version.date} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/*.md \
-		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{node_modules,bin,interface,src} \
+	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/cameraui.js $(1)/usr/bin/cameraui
+	$(CP) ./files/openwrt.js $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/dist/installer/
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/cameraui.js
+	$(INSTALL_DIR) $(1)/etc/sudoers.d
+	$(CP) ./files/010_cameraui $(1)/etc/sudoers.d
+	chmod 0440 $(1)/etc/sudoers.d/010_cameraui
+	# TEST
+	$(LN) /usr/lib/node/node-pty $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/bufferutil $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules/
+	$(LN) /usr/lib/node/utf-8-validate $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/node_modules/
 endef
 
-define Package/node-camera.ui/postrm
+define Package/node-camera.ui-v2/postrm
 #!/bin/sh
-rm /usr/lib/node_modules/camera.ui || true
-rm -rf /usr/lib/node/camera.ui || true
+rm /usr/lib/node_modules/camera.ui-v2 || true
+rm -rf /usr/lib/node/camera.ui-v2 || true
 endef
 
-$(eval $(call BuildPackage,node-camera.ui))
+$(eval $(call BuildPackage,node-camera.ui-v2))
