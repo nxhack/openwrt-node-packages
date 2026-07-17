@@ -226,8 +226,8 @@ export class LinuxInstaller extends BasePlatform {
             '		chown cameraui:cameraui /usr/share/cameraui',
             ' }',
             ' procd_open_instance',
-            ' procd_set_param env HOME=/usr/share/cameraui',
-            ' procd_set_param command /usr/bin/node --optimize_for_size --max_old_space_size=256 --gc_interval=100 --preserve-symlinks /usr/bin/cameraui run -H /usr/share/cameraui --user cameraui --group cameraui',
+            ' procd_set_param env HOME=/usr/share/cameraui NODE_PATH=/usr/lib/node/camera.ui-v2/node_modules'
+            ' procd_set_param command /usr/bin/node --preserve-symlinks /usr/bin/cameraui run -H /usr/share/cameraui --user cameraui --group cameraui',
             ' procd_set_param user cameraui',
             ' procd_set_param respawn',
             ' procd_set_param stdout 1',
