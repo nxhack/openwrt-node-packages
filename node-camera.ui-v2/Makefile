@@ -6,12 +6,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=camera.ui-v2
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.0.2
+PKG_VERSION:=2.0.14
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=3e4b52f05d03ee4c0d47445fe3d6334df3ddb8079fcb167bc2bd055d54ad9c9b
+PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL_FILE:=server-v$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/cameraui/camera.ui/archive/refs/tags/
+PKG_HASH:=dc3a05139ed0bdf6c888fa233298a32e2df035f5c18910faac351bdd3ad1c3d7
+PKG_BUILD_DIR:=$(BUILD_DIR)/camera.ui-server-v$(PKG_VERSION)
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -52,7 +55,7 @@ define Build/Compile
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
-	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
+	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_PKG_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
 	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --ignore-scripts
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
