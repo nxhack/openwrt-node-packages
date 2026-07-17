@@ -14,7 +14,6 @@ advanced:
   homeassistant_legacy_triggers: false
   legacy_api: false
   legacy_availability_payload: false
-  device_options:
   log_level: info
   log_directory: /tmp/log/zigbee2mqtt/%TIMESTAMP%
   log_file: log.txt
@@ -28,4 +27,4 @@ frontend:
   host: 0.0.0.0
 device_options:
   legacy: false
-version: 4
+version: 5
