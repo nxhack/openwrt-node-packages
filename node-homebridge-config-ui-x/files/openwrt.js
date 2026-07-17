@@ -132,7 +132,7 @@ export class LinuxInstaller extends BasePlatform {
             execSync(`/etc/init.d/${this.systemdServiceName} enable 2> /dev/null`);
         }
         catch (e) {
-            this.hbService.logger.warn(`WARNING: failed to run "systemctl enable ${this.systemdServiceName}"`);
+            this.hbService.logger.warn(`WARNING: failed to run "/etc/init.d/${this.systemdServiceName} enable"`);
         }
     }
     async disableService() {
