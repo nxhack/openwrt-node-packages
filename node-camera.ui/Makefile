@@ -69,7 +69,7 @@ define Package/node-camera.ui/install
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/dist/cameraui.js $(1)/usr/bin/cameraui
-	$(CP) ./files/openwrt.js $(1)/opt/$(PKG_NPM_NAME)/dist/installer/
+	$(CP) ./files/openwrt.js $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)/dist/installer/
 	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/dist/cameraui.js
 	$(INSTALL_DIR) $(1)/etc/sudoers.d
 	$(CP) ./files/010_cameraui $(1)/etc/sudoers.d
