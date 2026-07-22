@@ -107,6 +107,9 @@ define Package/node-zwave-js-ui/install
 	$(LN) ./zwave-js/node_modules/json-logic-js $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ./zwave-js/node_modules/json5 $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ./zwave-js/node_modules/pathe $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	# for BUG
+	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules/zwave-js/build/esm/lib/controller/proprietary/zwave-me
+	$(CP) ./files/License.js $(1)/opt/$(PKG_NPM_NAME)/node_modules/zwave-js/build/esm/lib/controller/proprietary/zwave-me/
 endef
 
 define Package/node-zwave-js-ui/postrm
