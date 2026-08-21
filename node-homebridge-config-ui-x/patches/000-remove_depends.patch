@@ -1,10 +1,10 @@
 --- a/package.json
 +++ b/package.json
-@@ -84,7 +84,6 @@
-     "@fastify/multipart": "10.1.0",
-     "@fastify/static": "9.3.0",
-     "@homebridge/hap-client": "5.1.0",
--    "@homebridge/node-pty-prebuilt-multiarch": "0.13.1",
+@@ -85,7 +85,6 @@
+     "@fastify/multipart": "10.1.1",
+     "@fastify/static": "10.1.3",
+     "@homebridge/hap-client": "5.2.0",
+-    "@homebridge/node-pty-prebuilt-multiarch": "0.14.1",
      "@nestjs/axios": "4.0.1",
-     "@nestjs/common": "11.1.28",
-     "@nestjs/core": "11.1.28",
+     "@nestjs/common": "11.2.1",
+     "@nestjs/core": "11.2.1",
