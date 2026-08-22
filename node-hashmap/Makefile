@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=hashmap
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=2.4.0
-PKG_RELEASE:=4
+PKG_VERSION:=3.0.1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=7ac7a0ff7393a10a1369c35cc656827aa2a5663e10d00c58b425f5e855974854
+PKG_HASH:=a4eb372145e19401cdaaeff75b49bf260c57f121485898937559e58f8a8b34a9
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -62,7 +62,7 @@ define Package/node-hashmap/install
 	$(INSTALL_DIR) $(1)/usr/lib/node/$(PKG_NPM_NAME)
 	$(CP) $(PKG_BUILD_DIR)/{package.json,*.md} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{LICENSE,*.js} \
+	$(CP) $(PKG_BUILD_DIR)/{LICENSE,dist,version.date} \
 		$(1)/usr/lib/node/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)

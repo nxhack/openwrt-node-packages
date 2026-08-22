@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=javascript-obfuscator
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=5.5.0
+PKG_VERSION:=5.5.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=b76c7eddeaf70b80676a3727aa6df4561b5dfad5644447d8979bb0d6375ad0e8
+PKG_HASH:=d74531fa64755644dd628a0a27fe984c7e16c9a30d39e6719446b0bbec72245a
 
 PKG_MAINTAINER:=Zbynek Kocur <zbynek.kocur@fel.cvut.cz>
 PKG_LICENSE:=BSD-2-Clause
