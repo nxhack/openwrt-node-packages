@@ -7,13 +7,13 @@ include $(TOPDIR)/rules.mk
 PKG_NPM_SCOPE:=homebridge
 PKG_NPM_NAME:=node-pty-prebuilt-multiarch
 PKG_NAME:=node-$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)
-PKG_VERSION:=0.13.1
+PKG_VERSION:=0.14.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_SCOPE)-$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL_FILE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/@$(PKG_NPM_SCOPE)/$(PKG_NPM_NAME)/-/
-PKG_HASH:=64eca10d6f7d799fff3174134b0a45411c5f0a6f7be3ccc592b94593508ed937
+PKG_HASH:=70f9b750b0cd527ba0e7d8157e4b3c66337d55a1304c08c254a538fd32859f77
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
@@ -50,6 +50,8 @@ TARGET_CPPFLAGS+=$(FPIC)
 
 define Build/Compile
 	rm -rf $(PKG_BUILD_DIR)/prebuilds
+	mkdir -p $(PKG_BUILD_DIR)/src/unix
+	$(CP) ./files/* $(PKG_BUILD_DIR)/src/unix/
 	cd $(PKG_BUILD_DIR); \
 	$(MAKE_VARS) \
 	$(MAKE_FLAGS) \
