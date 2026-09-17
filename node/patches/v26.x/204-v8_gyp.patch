@@ -1,6 +1,6 @@
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -111,6 +111,7 @@
+@@ -113,6 +113,7 @@
        ],
        'hard_dependency': 1,
        'direct_dependent_settings': {
@@ -8,7 +8,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -233,6 +234,7 @@
+@@ -235,6 +236,7 @@
            '<@(torque_outputs_cc)',
            '<@(torque_outputs_inc)',
          ],
@@ -16,7 +16,7 @@
          'include_dirs': [
            '<(SHARED_INTERMEDIATE_DIR)',
          ],
-@@ -254,6 +256,7 @@
+@@ -256,6 +258,7 @@
          'sources': [
            '<(generate_bytecode_builtins_list_output)',
          ],
@@ -24,15 +24,15 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -312,6 +315,7 @@
+@@ -315,6 +318,7 @@
+         'v8_shared_internal_headers',
          'v8_pch',
-         'abseil.gyp:abseil',
        ],
 +      'include_dirs!': [ '<!@(echo "$STAGING_DIR"/usr/include)' ],
        'include_dirs': [
          '<(SHARED_INTERMEDIATE_DIR)',
          '<(generate_bytecode_output_root)',
-@@ -974,6 +978,7 @@
+@@ -987,6 +991,7 @@
        'target_name': 'v8_compiler',
        'type': 'static_library',
        'toolsets': ['host', 'target'],
@@ -40,7 +40,7 @@
        'dependencies': [
          'generate_bytecode_builtins_list',
          'run_torque',
-@@ -1108,6 +1113,7 @@
+@@ -1122,6 +1127,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -48,7 +48,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1763,6 +1769,7 @@
+@@ -1794,6 +1800,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -56,7 +56,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1783,6 +1790,7 @@
+@@ -1814,6 +1821,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -64,7 +64,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1823,6 +1831,8 @@
+@@ -1856,6 +1864,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
@@ -73,15 +73,15 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -1883,6 +1893,7 @@
+@@ -1918,6 +1928,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
 +      'libraries!':[ '-licui18n', '-licuuc', '-licudata', '-lcrypto', '-lssl', '-lz', '-lhttp_parser', '-luv', '-lnghttp2', '-lcares' ],
        'dependencies': [
          'torque_base',
-         'abseil.gyp:abseil',
-@@ -1937,6 +1948,7 @@
+         # "build/win:default_exe_manifest",
+@@ -1974,6 +1985,7 @@
      {
        'target_name': 'torque-language-server',
        'type': 'executable',
@@ -89,7 +89,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1979,6 +1991,8 @@
+@@ -2016,6 +2028,8 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
@@ -98,7 +98,7 @@
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
-@@ -2238,6 +2252,7 @@
+@@ -2277,6 +2291,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -106,7 +106,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2381,12 +2396,14 @@
+@@ -2420,12 +2435,14 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -121,7 +121,7 @@
        'include_dirs': [
          '<(V8_ROOT)/third_party/zlib',
          '<(V8_ROOT)/third_party/zlib/google',
-@@ -2434,6 +2451,7 @@
+@@ -2473,6 +2490,7 @@
        'variables': {
          'FP16_ROOT': '../../deps/v8/third_party/fp16',
        },
