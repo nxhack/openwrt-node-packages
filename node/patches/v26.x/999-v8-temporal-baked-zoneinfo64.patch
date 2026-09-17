@@ -61,7 +61,7 @@ Patch-Source: https://github.com/nodejs/node/pull/62766
    }
 --- a/tools/v8_gypfiles/v8.gyp
 +++ b/tools/v8_gypfiles/v8.gyp
-@@ -1141,6 +1141,9 @@
+@@ -1159,6 +1159,9 @@
            ],
          }],
          ['v8_enable_temporal_support==1', {
@@ -71,7 +71,7 @@ Patch-Source: https://github.com/nodejs/node/pull/62766
            'conditions': [
              ['node_shared_temporal_capi=="false"', {
                'dependencies': [
-@@ -2024,6 +2027,40 @@
+@@ -2063,6 +2066,40 @@
        ],
      },  # gen-regexp-special-case
      {
