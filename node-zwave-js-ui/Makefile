@@ -101,8 +101,8 @@ define Package/node-zwave-js-ui/install
 	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules
 	$(LN) /usr/lib/node/bufferutil $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
-	$(LN) ./@zwave-js/core/node_modules/triple-beam $(1)/opt/$(PKG_NPM_NAME)/node_modules/
-	$(LN) ../zwave-js/node_modules/@zwave-js/config $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ./zwave-js/node_modules/* $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ../zwave-js/node_modules/@zwave-js/* $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
 	$(LN) ./zwave-js/node_modules/alcalzone-shared $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ./zwave-js/node_modules/json-logic-js $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ./zwave-js/node_modules/json5 $(1)/opt/$(PKG_NPM_NAME)/node_modules/
