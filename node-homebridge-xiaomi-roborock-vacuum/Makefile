@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=homebridge-xiaomi-roborock-vacuum
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=0.35.0
+PKG_VERSION:=0.36.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=d6213d82c69cca774b830226db41a2a9e90ef242c0f5e1b54831155ce6821db5
+PKG_HASH:=6d2b70a0f215976d619ed1168f42bf24e34db73ccaa5e7ede5aaedaa62382685
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=MIT
