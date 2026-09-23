@@ -6,12 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=zwave-js-ui
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=11.22.3
-PKG_RELEASE:=1
+PKG_VERSION:=11.24.1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=21316acf32a1d1e32f928909a3974ca6fbd8a20c230363a9e2f64a6a73902085
+PKG_HASH:=ab837c60ed13a0e6837b52a80d723d4714cd399231659226b28732b545cb4dd2
 
 PKG_MAINTAINER:=David Woodhouse <dwmw2@infradead.org>
 PKG_LICENSE:=MIT
@@ -56,7 +56,7 @@ define Build/Compile
 	$(MAKE_FLAGS) \
 	npm_config_nodedir=$(STAGING_DIR)/usr/ \
 	$(if $(CONFIG_NODEJS_NPM_KEEP_CACHE), npm_config_cache=$(NPM_CACHE_DIR)/npm-cache-$(PKG_NPM_NAME),npm_config_cache=$(TMP_DIR)/npm-cache-$(TMPNPM)) \
-	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --omit=optional --no-optional --prefer-dedupe
+	npm install --prefer-offline --no-audit --global-style --install-strategy=shallow --no-save --omit=dev --no-package-lock --build-from-source --target_arch=$(NODEJS_CPU) --omit=optional --no-optional --prefer-dedupe --legacy-peer-deps
 	rm -rf $(TMP_DIR)/npm-cache-$(TMPNPM)
 	rm -f $(PKG_BUILD_DIR)/node_modules/.package-lock.json
 	find $(PKG_BUILD_DIR)/node_modules -type d -empty -print0 | xargs -0 -r rmdir || true
@@ -101,8 +101,132 @@ define Package/node-zwave-js-ui/install
 	$(INSTALL_DIR) $(1)/opt/$(PKG_NPM_NAME)/node_modules
 	$(LN) /usr/lib/node/bufferutil $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) /usr/lib/node/utf-8-validate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
-	$(LN) ./@zwave-js/core/node_modules/triple-beam $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/pathe $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/json5 $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/json-logic-js $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/alcalzone-shared $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/triple-beam $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/reflect-metadata $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/fflate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/dayjs $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/yocto-queue $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/yargs-parser $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/yargs $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/y18n $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/wrap-ansi $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/word-wrap $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/winston-transport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/which $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/util-deprecate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/uri-js $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/type-check $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/tslib $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/strip-ansi $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/string_decoder $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/string-width $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/source-map-support $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/source-map $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/signal-exit $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/shebang-regex $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/shebang-command $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/safe-stable-stringify $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/safe-buffer $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/retry $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/readable-stream $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/qified $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/punycode $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/prelude-ls $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/path-key $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/path-exists $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/p-timeout $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/p-queue $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/p-locate $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/p-limit $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/optionator $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/nrf-intel-hex $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/node-gyp-build $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/node-addon-api $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/natural-compare $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ms $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/minimatch $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/mdns-server $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/logform $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/locate-path $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/levn $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ky $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/keyv $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/json-stable-stringify-without-jsonify $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/json-schema-traverse $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/isexe $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/is-glob $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/is-extglob $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/inherits $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/imurmurhash $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ignore $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/hookified $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/hashery $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/graceful-fs $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/glob-parent $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/get-east-asian-width $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/get-caller-file $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/flatted $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/flat-cache $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/find-up $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/file-entry-cache $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/fecha $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/fast-levenshtein $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/fast-json-stable-stringify $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/fast-deep-equal $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/eventemitter3 $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/esutils $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/estraverse $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/esrecurse $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/esquery $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/espree $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/eslint-visitor-keys $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/eslint-scope $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/eslint $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/escape-string-regexp $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/escalade $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/emoji-regex $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/dns-packet $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/deep-is $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/debug $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/cross-spawn $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/cliui $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/cacheable $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/buffer-from $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/brace-expansion $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/balanced-match $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ansi-styles $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ansi-regex $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ansi-colors $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/ajv $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/acorn-jsx $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/acorn $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@serialport $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@leichtgewicht $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@keyv $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@humanwhocodes $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@humanfs $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@homebridge $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@eslint-community $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@eslint $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@colors $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@cacheable $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@andrewbranch $(1)/opt/$(PKG_NPM_NAME)/node_modules/
+	$(LN) ./zwave-js/node_modules/@alcalzone $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ../zwave-js/node_modules/@zwave-js/config $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/core $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/shared $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/waddle $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/testing $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/serial $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/nvmedit $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/host $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
+	$(LN) ../zwave-js/node_modules/@zwave-js/cc $(1)/opt/$(PKG_NPM_NAME)/node_modules/@zwave-js/
 	$(LN) ./zwave-js/node_modules/alcalzone-shared $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ./zwave-js/node_modules/json-logic-js $(1)/opt/$(PKG_NPM_NAME)/node_modules/
 	$(LN) ./zwave-js/node_modules/json5 $(1)/opt/$(PKG_NPM_NAME)/node_modules/
