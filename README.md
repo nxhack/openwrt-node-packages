@@ -64,7 +64,7 @@ ARM cores without vfp or neon (such as ***bcm53xx***) will not work either.
 | 64bit | system-icu | YES |
 | 64bit | full-icu | YES |
 
- [Debugging Guide](https://nodejs.org/en/docs/guides/debugging-getting-started/) ***Nice to use Chrome DevTools.***
+ [Debugging Guide](https://nodejs.org/en/learn/getting-started/debugging) ***Nice to use Chrome DevTools.***
 
  Note: ICU currently supports only ***LITTLE ENDIAN***.
 
