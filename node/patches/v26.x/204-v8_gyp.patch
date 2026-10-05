@@ -32,7 +32,7 @@
        'include_dirs': [
          '<(SHARED_INTERMEDIATE_DIR)',
          '<(generate_bytecode_output_root)',
-@@ -987,6 +991,7 @@
+@@ -990,6 +994,7 @@
        'target_name': 'v8_compiler',
        'type': 'static_library',
        'toolsets': ['host', 'target'],
@@ -40,7 +40,7 @@
        'dependencies': [
          'generate_bytecode_builtins_list',
          'run_torque',
-@@ -1122,6 +1127,7 @@
+@@ -1124,6 +1129,7 @@
        ],
        'includes': ['inspector.gypi'],
        'direct_dependent_settings': {
@@ -48,7 +48,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1794,6 +1800,7 @@
+@@ -1796,6 +1802,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -56,7 +56,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1814,6 +1821,7 @@
+@@ -1816,6 +1823,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -64,7 +64,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1856,6 +1864,8 @@
+@@ -1858,6 +1866,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
@@ -73,7 +73,7 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -1918,6 +1928,7 @@
+@@ -1920,6 +1930,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
@@ -81,7 +81,7 @@
        'dependencies': [
          'torque_base',
          # "build/win:default_exe_manifest",
-@@ -1974,6 +1985,7 @@
+@@ -1976,6 +1987,7 @@
      {
        'target_name': 'torque-language-server',
        'type': 'executable',
@@ -89,7 +89,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -2016,6 +2028,8 @@
+@@ -2018,6 +2030,8 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
@@ -98,7 +98,7 @@
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
-@@ -2277,6 +2291,7 @@
+@@ -2279,6 +2293,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -106,7 +106,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2420,12 +2435,14 @@
+@@ -2422,12 +2437,14 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -121,7 +121,7 @@
        'include_dirs': [
          '<(V8_ROOT)/third_party/zlib',
          '<(V8_ROOT)/third_party/zlib/google',
-@@ -2473,6 +2490,7 @@
+@@ -2475,6 +2492,7 @@
        'variables': {
          'FP16_ROOT': '../../deps/v8/third_party/fp16',
        },
