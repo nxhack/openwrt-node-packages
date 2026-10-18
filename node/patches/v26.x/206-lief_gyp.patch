@@ -1,6 +1,6 @@
 --- a/deps/LIEF/lief.gyp
 +++ b/deps/LIEF/lief.gyp
-@@ -419,6 +419,7 @@
+@@ -532,6 +532,7 @@
        'toolsets': ['host', 'target'],
        'type': 'static_library',
        'includes': [],
@@ -8,7 +8,7 @@
        'include_dirs': [
          '.',
          #include <LIEF/third-party/internal/expected.hpp>
-@@ -439,6 +440,7 @@
+@@ -552,6 +553,7 @@
          "include/LIEF/third-party/internal",
        ],
        'direct_dependent_settings': {
