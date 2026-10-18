@@ -48,7 +48,7 @@
          'include_dirs': [
            '<(generate_bytecode_output_root)',
            '<(SHARED_INTERMEDIATE_DIR)',
-@@ -1796,6 +1802,7 @@
+@@ -1801,6 +1807,7 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -56,7 +56,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -1816,6 +1823,7 @@
+@@ -1821,6 +1828,7 @@
      {
        'target_name': 'bytecode_builtins_list_generator',
        'type': 'executable',
@@ -64,7 +64,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -1858,6 +1866,8 @@
+@@ -1863,6 +1871,8 @@
      {
        'target_name': 'mksnapshot',
        'type': 'executable',
@@ -73,7 +73,7 @@
        'dependencies': [
          'v8_base_without_compiler',
          'v8_compiler_for_mksnapshot',
-@@ -1920,6 +1930,7 @@
+@@ -1925,6 +1935,7 @@
      {
        'target_name': 'torque',
        'type': 'executable',
@@ -81,7 +81,7 @@
        'dependencies': [
          'torque_base',
          # "build/win:default_exe_manifest",
-@@ -1976,6 +1987,7 @@
+@@ -1981,6 +1992,7 @@
      {
        'target_name': 'torque-language-server',
        'type': 'executable',
@@ -89,7 +89,7 @@
        'conditions': [
          ['want_separate_host_toolset', {
            'toolsets': ['host'],
-@@ -2018,6 +2030,8 @@
+@@ -2023,6 +2035,8 @@
      {
        'target_name': 'gen-regexp-special-case',
        'type': 'executable',
@@ -98,7 +98,7 @@
        'dependencies': [
          'v8_libbase',
          # "build/win:default_exe_manifest",
-@@ -2279,6 +2293,7 @@
+@@ -2284,6 +2298,7 @@
           }],
        ],
        'direct_dependent_settings': {
@@ -106,7 +106,7 @@
          'include_dirs': [
            '<(V8_ROOT)/include',
          ],
-@@ -2422,12 +2437,14 @@
+@@ -2427,12 +2442,14 @@
          }],
        ],
        'direct_dependent_settings': {
@@ -121,7 +121,7 @@
        'include_dirs': [
          '<(V8_ROOT)/third_party/zlib',
          '<(V8_ROOT)/third_party/zlib/google',
-@@ -2475,6 +2492,7 @@
+@@ -2480,6 +2497,7 @@
        'variables': {
          'FP16_ROOT': '../../deps/v8/third_party/fp16',
        },

@@ -8,7 +8,7 @@
        'include_dirs': [
          'src',
          'tools/msvs/genfiles',
-@@ -1610,6 +1611,7 @@
+@@ -1562,6 +1563,7 @@
        'target_name': 'node_js2c',
        'type': 'executable',
        'toolsets': ['host'],
