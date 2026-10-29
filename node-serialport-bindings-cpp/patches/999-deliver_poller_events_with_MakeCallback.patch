@@ -1,3 +1,22 @@
+--- a/dist/poller.js
++++ b/dist/poller.js
+@@ -51,6 +51,7 @@ class Poller extends events_1.EventEmitt
+      * @returns {Poller} returns itself
+      */
+     once(event, callback) {
++        super.once(event, callback);
+         switch (event) {
+             case 'readable':
+                 this.poll(exports.EVENTS.UV_READABLE);
+@@ -62,7 +63,7 @@ class Poller extends events_1.EventEmitt
+                 this.poll(exports.EVENTS.UV_DISCONNECT);
+                 break;
+         }
+-        return super.once(event, callback);
++        return this;
+     }
+     /**
+      * Ask the bindings to listen for an event, it is recommend to use `.once()` for easy use
 --- a/src/poller.cpp
 +++ b/src/poller.cpp
 @@ -81,13 +81,13 @@ void Poller::onData(uv_poll_t* handle, i
