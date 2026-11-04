@@ -80,7 +80,7 @@ define Package/node-zigbee2mqtt/install
 		$(1)/opt/$(PKG_NPM_NAME)/
 	$(CP) $(PKG_BUILD_DIR)/{node_modules,dist} \
 		$(1)/opt/$(PKG_NPM_NAME)/
-	$(CP) $(PKG_BUILD_DIR)/{data,scripts} \
+	$(CP) $(PKG_BUILD_DIR)/data \
 		$(1)/opt/$(PKG_NPM_NAME)/
 	rm -rf $(1)/opt/$(PKG_NPM_NAME)/node_modules/zigbee-herdsman/node_modules/@serialport/bindings-cpp
 	$(INSTALL_DIR) $(1)/etc/init.d
